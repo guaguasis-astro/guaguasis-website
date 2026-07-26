@@ -1,0 +1,2173 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>瓜瓜占星 - 创造自我，活出最高版本自己</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #FDF8E8;
+            --warm-cream: #FFF8E7;
+            --soft-yellow: #FFEFB8;
+            --soft-gold: #E8D4A8;
+            --gentle-gold: #F5D58F;
+            --warm-sand: #D4C094;
+            --deep-warm: #8B7355;
+            --soft-brown: #A68B6B;
+            --text-dark: #3D382A;
+            --text-mute: #6B6351;
+            --coral: #E8A87C;
+            --rose: #D37D63;
+            --sage: #A8B5A0;
+            --sky: #91B3C4;
+            --lavender: #B89EED;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Serif SC', serif;
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(255, 239, 184, 0.3) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(232, 168, 124, 0.2) 0%, transparent 50%),
+                radial-gradient(ellipse at 40% 80%, rgba(168, 181, 160, 0.15) 0%, transparent 45%),
+                radial-gradient(ellipse at 80% 30%, rgba(145, 179, 196, 0.12) 0%, transparent 40%),
+                linear-gradient(180deg, var(--cream) 0%, #FFFEF7 50%, var(--cream) 100%);
+            color: var(--text-dark);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* 流动色块背景 */
+        .paint-blob {
+            position: fixed;
+            border-radius: 50% 40% 60% 50%;
+            filter: blur(40px);
+            opacity: 0.3;
+            pointer-events: none;
+            animation: float 20s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        .blob-1 {
+            width: 400px;
+            height: 400px;
+            top: -100px;
+            right: -100px;
+            background: var(--gentle-gold);
+            animation-delay: 0s;
+        }
+
+        .blob-2 {
+            width: 500px;
+            height: 500px;
+            bottom: -150px;
+            left: -150px;
+            background: var(--coral);
+            animation-delay: -5s;
+            animation-direction: reverse;
+        }
+
+        .blob-3 {
+            width: 300px;
+            height: 300px;
+            top: 40%;
+            left: 10%;
+            background: var(--sage);
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg) scale(1);
+                border-radius: 50% 40% 60% 50%;
+            }
+            25% {
+                transform: translate(20px, -30px) rotate(5deg) scale(1.05);
+                border-radius: 40% 60% 50% 50%;
+            }
+            50% {
+                transform: translate(-10px, 20px) rotate(-3deg) scale(0.98);
+                border-radius: 60% 50% 40% 60%;
+            }
+            75% {
+                transform: translate(-20px, -10px) rotate(3deg) scale(1.02);
+                border-radius: 50% 60% 50% 40%;
+            }
+        }
+
+        /* 星星 */
+        .star {
+            position: fixed;
+            background: var(--warm-sand);
+            border-radius: 50%;
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .star.twinkle {
+            animation: twinkle 3s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.3); }
+        }
+
+        /* 导航栏 */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(253, 248, 232, 0.95) 0%, transparent 100%);
+            backdrop-filter: blur(5px);
+        }
+
+        .logo {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 1.4rem;
+            letter-spacing: 0.1em;
+            color: var(--text-dark);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-mute);
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-dark);
+        }
+
+        /* Hero区域 */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+        }
+
+        .planet-glow {
+            width: 120px;
+            height: 120px;
+            background:
+                radial-gradient(circle at 30% 30%, var(--soft-yellow), var(--gentle-gold));
+            border-radius: 45% 55% 50% 45%;
+            box-shadow:
+                0 0 60px rgba(245, 213, 143, 0.5),
+                0 0 120px rgba(245, 213, 143, 0.25),
+                0 0 180px rgba(232, 168, 124, 0.15);
+            animation: gentle-pulse 5s ease-in-out infinite, morph 8s ease-in-out infinite;
+            margin-bottom: 2rem;
+        }
+
+        @keyframes gentle-pulse {
+            0%, 100% {
+                box-shadow:
+                    0 0 60px rgba(245, 213, 143, 0.5),
+                    0 0 120px rgba(245, 213, 143, 0.25),
+                    0 0 180px rgba(232, 168, 124, 0.15);
+            }
+            50% {
+                box-shadow:
+                    0 0 90px rgba(245, 213, 143, 0.7),
+                    0 0 160px rgba(245, 213, 143, 0.35),
+                    0 0 240px rgba(232, 168, 124, 0.2);
+            }
+        }
+
+        @keyframes morph {
+            0%, 100% { border-radius: 45% 55% 50% 45%; }
+            25% { border-radius: 50% 45% 55% 50%; }
+            50% { border-radius: 55% 50% 45% 55%; }
+            75% { border-radius: 50% 55% 50% 45%; }
+        }
+
+        .zodiac-symbol {
+            width: 180px;
+            height: 180px;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+            filter: drop-shadow(0 0 30px rgba(232, 212, 168, 0.8));
+        }
+
+        .zodiac-symbol img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .hero h1 {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            letter-spacing: 0.2em;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-mute);
+            letter-spacing: 0.15em;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            padding: 1rem 3rem;
+            border: 1px solid var(--soft-gold);
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: all 0.3s;
+            letter-spacing: 0.1em;
+            font-family: 'ZCOOL XiaoWei', serif;
+        }
+
+        .hero-cta:hover {
+            background: rgba(249, 241, 215, 0.5);
+        }
+
+        /* 通用区块样式 */
+        .section {
+            padding: 6rem 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            letter-spacing: 0.15em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .section-title .butterfly {
+            width: 180px;
+            height: 180px;
+            opacity: 0.7;
+        }
+
+        /* 关于瓜瓜 */
+        .about {
+            background: rgba(249, 241, 215, 0.4);
+            margin: 0 -3rem;
+            padding: 6rem 3rem;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .about-avatar {
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .about-avatar img {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 50%;
+            background: var(--soft-gold);
+        }
+
+        .avatar-note {
+            font-size: 0.85rem;
+            color: var(--text-mute);
+            text-align: center;
+        }
+
+        .about-text h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .about-text p {
+            color: var(--text-mute);
+            margin-bottom: 1.2rem;
+        }
+
+        .about-text a {
+            color: var(--text-dark);
+            text-decoration: underline;
+        }
+
+        .about-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .badge {
+            padding: 0.5rem 1.2rem;
+            background: var(--cream);
+            border: 1px solid var(--soft-gold);
+            font-size: 0.85rem;
+        }
+
+        /* 课程卡片 */
+        .courses-grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .course-card {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 3rem;
+            border: 1px solid var(--soft-gold);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .course-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(61, 56, 42, 0.08);
+        }
+
+        .course-card.with-image {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .course-side-image {
+            width: 100%;
+            opacity: 0.9;
+        }
+
+        .course-card.featured {
+            background: rgba(249, 241, 215, 0.5);
+            border-width: 2px;
+        }
+
+        .course-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 1.5rem;
+        }
+
+        .course-title {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 1.6rem;
+        }
+
+        .course-button {
+            display: inline-block;
+            padding: 0.8rem 2.5rem;
+            border: 1px solid var(--soft-gold);
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: all 0.3s;
+            letter-spacing: 0.1em;
+            font-size: 0.95rem;
+            margin-top: 1rem;
+        }
+
+        .course-button:hover {
+            background: rgba(253, 248, 232, 0.8);
+        }
+
+        .course-price {
+            font-size: 1.6rem;
+            font-weight: 600;
+        }
+
+        .course-price span {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--text-mute);
+        }
+
+        .course-highlights {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .course-highlights li {
+            padding: 0.5rem 0;
+            color: var(--text-mute);
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .course-highlights li::before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            color: var(--warm-sand);
+        }
+
+        .course-gains {
+            background: rgba(253, 248, 232, 0.7);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .course-gains h4 {
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .course-gains ul {
+            list-style: none;
+        }
+
+        .course-gains li {
+            padding: 0.3rem 0;
+            color: var(--text-mute);
+        }
+
+        .course-gains li::before {
+            content: '✅';
+            margin-right: 0.5rem;
+        }
+
+        .mini-courses {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .mini-course {
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid var(--soft-gold);
+        }
+
+        /* 学员反馈 */
+        .testimonials {
+            background: rgba(249, 241, 215, 0.4);
+            margin: 0 -3rem;
+            padding: 6rem 3rem;
+        }
+
+        .testimonials-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .testimonial {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 3rem;
+            margin-bottom: 2rem;
+            border-left: 3px solid var(--soft-gold);
+        }
+
+        .testimonial-image {
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+
+        .testimonial-image img {
+            width: 100%;
+            height: auto;
+        }
+
+        .benefit-box {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 2rem 3rem;
+            margin-top: 3rem;
+            border: 1px solid var(--soft-gold);
+        }
+
+        .benefit-box h4 {
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .benefit-prices {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .benefit-price {
+            text-align: center;
+        }
+
+        .benefit-price .price {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .benefit-price .note {
+            font-size: 0.85rem;
+            color: var(--text-mute);
+        }
+
+        /* 发光星球 - 时间线 */
+        .glowing-planet {
+            margin-top: 2rem;
+        }
+
+        .journey-timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .journey-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 10px;
+            bottom: 10px;
+            width: 4px;
+            background: linear-gradient(180deg,
+                var(--gentle-gold),
+                var(--coral),
+                var(--gentle-gold));
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .journey-node {
+            position: relative;
+            margin-bottom: 70px;
+            display: flex;
+            align-items: flex-start;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .journey-node:nth-child(1) { animation-delay: 0.1s; }
+        .journey-node:nth-child(2) { animation-delay: 0.2s; }
+        .journey-node:nth-child(3) { animation-delay: 0.3s; }
+        .journey-node:nth-child(4) { animation-delay: 0.4s; }
+        .journey-node:nth-child(5) { animation-delay: 0.5s; }
+
+        .journey-node:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+
+        .journey-dot-wrapper {
+            position: absolute;
+            left: 50%;
+            top: 30px;
+            transform: translateX(-50%);
+            z-index: 3;
+        }
+
+        .journey-dot {
+            width: 28px;
+            height: 28px;
+            background: radial-gradient(circle at 30% 30%, var(--soft-yellow), var(--gentle-gold));
+            border-radius: 50%;
+            border: 4px solid var(--warm-cream);
+            box-shadow:
+                0 0 20px rgba(245, 213, 143, 0.6),
+                0 0 40px rgba(245, 213, 143, 0.3);
+            animation: gentle-pulse 3.5s ease-in-out infinite;
+        }
+
+        .journey-node:nth-child(2) .journey-dot { animation-delay: -0.7s; }
+        .journey-node:nth-child(3) .journey-dot { animation-delay: -1.4s; }
+        .journey-node:nth-child(4) .journey-dot { animation-delay: -2.1s; }
+        .journey-node:nth-child(5) .journey-dot { animation-delay: -2.8s; }
+
+        .journey-card {
+            background: rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(10px);
+            padding: 28px 32px;
+            border-radius: 16px 8px 20px 12px;
+            flex: 1;
+            max-width: calc(50% - 50px);
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 1px solid rgba(245, 213, 143, 0.3);
+        }
+
+        .journey-node:nth-child(odd) .journey-card {
+            margin-right: 50px;
+        }
+
+        .journey-node:nth-child(even) .journey-card {
+            margin-left: 50px;
+        }
+
+        .journey-card:hover {
+            transform: translateY(-6px);
+            box-shadow:
+                0 16px 40px rgba(245, 213, 143, 0.25),
+                0 8px 20px rgba(232, 168, 124, 0.15);
+        }
+
+        .journey-icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            text-align: left;
+        }
+
+        .journey-node:nth-child(odd) .journey-icon {
+            text-align: right;
+        }
+
+        .journey-date {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 1.6rem;
+            color: var(--soft-brown);
+            margin-bottom: 8px;
+        }
+
+        .journey-node:nth-child(odd) .journey-date {
+            text-align: right;
+        }
+
+        .journey-title {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 1.2rem;
+            color: var(--deep-warm);
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgba(245, 213, 143, 0.4);
+        }
+
+        .journey-node:nth-child(odd) .journey-title {
+            text-align: right;
+        }
+
+        .journey-desc {
+            font-size: 0.95rem;
+            line-height: 2;
+            color: var(--deep-warm);
+            white-space: pre-line;
+        }
+
+        .journey-node:nth-child(odd) .journey-desc {
+            text-align: right;
+        }
+
+        /* 核心价值观 */
+        .core-values {
+            display: grid;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .value-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: 16px 8px 20px 12px;
+            border-left: 3px solid var(--gentle-gold);
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(245, 213, 143, 0.15) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .value-card:hover {
+            transform: translateY(-8px) translateX(4px);
+            box-shadow:
+                0 20px 60px rgba(245, 213, 143, 0.2),
+                0 10px 30px rgba(232, 168, 124, 0.1);
+            border-radius: 12px 20px 8px 16px;
+        }
+
+        .value-card:hover::before {
+            opacity: 1;
+        }
+
+        .value-title {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 1.3rem;
+            margin-bottom: 16px;
+            color: var(--soft-brown);
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .value-title img {
+            width: 36px;
+            height: 36px;
+        }
+
+        .value-desc {
+            font-size: 0.95rem;
+            line-height: 1.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .highlight {
+            background: linear-gradient(180deg, transparent 60%, rgba(255, 239, 184, 0.5) 60%);
+        }
+
+        .video-links {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 28px;
+        }
+
+        .video-link-card {
+            display: block;
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 20px;
+            padding: 24px 16px;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .video-link-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(245, 213, 143, 0.15) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .video-link-card:hover::before {
+            opacity: 1;
+        }
+
+        .video-link-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(245, 213, 143, 0.25);
+        }
+
+        .video-link-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 12px;
+        }
+
+        .video-link-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .video-link-text {
+            color: var(--deep-warm);
+            font-size: 0.95rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .podcast-link {
+            color: var(--soft-brown);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(245, 213, 143, 0.6);
+            transition: all 0.3s ease;
+        }
+
+        .podcast-link:hover {
+            border-bottom-color: var(--gentle-gold);
+            background: rgba(255, 239, 184, 0.3);
+        }
+
+        /* AI图片堆叠 */
+        .ai-image-stack {
+            position: relative;
+            height: 280px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        .stacked-image {
+            position: absolute;
+            width: 65%;
+            max-width: 360px;
+            border-radius: 16px;
+            box-shadow:
+                0 10px 40px rgba(0, 0, 0, 0.1),
+                0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            border: 4px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .stacked-image.expanded {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(0deg) scale(1.5);
+            width: auto;
+            max-width: 80vw;
+            max-height: 80vh;
+            z-index: 9999;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .image-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 9998;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .stacked-image:nth-child(1) {
+            left: 2%;
+            top: 0;
+            transform: rotate(-8deg);
+            z-index: 1;
+        }
+
+        .stacked-image:nth-child(2) {
+            left: 20%;
+            top: 25px;
+            transform: rotate(6deg);
+            z-index: 2;
+        }
+
+        .stacked-image:nth-child(3) {
+            left: 8%;
+            top: 50px;
+            transform: rotate(-2deg);
+            z-index: 3;
+        }
+
+        .ai-image-stack:hover .stacked-image:nth-child(1) {
+            transform: rotate(-12deg) translateX(-18px) translateY(-8px);
+        }
+
+        .ai-image-stack:hover .stacked-image:nth-child(2) {
+            transform: rotate(10deg) translateX(18px) translateY(-5px);
+        }
+
+        .ai-image-stack:hover .stacked-image:nth-child(3) {
+            transform: rotate(0deg) translateY(-15px) scale(1.03);
+        }
+
+        .ai-image-stack-2 .stacked-image {
+            width: 90%;
+        }
+
+        .ai-image-stack-2 .stacked-image:nth-child(1) {
+            left: 0%;
+            top: 10px;
+            transform: rotate(-7deg);
+            z-index: 1;
+        }
+
+        .ai-image-stack-2 .stacked-image:nth-child(2) {
+            left: 12%;
+            top: 35px;
+            transform: rotate(7deg);
+            z-index: 2;
+        }
+
+        .ai-image-stack-2:hover .stacked-image:nth-child(1) {
+            transform: rotate(-12deg) translateX(-20px) translateY(-10px);
+        }
+
+        .ai-image-stack-2:hover .stacked-image:nth-child(2) {
+            transform: rotate(12deg) translateX(20px) translateY(-8px);
+        }
+
+        /* 能量流动词云 */
+        .energy-section {
+            position: relative;
+        }
+
+        .energy-image-container {
+            position: relative;
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .energy-image {
+            width: 100%;
+            max-width: 160px;
+            border-radius: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .floating-word {
+            position: absolute;
+            font-family: 'ZCOOL XiaoWei', serif;
+            color: var(--soft-brown);
+            opacity: 0.7;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-word:nth-child(1) {
+            font-size: 1.3rem;
+            top: 10%;
+            left: 5%;
+            animation: float-word-1 8s ease-in-out infinite;
+            color: var(--sage);
+        }
+
+        .floating-word:nth-child(2) {
+            font-size: 1.1rem;
+            top: 20%;
+            right: 8%;
+            animation: float-word-2 10s ease-in-out infinite;
+            color: var(--coral);
+            animation-delay: -2s;
+        }
+
+        .floating-word:nth-child(3) {
+            font-size: 1.4rem;
+            bottom: 15%;
+            left: 10%;
+            animation: float-word-3 9s ease-in-out infinite;
+            color: var(--sky);
+            animation-delay: -4s;
+        }
+
+        .floating-word:nth-child(4) {
+            font-size: 1.2rem;
+            bottom: 25%;
+            right: 5%;
+            animation: float-word-4 11s ease-in-out infinite;
+            color: var(--lavender);
+            animation-delay: -1s;
+        }
+
+        @keyframes float-word-1 {
+            0%, 100% { transform: translate(0, 0) rotate(-5deg); opacity: 0.6; }
+            25% { transform: translate(15px, -10px) rotate(0deg); opacity: 0.8; }
+            50% { transform: translate(25px, 5px) rotate(8deg); opacity: 0.5; }
+            75% { transform: translate(10px, 15px) rotate(3deg); opacity: 0.7; }
+        }
+
+        @keyframes float-word-2 {
+            0%, 100% { transform: translate(0, 0) rotate(8deg); opacity: 0.7; }
+            25% { transform: translate(-20px, 15px) rotate(-2deg); opacity: 0.5; }
+            50% { transform: translate(-10px, -10px) rotate(-10deg); opacity: 0.8; }
+            75% { transform: translate(5px, -20px) rotate(5deg); opacity: 0.6; }
+        }
+
+        @keyframes float-word-3 {
+            0%, 100% { transform: translate(0, 0) rotate(3deg); opacity: 0.5; }
+            25% { transform: translate(20px, -15px) rotate(10deg); opacity: 0.7; }
+            50% { transform: translate(-5px, -20px) rotate(-5deg); opacity: 0.6; }
+            75% { transform: translate(-15px, 5px) rotate(0deg); opacity: 0.8; }
+        }
+
+        @keyframes float-word-4 {
+            0%, 100% { transform: translate(0, 0) rotate(-8deg); opacity: 0.8; }
+            25% { transform: translate(-15px, 10px) rotate(5deg); opacity: 0.6; }
+            50% { transform: translate(10px, 20px) rotate(10deg); opacity: 0.7; }
+            75% { transform: translate(20px, -5px) rotate(-3deg); opacity: 0.5; }
+        }
+
+        /* 播客播放器 */
+        .podcast-player-section {
+            margin-top: 28px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .podcast-player-link {
+            display: block;
+            text-decoration: none;
+            width: 100%;
+            max-width: 340px;
+        }
+
+        .podcast-player {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow:
+                0 8px 30px rgba(0, 0, 0, 0.1),
+                0 4px 12px rgba(0, 0, 0, 0.06);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .podcast-player:hover {
+            transform: translateY(-4px);
+            box-shadow:
+                0 12px 40px rgba(245, 213, 143, 0.25),
+                0 6px 16px rgba(245, 213, 143, 0.15);
+        }
+
+        .podcast-cover-wrapper {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .podcast-cover {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 16px;
+            object-fit: cover;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .podcast-info {
+            margin-bottom: 16px;
+        }
+
+        .podcast-title {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 1.1rem;
+            color: var(--deep-warm);
+            text-align: center;
+            margin-bottom: 4px;
+        }
+
+        .podcast-subtitle {
+            font-size: 0.85rem;
+            color: var(--soft-brown);
+            text-align: center;
+        }
+
+        .podcast-progress {
+            margin-bottom: 16px;
+        }
+
+        .podcast-progress-bar {
+            height: 6px;
+            background: rgba(139, 115, 85, 0.15);
+            border-radius: 3px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .podcast-progress-fill {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 30%;
+            background: linear-gradient(90deg, var(--gentle-gold), var(--coral));
+            border-radius: 3px;
+        }
+
+        .podcast-progress-dot {
+            position: absolute;
+            left: 30%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 14px;
+            height: 14px;
+            background: var(--deep-warm);
+            border-radius: 50%;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .podcast-time {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 0.8rem;
+            color: var(--soft-brown);
+        }
+
+        .podcast-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .podcast-control-btn {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--deep-warm);
+            font-size: 1.4rem;
+        }
+
+        .podcast-play-btn {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--gentle-gold), var(--coral));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            box-shadow: 0 4px 14px rgba(245, 213, 143, 0.4);
+        }
+
+        .podcast-player-text {
+            text-align: center;
+            margin-top: 16px;
+            color: var(--soft-brown);
+            font-size: 0.95rem;
+        }
+
+        /* 活动 */
+        .activities {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .activity {
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(245, 213, 143, 0.4);
+            border-radius: 16px 8px 20px 12px;
+            transition: all 0.5s ease;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .activity:hover {
+            background: rgba(255, 239, 184, 0.35);
+            transform: translateY(-6px);
+            box-shadow: 0 15px 40px rgba(245, 213, 143, 0.15);
+            border-radius: 8px 20px 12px 16px;
+        }
+
+        .activity-icon {
+            font-size: 2.4rem;
+            margin-bottom: 16px;
+            opacity: 0.8;
+            display: inline-block;
+            transition: transform 0.5s ease;
+        }
+
+        .activity:hover .activity-icon {
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        /* CTA区域 */
+        .cta {
+            text-align: center;
+            padding: 4rem 3rem;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(255, 239, 184, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(232, 168, 124, 0.25) 0%, transparent 50%),
+                rgba(253, 248, 232, 0.6);
+            border-radius: 24px 12px 28px 16px;
+            position: relative;
+            overflow: hidden;
+            margin-top: 2rem;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(245, 213, 143, 0.1) 0%, transparent 60%);
+            animation: cta-float 12s ease-in-out infinite;
+        }
+
+        @keyframes cta-float {
+            0%, 100% { transform: translate(0, 0); }
+            33% { transform: translate(30px, -20px); }
+            66% { transform: translate(-20px, 20px); }
+        }
+
+        .cta h2 {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta p {
+            position: relative;
+            z-index: 1;
+            line-height: 1.9;
+            font-size: 0.95rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 1rem 3rem;
+            background: var(--gentle-gold);
+            color: var(--deep-warm);
+            text-decoration: none;
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+            border-radius: 30px 12px 30px 12px;
+            transition: all 0.5s ease;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow:
+                0 12px 36px rgba(245, 213, 143, 0.4),
+                0 6px 20px rgba(232, 168, 124, 0.25);
+            border-radius: 12px 30px 12px 30px;
+        }
+
+        .qr-code {
+            margin-top: 28px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .qr-code p {
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+        }
+
+        .qr-code img {
+            width: 140px;
+            height: 140px;
+            border-radius: 16px;
+            border: 4px solid white;
+            box-shadow: 0 8px 30px rgba(245, 213, 143, 0.3);
+            transition: all 0.4s ease;
+        }
+
+        .qr-code img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 40px rgba(245, 213, 143, 0.4);
+        }
+
+        /* 星座边框 */
+        .zodiac-border {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 3rem 0;
+            opacity: 0.3;
+            font-size: 1.2rem;
+        }
+
+        /* 页脚 */
+        footer {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-mute);
+            font-size: 0.9rem;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gentle-gold), transparent);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 900px) {
+            .activities {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            /* 确保viewport正确 */
+            body {
+                -webkit-text-size-adjust: 100%;
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            /* 导航栏优化 */
+            nav {
+                padding: 1rem 1.2rem;
+                flex-direction: column;
+                gap: 0.8rem;
+                background: rgba(253, 248, 232, 0.98);
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .nav-links {
+                gap: 1.2rem;
+                font-size: 0.85rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            /* Hero区域手机优化 */
+            .hero {
+                padding: 7rem 1.2rem 3rem;
+                min-height: 80vh;
+            }
+
+            .zodiac-symbol {
+                width: 140px;
+                height: 140px;
+                margin-bottom: 1.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+                letter-spacing: 0.15em;
+            }
+
+            .hero-subtitle {
+                font-size: 0.95rem;
+                margin-bottom: 2rem;
+            }
+
+            .hero-cta {
+                padding: 0.9rem 2.5rem;
+                font-size: 0.9rem;
+            }
+
+            /* 通用区块 */
+            .section {
+                padding: 3rem 1.2rem;
+            }
+
+            .section-title {
+                font-size: 1.6rem;
+                margin-bottom: 2rem;
+            }
+
+            .section-title .butterfly {
+                width: 60px;
+                height: 60px;
+            }
+
+            /* 关于瓜瓜 */
+            .about {
+                padding: 3rem 1.2rem;
+                margin: 0 -1.2rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .about-avatar img {
+                width: 150px;
+                height: 150px;
+            }
+
+            .about-badges {
+                justify-content: center;
+            }
+
+            .about-text h3, .about-text p {
+                text-align: left;
+            }
+
+            .about-text h3 {
+                font-size: 1.3rem;
+            }
+
+            /* 课程卡片 */
+            .course-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .course-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+
+            .course-title {
+                font-size: 1.25rem;
+            }
+
+            .course-price {
+                font-size: 1.35rem;
+            }
+
+            .course-card.with-image {
+                grid-template-columns: 1fr;
+            }
+
+            .course-side-image {
+                max-width: 200px;
+                margin: 0 auto;
+            }
+
+            .mini-courses {
+                grid-template-columns: 1fr;
+            }
+
+            .mini-course {
+                padding: 1.5rem;
+            }
+
+            /* 学员反馈 */
+            .testimonials {
+                padding: 3rem 1.2rem;
+                margin: 0 -1.2rem;
+            }
+
+            .benefit-box {
+                padding: 1.5rem;
+            }
+
+            .benefit-prices {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            /* 时间线响应式 */
+            .journey-timeline::before {
+                left: 24px;
+            }
+
+            .journey-node,
+            .journey-node:nth-child(odd) {
+                flex-direction: row;
+            }
+
+            .journey-dot-wrapper {
+                left: 24px;
+                transform: none;
+            }
+
+            .journey-dot {
+                width: 20px;
+                height: 20px;
+                border-width: 3px;
+            }
+
+            .journey-card,
+            .journey-node:nth-child(odd) .journey-card,
+            .journey-node:nth-child(even) .journey-card {
+                max-width: none;
+                margin-left: 55px;
+                margin-right: 0;
+            }
+
+            .journey-icon,
+            .journey-node:nth-child(odd) .journey-icon {
+                text-align: left;
+                font-size: 2rem;
+            }
+
+            .journey-date,
+            .journey-node:nth-child(odd) .journey-date {
+                text-align: left;
+                font-size: 1.25rem;
+            }
+
+            .journey-title,
+            .journey-node:nth-child(odd) .journey-title {
+                text-align: left;
+                font-size: 1.1rem;
+            }
+
+            .journey-desc,
+            .journey-node:nth-child(odd) .journey-desc {
+                text-align: left;
+                font-size: 0.85rem;
+            }
+
+            .journey-card {
+                padding: 1.5rem;
+            }
+
+            /* 核心价值观 */
+            .value-card {
+                padding: 1.8rem 1.5rem;
+            }
+
+            .value-title {
+                font-size: 1.15rem;
+            }
+
+            .value-desc {
+                font-size: 0.9rem;
+            }
+
+            .video-links {
+                grid-template-columns: 1fr;
+            }
+
+            .video-link-icon {
+                width: 60px;
+                height: 60px;
+            }
+
+            /* AI图片堆叠 */
+            .ai-image-stack {
+                height: 220px;
+            }
+
+            .ai-image-stack-2 .stacked-image {
+                width: 85%;
+            }
+
+            .stacked-image {
+                width: 70%;
+            }
+
+            /* 能量词云 */
+            .floating-word:nth-child(1) {
+                font-size: 1rem;
+                top: 0%;
+                left: 0%;
+            }
+            .floating-word:nth-child(2) {
+                font-size: 0.9rem;
+                top: 15%;
+                right: 0%;
+            }
+            .floating-word:nth-child(3) {
+                font-size: 1rem;
+                bottom: 8%;
+                left: 2%;
+            }
+            .floating-word:nth-child(4) {
+                font-size: 0.9rem;
+                bottom: 18%;
+                right: 0%;
+            }
+
+            /* 活动 */
+            .activities {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .activity {
+                padding: 1.5rem;
+            }
+
+            .activity-icon {
+                font-size: 2rem;
+            }
+
+            /* 播客播放器 */
+            .podcast-player {
+                padding: 1.5rem;
+            }
+
+            /* CTA区域 */
+            .cta {
+                padding: 2.5rem 1.5rem;
+            }
+
+            .cta h2 {
+                font-size: 1.5rem;
+            }
+
+            .cta p {
+                font-size: 0.9rem;
+            }
+
+            .cta-button {
+                padding: 0.9rem 2.5rem;
+                font-size: 0.95rem;
+            }
+
+            .qr-code img {
+                width: 120px;
+                height: 120px;
+            }
+
+            /* 星座边框 */
+            .zodiac-border {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            /* 页脚 */
+            footer {
+                padding: 2.5rem 1.5rem;
+            }
+
+            /* 流动色块调小 */
+            .paint-blob.blob-1,
+            .paint-blob.blob-2,
+            .paint-blob.blob-3 {
+                transform: scale(0.6);
+            }
+        }
+
+        /* 超小屏幕优化 */
+        @media (max-width: 400px) {
+            .hero h1 {
+                font-size: 1.9rem;
+            }
+
+            .nav-links {
+                gap: 0.9rem;
+                font-size: 0.8rem;
+            }
+
+            .zodiac-symbol {
+                width: 120px;
+                height: 120px;
+            }
+
+            .section-title {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 流动色块 -->
+    <div class="paint-blob blob-1"></div>
+    <div class="paint-blob blob-2"></div>
+    <div class="paint-blob blob-3"></div>
+
+    <!-- 星星容器 -->
+    <div id="stars"></div>
+
+    <!-- 图片放大遮罩 -->
+    <div class="image-overlay" id="imageOverlay"></div>
+
+    <!-- 导航栏 -->
+    <nav>
+        <div class="logo">✦ 瓜瓜占星</div>
+        <div class="nav-links">
+            <a href="#about">关于瓜瓜</a>
+            <a href="#courses">占星课程</a>
+            <a href="#glowing-planet">发光星球</a>
+            <a href="#contact">联系</a>
+        </div>
+    </nav>
+
+    <!-- Hero区域 -->
+    <section class="hero">
+        <div class="zodiac-symbol"><img src="images/日与月.svg" alt="日与月"></div>
+        <h1>瓜瓜占星</h1>
+        <p class="hero-subtitle">创造自我 · 活出最高版本自己</p>
+        <a href="#about" class="hero-cta">了解更多</a>
+    </section>
+
+    <!-- 关于瓜瓜 -->
+    <section id="about" class="about">
+        <div class="section">
+            <div class="section-title">关于瓜瓜</div>
+            <div class="about-content">
+                <div class="about-avatar">
+                    <img src="images/瓜瓜照片.JPG" alt="瓜瓜照片">
+                    <div class="avatar-note">欢迎联系：guaguasis</div>
+                </div>
+                <div class="about-text">
+                    <h3>你好，我是瓜瓜</h3>
+                    <p>占星师（古典+现代+择地），师从 Chris Brennan《希腊占星学》作者、Patric Watson、Helena Woods。看盘案例 2000+。</p>
+                    <p>互联网公司上班 1 年 / 自由职业 6 年，中国和西班牙两地生活。</p>
+                    <p>太阳射手 12 宫人，诚实面对自己 / 自我探索，通过咨询帮助他人找到勇气和力量。</p>
+                    <p>月冥人，经历多段「创伤型情感关系」，在绝望中长出爱自己的能力。</p>
+                    <p><a href="https://www.xiaoyuzhoufm.com/podcast/61d09a9d8331df2be32c345f" target="_blank">《爱的表达式》</a>播客主理人，社群主理人，全网 50W 粉丝博主。</p>
+                    <div class="about-badges">
+                        <span class="badge">古典占星</span>
+                        <span class="badge">现代占星</span>
+                        <span class="badge">择地占星</span>
+                        <span class="badge">2000+ 案例</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 占星课程 -->
+    <section id="courses" class="section">
+        <div class="section-title">
+            <img src="images/蝴蝶.svg" alt="蝴蝶" class="butterfly" style="width: 80px; height: 80px;">
+            占星课程
+        </div>
+
+        <div class="courses-grid">
+            <div class="course-card featured">
+                <div class="course-header">
+                    <h3 class="course-title">全套占星课打包</h3>
+                    <div class="course-price">9654<span>元 比原价优惠333元</span></div>
+                </div>
+                <p style="color: var(--text-mute); margin-bottom: 1.5rem;">《占星初中阶课》+《占星高阶课》，一次性购买后终身可看</p>
+                <a href="https://meeting.tencent.com/crm/K04mk8Vre1" target="_blank" class="course-button">查看公开课</a>
+            </div>
+
+            <div class="course-card with-image">
+                <div>
+                    <div class="course-header">
+                        <h3 class="course-title">占星初中阶课</h3>
+                        <div class="course-price">2988<span>元</span></div>
+                    </div>
+                    <ul class="course-highlights">
+                        <li>课程时长 30 小时 ➕（回放+作业讲解）</li>
+                        <li>附赠 2 次实操督导 + 课外分享</li>
+                        <li>赠送瓜瓜自制上升手册 + 占星锦囊</li>
+                        <li>初中阶占星群（长期有效）</li>
+                    </ul>
+                    <div class="course-gains">
+                        <h4>学完可以收获：</h4>
+                        <ul>
+                            <li>本命盘的综合解读能力（初中阶）</li>
+                            <li>性格、原生家庭、桃花感情、合盘、金钱事业、身体健康</li>
+                            <li>看一个人的前世今生业力所在</li>
+                            <li>transit 推运的基础功</li>
+                            <li>初中阶占星师的必备专业素养和能力</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="course-side-image">
+                    <img src="images/星盘1.svg" alt="星盘" style="width: 100%;">
+                </div>
+            </div>
+
+            <div class="course-card">
+                <div class="course-header">
+                    <h3 class="course-title">古典占星高阶课</h3>
+                    <div class="course-price">6999<span>元</span></div>
+                </div>
+                <ul class="course-highlights">
+                    <li>课程时长 40+ 小时（直播+回放）</li>
+                    <li>赠送价值 999 的卜卦占星技法课（2h）</li>
+                    <li>赠送瓜瓜自制占星手册</li>
+                    <li>不定时加餐实操</li>
+                    <li>高阶占星课程交流群（长期有效）</li>
+                </ul>
+                <div class="course-gains">
+                    <h4>学完可以收获：</h4>
+                    <ul>
+                        <li>精细的古典占星看盘论断逻辑（和现占不同）</li>
+                        <li>转宫法看六亲吉凶</li>
+                        <li>论婚姻/合盘/论事业/论命格层次</li>
+                        <li>七种推运的方法，看大运，运势吉凶和发展潜能</li>
+                        <li>生时校正技法，给不确定出生时间的盘主校正时间</li>
+                        <li>卜卦占星技法，无需本命盘起卦看问题</li>
+                        <li>高阶占星师的必备专业素养和能力</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="course-card with-image">
+                <div>
+                    <div class="course-header">
+                        <h3 class="course-title">🗺️ 择地占星</h3>
+                        <div class="course-price">早鸟价2999<span>元 原价3666元</span></div>
+                    </div>
+                    <p style="color: var(--text-mute); margin-bottom: 1rem;">适合有初中阶占星基础的同学</p>
+                    <ul class="course-highlights">
+                        <li>择地占星历史</li>
+                        <li>怎么看本命盘的有力和无力的星</li>
+                        <li>Astro Gold 的使用方法</li>
+                        <li>怎么选择纬度线？parans</li>
+                        <li>怎么选择经度线？Lines</li>
+                        <li>怎么看方位？Local Space</li>
+                        <li>精神故乡、爱情邂逅地、事业增长线怎么定位？</li>
+                        <li>地理行运：世界行运？怎么判断时机？什么时候去什么地方？</li>
+                    </ul>
+                    <p style="margin-top: 1rem;">课时 12 小时（回放）</p>
+                    <p style="color: var(--text-mute);">🎁 赠送价值 2500 元 Astro Gold 软件注册（需要苹果系统）</p>
+                </div>
+                <div class="course-side-image">
+                    <img src="images/择地星盘.svg" alt="择地星盘" style="width: 100%;">
+                </div>
+            </div>
+        </div>
+
+        <div class="mini-courses">
+            <div class="mini-course">
+                <h4 style="font-size: 1.3rem; margin-bottom: 1rem;">《生时校正课》</h4>
+                <p style="color: var(--text-mute); font-size: 0.9rem; margin-bottom: 0.5rem;">属于《古典占星高阶课》的内容</p>
+                <p style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem;">999 元</p>
+                <ul class="course-highlights">
+                    <li>适合有古占推运基础的同学——流年、小限法、太阳弧</li>
+                    <li>2 节正课 + 2 节案例，共计 4h</li>
+                </ul>
+            </div>
+            <div class="mini-course">
+                <h4 style="font-size: 1.3rem; margin-bottom: 1rem;">《卜卦占星课》</h4>
+                <p style="color: var(--text-mute); font-size: 0.9rem; margin-bottom: 0.5rem;">属于《古典占星高阶课》的内容</p>
+                <p style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem;">999 元</p>
+                <ul class="course-highlights">
+                    <li>占星骰子/卜卦盘技法</li>
+                    <li>适合有古占知识基础的同学</li>
+                    <li>2 节正课，共计 2h</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 学员反馈 -->
+    <section id="testimonials" class="testimonials">
+        <div class="testimonials-container">
+            <div class="section-title">学员反馈</div>
+            <div class="testimonial-image">
+                <img src="images/反馈.PNG" alt="学员反馈">
+            </div>
+
+            <div class="benefit-box">
+                <h4>🎁 占星班同学福利</h4>
+                <p>找瓜瓜生时校正有 85 折优惠</p>
+                <p style="color: var(--text-mute); margin-top: 0.5rem;">生时校正是一项复杂精密的占星技法，根据出生时间模糊度不同所花费的时间也不一样，故定价也有差异。</p>
+                <div class="benefit-prices">
+                    <div class="benefit-price">
+                        <div class="price">388 元</div>
+                        <div class="note">出生时间 2h 内</div>
+                    </div>
+                    <div class="benefit-price">
+                        <div class="price">288 元</div>
+                        <div class="note">出生时间 1h 内</div>
+                    </div>
+                    <div class="benefit-price">
+                        <div class="price">188 元</div>
+                        <div class="note">出生时间 30 分钟内</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 发光星球 -->
+    <section id="glowing-planet" class="section glowing-planet">
+        <div class="section-title">✨ 发光星球</div>
+
+        <!-- 我的发光之旅时间线 -->
+        <div class="journey-timeline">
+            <div class="journey-node">
+                <div class="journey-dot-wrapper">
+                    <div class="journey-dot"></div>
+                </div>
+                <div class="journey-card">
+                    <div class="journey-icon">🎙️</div>
+                    <div class="journey-date">2022.8.29</div>
+                    <div class="journey-title">播客的起点</div>
+                    <div class="journey-desc">录制了第一支播客，后面花了2年的时间，我才拥有了2000听众
+而在第3年，我拥有了1W听众</div>
+                </div>
+            </div>
+            <div class="journey-node">
+                <div class="journey-dot-wrapper">
+                    <div class="journey-dot"></div>
+                </div>
+                <div class="journey-card">
+                    <div class="journey-icon">✈️</div>
+                    <div class="journey-date">2023.11.1</div>
+                    <div class="journey-title">逃离日复一日的生活</div>
+                    <div class="journey-desc">离开广州去西班牙，我不知道未来会怎样
+但我很确定自己要逃离国内的生活
+同时学习占星和西班牙语
+允许自己先跟着感觉飘一飘～</div>
+                </div>
+            </div>
+            <div class="journey-node">
+                <div class="journey-dot-wrapper">
+                    <div class="journey-dot"></div>
+                </div>
+                <div class="journey-card">
+                    <div class="journey-icon">⭐</div>
+                    <div class="journey-date">2024.1-至今</div>
+                    <div class="journey-title">通过表达与创作确认了天命</div>
+                    <div class="journey-desc">因为在播客分享占星内容
+意外开启了「职业占星师」道路
+通过占星结缘了很多对玄学、自我探索
+以及对自由职业感兴趣的朋友
+坚定了想要不断创作和做天命事业的决心</div>
+                </div>
+            </div>
+            <div class="journey-node">
+                <div class="journey-dot-wrapper">
+                    <div class="journey-dot"></div>
+                </div>
+                <div class="journey-card">
+                    <div class="journey-icon">🌍</div>
+                    <div class="journey-date">2026.1</div>
+                    <div class="journey-title">通过社群分享我的创作经验</div>
+                    <div class="journey-desc">创办「发光星球」社群，并把其中的2期创作课程作为公开课发布
+成为了热度最高的一期节目，在小宇宙播放量1.3W！完全超预期！
+确认可以通过 "创作与表达、人生自传、AI"帮助加速自我成长</div>
+                </div>
+            </div>
+            <div class="journey-node">
+                <div class="journey-dot-wrapper">
+                    <div class="journey-dot"></div>
+                </div>
+                <div class="journey-card">
+                    <div class="journey-icon">💫</div>
+                    <div class="journey-date">现在ing</div>
+                    <div class="journey-title">带领大家一起发光！</div>
+                    <div class="journey-desc">致力于帮助，真正想发光想创作的人
+把最有潜力的自我活出来
+我经历过很多把自己推倒重来的过程
+这不是失败，而是一次次的校正
+让自己的行动与灵魂目标一致
+主动选择不做一个旁观者，做自己的主角</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 核心价值观 -->
+        <div class="core-values">
+            <div class="value-card">
+                <div class="value-title">✨ 释放创造力</div>
+                <div class="value-desc">
+                    每月瓜瓜会带来表达与创作的公开课，形式不拘泥于艺术、表达、游戏…
+                    一切有利于释放内在小孩的事，我们都愿意尝试。
+                </div>
+                <div class="video-links">
+                    <a href="https://meeting.tencent.com/crm/Ngyqr8RX1a" target="_blank" class="video-link-card">
+                        <div class="video-link-icon">
+                            <img src="https://97415045.pinme.dev" alt="相机">
+                        </div>
+                        <div class="video-link-text">🎬 自媒体创作心法</div>
+                    </a>
+                    <a href="https://meeting.tencent.com/crm/Kzp68Y4Xc5" target="_blank" class="video-link-card">
+                        <div class="video-link-icon">
+                            <img src="https://c7aa3167.pinme.dev" alt="盆栽">
+                        </div>
+                        <div class="video-link-text">🎬 自媒体观察</div>
+                    </a>
+                </div>
+            </div>
+            <div class="value-card">
+                <div class="value-title">
+                    <img src="https://ae65383b.pinme.dev" alt="AI工具">
+                    AI创作联动
+                </div>
+                <div class="value-desc">
+                    使用AI辅助创作：从内容输入、到输出创意、再到播客剪辑，让AI成为你的创作伙伴。
+                </div>
+                <div class="ai-image-stack ai-image-stack-2">
+                    <img src="https://13192e9c.pinme.dev/" alt="AI分析过程" class="stacked-image">
+                    <img src="https://15424df4.pinme.dev" alt="剪辑完成" class="stacked-image">
+                </div>
+            </div>
+            <div class="value-card energy-section">
+                <div class="value-title">🌊 自我觉察与能量流动</div>
+                <div class="value-desc">
+                    分享瓜瓜在自我觉察和能量疗愈的经验，在社群内部组织<span class="highlight">能量流动活动</span>，
+                    让内在的智慧自然流淌。
+                </div>
+                <div class="energy-image-container">
+                    <span class="floating-word">冥想</span>
+                    <span class="floating-word">精油</span>
+                    <span class="floating-word">神谕卡</span>
+                    <span class="floating-word">瑜伽</span>
+                    <img src="https://f34eed64.pinme.dev" alt="能量流动" class="energy-image">
+                </div>
+            </div>
+            <div class="value-card">
+                <div class="value-title">🎙️ 共创与表达</div>
+                <div class="value-desc">
+                    共同创作群播客<a href="https://www.xiaoyuzhoufm.com/podcast/67dfd3748f2a7dd2a59415c8" target="_blank" class="podcast-link">《发光星球》</a>，每个人都有表达的机会。还有<span class="highlight">「一周主理人」</span>活动，
+                    让你站在主理人的位置主动链接群友，展示你的作品与产品。
+                </div>
+                <div class="podcast-player-section">
+                    <a href="https://www.xiaoyuzhoufm.com/podcast/67dfd3748f2a7dd2a59415c8" target="_blank" class="podcast-player-link">
+                        <div class="podcast-player">
+                            <div class="podcast-cover-wrapper">
+                                <img src="https://8ad8bc98.pinme.dev" alt="发光星球播客" class="podcast-cover">
+                            </div>
+                            <div class="podcast-info">
+                                <div class="podcast-title">发光星球</div>
+                                <div class="podcast-subtitle">创造自我，活出最高版本</div>
+                            </div>
+                            <div class="podcast-progress">
+                                <div class="podcast-progress-bar">
+                                    <div class="podcast-progress-fill"></div>
+                                    <div class="podcast-progress-dot"></div>
+                                </div>
+                                <div class="podcast-time">
+                                    <span>1:15</span>
+                                    <span>-2:38</span>
+                                </div>
+                            </div>
+                            <div class="podcast-controls">
+                                <div class="podcast-control-btn">⏮</div>
+                                <div class="podcast-play-btn">▶</div>
+                                <div class="podcast-control-btn">⏭</div>
+                            </div>
+                        </div>
+                        <div class="podcast-player-text">点击收听《发光星球》</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 活动 -->
+        <div class="activities">
+            <div class="activity">
+                <div class="activity-icon">🎨</div>
+                <div>每月创作公开课</div>
+            </div>
+            <div class="activity">
+                <div class="activity-icon">🧘</div>
+                <div>能量流动共修</div>
+            </div>
+            <div class="activity">
+                <div class="activity-icon">🎙️</div>
+                <div>发光星球播客</div>
+            </div>
+            <div class="activity">
+                <div class="activity-icon">🌟</div>
+                <div>一周主理人</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系/CTA -->
+    <section id="contact" class="section">
+        <div class="cta">
+            <h2>准备好发光了吗？</h2>
+            <p>在这个星球上，每一个人都可以是光源<br>
+            让我们一起，创造自我，活出最高版本</p>
+            <button class="cta-button">加入发光星球</button>
+            <div class="qr-code">
+                <p>扫码联系瓜瓜</p>
+                <img src="images/微信二维码.jpg" alt="微信二维码">
+            </div>
+        </div>
+
+        <div class="zodiac-border">
+            <span>♈</span><span>♉</span><span>♊</span><span>♋</span><span>♌</span><span>♍</span>
+            <span>♎</span><span>♏</span><span>♐</span><span>♑</span><span>♒</span><span>♓</span>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>✦ 瓜瓜占星 · 发光星球 ✦</p>
+        <p style="margin-top: 0.5rem;">在星空中，遇见自己；在创作中，绽放光芒</p>
+    </footer>
+
+    <script>
+        // 创建星星
+        function createStars() {
+            const container = document.getElementById('stars');
+            const count = 50;
+            for (let i = 0; i < count; i++) {
+                const star = document.createElement('div');
+                star.className = 'star' + (Math.random() > 0.5 ? ' twinkle' : '');
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                star.style.width = (Math.random() * 3 + 2) + 'px';
+                star.style.height = star.style.width;
+                container.appendChild(star);
+            }
+        }
+        createStars();
+
+        // 图片堆叠放大功能
+        const stackedImages = document.querySelectorAll('.stacked-image');
+        const overlay = document.getElementById('imageOverlay');
+        let expandedImage = null;
+
+        stackedImages.forEach(img => {
+            img.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (expandedImage === img) {
+                    collapseImage();
+                } else {
+                    expandImage(img);
+                }
+            });
+        });
+
+        overlay.addEventListener('click', collapseImage);
+
+        function expandImage(img) {
+            if (expandedImage) {
+                collapseImage();
+            }
+            img.classList.add('expanded');
+            overlay.classList.add('active');
+            expandedImage = img;
+        }
+
+        function collapseImage() {
+            if (expandedImage) {
+                expandedImage.classList.remove('expanded');
+                overlay.classList.remove('active');
+                expandedImage = null;
+            }
+        }
+    </script>
+</body>
+</html>

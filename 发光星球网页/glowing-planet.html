@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>发光星球 - 创造自我，活出最高版本自己</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --warm-cream: #FFF8E7;
+            --soft-yellow: #FFEFB8;
+            --gentle-gold: #F5D58F;
+            --deep-warm: #8B7355;
+            --soft-brown: #A68B6B;
+            --coral: #E8A87C;
+            --rose: #D37D63;
+            --sage: #A8B5A0;
+            --sky: #91B3C4;
+            --lavender: #B89EED;
+        }
+
+        body {
+            font-family: 'Noto Serif SC', serif;
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(255, 239, 184, 0.4) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(232, 168, 124, 0.25) 0%, transparent 50%),
+                radial-gradient(ellipse at 40% 80%, rgba(168, 181, 160, 0.2) 0%, transparent 45%),
+                radial-gradient(ellipse at 80% 30%, rgba(145, 179, 196, 0.18) 0%, transparent 40%),
+                linear-gradient(180deg, var(--warm-cream) 0%, #FFFEF7 50%, #FFF8E7 100%);
+            color: var(--deep-warm);
+            line-height: 1.8;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .paint-blob {
+            position: fixed;
+            border-radius: 50% 40% 60% 50%;
+            filter: blur(40px);
+            opacity: 0.4;
+            pointer-events: none;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .blob-1 {
+            width: 400px;
+            height: 400px;
+            top: -100px;
+            right: -100px;
+            background: var(--gentle-gold);
+            animation-delay: 0s;
+        }
+
+        .blob-2 {
+            width: 500px;
+            height: 500px;
+            bottom: -150px;
+            left: -150px;
+            background: var(--coral);
+            animation-delay: -5s;
+            animation-direction: reverse;
+        }
+
+        .blob-3 {
+            width: 300px;
+            height: 300px;
+            top: 40%;
+            left: 10%;
+            background: var(--sage);
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg) scale(1);
+                border-radius: 50% 40% 60% 50%;
+            }
+            25% {
+                transform: translate(20px, -30px) rotate(5deg) scale(1.05);
+                border-radius: 40% 60% 50% 50%;
+            }
+            50% {
+                transform: translate(-10px, 20px) rotate(-3deg) scale(0.98);
+                border-radius: 60% 50% 40% 60%;
+            }
+            75% {
+                transform: translate(-20px, -10px) rotate(3deg) scale(1.02);
+                border-radius: 50% 60% 50% 40%;
+            }
+        }
+
+        .star {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background: var(--gentle-gold);
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: twinkle 4s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.3); }
+        }
+
+        /* 能量流动词云 */
+        .energy-section {
+            position: relative;
+        }
+
+        .energy-image-container {
+            position: relative;
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .energy-image {
+            width: 100%;
+            max-width: 160px;
+            border-radius: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .floating-word {
+            position: absolute;
+            font-family: 'ZCOOL XiaoWei', serif;
+            color: var(--soft-brown);
+            opacity: 0.7;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-word:nth-child(1) {
+            font-size: 1.3rem;
+            top: 10%;
+            left: 5%;
+            animation: float-word-1 8s ease-in-out infinite;
+            color: var(--sage);
+        }
+
+        .floating-word:nth-child(2) {
+            font-size: 1.1rem;
+            top: 20%;
+            right: 8%;
+            animation: float-word-2 10s ease-in-out infinite;
+            color: var(--coral);
+            animation-delay: -2s;
+        }
+
+        .floating-word:nth-child(3) {
+            font-size: 1.4rem;
+            bottom: 15%;
+            left: 10%;
+            animation: float-word-3 9s ease-in-out infinite;
+            color: var(--sky);
+            animation-delay: -4s;
+        }
+
+        .floating-word:nth-child(4) {
+            font-size: 1.2rem;
+            bottom: 25%;
+            right: 5%;
+            animation: float-word-4 11s ease-in-out infinite;
+            color: var(--lavender);
+            animation-delay: -1s;
+        }
+
+        @keyframes float-word-1 {
+            0%, 100% { transform: translate(0, 0) rotate(-5deg); opacity: 0.6; }
+            25% { transform: translate(15px, -10px) rotate(0deg); opacity: 0.8; }
+            50% { transform: translate(25px, 5px) rotate(8deg); opacity: 0.5; }
+            75% { transform: translate(10px, 15px) rotate(3deg); opacity: 0.7; }
+        }
+
+        @keyframes float-word-2 {
+            0%, 100% { transform: translate(0, 0) rotate(8deg); opacity: 0.7; }
+            25% { transform: translate(-20px, 15px) rotate(-2deg); opacity: 0.5; }
+            50% { transform: translate(-10px, -10px) rotate(-10deg); opacity: 0.8; }
+            75% { transform: translate(5px, -20px) rotate(5deg); opacity: 0.6; }
+        }
+
+        @keyframes float-word-3 {
+            0%, 100% { transform: translate(0, 0) rotate(3deg); opacity: 0.5; }
+            25% { transform: translate(20px, -15px) rotate(10deg); opacity: 0.7; }
+            50% { transform: translate(-5px, -20px) rotate(-5deg); opacity: 0.6; }
+            75% { transform: translate(-15px, 5px) rotate(0deg); opacity: 0.8; }
+        }
+
+        @keyframes float-word-4 {
+            0%, 100% { transform: translate(0, 0) rotate(-8deg); opacity: 0.8; }
+            25% { transform: translate(-15px, 10px) rotate(5deg); opacity: 0.6; }
+            50% { transform: translate(10px, 20px) rotate(10deg); opacity: 0.7; }
+            75% { transform: translate(20px, -5px) rotate(-3deg); opacity: 0.5; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 80px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .planet-glow {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            background:
+                radial-gradient(circle at 30% 30%, var(--soft-yellow), var(--gentle-gold));
+            border-radius: 45% 55% 50% 45%;
+            box-shadow:
+                0 0 60px rgba(245, 213, 143, 0.5),
+                0 0 120px rgba(245, 213, 143, 0.25),
+                0 0 180px rgba(232, 168, 124, 0.15);
+            animation: gentle-pulse 5s ease-in-out infinite, morph 8s ease-in-out infinite;
+        }
+
+        @keyframes gentle-pulse {
+            0%, 100% {
+                box-shadow:
+                    0 0 60px rgba(245, 213, 143, 0.5),
+                    0 0 120px rgba(245, 213,  0.25),
+                    0 0 180px rgba(232, 168, 124, 0.15);
+            }
+            50% {
+                box-shadow:
+                    0 0 90px rgba(245, 213, 143, 0.7),
+                    0 0 160px rgba(245, 213, 143, 0.35),
+                    0 0 240px rgba(232, 168, 124, 0.2);
+            }
+        }
+
+        @keyframes morph {
+            0%, 100% { border-radius: 45% 55% 50% 45%; }
+            25% { border-radius: 50% 45% 55% 50%; }
+            50% { border-radius: 55% 50% 45% 55%; }
+            75% { border-radius: 50% 55% 50% 45%; }
+        }
+
+        h1 {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 16px;
+            letter-spacing: 0.1em;
+            text-shadow: 0 2px 20px rgba(245, 213, 143, 0.3);
+        }
+
+        .tagline {
+            font-size: 1rem;
+            color: var(--soft-brown);
+            letter-spacing: 0.15em;
+        }
+
+        section {
+            margin-bottom: 70px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        section:nth-child(2) { animation-delay: 0.2s; }
+        section:nth-child(3) { animation-delay: 0.4s; }
+        section:nth-child(4) { animation-delay: 0.6s; }
+
+        h2 {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 1.6rem;
+            font-weight: 400;
+            margin-bottom: 30px;
+            padding-bottom: 16px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gentle-gold), transparent);
+        }
+
+        .title-icon {
+            width: 36px;
+            height: 36px;
+            flex-shrink: 0;
+        }
+
+        .core-values {
+            display: grid;
+            gap: 30px;
+        }
+
+        .value-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            padding: 40px 30px;
+            border-radius: 16px 8px 20px 12px;
+            border-left: 3px solid var(--gentle-gold);
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(245, 213, 143, 0.15) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .value-card:hover {
+            transform: translateY(-8px) translateX(4px);
+            box-shadow:
+                0 20px 60px rgba(245, 213, 143, 0.2),
+                0 10px 30px rgba(232, 168, 124, 0.1);
+            border-radius: 12px 20px 8px 16px;
+        }
+
+        .value-card:hover::before {
+            opacity: 1;
+        }
+
+        .value-title {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 1.3rem;
+            margin-bottom: 16px;
+            color: var(--soft-brown);
+            position: relative;
+            z-index: 1;
+        }
+
+        .value-desc {
+            font-size: 0.95rem;
+            line-height: 1.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .highlight {
+            background: linear-gradient(180deg, transparent 60%, rgba(255, 239, 184, 0.5) 60%);
+        }
+
+        .video-links {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 28px;
+        }
+
+        .video-link-card {
+            display: block;
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 20px;
+            padding: 24px 16px;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .video-link-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(245, 213, 143, 0.15) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .video-link-card:hover::before {
+            opacity: 1;
+        }
+
+        .video-link-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(245, 213, 143, 0.25);
+        }
+
+        .video-link-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 12px;
+        }
+
+        .video-link-text {
+            color: var(--deep-warm);
+            font-size: 0.95rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .podcast-link {
+            color: var(--soft-brown);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(245, 213, 143, 0.6);
+            transition: all 0.3s ease;
+        }
+
+        .podcast-link:hover {
+            border-bottom-color: var(--gentle-gold);
+            background: rgba(255, 239, 184, 0.3);
+        }
+
+        .ai-image-stack {
+            position: relative;
+            height: 280px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        .stacked-image {
+            position: absolute;
+            width: 65%;
+            max-width: 360px;
+            border-radius: 16px;
+            box-shadow:
+                0 10px 40px rgba(0, 0, 0, 0.1),
+                0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            border: 4px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .stacked-image.expanded {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(0deg) scale(1.5);
+            width: auto;
+            max-width: 80vw;
+            max-height: 80vh;
+            z-index: 9999;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .image-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 9998;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .stacked-image:nth-child(1) {
+            left: 2%;
+            top: 0;
+            transform: rotate(-8deg);
+            z-index: 1;
+        }
+
+        .stacked-image:nth-child(2) {
+            left: 20%;
+            top: 25px;
+            transform: rotate(6deg);
+            z-index: 2;
+        }
+
+        .stacked-image:nth-child(3) {
+            left: 8%;
+            top: 50px;
+            transform: rotate(-2deg);
+            z-index: 3;
+        }
+
+        .ai-image-stack:hover .stacked-image:nth-child(1) {
+            transform: rotate(-12deg) translateX(-18px) translateY(-8px);
+        }
+
+        .ai-image-stack:hover .stacked-image:nth-child(2) {
+            transform: rotate(10deg) translateX(18px) translateY(-5px);
+        }
+
+        .ai-image-stack:hover .stacked-image:nth-child(3) {
+            transform: rotate(0deg) translateY(-15px) scale(1.03);
+        }
+
+        /* 2张图片的堆叠样式 */
+        .ai-image-stack-2 .stacked-image {
+            width: 90%;
+        }
+
+        .ai-image-stack-2 .stacked-image:nth-child(1) {
+            left: 0%;
+            top: 10px;
+            transform: rotate(-7deg);
+            z-index: 1;
+        }
+
+        .ai-image-stack-2 .stacked-image:nth-child(2) {
+            left: 12%;
+            top: 35px;
+            transform: rotate(7deg);
+            z-index: 2;
+        }
+
+        .ai-image-stack-2:hover .stacked-image:nth-child(1) {
+            transform: rotate(-12deg) translateX(-20px) translateY(-10px);
+        }
+
+        .ai-image-stack-2:hover .stacked-image:nth-child(2) {
+            transform: rotate(12deg) translateX(20px) translateY(-8px);
+        }
+
+        .activities {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .activity {
+            padding: 32px 20px;
+            text-align: center;
+            border: 1px solid rgba(245, 213, 143, 0.4);
+            border-radius: 16px 8px 20px 12px;
+            transition: all 0.5s ease;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .activity:hover {
+            background: rgba(255, 239, 184, 0.35);
+            transform: translateY(-6px);
+            box-shadow: 0 15px 40px rgba(245, 213, 143, 0.15);
+            border-radius: 8px 20px 12px 16px;
+        }
+
+        .activity-icon {
+            font-size: 2.4rem;
+            margin-bottom: 16px;
+            opacity: 0.8;
+            display: inline-block;
+            transition: transform 0.5s ease;
+        }
+
+        .activity:hover .activity-icon {
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        .podcast-player-section {
+            margin-top: 28px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .podcast-player-link {
+            display: block;
+            text-decoration: none;
+            width: 100%;
+            max-width: 340px;
+        }
+
+        .podcast-player {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow:
+                0 8px 30px rgba(0, 0, 0, 0.1),
+                0 4px 12px rgba(0, 0, 0, 0.06);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .podcast-player:hover {
+            transform: translateY(-4px);
+            box-shadow:
+                0 12px 40px rgba(245, 213, 143, 0.25),
+                0 6px 16px rgba(245, 213, 143, 0.15);
+        }
+
+        .podcast-cover-wrapper {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .podcast-cover {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 16px;
+            object-fit: cover;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .podcast-decoration-ring {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 120px;
+            height: 120px;
+        }
+
+        .podcast-info {
+            margin-bottom: 16px;
+        }
+
+        .podcast-title {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 1.1rem;
+            color: var(--deep-warm);
+            text-align: center;
+            margin-bottom: 4px;
+        }
+
+        .podcast-subtitle {
+            font-size: 0.85rem;
+            color: var(--soft-brown);
+            text-align: center;
+        }
+
+        .podcast-progress {
+            margin-bottom: 16px;
+        }
+
+        .podcast-progress-bar {
+            height: 6px;
+            background: rgba(139, 115, 85, 0.15);
+            border-radius: 3px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .podcast-progress-fill {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 30%;
+            background: linear-gradient(90deg, var(--gentle-gold), var(--coral));
+            border-radius: 3px;
+        }
+
+        .podcast-progress-dot {
+            position: absolute;
+            left: 30%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 14px;
+            height: 14px;
+            background: var(--deep-warm);
+            border-radius: 50%;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .podcast-time {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 0.8rem;
+            color: var(--soft-brown);
+        }
+
+        .podcast-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .podcast-control-btn {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--deep-warm);
+            font-size: 1.4rem;
+        }
+
+        .podcast-play-btn {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--gentle-gold), var(--coral));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            box-shadow: 0 4px 14px rgba(245, 213, 143, 0.4);
+        }
+
+        .podcast-player-text {
+            text-align: center;
+            margin-top: 16px;
+            color: var(--soft-brown);
+            font-size: 0.95rem;
+        }
+
+        .cta {
+            text-align: center;
+            padding: 60px 30px;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(255, 239, 184, 0.5) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(232, 168, 124, 0.3) 0%, transparent 50%),
+                rgba(255, 248, 231, 0.6);
+            border-radius: 24px 12px 28px 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(245, 213, 143, 0.1) 0%, transparent 60%);
+            animation: cta-float 12s ease-in-out infinite;
+        }
+
+        @keyframes cta-float {
+            0%, 100% { transform: translate(0, 0); }
+            33% { transform: translate(30px, -20px); }
+            66% { transform: translate(-20px, 20px); }
+        }
+
+        .cta-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 16px 44px;
+            background: var(--gentle-gold);
+            color: var(--deep-warm);
+            text-decoration: none;
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+            border-radius: 30px 12px 30px 12px;
+            transition: all 0.5s ease;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow:
+                0 12px 36px rgba(245, 213, 143, 0.4),
+                0 6px 20px rgba(232, 168, 124, 0.25);
+            border-radius: 12px 30px 12px 30px;
+        }
+
+        .qr-code {
+            margin-top: 28px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .qr-code img {
+            width: 140px;
+            height: 140px;
+            border-radius: 16px;
+            border: 4px solid white;
+            box-shadow: 0 8px 30px rgba(245, 213, 143, 0.3);
+            transition: all 0.4s ease;
+        }
+
+        .qr-code img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 40px rgba(245, 213, 143, 0.4);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 80px;
+            padding-top: 30px;
+            position: relative;
+            font-size: 0.9rem;
+            color: var(--soft-brown);
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gentle-gold), transparent);
+        }
+
+        @media (max-width: 767px) {
+            .container {
+                padding: 40px 16px;
+            }
+
+            header {
+                margin-bottom: 60px;
+            }
+
+            .planet-glow {
+                width: 100px;
+                height: 100px;
+                margin-bottom: 24px;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+                margin-bottom: 12px;
+            }
+
+            .tagline {
+                font-size: 0.95rem;
+                letter-spacing: 0.1em;
+            }
+
+            section {
+                margin-bottom: 60px;
+            }
+
+            h2 {
+                font-size: 1.45rem;
+                margin-bottom: 28px;
+                padding-bottom: 12px;
+            }
+
+            .core-values {
+                gap: 20px;
+            }
+
+            .value-card {
+                padding: 24px 20px;
+            }
+
+            .value-title {
+                font-size: 1.1rem;
+                margin-bottom: 12px;
+            }
+
+            .value-desc {
+                font-size: 0.9rem;
+                line-height: 1.8;
+            }
+
+            .video-links {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .ai-image-stack {
+                height: 240px;
+            }
+
+            .ai-image-stack-2 .stacked-image {
+                width: 85%;
+            }
+
+            .activities {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .activity {
+                padding: 24px 20px;
+            }
+
+            .activity-icon {
+                font-size: 2.2rem;
+                margin-bottom: 12px;
+            }
+
+            .podcast-player {
+                padding: 20px;
+            }
+
+            .cta {
+                padding: 40px 20px;
+            }
+
+            .cta-button {
+                padding: 14px 36px;
+                font-size: 0.95rem;
+            }
+
+            .qr-code img {
+                width: 130px;
+                height: 130px;
+            }
+
+            footer {
+                margin-top: 60px;
+                font-size: 0.85rem;
+            }
+
+            .floating-word:nth-child(1) {
+                font-size: 1rem;
+                top: 0%;
+                left: 0%;
+            }
+            .floating-word:nth-child(2) {
+                font-size: 0.9rem;
+                top: 15%;
+                right: 0%;
+            }
+            .floating-word:nth-child(3) {
+                font-size: 1rem;
+                bottom: 8%;
+                left: 2%;
+            }
+            .floating-word:nth-child(4) {
+                font-size: 0.9rem;
+                bottom: 18%;
+                right: 0%;
+            }
+        }
+
+        /* 我的发光之旅 - 时间线 */
+        .journey-timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .journey-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 10px;
+            bottom: 10px;
+            width: 4px;
+            background: linear-gradient(180deg,
+                var(--gentle-gold),
+                var(--coral),
+                var(--gentle-gold));
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .journey-node {
+            position: relative;
+            margin-bottom: 70px;
+            display: flex;
+            align-items: flex-start;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .journey-node:nth-child(1) { animation-delay: 0.1s; }
+        .journey-node:nth-child(2) { animation-delay: 0.2s; }
+        .journey-node:nth-child(3) { animation-delay: 0.3s; }
+        .journey-node:nth-child(4) { animation-delay: 0.4s; }
+        .journey-node:nth-child(5) { animation-delay: 0.5s; }
+
+        .journey-node:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+
+        .journey-dot-wrapper {
+            position: absolute;
+            left: 50%;
+            top: 30px;
+            transform: translateX(-50%);
+            z-index: 3;
+        }
+
+        .journey-dot {
+            width: 28px;
+            height: 28px;
+            background: radial-gradient(circle at 30% 30%, var(--soft-yellow), var(--gentle-gold));
+            border-radius: 50%;
+            border: 4px solid var(--warm-cream);
+            box-shadow:
+                0 0 20px rgba(245, 213, 143, 0.6),
+                0 0 40px rgba(245, 213, 143, 0.3);
+            animation: gentle-pulse 3.5s ease-in-out infinite;
+        }
+
+        .journey-node:nth-child(2) .journey-dot { animation-delay: -0.7s; }
+        .journey-node:nth-child(3) .journey-dot { animation-delay: -1.4s; }
+        .journey-node:nth-child(4) .journey-dot { animation-delay: -2.1s; }
+        .journey-node:nth-child(5) .journey-dot { animation-delay: -2.8s; }
+
+        .journey-card {
+            background: rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(10px);
+            padding: 28px 32px;
+            border-radius: 16px 8px 20px 12px;
+            flex: 1;
+            max-width: calc(50% - 50px);
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 1px solid rgba(245, 213, 143, 0.3);
+        }
+
+        .journey-node:nth-child(odd) .journey-card {
+            margin-right: 50px;
+        }
+
+        .journey-node:nth-child(even) .journey-card {
+            margin-left: 50px;
+        }
+
+        .journey-card:hover {
+            transform: translateY(-6px);
+            box-shadow:
+                0 16px 40px rgba(245, 213, 143, 0.25),
+                0 8px 20px rgba(232, 168, 124, 0.15);
+        }
+
+        .journey-icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            text-align: left;
+        }
+
+        .journey-node:nth-child(odd) .journey-icon {
+            text-align: right;
+        }
+
+        .journey-date {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 1.6rem;
+            color: var(--soft-brown);
+            margin-bottom: 8px;
+        }
+
+        .journey-node:nth-child(odd) .journey-date {
+            text-align: right;
+        }
+
+        .journey-title {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 1.2rem;
+            color: var(--deep-warm);
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgba(245, 213, 143, 0.4);
+        }
+
+        .journey-node:nth-child(odd) .journey-title {
+            text-align: right;
+        }
+
+        .journey-desc {
+            font-size: 0.95rem;
+            line-height: 2;
+            color: var(--deep-warm);
+            white-space: pre-line;
+        }
+
+        .journey-node:nth-child(odd) .journey-desc {
+            text-align: right;
+        }
+
+        @media (max-width: 767px) {
+            .journey-timeline::before {
+                left: 32px;
+            }
+
+            .journey-node,
+            .journey-node:nth-child(odd) {
+                flex-direction: row;
+            }
+
+            .journey-dot-wrapper {
+                left: 32px;
+                transform: none;
+            }
+
+            .journey-dot {
+                width: 22px;
+                height: 22px;
+                border-width: 3px;
+            }
+
+            .journey-card,
+            .journey-node:nth-child(odd) .journey-card,
+            .journey-node:nth-child(even) .journey-card {
+                max-width: none;
+                margin-left: 70px;
+                margin-right: 0;
+            }
+
+            .journey-icon,
+            .journey-node:nth-child(odd) .journey-icon {
+                text-align: left;
+            }
+
+            .journey-date,
+            .journey-node:nth-child(odd) .journey-date {
+                text-align: left;
+                font-size: 1.4rem;
+            }
+
+            .journey-title,
+            .journey-node:nth-child(odd) .journey-title {
+                text-align: left;
+            }
+
+            .journey-desc,
+            .journey-node:nth-child(odd) .journey-desc {
+                text-align: left;
+                font-size: 0.9rem;
+            }
+
+            .journey-card {
+                padding: 22px 24px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                padding: 80px 40px;
+            }
+
+            header {
+                margin-bottom: 100px;
+            }
+
+            .planet-glow {
+                width: 140px;
+                height: 140px;
+                margin-bottom: 40px;
+            }
+
+            h1 {
+                font-size: 3.5rem;
+                margin-bottom: 20px;
+            }
+
+            .tagline {
+                font-size: 1.2rem;
+                letter-spacing: 0.2em;
+            }
+
+            section {
+                margin-bottom: 100px;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+                margin-bottom: 40px;
+                padding-bottom: 20px;
+            }
+
+            .title-icon {
+                width: 44px;
+                height: 44px;
+            }
+
+            .value-card {
+                padding: 50px;
+            }
+
+            .value-title {
+                font-size: 1.4rem;
+                margin-bottom: 20px;
+            }
+
+            .value-desc {
+                font-size: 1rem;
+                line-height: 2;
+            }
+
+            .ai-image-stack {
+                height: 340px;
+            }
+
+            .activities {
+                gap: 30px;
+            }
+
+            .activity {
+                padding: 40px;
+            }
+
+            .activity-icon {
+                font-size: 2.8rem;
+                margin-bottom: 20px;
+            }
+
+            .podcast-cd {
+                width: 240px;
+                height: 240px;
+            }
+
+            .cta {
+                padding: 80px 40px;
+            }
+
+            .qr-code img {
+                width: 160px;
+                height: 160px;
+            }
+
+            footer {
+                margin-top: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="paint-blob blob-1"></div>
+    <div class="paint-blob blob-2"></div>
+    <div class="paint-blob blob-3"></div>
+
+    <div class="star" style="top: 15%; left: 10%; animation-delay: 0s;"></div>
+    <div class="star" style="top: 25%; right: 15%; animation-delay: 1.2s;"></div>
+    <div class="star" style="top: 60%; left: 8%; animation-delay: 2.4s;"></div>
+    <div class="star" style="top: 70%; right: 12%; animation-delay: 0.6s;"></div>
+    <div class="star" style="bottom: 20%; left: 20%; animation-delay: 1.8s;"></div>
+    <div class="star" style="top: 45%; right: 8%; animation-delay: 3s;"></div>
+
+    <div class="image-overlay" id="imageOverlay"></div>
+
+    <div class="container">
+        <header>
+            <div class="planet-glow"></div>
+            <h1>发光星球</h1>
+            <p class="tagline">创造自我 · 活出最高版本自己</p>
+        </header>
+
+        <section>
+            <h2>我的发光之旅 ✨</h2>
+            <div class="journey-timeline">
+                <div class="journey-node">
+                    <div class="journey-dot-wrapper">
+                        <div class="journey-dot"></div>
+                    </div>
+                    <div class="journey-card">
+                        <div class="journey-icon">🎙️</div>
+                        <div class="journey-date">2022.8.29</div>
+                        <div class="journey-title">播客的起点</div>
+                        <div class="journey-desc">录制了第一支播客，后面花了2年的时间，我才拥有了2000听众
+而在第3年，我拥有了1W听众</div>
+                    </div>
+                </div>
+                <div class="journey-node">
+                    <div class="journey-dot-wrapper">
+                        <div class="journey-dot"></div>
+                    </div>
+                    <div class="journey-card">
+                        <div class="journey-icon">✈️</div>
+                        <div class="journey-date">2023.11.1</div>
+                        <div class="journey-title">逃离日复一日的生活</div>
+                        <div class="journey-desc">离开广州去西班牙，我不知道未来会怎样
+但我很确定自己要逃离国内的生活
+同时学习占星和西班牙语
+允许自己先跟着感觉飘一飘～</div>
+                    </div>
+                </div>
+                <div class="journey-node">
+                    <div class="journey-dot-wrapper">
+                        <div class="journey-dot"></div>
+                    </div>
+                    <div class="journey-card">
+                        <div class="journey-icon">⭐</div>
+                        <div class="journey-date">2024.1-至今</div>
+                        <div class="journey-title">通过表达与创作确认了天命</div>
+                        <div class="journey-desc">因为在播客分享占星内容
+意外开启了〝职业占星师"道路
+通过占星结缘了很多对玄学、自我探索
+以及对自由职业感兴趣的朋友
+坚定了想要不断创作和做天命事业的决心</div>
+                    </div>
+                </div>
+                <div class="journey-node">
+                    <div class="journey-dot-wrapper">
+                        <div class="journey-dot"></div>
+                    </div>
+                    <div class="journey-card">
+                        <div class="journey-icon">🌍</div>
+                        <div class="journey-date">2026.1</div>
+                        <div class="journey-title">通过社群分享我的创作经验</div>
+                        <div class="journey-desc">创办「发光星球」社群，并把其中的2期创作课程作为公开课发布
+成为了热度最高的一期节目，在小宇宙播放量1.3W！完全超预期！
+确认可以通过 "创作与表达、人生自传、AI"帮助加速自我成长</div>
+                    </div>
+                </div>
+                <div class="journey-node">
+                    <div class="journey-dot-wrapper">
+                        <div class="journey-dot"></div>
+                    </div>
+                    <div class="journey-card">
+                        <div class="journey-icon">💫</div>
+                        <div class="journey-date">现在ing</div>
+                        <div class="journey-title">带领大家一起发光！</div>
+                        <div class="journey-desc">致力于帮助，真正想发光想创作的人
+把最有潜力的自我活出来
+我经历过很多把自己推倒重来的过程
+这不是失败，而是一次次的校正
+让自己的行动与灵魂目标一致
+主动选择不做一个旁观者，做自己的主角</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>我们的核心</h2>
+            <div class="core-values">
+                <div class="value-card">
+                    <div class="value-title">✨ 释放创造力</div>
+                    <div class="value-desc">
+                        每月瓜瓜会带来表达与创作的公开课，形式不拘泥于艺术、表达、游戏…
+                        一切有利于释放内在小孩的事，我们都愿意尝试。
+                    </div>
+                    <div class="video-links">
+                        <a href="https://meeting.tencent.com/crm/Ngyqr8RX1a" target="_blank" class="video-link-card">
+                            <div class="video-link-icon">
+                                <img src="https://97415045.pinme.dev" alt="相机" style="width: 100%; height: 100%; object-fit: contain;">
+                            </div>
+                            <div class="video-link-text">🎬 自媒体创作心法</div>
+                        </a>
+                        <a href="https://meeting.tencent.com/crm/Kzp68Y4Xc5" target="_blank" class="video-link-card">
+                            <div class="video-link-icon">
+                                <img src="https://c7aa3167.pinme.dev" alt="盆栽" style="width: 100%; height: 100%; object-fit: contain;">
+                            </div>
+                            <div class="video-link-text">🎬 自媒体观察</div>
+                        </a>
+                    </div>
+                </div>
+                <div class="value-card">
+                    <div class="value-title">
+                        <img src="https://ae65383b.pinme.dev" alt="AI工具" class="title-icon">
+                        AI创作联动
+                    </div>
+                    <div class="value-desc">
+                        使用AI辅助创作：从内容输入、到输出创意、再到播客剪辑，让AI成为你的创作伙伴。
+                    </div>
+                    <div class="ai-image-stack ai-image-stack-2">
+                        <img src="https://13192e9c.pinme.dev/" alt="AI分析过程" class="stacked-image">
+                        <img src="https://15424df4.pinme.dev" alt="剪辑完成" class="stacked-image">
+                    </div>
+                </div>
+                <div class="value-card energy-section">
+                    <div class="value-title">🌊 自我觉察与能量流动</div>
+                    <div class="value-desc">
+                        分享瓜瓜在自我觉察和能量疗愈的经验，在社群内部组织<span class="highlight">能量流动活动</span>，
+                        让内在的智慧自然流淌。
+                    </div>
+                    <div class="energy-image-container">
+                        <span class="floating-word">冥想</span>
+                        <span class="floating-word">精油</span>
+                        <span class="floating-word">神谕卡</span>
+                        <span class="floating-word">瑜伽</span>
+                        <img src="https://f34eed64.pinme.dev" alt="能量流动" class="energy-image">
+                    </div>
+                </div>
+                <div class="value-card">
+                    <div class="value-title">🎙️ 共创与表达</div>
+                    <div class="value-desc">
+                        共同创作群播客<a href="https://www.xiaoyuzhoufm.com/podcast/67dfd3748f2a7dd2a59415c8" target="_blank" class="podcast-link">《发光星球》</a>，每个人都有表达的机会。还有<span class="highlight">「一周主理人」</span>活动，
+                        让你站在主理人的位置主动链接群友，展示你的作品与产品。
+                    </div>
+                    <div class="podcast-player-section">
+                        <a href="https://www.xiaoyuzhoufm.com/podcast/67dfd3748f2a7dd2a59415c8" target="_blank" class="podcast-player-link">
+                            <div class="podcast-player">
+                                <div class="podcast-cover-wrapper">
+                                    <img src="https://8ad8bc98.pinme.dev" alt="发光星球播客" class="podcast-cover">
+                                </div>
+                                <div class="podcast-info">
+                                    <div class="podcast-title">发光星球</div>
+                                    <div class="podcast-subtitle">创造自我，活出最高版本</div>
+                                </div>
+                                <div class="podcast-progress">
+                                    <div class="podcast-progress-bar">
+                                        <div class="podcast-progress-fill"></div>
+                                        <div class="podcast-progress-dot"></div>
+                                    </div>
+                                    <div class="podcast-time">
+                                        <span>1:15</span>
+                                        <span>-2:38</span>
+                                    </div>
+                                </div>
+                                <div class="podcast-controls">
+                                    <div class="podcast-control-btn">⏮</div>
+                                    <div class="podcast-play-btn">▶</div>
+                                    <div class="podcast-control-btn">⏭</div>
+                                </div>
+                            </div>
+                            <div class="podcast-player-text">点击收听《发光星球》</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>这里的活动</h2>
+            <div class="activities">
+                <div class="activity">
+                    <div class="activity-icon">🎨</div>
+                    <div>每月创作公开课</div>
+                </div>
+                <div class="activity">
+                    <div class="activity-icon">🧘</div>
+                    <div>能量流动共修</div>
+                </div>
+                <div class="activity">
+                    <div class="activity-icon">🎙️</div>
+                    <div>发光星球播客</div>
+                </div>
+                <div class="activity">
+                    <div class="activity-icon">🌟</div>
+                    <div>一周主理人</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta">
+            <h2>准备好发光了吗？</h2>
+            <p style="margin-top: 20px; line-height: 1.9; position: relative; z-index: 1; font-size: 0.95rem;">
+                在这个星球上，每一个人都可以是光源<br>
+                让我们一起，创造自我，活出最高版本
+            </p>
+            <button class="cta-button">加入发光星球</button>
+            <div class="qr-code">
+                <p style="margin-bottom: 12px; font-size: 0.9rem;">扫码添加微信</p>
+                <img src="https://65fc8804.pinme.dev" alt="微信二维码">
+            </div>
+        </section>
+
+        <footer>
+            <p>✨ 发光星球 · 创造自我，活出最高版本自己 ✨</p>
+        </footer>
+    </div>
+
+    <script>
+        const stackedImages = document.querySelectorAll('.stacked-image');
+        const overlay = document.getElementById('imageOverlay');
+        let expandedImage = null;
+
+        stackedImages.forEach(img => {
+            img.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (expandedImage === img) {
+                    collapseImage();
+                } else {
+                    expandImage(img);
+                }
+            });
+        });
+
+        overlay.addEventListener('click', collapseImage);
+
+        function expandImage(img) {
+            if (expandedImage) {
+                collapseImage();
+            }
+            img.classList.add('expanded');
+            overlay.classList.add('active');
+            expandedImage = img;
+        }
+
+        function collapseImage() {
+            if (expandedImage) {
+                expandedImage.classList.remove('expanded');
+                overlay.classList.remove('active');
+                expandedImage = null;
+            }
+        }
+    </script>
+</body>
+</html>
