@@ -30,10 +30,13 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            max-width: 100vw;
         }
 
         html {
             scroll-behavior: smooth;
+            overflow-x: hidden;
+            width: 100%;
         }
 
         body {
@@ -47,6 +50,8 @@
             color: var(--text-dark);
             line-height: 1.8;
             overflow-x: hidden;
+            width: 100%;
+            position: relative;
         }
 
         /* 流动色块背景 */
@@ -150,7 +155,7 @@
 
         .nav-links {
             display: flex;
-            gap: 2.5rem;
+            gap: 1.5rem;
         }
 
         .nav-links a {
@@ -213,8 +218,8 @@
         }
 
         .zodiac-symbol {
-            width: 180px;
-            height: 180px;
+            width: 360px;
+            height: 360px;
             margin-bottom: 1.5rem;
             opacity: 0.9;
             filter: drop-shadow(0 0 30px rgba(232, 212, 168, 0.8));
@@ -308,6 +313,7 @@
             width: 180px;
             height: 180px;
             object-fit: cover;
+            object-position: 50% 30%;
             border-radius: 50%;
             background: var(--soft-gold);
         }
@@ -1384,8 +1390,8 @@
             }
 
             .zodiac-symbol {
-                width: 140px;
-                height: 140px;
+                width: 280px;
+                height: 280px;
                 margin-bottom: 1.5rem;
             }
 
@@ -1434,10 +1440,19 @@
             .about-avatar img {
                 width: 150px;
                 height: 150px;
+                object-fit: cover;
+                object-position: 50% 30%;
             }
 
             .about-badges {
                 justify-content: center;
+                flex-wrap: nowrap;
+                gap: 0.5rem;
+            }
+
+            .badge {
+                padding: 0.3rem 0.6rem;
+                font-size: 0.7rem;
             }
 
             .about-text h3, .about-text p {
@@ -1686,13 +1701,213 @@
             }
 
             .zodiac-symbol {
-                width: 120px;
-                height: 120px;
+                width: 240px;
+                height: 240px;
             }
 
             .section-title {
                 font-size: 1.4rem;
             }
+        }
+
+        /* 学员反馈滑动卡片 */
+        .testimonials-slider {
+            position: relative;
+            overflow: hidden;
+            padding: 2rem 0;
+        }
+
+        .testimonials-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .testimonial-card {
+            flex-shrink: 0;
+            width: 100%;
+            padding: 0 1rem;
+            box-sizing: border-box;
+        }
+
+        @media (min-width: 768px) {
+            .testimonial-card {
+                width: 50%;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .testimonial-card {
+                width: 33.333%;
+            }
+        }
+
+        .testimonial-content {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 莫兰迪色系 */
+        .testimonial-content.morandi-1 {
+            background: linear-gradient(135deg, #d4c5b5 0%, #e8ddd1 100%);
+        }
+
+        .testimonial-content.morandi-2 {
+            background: linear-gradient(135deg, #c5d4d1 0%, #d9e5e2 100%);
+        }
+
+        .testimonial-content.morandi-3 {
+            background: linear-gradient(135deg, #d4c5d1 0%, #e8d9e4 100%);
+        }
+
+        .testimonial-content.morandi-4 {
+            background: linear-gradient(135deg, #d5d4c5 0%, #e9e8d8 100%);
+        }
+
+        .testimonial-content.morandi-5 {
+            background: linear-gradient(135deg, #c5cdd4 0%, #d8e1e7 100%);
+        }
+
+        .testimonial-content.morandi-6 {
+            background: linear-gradient(135deg, #d4c9c5 0%, #e9ddd8 100%);
+        }
+
+        .testimonial-content.morandi-7 {
+            background: linear-gradient(135deg, #c9d4c5 0%, #dde8d8 100%);
+        }
+
+        .testimonial-stars {
+            display: flex;
+            gap: 0.3rem;
+            margin-bottom: 1.5rem;
+            justify-content: center;
+        }
+
+        .testimonial-stars .star-icon {
+            color: var(--gentle-gold);
+            font-size: 1.3rem;
+        }
+
+        .testimonial-text {
+            font-size: 0.95rem;
+            line-height: 1.9;
+            color: var(--text-dark);
+            flex-grow: 1;
+        }
+
+        .testimonial-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .testimonial-nav-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--soft-gold);
+            background: var(--cream);
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .testimonial-nav-btn:hover {
+            background: var(--gentle-gold);
+            transform: scale(1.1);
+        }
+
+        .testimonial-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .testimonial-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--soft-gold);
+            opacity: 0.4;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-dot.active {
+            opacity: 1;
+            transform: scale(1.2);
+        }
+
+        /* 占星干货卡片 */
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .article-card {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--soft-gold);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .article-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(232, 212, 168, 0.3);
+        }
+
+        .article-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--soft-yellow) 0%, var(--gentle-gold) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .article-content {
+            padding: 1.5rem;
+        }
+
+        .article-title {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-dark);
+        }
+
+        .article-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .article-tag {
+            padding: 0.25rem 0.8rem;
+            background: var(--cream);
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: var(--text-mute);
+            border: 1px solid var(--soft-gold);
         }
     </style>
 </head>
@@ -1714,8 +1929,8 @@
         <div class="nav-links">
             <a href="#about">关于瓜瓜</a>
             <a href="#courses">占星课程</a>
+            <a href="#articles">占星干货</a>
             <a href="#glowing-planet">发光星球</a>
-            <a href="#contact">联系</a>
         </div>
     </nav>
 
@@ -1723,7 +1938,7 @@
     <section class="hero">
         <div class="zodiac-symbol"><img src="images/日与月.svg" alt="日与月"></div>
         <h1>瓜瓜占星</h1>
-        <p class="hero-subtitle">创造自我 · 活出最高版本自己</p>
+        <p class="hero-subtitle">星盘 · 你一生的隐喻</p>
         <a href="#about" class="hero-cta">了解更多</a>
     </section>
 
@@ -1846,7 +2061,7 @@
                     <p style="color: var(--text-mute);">🎁 赠送价值 2500 元 Astro Gold 软件注册（需要苹果系统）</p>
                 </div>
                 <div class="course-side-image">
-                    <img src="images/择地星盘.svg" alt="择地星盘" style="width: 100%;">
+                    <img src="images/择地透明背景.svg" alt="择地星盘" style="width: 100%;">
                 </div>
             </div>
         </div>
@@ -1878,29 +2093,136 @@
     <section id="testimonials" class="testimonials">
         <div class="testimonials-container">
             <div class="section-title">学员反馈</div>
-            <div class="testimonial-image">
-                <img src="images/反馈.PNG" alt="学员反馈">
-            </div>
-
-            <div class="benefit-box">
-                <h4>🎁 占星班同学福利</h4>
-                <p>找瓜瓜生时校正有 85 折优惠</p>
-                <p style="color: var(--text-mute); margin-top: 0.5rem;">生时校正是一项复杂精密的占星技法，根据出生时间模糊度不同所花费的时间也不一样，故定价也有差异。</p>
-                <div class="benefit-prices">
-                    <div class="benefit-price">
-                        <div class="price">388 元</div>
-                        <div class="note">出生时间 2h 内</div>
+            <div class="testimonials-slider">
+                <div class="testimonials-track" id="testimonialsTrack">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content morandi-1">
+                            <div class="testimonial-stars">
+                                <span class="star-icon">✦</span>
+                                <span class="star-icon">✦</span>
+                                <span class="star-icon">✦</span>
+                                <span class="star-icon">✦</span>
+                                <span class="star-icon">✦</span>
+                            </div>
+                            <p class="testimonial-text">瓜瓜，昨晚上完第一节占星课，刚浏览完一遍你的课件，我感觉这次三进宫占星应该能坚持下去了哈哈，向你表白一下～首先你提供的学习锦囊特别好，我的记忆力不是特别好，不喜欢死记硬板，前两次的占星课就是那种一上来就是知识点的课程，我学着学着就没有兴趣了。你的课程记忆的内容占比不大，需要在实践中去理解，特别适合我；还有很喜欢你的表达和教学方式，你讲的内容我都能听进去哈哈。</p>
+                        </div>
                     </div>
-                    <div class="benefit-price">
-                        <div class="price">288 元</div>
-                        <div class="note">出生时间 1h 内</div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content morandi-2">
+                            <div class="testimonial-stars">
+                                <span class="star-icon">✦</span>
+                                <span class="star-icon">✦</span>
+                                <span class="star-icon">✦</span>
+                                <span class="star-icon">✦</span>
+                                <span class="star-icon">✦</span>
+                            </div>
+                            <p class="testimonial-text">我好像从来没有对自己有那么深刻的感知，这种感觉很妙，明明和自己相处了30几年，好像重新认识了自己一样。谢谢你，推着我前进。</p>
+                        </div>
                     </div>
-                    <div class="benefit-price">
-                        <div class="price">188 元</div>
-                        <div class="note">出生时间 30 分钟内</div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content morandi-3">
+                            <div class="testimonial-stars">
+                                <span class="star-icon">✦</span>
+                                <span class="star-icon">✦</span>
+                                <span class="star-icon">✦</span>
+                                <span class="star-icon">✦</span>
+                                <span class="star-icon">✦</span>
+                            </div>
+                            <p class="testimonial-text">瓜瓜你的高阶占星课我每节课起码看两遍，干货太多了，真的超值！</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content morandi-4">
+                            <div class="testimonial-stars">
+                                <span class="star-icon">✦</span>
+                                <span class="star-icon">✦</span>
+                                <span class="star-icon">✦</span>
+                                <span class="star-icon">✦</span>
+                                <span class="star-icon">✦</span>
+                            </div>
+                            <p class="testimonial-text">瓜瓜的古占课氛围超好，干货满满，很多延展性的干货。</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content morandi-5">
+                            <div class="testimonial-stars">
+                                <span class="star-icon">✦</span>
+                                <span class="star-icon">✦</span>
+                                <span class="star-icon">✦</span>
+                                <span class="star-icon">✦</span>
+                                <span class="star-icon">✦</span>
+                            </div>
+                            <p class="testimonial-text">真的有很多很多的收获，当然也特别感谢瓜瓜姐姐，让我了解到还有星盘这么很有意思的根据。</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content morandi-6">
+                            <div class="testimonial-stars">
+                                <span class="star-icon">✦</span>
+                                <span class="star-icon">✦</span>
+                                <span class="star-icon">✦</span>
+                                <span class="star-icon">✦</span>
+                                <span class="star-icon">✦</span>
+                            </div>
+                            <p class="testimonial-text">咱们好有学习氛围哦，离开学校11年了，没想到还能这么学术呢。</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content morandi-7">
+                            <div class="testimonial-stars">
+                                <span class="star-icon">✦</span>
+                                <span class="star-icon">✦</span>
+                                <span class="star-icon">✦</span>
+                                <span class="star-icon">✦</span>
+                                <span class="star-icon">✦</span>
+                            </div>
+                            <p class="testimonial-text">瓜瓜老师课讲得很好，我学占星也很快乐，这比我上会计网课开心多了 ：）</p>
+                        </div>
                     </div>
                 </div>
+                <div class="testimonial-nav">
+                    <button class="testimonial-nav-btn" id="prevBtn">←</button>
+                    <button class="testimonial-nav-btn" id="nextBtn">→</button>
+                </div>
+                <div class="testimonial-dots" id="testimonialDots"></div>
             </div>
+        </div>
+    </section>
+
+    <!-- 占星干货 -->
+    <section id="articles" class="section">
+        <div class="section-title">占星干货</div>
+        <div class="articles-grid">
+            <a href="article-1.html" class="article-card">
+                <div class="article-image">✨</div>
+                <div class="article-content">
+                    <h3 class="article-title">如何解读你的本命盘</h3>
+                    <div class="article-tags">
+                        <span class="article-tag">入门</span>
+                        <span class="article-tag">本命盘</span>
+                    </div>
+                </div>
+            </a>
+            <a href="article-2.html" class="article-card">
+                <div class="article-image">🌟</div>
+                <div class="article-content">
+                    <h3 class="article-title">十二星座的能量特质</h3>
+                    <div class="article-tags">
+                        <span class="article-tag">星座</span>
+                        <span class="article-tag">基础知识</span>
+                    </div>
+                </div>
+            </a>
+            <a href="article-3.html" class="article-card">
+                <div class="article-image">🪐</div>
+                <div class="article-content">
+                    <h3 class="article-title">宫位的含义与象征</h3>
+                    <div class="article-tags">
+                        <span class="article-tag">宫位</span>
+                        <span class="article-tag">进阶</span>
+                    </div>
+                </div>
+            </a>
         </div>
     </section>
 
@@ -2168,6 +2490,111 @@
                 expandedImage = null;
             }
         }
+
+        // 学员反馈滑动功能
+        const track = document.getElementById('testimonialsTrack');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const dotsContainer = document.getElementById('testimonialDots');
+        const cards = document.querySelectorAll('.testimonial-card');
+
+        let currentIndex = 0;
+        let autoplayInterval;
+        let cardsPerView = 1;
+
+        function updateCardsPerView() {
+            if (window.innerWidth >= 1024) {
+                cardsPerView = 3;
+            } else if (window.innerWidth >= 768) {
+                cardsPerView = 2;
+            } else {
+                cardsPerView = 1;
+            }
+            updateSlider();
+            createDots();
+        }
+
+        function updateSlider() {
+            const cardWidth = cards[0].offsetWidth;
+            track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+            updateDots();
+        }
+
+        function createDots() {
+            dotsContainer.innerHTML = '';
+            const totalSlides = Math.ceil(cards.length - cardsPerView + 1);
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'testimonial-dot' + (i === currentIndex ? ' active' : '');
+                dot.addEventListener('click', () => {
+                    currentIndex = i;
+                    updateSlider();
+                    resetAutoplay();
+                });
+                dotsContainer.appendChild(dot);
+            }
+        }
+
+        function updateDots() {
+            const dots = document.querySelectorAll('.testimonial-dot');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentIndex);
+            });
+        }
+
+        function nextSlide() {
+            const maxIndex = cards.length - cardsPerView;
+            currentIndex = (currentIndex + 1) % (maxIndex + 1);
+            updateSlider();
+        }
+
+        function prevSlide() {
+            const maxIndex = cards.length - cardsPerView;
+            currentIndex = (currentIndex - 1 + maxIndex + 1) % (maxIndex + 1);
+            updateSlider();
+        }
+
+        function startAutoplay() {
+            autoplayInterval = setInterval(nextSlide, 4000);
+        }
+
+        function resetAutoplay() {
+            clearInterval(autoplayInterval);
+            startAutoplay();
+        }
+
+        prevBtn.addEventListener('click', () => {
+            prevSlide();
+            resetAutoplay();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            nextSlide();
+            resetAutoplay();
+        });
+
+        // 移动端触摸滑动
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        track.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        track.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) {
+                nextSlide();
+                resetAutoplay();
+            } else if (touchEndX - touchStartX > 50) {
+                prevSlide();
+                resetAutoplay();
+            }
+        });
+
+        window.addEventListener('resize', updateCardsPerView);
+        updateCardsPerView();
+        startAutoplay();
     </script>
 </body>
 </html>
