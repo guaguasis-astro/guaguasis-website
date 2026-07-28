@@ -146,6 +146,15 @@
             backdrop-filter: blur(5px);
         }
 
+        .nav-container {
+            width: 66.666%;
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
         .logo {
             font-family: 'ZCOOL XiaoWei', serif;
             font-size: 1.4rem;
@@ -155,7 +164,7 @@
 
         .nav-links {
             display: flex;
-            gap: 1.5rem;
+            gap: 1rem;
         }
 
         .nav-links a {
@@ -382,6 +391,16 @@
         .course-side-image {
             width: 100%;
             opacity: 0.9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+        }
+
+        .course-side-image img {
+            max-width: 100%;
+            max-height: 300px;
+            object-fit: contain;
         }
 
         .course-card.featured {
@@ -1372,12 +1391,18 @@
                 background: rgba(253, 248, 232, 0.98);
             }
 
+            .nav-container {
+                width: 100%;
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+
             .logo {
                 font-size: 1.2rem;
             }
 
             .nav-links {
-                gap: 1.2rem;
+                gap: 1rem;
                 font-size: 0.85rem;
                 flex-wrap: wrap;
                 justify-content: center;
@@ -1727,6 +1752,8 @@
             width: 100%;
             padding: 0 1rem;
             box-sizing: border-box;
+            display: flex;
+            justify-content: center;
         }
 
         @media (min-width: 768px) {
@@ -1744,8 +1771,9 @@
         .testimonial-content {
             background: rgba(255, 255, 255, 0.7);
             border-radius: 20px;
-            padding: 2.5rem 2rem;
-            height: 100%;
+            padding: 1.5rem;
+            width: 100%;
+            aspect-ratio: 1/1;
             display: flex;
             flex-direction: column;
             position: relative;
@@ -1784,20 +1812,44 @@
         .testimonial-stars {
             display: flex;
             gap: 0.3rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             justify-content: center;
         }
 
         .testimonial-stars .star-icon {
-            color: var(--gentle-gold);
-            font-size: 1.3rem;
+            color: #FFD700;
+            font-size: 1.4rem;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+        }
+
+        .testimonial-text-container {
+            flex-grow: 1;
+            overflow: hidden;
+            position: relative;
         }
 
         .testimonial-text {
-            font-size: 0.95rem;
-            line-height: 1.9;
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            font-size: 0.9rem;
+            line-height: 1.8;
             color: var(--text-dark);
-            flex-grow: 1;
+            max-height: 100%;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .testimonial-text::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .testimonial-text::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 2px;
+        }
+
+        .testimonial-text::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 2px;
         }
 
         .testimonial-nav {
@@ -1909,6 +1961,19 @@
             color: var(--text-mute);
             border: 1px solid var(--soft-gold);
         }
+
+        /* 十二星座分隔图片 */
+        .zodiac-divider {
+            text-align: center;
+            padding: 2rem 1rem;
+            background: rgba(249, 241, 215, 0.3);
+        }
+
+        .zodiac-divider img {
+            max-width: 600px;
+            width: 100%;
+            height: auto;
+        }
     </style>
 </head>
 <body>
@@ -1925,12 +1990,14 @@
 
     <!-- 导航栏 -->
     <nav>
-        <div class="logo">✦ 瓜瓜占星</div>
-        <div class="nav-links">
-            <a href="#about">关于瓜瓜</a>
-            <a href="#courses">占星课程</a>
-            <a href="#articles">占星干货</a>
-            <a href="#glowing-planet">发光星球</a>
+        <div class="nav-container">
+            <div class="logo">✦ 瓜瓜占星</div>
+            <div class="nav-links">
+                <a href="#about">关于瓜瓜</a>
+                <a href="#courses">占星课程</a>
+                <a href="#articles">占星干货</a>
+                <a href="#glowing-planet">发光星球</a>
+            </div>
         </div>
     </nav>
 
@@ -2104,7 +2171,9 @@
                                 <span class="star-icon">✦</span>
                                 <span class="star-icon">✦</span>
                             </div>
-                            <p class="testimonial-text">瓜瓜，昨晚上完第一节占星课，刚浏览完一遍你的课件，我感觉这次三进宫占星应该能坚持下去了哈哈，向你表白一下～首先你提供的学习锦囊特别好，我的记忆力不是特别好，不喜欢死记硬板，前两次的占星课就是那种一上来就是知识点的课程，我学着学着就没有兴趣了。你的课程记忆的内容占比不大，需要在实践中去理解，特别适合我；还有很喜欢你的表达和教学方式，你讲的内容我都能听进去哈哈。</p>
+                            <div class="testimonial-text-container">
+                                <p class="testimonial-text">瓜瓜，昨晚上完第一节占星课，刚浏览完一遍你的课件，我感觉这次三进宫占星应该能坚持下去了哈哈，向你表白一下～首先你提供的学习锦囊特别好，我的记忆力不是特别好，不喜欢死记硬板，前两次的占星课就是那种一上来就是知识点的课程，我学着学着就没有兴趣了。你的课程记忆的内容占比不大，需要在实践中去理解，特别适合我；还有很喜欢你的表达和教学方式，你讲的内容我都能听进去哈哈。</p>
+                            </div>
                         </div>
                     </div>
                     <div class="testimonial-card">
@@ -2116,7 +2185,9 @@
                                 <span class="star-icon">✦</span>
                                 <span class="star-icon">✦</span>
                             </div>
-                            <p class="testimonial-text">我好像从来没有对自己有那么深刻的感知，这种感觉很妙，明明和自己相处了30几年，好像重新认识了自己一样。谢谢你，推着我前进。</p>
+                            <div class="testimonial-text-container">
+                                <p class="testimonial-text">我好像从来没有对自己有那么深刻的感知，这种感觉很妙，明明和自己相处了30几年，好像重新认识了自己一样。谢谢你，推着我前进。</p>
+                            </div>
                         </div>
                     </div>
                     <div class="testimonial-card">
@@ -2128,7 +2199,9 @@
                                 <span class="star-icon">✦</span>
                                 <span class="star-icon">✦</span>
                             </div>
-                            <p class="testimonial-text">瓜瓜你的高阶占星课我每节课起码看两遍，干货太多了，真的超值！</p>
+                            <div class="testimonial-text-container">
+                                <p class="testimonial-text">瓜瓜你的高阶占星课我每节课起码看两遍，干货太多了，真的超值！</p>
+                            </div>
                         </div>
                     </div>
                     <div class="testimonial-card">
@@ -2140,7 +2213,9 @@
                                 <span class="star-icon">✦</span>
                                 <span class="star-icon">✦</span>
                             </div>
-                            <p class="testimonial-text">瓜瓜的古占课氛围超好，干货满满，很多延展性的干货。</p>
+                            <div class="testimonial-text-container">
+                                <p class="testimonial-text">瓜瓜的古占课氛围超好，干货满满，很多延展性的干货。</p>
+                            </div>
                         </div>
                     </div>
                     <div class="testimonial-card">
@@ -2152,7 +2227,9 @@
                                 <span class="star-icon">✦</span>
                                 <span class="star-icon">✦</span>
                             </div>
-                            <p class="testimonial-text">真的有很多很多的收获，当然也特别感谢瓜瓜姐姐，让我了解到还有星盘这么很有意思的根据。</p>
+                            <div class="testimonial-text-container">
+                                <p class="testimonial-text">真的有很多很多的收获，当然也特别感谢瓜瓜姐姐，让我了解到还有星盘这么很有意思的根据。</p>
+                            </div>
                         </div>
                     </div>
                     <div class="testimonial-card">
@@ -2164,7 +2241,9 @@
                                 <span class="star-icon">✦</span>
                                 <span class="star-icon">✦</span>
                             </div>
-                            <p class="testimonial-text">咱们好有学习氛围哦，离开学校11年了，没想到还能这么学术呢。</p>
+                            <div class="testimonial-text-container">
+                                <p class="testimonial-text">咱们好有学习氛围哦，离开学校11年了，没想到还能这么学术呢。</p>
+                            </div>
                         </div>
                     </div>
                     <div class="testimonial-card">
@@ -2176,7 +2255,9 @@
                                 <span class="star-icon">✦</span>
                                 <span class="star-icon">✦</span>
                             </div>
-                            <p class="testimonial-text">瓜瓜老师课讲得很好，我学占星也很快乐，这比我上会计网课开心多了 ：）</p>
+                            <div class="testimonial-text-container">
+                                <p class="testimonial-text">瓜瓜老师课讲得很好，我学占星也很快乐，这比我上会计网课开心多了 ：）</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2225,6 +2306,11 @@
             </a>
         </div>
     </section>
+
+    <!-- 十二星座分隔图片 -->
+    <div class="zodiac-divider">
+        <img src="images/十二星座.svg" alt="十二星座">
+    </div>
 
     <!-- 发光星球 -->
     <section id="glowing-planet" class="section glowing-planet">
