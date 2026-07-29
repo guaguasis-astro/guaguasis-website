@@ -112,24 +112,6 @@
             }
         }
 
-        /* 星星 */
-        .star {
-            position: fixed;
-            background: var(--warm-sand);
-            border-radius: 50%;
-            opacity: 0.3;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .star.twinkle {
-            animation: twinkle 3s ease-in-out infinite;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.2; transform: scale(1); }
-            50% { opacity: 0.6; transform: scale(1.3); }
-        }
 
         /* 导航栏 */
         nav {
@@ -172,6 +154,8 @@
             color: var(--text-mute);
             font-size: 0.9rem;
             transition: color 0.3s;
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            font-weight: 200;
         }
 
         .nav-links a:hover {
@@ -302,11 +286,11 @@
         }
 
         .about-content {
-            max-width: 800px;
+            max-width: 700px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: 1fr 2fr;
-            gap: 4rem;
+            gap: 3rem;
             align-items: start;
         }
 
@@ -342,6 +326,8 @@
         .about-text p {
             color: var(--text-mute);
             margin-bottom: 1.2rem;
+            font-size: 0.95rem;
+            line-height: 1.9;
         }
 
         .about-text a {
@@ -1749,8 +1735,8 @@
 
         .testimonial-card {
             flex-shrink: 0;
-            width: 100%;
-            padding: 0 0.5rem;
+            width: 80%;
+            padding: 0 1rem;
             box-sizing: border-box;
             display: flex;
             justify-content: center;
@@ -1759,22 +1745,21 @@
 
         @media (min-width: 768px) {
             .testimonial-card {
-                width: 50%;
+                width: 60%;
             }
         }
 
         @media (min-width: 1024px) {
             .testimonial-card {
-                width: 33.333%;
+                width: 50%;
             }
         }
 
         .testimonial-content {
             background: rgba(255, 255, 255, 0.7);
-            border-radius: 20px;
-            padding: 1.5rem;
+            border-radius: 30px;
+            padding: 2.5rem 2rem;
             width: 100%;
-            aspect-ratio: 1/1;
             display: flex;
             flex-direction: column;
             position: relative;
@@ -1783,123 +1768,98 @@
 
         /* 莫兰迪色系 */
         .testimonial-content.morandi-1 {
-            background: linear-gradient(135deg, #d4c5b5 0%, #e8ddd1 100%);
+            background: linear-gradient(135deg, #e8ddd1 0%, #f0eae2 100%);
         }
 
         .testimonial-content.morandi-2 {
-            background: linear-gradient(135deg, #c5d4d1 0%, #d9e5e2 100%);
+            background: linear-gradient(135deg, #d9e5e2 0%, #e5efec 100%);
         }
 
         .testimonial-content.morandi-3 {
-            background: linear-gradient(135deg, #d4c5d1 0%, #e8d9e4 100%);
+            background: linear-gradient(135deg, #e8d9e4 0%, #f1e5ec 100%);
         }
 
         .testimonial-content.morandi-4 {
-            background: linear-gradient(135deg, #d5d4c5 0%, #e9e8d8 100%);
+            background: linear-gradient(135deg, #e9e8d8 0%, #f2f1e3 100%);
         }
 
         .testimonial-content.morandi-5 {
-            background: linear-gradient(135deg, #c5cdd4 0%, #d8e1e7 100%);
+            background: linear-gradient(135deg, #d8e1e7 0%, #e4ebf0 100%);
         }
 
         .testimonial-content.morandi-6 {
-            background: linear-gradient(135deg, #d4c9c5 0%, #e9ddd8 100%);
+            background: linear-gradient(135deg, #e9ddd8 0%, #f2e7e3 100%);
         }
 
         .testimonial-content.morandi-7 {
-            background: linear-gradient(135deg, #c9d4c5 0%, #dde8d8 100%);
+            background: linear-gradient(135deg, #dde8d8 0%, #e6efdf 100%);
         }
 
         .testimonial-stars {
             display: flex;
-            gap: 0.3rem;
-            margin-bottom: 1rem;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
             justify-content: center;
         }
 
         .testimonial-stars .star-icon {
-            color: #FFD700;
-            font-size: 1.4rem;
-            text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+            color: #8B7355;
+            font-size: 1.5rem;
         }
 
         .testimonial-text-container {
             flex-grow: 1;
             overflow: hidden;
             position: relative;
+            text-align: center;
         }
 
         .testimonial-text {
             font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
-            font-size: 0.9rem;
-            line-height: 1.8;
+            font-size: 1.1rem;
+            line-height: 1.9;
             color: var(--text-dark);
-            max-height: 100%;
-            overflow-y: auto;
-            padding-right: 4px;
+            font-style: italic;
         }
 
-        .testimonial-text::-webkit-scrollbar {
-            width: 4px;
+        /* 侧边箭头 */
+        .testimonials-slider {
+            position: relative;
         }
 
-        .testimonial-text::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.05);
-            border-radius: 2px;
-        }
-
-        .testimonial-text::-webkit-scrollbar-thumb {
-            background: rgba(0, 0, 0, 0.15);
-            border-radius: 2px;
-        }
-
-        .testimonial-nav {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .testimonial-nav-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid var(--soft-gold);
-            background: var(--cream);
-            color: var(--text-dark);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .testimonial-nav-btn:hover {
-            background: var(--gentle-gold);
-            transform: scale(1.1);
-        }
-
-        .testimonial-dots {
-            display: flex;
-            justify-content: center;
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-
-        .testimonial-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--soft-gold);
+        .testimonial-side-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: #8B7355;
             opacity: 0.4;
             cursor: pointer;
-            transition: all 0.3s ease;
+            z-index: 10;
+            padding: 1rem;
+            transition: opacity 0.3s ease;
+            user-select: none;
         }
 
-        .testimonial-dot.active {
-            opacity: 1;
-            transform: scale(1.2);
+        .testimonial-side-arrow:hover {
+            opacity: 0.7;
+        }
+
+        .testimonial-side-arrow.left {
+            left: 1rem;
+        }
+
+        .testimonial-side-arrow.right {
+            right: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .testimonial-side-arrow.left {
+                left: 3rem;
+            }
+            .testimonial-side-arrow.right {
+                right: 3rem;
+            }
         }
 
         /* 占星干货卡片 */
@@ -1963,19 +1923,45 @@
             border: 1px solid var(--soft-gold);
         }
 
-        /* 十二星座分隔图片 */
-        .zodiac-divider {
+        /* 查看更多文章 */
+        .view-more-articles {
+            margin-top: 3rem;
             text-align: center;
-            padding: 2rem 1rem;
-            background: rgba(249, 241, 215, 0.3);
         }
 
-        .zodiac-divider img {
-            max-width: 600px;
+        .view-more-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: space-between;
             width: 100%;
-            height: auto;
-            display: inline-block;
-            min-height: 50px;
+            max-width: 800px;
+            text-decoration: none;
+            color: var(--text-dark);
+            padding: 1rem 0;
+            border-bottom: 2px solid rgba(139, 115, 85, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .view-more-link:hover {
+            border-bottom-color: var(--gentle-gold);
+        }
+
+        .view-more-text {
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            font-size: 1.8rem;
+            font-weight: 300;
+        }
+
+        .view-more-arrow {
+            font-size: 2rem;
+            color: var(--soft-brown);
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+
+        .view-more-link:hover .view-more-arrow {
+            opacity: 1;
+            transform: translateX(5px);
         }
 
         /* 择地星盘图片确保显示 */
@@ -1996,9 +1982,6 @@
     <div class="paint-blob blob-2"></div>
     <div class="paint-blob blob-3"></div>
 
-    <!-- 星星容器 -->
-    <div id="stars"></div>
-
     <!-- 图片放大遮罩 -->
     <div class="image-overlay" id="imageOverlay"></div>
 
@@ -2007,7 +1990,6 @@
         <div class="nav-container">
             <div class="logo">✦ 瓜瓜占星</div>
             <div class="nav-links">
-                <a href="#about">关于瓜瓜</a>
                 <a href="#courses">占星课程</a>
                 <a href="#articles">占星干货</a>
                 <a href="#glowing-planet">发光星球</a>
@@ -2175,6 +2157,7 @@
         <div class="testimonials-container">
             <div class="section-title">学员反馈</div>
             <div class="testimonials-slider">
+                <div class="testimonial-side-arrow left" id="prevBtn">←</div>
                 <div class="testimonials-track" id="testimonialsTrack">
                     <div class="testimonial-card">
                         <div class="testimonial-content morandi-1">
@@ -2275,11 +2258,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="testimonial-nav">
-                    <button class="testimonial-nav-btn" id="prevBtn">←</button>
-                    <button class="testimonial-nav-btn" id="nextBtn">→</button>
-                </div>
-                <div class="testimonial-dots" id="testimonialDots"></div>
+                <div class="testimonial-side-arrow right" id="nextBtn">→</div>
             </div>
         </div>
     </section>
@@ -2319,12 +2298,13 @@
                 </div>
             </a>
         </div>
+        <div class="view-more-articles">
+            <a href="articles.html" class="view-more-link">
+                <span class="view-more-text">查看更多文章</span>
+                <span class="view-more-arrow">↗</span>
+            </a>
+        </div>
     </section>
-
-    <!-- 十二星座分隔图片 -->
-    <div class="zodiac-divider">
-        <img src="images/十二星座.svg" alt="十二星座">
-    </div>
 
     <!-- 发光星球 -->
     <section id="glowing-planet" class="section glowing-planet">
@@ -2539,23 +2519,6 @@
     </footer>
 
     <script>
-        // 创建星星
-        function createStars() {
-            const container = document.getElementById('stars');
-            const count = 50;
-            for (let i = 0; i < count; i++) {
-                const star = document.createElement('div');
-                star.className = 'star' + (Math.random() > 0.5 ? ' twinkle' : '');
-                star.style.left = Math.random() * 100 + 'vw';
-                star.style.top = Math.random() * 100 + 'vh';
-                star.style.animationDelay = Math.random() * 3 + 's';
-                star.style.width = (Math.random() * 3 + 2) + 'px';
-                star.style.height = star.style.width;
-                container.appendChild(star);
-            }
-        }
-        createStars();
-
         // 图片堆叠放大功能
         const stackedImages = document.querySelectorAll('.stacked-image');
         const overlay = document.getElementById('imageOverlay');
@@ -2595,61 +2558,24 @@
         const track = document.getElementById('testimonialsTrack');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
-        const dotsContainer = document.getElementById('testimonialDots');
         const cards = document.querySelectorAll('.testimonial-card');
 
         let currentIndex = 0;
         let autoplayInterval;
-        let cardsPerView = 1;
-
-        function updateCardsPerView() {
-            if (window.innerWidth >= 1024) {
-                cardsPerView = 3;
-            } else if (window.innerWidth >= 768) {
-                cardsPerView = 2;
-            } else {
-                cardsPerView = 1;
-            }
-            updateSlider();
-            createDots();
-        }
 
         function updateSlider() {
             const cardWidth = cards[0].offsetWidth;
             track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
-            updateDots();
-        }
-
-        function createDots() {
-            dotsContainer.innerHTML = '';
-            const totalSlides = Math.ceil(cards.length - cardsPerView + 1);
-            for (let i = 0; i < totalSlides; i++) {
-                const dot = document.createElement('div');
-                dot.className = 'testimonial-dot' + (i === currentIndex ? ' active' : '');
-                dot.addEventListener('click', () => {
-                    currentIndex = i;
-                    updateSlider();
-                    resetAutoplay();
-                });
-                dotsContainer.appendChild(dot);
-            }
-        }
-
-        function updateDots() {
-            const dots = document.querySelectorAll('.testimonial-dot');
-            dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === currentIndex);
-            });
         }
 
         function nextSlide() {
-            const maxIndex = cards.length - cardsPerView;
+            const maxIndex = cards.length - 1;
             currentIndex = (currentIndex + 1) % (maxIndex + 1);
             updateSlider();
         }
 
         function prevSlide() {
-            const maxIndex = cards.length - cardsPerView;
+            const maxIndex = cards.length - 1;
             currentIndex = (currentIndex - 1 + maxIndex + 1) % (maxIndex + 1);
             updateSlider();
         }
@@ -2692,8 +2618,7 @@
             }
         });
 
-        window.addEventListener('resize', updateCardsPerView);
-        updateCardsPerView();
+        updateSlider();
         startAutoplay();
     </script>
 </body>

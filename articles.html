@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>占星干货 · 所有文章 - 瓜瓜占星</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #FDF8E8;
+            --warm-cream: #FFF8E7;
+            --soft-yellow: #FFEFB8;
+            --soft-gold: #E8D4A8;
+            --gentle-gold: #F5D58F;
+            --warm-sand: #D4C094;
+            --deep-warm: #8B7355;
+            --soft-brown: #A68B6B;
+            --text-dark: #3D382A;
+            --text-mute: #6B6351;
+            --coral: #E8A87C;
+            --rose: #D37D63;
+            --sage: #A8B5A0;
+            --sky: #91B3C4;
+            --lavender: #B89EED;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            max-width: 100vw;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        body {
+            font-family: 'Noto Serif SC', serif;
+            background: linear-gradient(180deg, var(--cream) 0%, #FFFEF7 50%, var(--cream) 100%);
+            color: var(--text-dark);
+            line-height: 1.9;
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
+        }
+
+        /* 流动色块背景 */
+        .paint-blob {
+            position: fixed;
+            border-radius: 50% 40% 60% 50%;
+            filter: blur(40px);
+            opacity: 0.3;
+            pointer-events: none;
+            animation: float 20s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        .blob-1 {
+            width: 400px;
+            height: 400px;
+            top: -100px;
+            right: -100px;
+            background: var(--gentle-gold);
+            animation-delay: 0s;
+        }
+
+        .blob-2 {
+            width: 500px;
+            height: 500px;
+            bottom: -150px;
+            left: -150px;
+            background: var(--coral);
+            animation-delay: -5s;
+            animation-direction: reverse;
+        }
+
+        .blob-3 {
+            width: 300px;
+            height: 300px;
+            top: 40%;
+            left: 10%;
+            background: var(--sage);
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg) scale(1);
+                border-radius: 50% 40% 60% 50%;
+            }
+            25% {
+                transform: translate(20px, -30px) rotate(5deg) scale(1.05);
+                border-radius: 40% 60% 50% 50%;
+            }
+            50% {
+                transform: translate(-10px, 20px) rotate(-3deg) scale(0.98);
+                border-radius: 60% 50% 40% 60%;
+            }
+            75% {
+                transform: translate(-20px, -10px) rotate(3deg) scale(1.02);
+                border-radius: 50% 60% 50% 40%;
+            }
+        }
+
+        /* 导航栏 */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 0.75rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(253, 248, 232, 0.95) 0%, transparent 100%);
+            backdrop-filter: blur(5px);
+        }
+
+        .nav-container {
+            width: 66.666%;
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 1.4rem;
+            letter-spacing: 0.1em;
+            color: var(--text-dark);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-mute);
+            font-size: 0.9rem;
+            transition: color 0.3s;
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            font-weight: 200;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-dark);
+        }
+
+        /* 文章列表页面 */
+        .articles-page {
+            padding: 10rem 2rem 6rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .page-title {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .page-subtitle {
+            font-size: 1rem;
+            color: var(--text-mute);
+        }
+
+        /* 回到主页按钮 */
+        .back-home {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .back-home a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--soft-brown);
+            text-decoration: none;
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-home a:hover {
+            color: var(--deep-warm);
+        }
+
+        /* 文章列表 */
+        .articles-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .article-item {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--soft-gold);
+            transition: all 0.4s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .article-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(232, 212, 168, 0.3);
+        }
+
+        .article-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+            gap: 1rem;
+        }
+
+        .article-item-title {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 1.5rem;
+            color: var(--text-dark);
+        }
+
+        .article-item-icon {
+            font-size: 2.5rem;
+        }
+
+        .article-item-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .article-item-tag {
+            padding: 0.3rem 0.8rem;
+            background: var(--cream);
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: var(--text-mute);
+            border: 1px solid var(--soft-gold);
+        }
+
+        .article-item-desc {
+            font-size: 0.95rem;
+            color: var(--text-mute);
+            line-height: 1.8;
+        }
+
+        /* 页脚 */
+        footer {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-mute);
+            font-size: 0.9rem;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gentle-gold), transparent);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1.2rem;
+                flex-direction: column;
+                gap: 0.8rem;
+                background: rgba(253, 248, 232, 0.98);
+            }
+
+            .nav-container {
+                width: 100%;
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.85rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .articles-page {
+                padding: 8rem 1.2rem 4rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .article-item {
+                padding: 1.5rem;
+            }
+
+            .article-item-title {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .page-title {
+                font-size: 1.7rem;
+            }
+
+            .nav-links {
+                gap: 0.9rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 流动色块 -->
+    <div class="paint-blob blob-1"></div>
+    <div class="paint-blob blob-2"></div>
+    <div class="paint-blob blob-3"></div>
+
+    <!-- 导航栏 -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">✦ 瓜瓜占星</a>
+            <div class="nav-links">
+                <a href="index.html#courses">占星课程</a>
+                <a href="index.html#articles">占星干货</a>
+                <a href="index.html#glowing-planet">发光星球</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 文章列表页面 -->
+    <div class="articles-page">
+        <div class="back-home">
+            <a href="index.html#articles">← 返回主页</a>
+        </div>
+
+        <div class="page-header">
+            <h1 class="page-title">占星干货</h1>
+            <p class="page-subtitle">所有文章集合</p>
+        </div>
+
+        <div class="articles-list">
+            <a href="article-1.html" class="article-item">
+                <div class="article-item-header">
+                    <h2 class="article-item-title">如何解读你的本命盘</h2>
+                    <span class="article-item-icon">✨</span>
+                </div>
+                <div class="article-item-tags">
+                    <span class="article-item-tag">入门</span>
+                    <span class="article-item-tag">本命盘</span>
+                </div>
+                <p class="article-item-desc">本命盘是你出生时天空的星象图，它是你生命的蓝图，记录着你的天赋、挑战和人生课题。这篇文章将带你了解如何开始解读自己的本命盘。</p>
+            </a>
+
+            <a href="article-2.html" class="article-item">
+                <div class="article-item-header">
+                    <h2 class="article-item-title">十二星座的能量特质</h2>
+                    <span class="article-item-icon">🌟</span>
+                </div>
+                <div class="article-item-tags">
+                    <span class="article-item-tag">星座</span>
+                    <span class="article-item-tag">基础知识</span>
+                </div>
+                <p class="article-item-desc">每个星座都有其独特的能量特质。了解十二星座，可以帮助我们更好地理解自己和他人。</p>
+            </a>
+
+            <a href="article-3.html" class="article-item">
+                <div class="article-item-header">
+                    <h2 class="article-item-title">宫位的含义与象征</h2>
+                    <span class="article-item-icon">🪐</span>
+                </div>
+                <div class="article-item-tags">
+                    <span class="article-item-tag">宫位</span>
+                    <span class="article-item-tag">进阶</span>
+                </div>
+                <p class="article-item-desc">十二宫位代表人生的十二个领域，每一个宫位都有其独特的含义和象征。了解宫位可以帮助我们看到能量在哪些生活领域中展现。</p>
+            </a>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>✦ 瓜瓜占星 ✦</p>
+    </footer>
+</body>
+</html>
