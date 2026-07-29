@@ -128,25 +128,17 @@
             backdrop-filter: blur(5px);
         }
 
-        .nav-container {
-            width: 66.666%;
-            max-width: 800px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
         .logo {
             font-family: 'ZCOOL XiaoWei', serif;
             font-size: 1.4rem;
             letter-spacing: 0.1em;
             color: var(--text-dark);
+            text-decoration: none;
         }
 
         .nav-links {
             display: flex;
-            gap: 1rem;
+            gap: 1.5rem;
         }
 
         .nav-links a {
@@ -1314,15 +1306,6 @@
             box-shadow: 0 12px 40px rgba(245, 213, 143, 0.4);
         }
 
-        /* 星座边框 */
-        .zodiac-border {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin: 3rem 0;
-            opacity: 0.3;
-            font-size: 1.2rem;
-        }
 
         /* 页脚 */
         footer {
@@ -1641,7 +1624,7 @@
 
             /* 活动 */
             .activities {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
                 gap: 1rem;
             }
 
@@ -1735,8 +1718,8 @@
 
         .testimonial-card {
             flex-shrink: 0;
-            width: 80%;
-            padding: 0 1rem;
+            width: 70%;
+            padding: 0 0.5rem;
             box-sizing: border-box;
             display: flex;
             justify-content: center;
@@ -1745,25 +1728,27 @@
 
         @media (min-width: 768px) {
             .testimonial-card {
-                width: 60%;
+                width: 55%;
+                padding: 0 1rem;
             }
         }
 
         @media (min-width: 1024px) {
             .testimonial-card {
-                width: 50%;
+                width: 45%;
+                padding: 0 1rem;
             }
         }
 
         .testimonial-content {
             background: rgba(255, 255, 255, 0.7);
             border-radius: 30px;
-            padding: 2.5rem 2rem;
+            padding: 2rem 1.5rem;
             width: 100%;
+            min-height: 280px;
             display: flex;
             flex-direction: column;
             position: relative;
-            overflow: hidden;
         }
 
         /* 莫兰迪色系 */
@@ -1809,15 +1794,31 @@
 
         .testimonial-text-container {
             flex-grow: 1;
-            overflow: hidden;
+            overflow-y: auto;
             position: relative;
             text-align: center;
+            max-height: 180px;
+            padding-right: 5px;
+        }
+
+        .testimonial-text-container::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .testimonial-text-container::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 2px;
+        }
+
+        .testimonial-text-container::-webkit-scrollbar-thumb {
+            background: rgba(139, 115, 85, 0.3);
+            border-radius: 2px;
         }
 
         .testimonial-text {
             font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
-            font-size: 1.1rem;
-            line-height: 1.9;
+            font-size: 0.55rem;
+            line-height: 1.8;
             color: var(--text-dark);
             font-style: italic;
         }
@@ -1948,7 +1949,7 @@
 
         .view-more-text {
             font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
-            font-size: 1.8rem;
+            font-size: 0.6rem;
             font-weight: 300;
         }
 
@@ -1987,13 +1988,11 @@
 
     <!-- 导航栏 -->
     <nav>
-        <div class="nav-container">
-            <div class="logo">✦ 瓜瓜占星</div>
-            <div class="nav-links">
-                <a href="#courses">占星课程</a>
-                <a href="#articles">占星干货</a>
-                <a href="#glowing-planet">发光星球</a>
-            </div>
+        <a href="index.html" class="logo">✦ 瓜瓜占星</a>
+        <div class="nav-links">
+            <a href="#courses">占星课程</a>
+            <a href="#articles">占星干货</a>
+            <a href="#glowing-planet">发光星球</a>
         </div>
     </nav>
 
@@ -2506,10 +2505,6 @@
             </div>
         </div>
 
-        <div class="zodiac-border">
-            <span>♈</span><span>♉</span><span>♊</span><span>♋</span><span>♌</span><span>♍</span>
-            <span>♎</span><span>♏</span><span>♐</span><span>♑</span><span>♒</span><span>♓</span>
-        </div>
     </section>
 
     <!-- 页脚 -->
