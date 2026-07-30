@@ -1705,11 +1705,13 @@
         .testimonials-track {
             display: flex;
             transition: transform 0.5s ease;
+            gap: 1.5rem;
+            padding: 0 1rem;
         }
 
         .testimonial-card {
             flex-shrink: 0;
-            width: 85%;
+            width: calc(100% - 2rem);
             padding: 0;
             box-sizing: border-box;
             display: flex;
@@ -1717,16 +1719,26 @@
             align-items: center;
         }
 
+        @media (min-width: 600px) {
+            .testimonial-card {
+                width: calc(80% - 2rem);
+            }
+        }
+
         @media (min-width: 768px) {
             .testimonial-card {
-                width: 60%;
+                width: calc(60% - 2rem);
                 padding: 0 1rem;
+            }
+            .testimonials-track {
+                gap: 2rem;
+                padding: 0 2rem;
             }
         }
 
         @media (min-width: 1024px) {
             .testimonial-card {
-                width: 50%;
+                width: calc(50% - 2rem);
                 padding: 0 1rem;
             }
         }
@@ -1887,6 +1899,13 @@
             align-items: center;
             justify-content: center;
             font-size: 4rem;
+            overflow: hidden;
+        }
+
+        .article-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .article-content {
@@ -1952,7 +1971,7 @@
 
         .view-more-text {
             font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
-            font-size: 0.6rem;
+            font-size: 1.2rem;
             font-weight: 300;
         }
 
@@ -2287,32 +2306,41 @@
         <div class="section-title">占星干货</div>
         <div class="articles-grid">
             <a href="article-1.html" class="article-card">
-                <div class="article-image">✨</div>
+                <div class="article-image">
+                    <img src="https://mmbiz.qpic.cn/mmbiz_png/ib2p1poQ5qy1LMiaVHfngaMsDLFcGVWbWEpK7pZeRZib1N49xClS2P6ucqT9nOfM730pl7QQ2gGr5oDfjPDzYH1tZsAWMMO2TXZmppKA5icEMlY/640?wx_fmt=png&from=appmsg#imgIndex=0" alt="文章缩略图">
+                </div>
                 <div class="article-content">
-                    <h3 class="article-title">如何解读你的本命盘</h3>
+                    <h3 class="article-title">12上升星座怎么打破诅咒？活出最大的生命潜能（上）</h3>
                     <div class="article-tags">
-                        <span class="article-tag">入门</span>
-                        <span class="article-tag">本命盘</span>
+                        <span class="article-tag">上升星座</span>
+                        <span class="article-tag">业力</span>
+                        <span class="article-tag">成长</span>
                     </div>
                 </div>
             </a>
             <a href="article-2.html" class="article-card">
-                <div class="article-image">🌟</div>
+                <div class="article-image">
+                    <img src="https://mmbiz.qpic.cn/mmbiz_png/ib2p1poQ5qy0zTwL5F22h86jnQtlqzUqGJCoodmrJ0R0MFDaqcAAbo6FwRUZ5nERaEhGSKuc4HgfJ9q9RianwP1v4tNfLlOvxGWJapevJ3EmY/640?wx_fmt=png&from=appmsg#imgIndex=0" alt="文章缩略图">
+                </div>
                 <div class="article-content">
-                    <h3 class="article-title">十二星座的能量特质</h3>
+                    <h3 class="article-title">12上升星座的诅咒，你的一生之敌（下）</h3>
                     <div class="article-tags">
-                        <span class="article-tag">星座</span>
-                        <span class="article-tag">基础知识</span>
+                        <span class="article-tag">上升星座</span>
+                        <span class="article-tag">业力</span>
+                        <span class="article-tag">成长</span>
                     </div>
                 </div>
             </a>
             <a href="article-3.html" class="article-card">
-                <div class="article-image">🪐</div>
+                <div class="article-image">
+                    <img src="https://mmbiz.qpic.cn/sz_mmbiz_jpg/HUQjRqLFFZt9Fs6DtKk7dZcuVUefmGmPTyacyeAKyEbMmXiapvIPGsdjDhLREsQj5CvsInTBzsRSlrGyhiaSibW3Q/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1#imgIndex=0" alt="文章缩略图">
+                </div>
                 <div class="article-content">
-                    <h3 class="article-title">宫位的含义与象征</h3>
+                    <h3 class="article-title">三毛星盘解读：万水千山走遍，然后离开</h3>
                     <div class="article-tags">
-                        <span class="article-tag">宫位</span>
-                        <span class="article-tag">进阶</span>
+                        <span class="article-tag">名人星盘</span>
+                        <span class="article-tag">三毛</span>
+                        <span class="article-tag">星盘解读</span>
                     </div>
                 </div>
             </a>

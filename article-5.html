@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>冥王星的业力与转化，你人生执着的领域（上） - 瓜瓜占星</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #FDF8E8;
+            --warm-cream: #FFF8E7;
+            --soft-yellow: #FFEFB8;
+            --soft-gold: #E8D4A8;
+            --gentle-gold: #F5D58F;
+            --warm-sand: #D4C094;
+            --deep-warm: #8B7355;
+            --soft-brown: #A68B6B;
+            --text-dark: #3D382A;
+            --text-mute: #6B6351;
+            --coral: #E8A87C;
+            --rose: #D37D63;
+            --sage: #A8B5A0;
+            --sky: #91B3C4;
+            --lavender: #B89EED;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            max-width: 100vw;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        body {
+            font-family: 'Noto Serif SC', serif;
+            background: linear-gradient(180deg, var(--cream) 0%, #FFF8E7 50%, var(--cream) 100%);
+            color: var(--text-dark);
+            line-height: 1.9;
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
+        }
+
+        .paint-blob {
+            position: fixed;
+            border-radius: 50% 40% 60% 50%;
+            filter: blur(40px);
+            opacity: 0.3;
+            pointer-events: none;
+            animation: float 20s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        .blob-1 {
+            width: 400px;
+            height: 400px;
+            top: -100px;
+            right: -100px;
+            background: var(--gentle-gold);
+            animation-delay: 0s;
+        }
+
+        .blob-2 {
+            width: 500px;
+            height: 500px;
+            bottom: -150px;
+            left: -150px;
+            background: var(--coral);
+            animation-delay: -5s;
+            animation-direction: reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); border-radius: 50% 40% 60% 50%; }
+            25% { transform: translate(20px, -30px) rotate(5deg) scale(1.05); border-radius: 40% 60% 50% 50%; }
+            50% { transform: translate(-10px, 20px) rotate(-3deg) scale(0.98); border-radius: 60% 50% 40% 60%; }
+            75% { transform: translate(-20px, -10px) rotate(3deg) scale(1.02); border-radius: 50% 60% 50% 40%; }
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 0.75rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(253, 248, 232, 0.95) 0%, transparent 100%);
+            backdrop-filter: blur(5px);
+        }
+
+        .logo {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 1.4rem;
+            letter-spacing: 0.1em;
+            color: var(--text-dark);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-mute);
+            font-size: 0.9rem;
+            transition: color 0.3s;
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            font-weight: 200;
+        }
+
+        .nav-links a:hover { color: var(--text-dark); }
+
+        .article-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 10rem 2rem 6rem;
+        }
+
+        .article-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .article-title {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+            line-height: 1.4;
+        }
+
+        .article-tags {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .article-tag {
+            padding: 0.35rem 1rem;
+            background: var(--cream);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--text-mute);
+            border: 1px solid var(--soft-gold);
+        }
+
+        .article-image-placeholder {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, var(--soft-yellow) 0%, var(--gentle-gold) 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            margin-bottom: 3rem;
+        }
+
+        .article-content {
+            font-size: 1.05rem;
+            line-height: 2;
+            color: var(--text-dark);
+        }
+
+        .article-content p { margin-bottom: 1.5rem; }
+
+        .article-content h2 {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 1.5rem;
+            margin: 2.5rem 0 1rem;
+            color: var(--deep-warm);
+        }
+
+        .article-content h3 {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 1.25rem;
+            margin: 2rem 0 1rem;
+            color: var(--soft-brown);
+        }
+
+        .article-content a { color: var(--deep-warm); text-decoration: underline; }
+
+        .back-home {
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .back-home a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2.5rem;
+            background: var(--gentle-gold);
+            color: var(--deep-warm);
+            text-decoration: none;
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+            border-radius: 30px 12px 30px 12px;
+            transition: all 0.5s ease;
+        }
+
+        .back-home a:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 12px 36px rgba(245, 213, 143, 0.4);
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-mute);
+            font-size: 0.9rem;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gentle-gold), transparent);
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 0.75rem 1.2rem; background: rgba(253, 248, 232, 0.98); }
+            .logo { font-size: 1.1rem; }
+            .nav-links { gap: 0.7rem; font-size: 0.8rem; justify-content: flex-end; }
+            .article-container { padding: 8rem 1.2rem 4rem; }
+            .article-title { font-size: 1.8rem; }
+            .article-image-placeholder { height: 200px; font-size: 3.5rem; }
+            .article-content { font-size: 1rem; }
+        }
+
+        @media (max-width: 400px) {
+            .article-title { font-size: 1.5rem; }
+            .nav-links { gap: 0.9rem; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="paint-blob blob-1"></div>
+    <div class="paint-blob blob-2"></div>
+    <nav>
+        <a href="index.html" class="logo">✦ 瓜瓜占星</a>
+        <div class="nav-links">
+            <a href="index.html#courses">占星课程</a>
+            <a href="index.html#articles">占星干货</a>
+            <a href="index.html#glowing-planet">发光星球</a>
+        </div>
+    </nav>
+    <article class="article-container">
+        <header class="article-header">
+            <h1 class="article-title">冥王星的业力与转化，你人生执着的领域（上）</h1>
+            <div class="article-tags"><span class="article-tag">冥王星</span><span class="article-tag">业力</span><span class="article-tag">转化</span></div>
+        </header>
+        <div class="article-image-placeholder">⭐</div>
+        <div class="article-content"><p>上一篇文章讲了 冥王星1宫7宫人，危险的人际关系也是成长和修行 ，今天接着讲讲其他的宫位。</p>
+<p>星盘当中，冥王是走的最慢的一颗外行星，天王星，海王星，冥王星，这三颗星都是属于外行星。一个人星盘当中的外行星如果跟内行星产生了一些碰撞，就是我们星盘当中的讲的相位，比如说合相、四分、对分相，三王星如果跟我们星盘当中的内行星产生相位的话，都会对我们的性格一些，人生领域产生困难。</p>
+<p>冥王在我们星盘里面，它代表着死亡，也代表着重生，同时它也会代表着一些业力相关的事情，前世今生我们内在非常渴望的东西，但是可能你渴望了你还得不到，你还非常痛苦的东西。</p>
+<p>在紫微斗数里面有一个宫叫做「身宫」，然后在我们的星盘当中，冥王星所在宫位，我认为它和身宫很类似。</p>
+<p>什么叫身宫？一生当中你都会不断的想去做跟身宫相关的事情，或者是说你在身宫/冥王星所在的领域，容易出现一些问题。</p>
+<p>就像谈恋爱一样，求而不得，爱而不得，但是爱而不得的人是不是会让你执念最强，最想要去拿下它。</p>
+<p>冥王星蕴含着一种巨大的暗黑的能量，就是dark force。你在这个领域里面拥有着黑暗的能量，那股能量如果被激发出来的话，它也会是非常有潜力的一个宫位，也会给你带来非常大的“财富”。</p>
+<p>冥王星八宫</p>
+<p>冥王星的力量是有破坏性的，所以他落在了八宫一个跟偏财相关的宫位。可能在理财或者做一些投资的时候，容易有大涨大落的倾向。冥王星落八宫的人，是容易来赚到一些很大的财的，来一些很大的钱，但是这个钱它也是有危险的，比如说他会风险系数很高，又或者是有些做的捞偏门，一些无法放在台面上说的钱。</p>
+<p>所以冥王星八宫人，如果想赚偏财的话，你就是要小心注意一下背后的风险性，要做好风险评估。</p>
+<p>冥王星八宫的人，他们都是非常有企图心、有野心的人。他们是为了达到目的不罢休，甚至不择手段。这里大家不要以为不择手段是贬义词，只能是说是一个非常有恒心，做事情非常有野心，想做就一定要做到的人。</p>
+<p>希特勒，他就是冥王星八宫人，8宫是有能力或者说有可能性去掌控一些非常大的群体，集体力量的，比如说希特勒，他的口才演讲是非常好的。所以他能够通过他的语言去煽动群众信纳粹，但是他把这个力量运用到了不好的地方，那他就会形成对这个世界巨大的毁灭性，破坏力。</p>
+<p>冥王星落八宫的人，能量掌握不好的话，真的会有可能会对他人造成一些破坏。而且冥王星落八宫的人比较强势，因为强势也有可能会影响到家人/生命当中最爱的人，比如说你的伴侣。有可能在家里也是会比较有破坏力的，会脾气比较大，人家看到你的话，会有点被震慑住，害怕你的权威。</p>
+<p>冥王星落八宫的人，内心深处的那股阴暗的能量是很强大的，比如说会防备心，或者是报复心会比较强，就你的内心，他是一定会有阴影的，比如说可能小时候也经历过一些不好的事情， 小时候原生家庭的问题，或者是校园霸凌or X侵之类的一些不好的事情。</p>
+<p>比如说希特勒，他的小时候就是被他爸疯狂家暴的一个小孩，他小时候是被虐待，被家暴长大的。所以我们也能够理解，为什么他长大之后会成为这样的一个暴君，他为什么会想要去消灭犹太人，他的内在愤怒一定是非常的极致的，当他有权力之后，就想施展在别人身上，他会展现出权力的破坏力，他不是去造福人类，要去惩罚破坏，消灭人类。</p>
+<p>冥王星落八宫的人也是天生的心理学家，看问题，感受力，直觉力非常强，会很能够察觉到别人的感受和想法。如果从事疗愈他人的行业，你的治愈能力也是会非常强的。</p>
+<p>因为八宫它本身是带着一些业力，冥王星它也是带着业力，所以冥王星八宫人的业力其实会比较重一些。因为你前世受到了伤害，所以你在这一世想要去掌握权力，想要去当控制他人。我们要学会用觉知，去面对生活，如果不带着觉知的话，很有可能在无意识当中，在重蹈覆辙，别人伤害你，我们又要报复回去。</p>
+<p>如果能在这一世能量给转化成一个更高阶、更高维度的能量，在下一世就会使灵魂得到升华。</p>
+<p>冥王星三宫 冥王星落三宫的人，跟自己的兄弟姐妹关系之间，会有一些不和。小时候可能爸爸妈妈会偏心，你可能天生跟你的兄弟姐妹之间，会容易有些距离感。</p>
+<p>因为三宫他也是跟童年相关的。可能你的童年经历在学习生涯，学习阶段，在学校或者是跟你的这些学校里的朋友同学关系也会有点问题，比如说有些人会遇到校园霸凌，或者学不进去，中途退学换学校，学校的环境是不太友好的。</p>
+<p>一方面是兄弟姐妹不是很友好，另一方面就是小时候的学习的环境或者是学习环境当中的一些人，老师，同学，朋友，不是很友好。</p>
+<p>对于一个小孩子来说，有时候伤害性还是挺大的。小团体里面被孤立或者是老师特别严格羞辱，打压式的教育，其实对一个小孩的影响会很大。</p>
+<p>学习方面也有点吃力的。冥王星3宫人不是那种学习很顺的人，虽然非常用功，但也不一定能取得很好的成绩，反而长大之后会容易在自己的兴趣领域钻研地比较深。</p>
+<p>冥王星落三宫的人，很容易被环境影响。比如说身边的人说了什么，做了什么，影响会比较大，而且冥王星3宫人也会容易焦躁不安，就是想问题，想复杂，想很多，容易焦虑。</p>
+<p>对这样的人来说，选择一个比较简单的环境，人际关系没有那么复杂的环境很重要。以自己的能力和心理成熟度来说不一定能够处理的好，慎选环境，选择人际关系干净点的环境，会省很多的力气。</p>
+<p>其次，冥王星落三宫的人也会对于玄学很感兴趣，可能学一些很小众的学问，比如星盘、塔罗、水晶、草药…一些比较小众的学问，不过现在水晶/玄学也开始越来越大众了。</p>
+<p>冥王星落四宫</p>
+<p>冥王星落四宫的人，我是会替他们感到难过。</p>
+<p>因为我今天刚接的一个咨询，就是冥王星落四宫，他是非常没有安全感的一个人，家里人的状况会比较多。</p>
+<p>比如说家人特别强势，然后跟家里人的关系也非常的不好，爸妈疏于照顾/打压式的教育，爸爸妈妈很强势，控制欲很强。</p>
+<p>冥王星落四宫的人，从原生家庭得到的爱会比较缺乏，但他们又很执着于父母的爱，如果这个执念无法破除，可能一生都会被原生家庭所困。</p>
+<p>冥王星4宫人和家人之间有着很深的业力关系，前世也有可能跟父母的某一方有比较重的业力，尽管痛苦但还是会纠缠在一起。</p>
+<p>因为很缺乏安全感，所以他们会容易有一些心理上的问题，比如说抑郁，双向或者在感情当中的话，会容易控制欲很强，或焦虑型依恋。</p>
+<p>他们的情感情绪的起落非常大，安全感是一个非常重要的人生议题。因为冥王星也蕴含着转化的力量，所以不能只是沉溺于这种对他人的索取，或者是被家人控制的这种情境当中，不能等着爸妈去爱你，等着亲密关系去爱你，你一定要学会自己爱自己。</p>
+<p>你真的学会为自己做主， 为自己负责的时候，才能够拥有真正意义上的安全感。</p>
+<p>另外，冥王星落四宫的人家里人可能会长期生病，要注意一下家里人的身体健康。</p>
+<p>冥王星落二宫</p>
+<p>有人看见自己冥王星落二宫，就会害怕自己没钱。但大可不必担心。</p>
+<p>冥王星落二宫会体现在你在钱方面会欲望很强，八宫是在权力方面欲望很强，在二宫是钱方面欲望很强。</p>
+<p>我有遇过盘主是拆迁户，有非常多房子。但是他依旧非常没有安全感，他总是想赚更多的钱，本来光靠收租自己的生活就已经衣食无忧了，但是他依旧害怕自己没钱，依旧渴望赚更多的钱。</p>
+<p>所以冥王星落二宫的人，不管他有没有钱。他天然都会对钱有一种深层的恐惧，恐惧是从哪里来的呢？它有可能是来自于前世。</p>
+<p>冥王星落在二宫的人，他的前世有可能丧失家产，丧失掉了全部的家产，以至于他经验了一种金钱方面财富上的创伤。所以导致他在这一世有对钱非常执着的倾向，时时刻刻想掌控很多的钱，所以也会有点守财奴。</p>
+<p>转化的方向就是你不需要通过钱来得到安全感。钱它也不是来衡量你是不是一个有价值的人，是不是一个成功人的唯一标准。</p>
+<p>而是通过其他的方面去找到你自己真正的安全和归属，比如说好的人际关系，自己的作品，为这个世界创造了什么样的价值？</p>
+<p>除了存钱，除了就是靠自己去获得更多的财富之外，你应该要从其他的方面去找你的价值在哪里？</p>
+<p>冥王星落二宫的人前世生存能力都很强。</p>
+<p>可能经历过一些金钱上的创伤，一夜之间失去了全部的家产，但是但他依旧活了下来，所以在这一世他们也会有很强的生存能力，比如说抗打击的能力很强，不折不挠的精神。做事情非常的靠谱，非常的有章法，为了得到钱，那他们也可以去做很多，付出很多的辛苦。</p>
+<p>冥王星落二宫有可能会把钱视为这个世界上最重要的唯一标准。但切忌不要太固执，太执着于要钱。</p>
+<p>冥王星落五宫</p>
+<p>冥王星落5宫的人，烂桃花有点多，恋爱很抓马，剧情很多，比如说会容易遇到一些很奇奇怪怪的人、精神操纵你，甚至是做一些很不好的行为，比如说打架，虐待，这种跟暴力相关的精神暴力，肢体暴力。</p>
+<p>要小心恐怖情人！</p>
+<p>冥王星5宫人，这一世的业力在哪呢？很显然是跟恋爱相关。</p>
+<p>在这一世，你是一定要恋爱的一个人，但是你的恋爱偏偏又有点难，会容易遇到一些不太好的人。</p>
+<p>灵魂的目的是需要通过恋爱，比如说贡献付出和一个人的互动，互相给予包括索取爱的这个过程。让我们明白什么叫真正的爱？如果爱是通过他人来实现的话，那这个爱它永远是不安全的，包括有些冥王星落5宫的人，他所尝试的爱的方向也是有点奇怪，比较小众。</p>
+<p>比如说喜欢三角恋或者是出轨，容易有一些不太好的恋爱方式，因为他们内心非常的渴望爱，以至于他们有可能会因为爱，因为喜欢，而放弃掉一些生命当中的道德原则，或他应该坚守的价值观。</p>
+<p>冥王星落5宫，不管是男生女生都是很渴望爱的人，但是要取之有道。</p>
+<p>如果想要得到爱，你要用什么样的方式去得到爱？要做一个自私的人吗？索取的人吗？还是我们可以勇敢的去付出，去冒险，就算受伤之后，也能够坦然接受这样的代价，从而在不断冒险的过程中去明白爱的真谛是什么。</p>
+<p>爱的本质本身如果只是向外求，从他人身上去索取的话，那永远会感觉到自己是不够的、是匮乏的。真正的爱只能从自己身上获得，但是你需要通过这种爱的行为当中受伤，去意识到爱本身它是一个创造性的行为。</p>
+<p>其实5宫它是跟创意，跟小孩，也包括恋爱相关。爱本身它就是一个创造性的行为，你在爱一个人的过程中，你自己也丰富了你对你自己的理解，也丰富了与他人互动，如何去给予，如何去付出的理念。</p></div>
+        <div class="back-home">
+            <a href="index.html#articles">← 返回占星干货</a>
+        </div>
+    </article>
+    <footer><p>✦ 瓜瓜占星 ✦</p></footer>
+</body>
+</html>

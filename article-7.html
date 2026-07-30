@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>冥王星的炼金术魔法，把业力化为愿力 - 瓜瓜占星</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #FDF8E8;
+            --warm-cream: #FFF8E7;
+            --soft-yellow: #FFEFB8;
+            --soft-gold: #E8D4A8;
+            --gentle-gold: #F5D58F;
+            --warm-sand: #D4C094;
+            --deep-warm: #8B7355;
+            --soft-brown: #A68B6B;
+            --text-dark: #3D382A;
+            --text-mute: #6B6351;
+            --coral: #E8A87C;
+            --rose: #D37D63;
+            --sage: #A8B5A0;
+            --sky: #91B3C4;
+            --lavender: #B89EED;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            max-width: 100vw;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        body {
+            font-family: 'Noto Serif SC', serif;
+            background: linear-gradient(180deg, var(--cream) 0%, #FFF8E7 50%, var(--cream) 100%);
+            color: var(--text-dark);
+            line-height: 1.9;
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
+        }
+
+        .paint-blob {
+            position: fixed;
+            border-radius: 50% 40% 60% 50%;
+            filter: blur(40px);
+            opacity: 0.3;
+            pointer-events: none;
+            animation: float 20s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        .blob-1 {
+            width: 400px;
+            height: 400px;
+            top: -100px;
+            right: -100px;
+            background: var(--gentle-gold);
+            animation-delay: 0s;
+        }
+
+        .blob-2 {
+            width: 500px;
+            height: 500px;
+            bottom: -150px;
+            left: -150px;
+            background: var(--coral);
+            animation-delay: -5s;
+            animation-direction: reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); border-radius: 50% 40% 60% 50%; }
+            25% { transform: translate(20px, -30px) rotate(5deg) scale(1.05); border-radius: 40% 60% 50% 50%; }
+            50% { transform: translate(-10px, 20px) rotate(-3deg) scale(0.98); border-radius: 60% 50% 40% 60%; }
+            75% { transform: translate(-20px, -10px) rotate(3deg) scale(1.02); border-radius: 50% 60% 50% 40%; }
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 0.75rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(253, 248, 232, 0.95) 0%, transparent 100%);
+            backdrop-filter: blur(5px);
+        }
+
+        .logo {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 1.4rem;
+            letter-spacing: 0.1em;
+            color: var(--text-dark);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-mute);
+            font-size: 0.9rem;
+            transition: color 0.3s;
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            font-weight: 200;
+        }
+
+        .nav-links a:hover { color: var(--text-dark); }
+
+        .article-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 10rem 2rem 6rem;
+        }
+
+        .article-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .article-title {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+            line-height: 1.4;
+        }
+
+        .article-tags {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .article-tag {
+            padding: 0.35rem 1rem;
+            background: var(--cream);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--text-mute);
+            border: 1px solid var(--soft-gold);
+        }
+
+        .article-image-placeholder {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, var(--soft-yellow) 0%, var(--gentle-gold) 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            margin-bottom: 3rem;
+        }
+
+        .article-content {
+            font-size: 1.05rem;
+            line-height: 2;
+            color: var(--text-dark);
+        }
+
+        .article-content p { margin-bottom: 1.5rem; }
+
+        .article-content h2 {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 1.5rem;
+            margin: 2.5rem 0 1rem;
+            color: var(--deep-warm);
+        }
+
+        .article-content h3 {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 1.25rem;
+            margin: 2rem 0 1rem;
+            color: var(--soft-brown);
+        }
+
+        .article-content a { color: var(--deep-warm); text-decoration: underline; }
+
+        .back-home {
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .back-home a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2.5rem;
+            background: var(--gentle-gold);
+            color: var(--deep-warm);
+            text-decoration: none;
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+            border-radius: 30px 12px 30px 12px;
+            transition: all 0.5s ease;
+        }
+
+        .back-home a:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 12px 36px rgba(245, 213, 143, 0.4);
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-mute);
+            font-size: 0.9rem;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gentle-gold), transparent);
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 0.75rem 1.2rem; background: rgba(253, 248, 232, 0.98); }
+            .logo { font-size: 1.1rem; }
+            .nav-links { gap: 0.7rem; font-size: 0.8rem; justify-content: flex-end; }
+            .article-container { padding: 8rem 1.2rem 4rem; }
+            .article-title { font-size: 1.8rem; }
+            .article-image-placeholder { height: 200px; font-size: 3.5rem; }
+            .article-content { font-size: 1rem; }
+        }
+
+        @media (max-width: 400px) {
+            .article-title { font-size: 1.5rem; }
+            .nav-links { gap: 0.9rem; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="paint-blob blob-1"></div>
+    <div class="paint-blob blob-2"></div>
+    <nav>
+        <a href="index.html" class="logo">✦ 瓜瓜占星</a>
+        <div class="nav-links">
+            <a href="index.html#courses">占星课程</a>
+            <a href="index.html#articles">占星干货</a>
+            <a href="index.html#glowing-planet">发光星球</a>
+        </div>
+    </nav>
+    <article class="article-container">
+        <header class="article-header">
+            <h1 class="article-title">冥王星的炼金术魔法，把业力化为愿力</h1>
+            <div class="article-tags"><span class="article-tag">冥王星</span><span class="article-tag">业力</span><span class="article-tag">愿力</span></div>
+        </header>
+        <div class="article-image-placeholder">🌙</div>
+        <div class="article-content"><p>作为一个占星师，常常要接触大量的盘主。大多数人都带着问题而来——事业如何？这个人合不合适？我什么时候运气会变好？</p>
+<p>这些世俗层面的问题，用星盘来看并不难，但难的是很多人无法理解到——自己在无意识中走向了自己的命运。</p>
+<p>就像我们今天因为喝了冰水肚子疼，到底是因为喝了冰水肚子疼，还是因为我们想要肚子疼而喝了冰水？</p>
+<p>如果我们意识不到自己的潜意识在牵着我们生活，就会被潜意识所掌控，而我们就会称之为命运。</p>
+<p>冥王星在星盘中是一颗非常“重”的业力之星，它虽然体积小，但无论对个人还是对社会来说，影响都非常深远，甚至是一种连根拔起的毁灭性的影响。</p>
+<p>比如我星盘中的月亮被冥王星冲到，这颗月亮-母亲，成为了我众多创伤的来源，但与此同时我的妈妈本身也是这颗冥王星。</p>
+<p>控制、被母亲家暴、死亡（我很小就经历了母亲重病推进ICU抢救的情境）、阴影、吞噬、情感隔离…</p>
+<p>我的生命常常笼罩在冥王星的阴影下，以至于小学时的我还考虑过自杀，如果没有人爱我，连我最爱的母亲都不爱我，那我存在的价值是什么？</p>
+<p>后来勉强长大后，又无意识中和各种男人重复体验虐恋/被抛弃的关系，一次次重复小时候为了惩罚我而抛弃我冷暴力我的场景。</p>
+<p>我也不知道自己怎么了，我以为那是我的命。</p>
+<p>> 曾经看到一段话说： > > 当你面对一件事情时，按照你过往的性格和逻辑会做出的行为，这个就是命。</p>
+<p>当我们对于命运没有觉知时，就会在无意识的状态下渴求那些让我们痛苦的关系、人、事。</p>
+<h2>冥王星的业力本质</h2>
+<p>冥王星为何是一种业力？这个问题我也研究了很久，翻完了整本《冥王星》的书加上看了上千张盘后，我渐渐意识到冥王星不是“控制和死亡”这么简单。</p>
+<p>作为「不达本质不罢休」的月冥人，冥王星的外在表现是控制，但内在的原因其实是对安全感的极端渴求和一种对自身存在的焦虑。</p>
+<p>比如月冥人的妈妈对小孩控制欲很强，本质是说“月冥的妈妈太害怕小孩不像自己，于是用尽千方百计让小孩成为自己（成为那个悲惨的自己）——手段不限于软硬兼施、精神操纵。”</p>
+<p>如果说土星的业力来自于对自己的负面看法，那么冥王星的负面业力则在于 ==「因为过于在乎反而失去」。==</p>
+<p>就像我们喜欢一个人，如果那份喜欢超越了对自己的喜欢，那么我们的行为就会因为过度小心而变得尴尬窘迫甚至走向极端行为，在真正该表现的时候发挥失常，最终失手。</p>
+<p>过度在乎，是内心不相信命运的安排所以不敢放手臣服。《与神对话》里说：过度在乎一个人是失去一个人最快的方式。</p>
+<p>**我们无法实现我们自己都不相信的事情，这就是冥王星的残酷。**</p>
+<p>> 我的占星课上对冥王星的总结</p>
+<h2>作为人的烦恼中有哪些是业力的成分？</h2>
+<p>关于业力是什么， **《避免业力》里总结说：业力就是与物质层面的低频能量纠缠。**</p>
+<p>因为我们每个人除了肉身实体之外，还有灵魂，但如果太在乎物质世界的事物，就会偏离灵魂的课题。即使我们需要物质，我们也可以选择不被物质牵着走。</p>
+<p>钱/关系/体验本质上是帮助我们完成灵魂的功课，让我们在世俗中看见“真我”，即佛家讲的借假修真，外部世界是为了完成内部世界的转化。</p>
+<p>但是很多人在无意识的情况下，是跟着业力走的，以至于产生了更多的“业”。</p>
+<p>比如贪嗔痴慢疑，这些负面的执着、贪婪、恐惧、怀疑、傲慢都在无形中让我们距离自己的精神本质越来越远。</p>
+<p>比如希特勒冥王星落8宫，代表对权力的极致渴望，也因为他小的时候被父亲残忍虐待，以致于长大后他发挥出冥王8宫的阴暗业力，成为了一个暴君，施害于他人，剥夺犹太人的生存权力去证明自己的存在价值。</p>
+<p>我们是没办法对宇宙说谎的，不管我们表面多么伟光正、大公无私，但如果内心藏着这些负面的动机，那么我们产生的仍然是负面的业力。</p>
+<p>当我们假借爱的名义，去控制别人时，我们是让别人为自己的自私服务、而非真诚地为别人好；</p>
+<p>我们表面上为人服务，实际是去剥削别人时，我们是把别人当作工具，而无视了人的生命价值；</p>
+<p>当我们因为恐惧自我压抑限制，不活出自己时，我们是主动放弃了自己的成长潜能，企图不面对困难，是对自己灵魂的惩罚和背叛。</p>
+<p>每一次我们对自己说：我不能、我不可以、我害怕时。都是让那个低频的自己来做自己生命的代表，而忘记了自己的真实身份——爱。</p>
+<p>我们用恐惧代表自己，不敢发自内心相信——即使痛苦，自己也并非毫无选择，自己仍然是有力量的。在阴暗的通道尽头，还是有神性的光亮在召唤着自己。</p>
+<p>在课上我说，治愈的关键一步是“要认识”，要认识自己星盘里的那颗冥王星，叫出它的名字，承认自己无意识中在被业力牵引。</p>
+<p>《没关系，是爱情啊》这部讲心理的韩剧里有一个重要的情节，男主长期有精神分裂/幻觉，但是当他认出自己长期在自己身边的那个男孩--江宇其实是 **想要保护的自己** 时。他长期压抑心底的创伤才被认出来，于是和自己幻视男孩合二为一，走出精神幻觉。</p>
+<p>> 看到这里爆哭</p>
+<h2>怎么不跟着业力走，而是跟着愿力走？</h2>
+<p>占星对我来说是一种英雄主义的实践，你观测到了命运，但你也毅然决然地接受它面对它。</p>
+<p>带着觉知，我们才可以尽可能避免掉入 ==低频业力的陷阱== ，而是让自己的神性带领自己，去做那个符合更大愿景的选择。</p>
+<p>海伦凯勒说：“比失明更悲惨的是，有视力但却没有vision（愿景）的人。”</p>
+<p>愿力和业力的本质不同在于，愿力是用爱在实践对自己的爱，对他人的爱，对宇宙的爱。</p>
+<p>而业力是为了躲避困难、挑战、痛苦，出自恐惧而行动、抓取。照顾不了自己的人，也照顾不了其他人，反而会把他人当作满足自己自私目的的手段。</p>
+<p>爱也绝不是当作牺牲品，做任人宰割的羔羊。</p>
+<p>如果我们以“爱”之名，允许他人伤害自己，那也不是爱，因为爱的第一要务是先爱自己，如果我们爱别人超过爱自己，这也是因为我们的匮乏，害怕不被爱，于是用讨好或自我感动的方式去渴求别人对我们的爱。</p>
+<p>“在你能表达不爱之前，你无法表达爱。”爱不仅意味着付出/给予，也意味着建立边界和拒绝。</p>
+<p>如果我们对某人某事有执着，那我们可以问问自己“我执着的是什么？”</p>
+<p>我们对金钱执着，以及很多的人即使有钱，但依旧为钱每天焦虑，过度追求那个数字的目标，但忘了问自己——我要赚更多的金钱为的是什么？</p>
+<p>是安全感吗？是让别人认可吗？还是一种 **像公牛追逐红布的无意识强迫行为？**</p>
+<p>如果没有安全感，那么我们的目标就不应该是为了那个数字，而是重新去定义“安全感是什么？”</p>
+<p>真正的安全感来自对自己的价值无条件认可，即使目前的经济状况没那么好，但也不因此而轻易否定自己，而是向世界给出自己的价值，抱着让世界接收到自己的爱的发心，真诚地服务别人，给出的价值也一定能够得到经济回报。</p>
+<p>==如果离不开某人，那问问自己“自己离不开他的什么？”==</p>
+<p>如果我们仅仅是因为想要有人的陪伴才能感到幸福，那这样的幸福也是摇摇欲坠的，一个人无法通过别人得到真正的长久的幸福，幸福来自于对幸福的感受力和对自己无条件的爱与关注。</p>
+<p>当我们要拥有别人才能拥有幸福，这也是物质层面的业力纠缠，离不开别人，并非爱别人，而是对他人肉体在场的需求。</p>
+<p>《如何为爱立界限》这本书里说：“为了让别人喜欢自己而付出，只会给我们带来怨恨，这与真心的慷慨付出是有区别的。”</p>
+<p>只有我们能够给出不执着的爱，这种爱对我们自身、对他人才是真正有益的。</p>
+<p>冥王星的力量是复杂、深沉、甚至是充满创伤的， 很多时候命运的遭遇，也不是我们能控制的，但我们可以做的是不做一个受害者，主动承担起自己的那一份责任。</p>
+<p>如果此刻我痛苦，痛苦也是我自己选的，我离不开他我很痛苦，这份痛苦我为自己负责，我主动承担。直到积累好了勇气，再做出决定离开也可以。</p>
+<p>但如果一味抱怨、逃避，不断重复强调自己受害者的身份，那冥王星的碾压也是极端无情的。</p>
+<p>**它会粉碎我们所有的希望和幻想，直到分崩离析、失控的现实摆在我们面前，直到我们愿意抬头面对，告诉它“我准备好了面对这一切。”**</p></div>
+        <div class="back-home">
+            <a href="index.html#articles">← 返回占星干货</a>
+        </div>
+    </article>
+    <footer><p>✦ 瓜瓜占星 ✦</p></footer>
+</body>
+</html>

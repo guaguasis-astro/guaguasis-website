@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>冥王星1宫7宫人，危险的人际关系也是成长和修行 - 瓜瓜占星</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #FDF8E8;
+            --warm-cream: #FFF8E7;
+            --soft-yellow: #FFEFB8;
+            --soft-gold: #E8D4A8;
+            --gentle-gold: #F5D58F;
+            --warm-sand: #D4C094;
+            --deep-warm: #8B7355;
+            --soft-brown: #A68B6B;
+            --text-dark: #3D382A;
+            --text-mute: #6B6351;
+            --coral: #E8A87C;
+            --rose: #D37D63;
+            --sage: #A8B5A0;
+            --sky: #91B3C4;
+            --lavender: #B89EED;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            max-width: 100vw;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        body {
+            font-family: 'Noto Serif SC', serif;
+            background: linear-gradient(180deg, var(--cream) 0%, #FFF8E7 50%, var(--cream) 100%);
+            color: var(--text-dark);
+            line-height: 1.9;
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
+        }
+
+        .paint-blob {
+            position: fixed;
+            border-radius: 50% 40% 60% 50%;
+            filter: blur(40px);
+            opacity: 0.3;
+            pointer-events: none;
+            animation: float 20s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        .blob-1 {
+            width: 400px;
+            height: 400px;
+            top: -100px;
+            right: -100px;
+            background: var(--gentle-gold);
+            animation-delay: 0s;
+        }
+
+        .blob-2 {
+            width: 500px;
+            height: 500px;
+            bottom: -150px;
+            left: -150px;
+            background: var(--coral);
+            animation-delay: -5s;
+            animation-direction: reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); border-radius: 50% 40% 60% 50%; }
+            25% { transform: translate(20px, -30px) rotate(5deg) scale(1.05); border-radius: 40% 60% 50% 50%; }
+            50% { transform: translate(-10px, 20px) rotate(-3deg) scale(0.98); border-radius: 60% 50% 40% 60%; }
+            75% { transform: translate(-20px, -10px) rotate(3deg) scale(1.02); border-radius: 50% 60% 50% 40%; }
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 0.75rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(253, 248, 232, 0.95) 0%, transparent 100%);
+            backdrop-filter: blur(5px);
+        }
+
+        .logo {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 1.4rem;
+            letter-spacing: 0.1em;
+            color: var(--text-dark);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-mute);
+            font-size: 0.9rem;
+            transition: color 0.3s;
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            font-weight: 200;
+        }
+
+        .nav-links a:hover { color: var(--text-dark); }
+
+        .article-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 10rem 2rem 6rem;
+        }
+
+        .article-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .article-title {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+            line-height: 1.4;
+        }
+
+        .article-tags {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .article-tag {
+            padding: 0.35rem 1rem;
+            background: var(--cream);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--text-mute);
+            border: 1px solid var(--soft-gold);
+        }
+
+        .article-image-placeholder {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, var(--soft-yellow) 0%, var(--gentle-gold) 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            margin-bottom: 3rem;
+        }
+
+        .article-content {
+            font-size: 1.05rem;
+            line-height: 2;
+            color: var(--text-dark);
+        }
+
+        .article-content p { margin-bottom: 1.5rem; }
+
+        .article-content h2 {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 1.5rem;
+            margin: 2.5rem 0 1rem;
+            color: var(--deep-warm);
+        }
+
+        .article-content h3 {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 1.25rem;
+            margin: 2rem 0 1rem;
+            color: var(--soft-brown);
+        }
+
+        .article-content a { color: var(--deep-warm); text-decoration: underline; }
+
+        .back-home {
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .back-home a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2.5rem;
+            background: var(--gentle-gold);
+            color: var(--deep-warm);
+            text-decoration: none;
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+            border-radius: 30px 12px 30px 12px;
+            transition: all 0.5s ease;
+        }
+
+        .back-home a:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 12px 36px rgba(245, 213, 143, 0.4);
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-mute);
+            font-size: 0.9rem;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gentle-gold), transparent);
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 0.75rem 1.2rem; background: rgba(253, 248, 232, 0.98); }
+            .logo { font-size: 1.1rem; }
+            .nav-links { gap: 0.7rem; font-size: 0.8rem; justify-content: flex-end; }
+            .article-container { padding: 8rem 1.2rem 4rem; }
+            .article-title { font-size: 1.8rem; }
+            .article-image-placeholder { height: 200px; font-size: 3.5rem; }
+            .article-content { font-size: 1rem; }
+        }
+
+        @media (max-width: 400px) {
+            .article-title { font-size: 1.5rem; }
+            .nav-links { gap: 0.9rem; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="paint-blob blob-1"></div>
+    <div class="paint-blob blob-2"></div>
+    <nav>
+        <a href="index.html" class="logo">✦ 瓜瓜占星</a>
+        <div class="nav-links">
+            <a href="index.html#courses">占星课程</a>
+            <a href="index.html#articles">占星干货</a>
+            <a href="index.html#glowing-planet">发光星球</a>
+        </div>
+    </nav>
+    <article class="article-container">
+        <header class="article-header">
+            <h1 class="article-title">冥王星1宫7宫人，危险的人际关系也是成长和修行</h1>
+            <div class="article-tags"><span class="article-tag">冥王星</span><span class="article-tag">宫位</span><span class="article-tag">关系</span></div>
+        </header>
+        <div class="article-image-placeholder">💫</div>
+        <div class="article-content"><p>“为了真实发现另一个人，更确切地说，为了消除幻觉。消除我对他存在的不合理歪曲印象，我必须客观认识他和我自己。只有客观认识一个人，才能在爱的行为中认识其最本质的东西。”</p>
+<p>一宫和七宫对于一个人来说，非常重要，并且在古典占星中，1/7宫都是强而有力的宫位，因为一宫和七宫都代表着我们与他人之间的关系，特别是在非常紧密的一对一关系当中。</p>
+<p>冥王星落在一宫跟七宫，显得更加严肃、深刻和重要。</p>
+<p>比如我们作为咨询师和客户的一对一咨询，又或是我们与伴侣的一对一亲密关系，还有我们和合伙人签合同之间的一对一关系，通通都是跟一宫和七宫相关。</p>
+<p>我们常常会认为七宫跟关系相关，但一宫也是跟关系相关的，因为一宫代表着自我，你如何看待自己、如何对待自己，往往你也会用什么样的方式去对待别人。</p>
+<p>比如一个日常生活中对自己很严厉的人，也会对别人有同样的高要求和严厉。 一个对自己很宽容、很有松弛感的人，那他给别人传递出来的感觉，对待他人的方式，往往也是比较随性、自然的。</p>
+<p>说到冥王星落一宫或者是七宫，往往我们要看两个非常重要的虚点，一个是上升，一个是下降。</p>
+<p>上升是根据我们出生的年月时确定的上升点，它相当于我们生命的起点。关于上升12星座我也有出过节目讲，大家可以去听我的播客（爱的表达式）。</p>
+<p>上升的对面就是下降点，上升跟下降是一条直线，代表着天平的两端。比如说上升在摩羯座，下降就一定在巨蟹座。</p>
+<p>因为摩羯跟巨蟹是对宫，一宫跟七宫也是对宫。如果一个人的冥王星不仅是落在一宫，他还跟上升点合得很近，或者是他的冥王星落在十二宫，但是他也跟上升点很近，代表着这个人的出生，他的童年一定会有着一些冥王星所带来的气质，或者是冥王般的遭遇。</p>
+<p>冥王星象征着死亡，也象征着重生。</p>
+<p>那么一个人，如果他冥王星跟上升靠得很近的话，往往他的出生会有一些死亡的气息，比如说这个人，他是被剖腹产剖出来的，他是一个早产儿或者是妈妈在怀他的期间可能有经历过一些不太好的事情。</p>
+<p>我有接触过一些冥王星和上升点合相的姐妹，他们的出生确实会有点曲折。</p>
+<p>比如一个姐妹，她是被剖腹产出生的，但是医生误判的，医生以为他的脐带缠到了他的脑袋，所以决定就是要剖腹产，结果剖出来的时候发现脐带并没有缠着脑袋， 所以被莫名其妙地剖腹产出来了。</p>
+<p>还有人说自己妈妈生自己时非常痛苦，遭受了非常大的磨难，出生过程非常漫长，妈妈的感受也非常痛苦。</p>
+<p>还有被设计剖腹产的情况，比如有些人为了给小孩挑一个好的时间，会设定在几点几分把小孩剖出来。我遇到过一个比较极端的案例，因为这个小孩的外婆控制欲很强，强到要安排外孙与自己的出生日期一模一样，比如外婆是3月1号出生，她要把孙子也安排在3月1号那天出生，而且这不是妈妈安排的，而是外婆安排的。</p>
+<p>所以说冥王星合上升点的人，生命中往往会有一些非常强势的角色在身边，比如这个外婆，又或者是自己的妈妈，通常是女性角色。这种强势背后，其实代表着一种控制，或者是身边人把他们的不安全感、不安投射到了这个小孩身上，以至于这个小孩在一种相对来说比较紧张、紧绷和窒息的环境下长大。</p>
+<p>这种情况跟上升双鱼很像，上升双鱼的人往往生长在非常强势的家庭。</p>
+<p>双鱼代表的是一种无我，听从别人的安排，无所谓，把自我的意志给抽掉了。</p>
+<p>一个小孩为什么会长成上升双鱼，往往是因为他的原生家庭当中可能父母有一方或是双方都非常强势，父母之间争吵非常剧烈，甚至是离婚。以至于这个小孩从小到大就要当一个乖小孩，不想给爸妈添麻烦，也可能反抗或斗争没有意义，爸妈也不会听他的想法和意见。</p>
+<p>所以上升双鱼的小孩成长在一个可能把自己隐藏起来的童年。</p>
+<p>冥王星合上升点的小孩，往往也会有类似的特质，比如不太愿意去展现自己，因为身边的人太强势了，或者表达、展现自己时会感觉到很强烈的羞耻心，会脸红。 他会想把自己隐藏起来。</p>
+<p>而且不管是冥王星合到上升点还是下降点，都跟权力斗争相关。</p>
+<p>很有可能你会在亲密关系当中，或者是合伙关系当中，跟客户之间的一对一关系当中，面临到一种权力的挑战。</p>
+<p>要么就是你非常想要去掌控对方，要么对方想要去掌控你和利用你。所以人际关系对于冥王星落一宫和七宫以及和上升或者是合下降的人来说，都是一个非常重大的人生考验。</p>
+<p>冥王星所代表的也是「我执着」，我执着于什么？</p>
+<p>冥王星落一宫的人可能想隐藏自己，不敢与他人进行亲密、近距离的接触。但他们也执着于做自己，只是做自己的方式可能有些阴暗、阴沉。例如，他们不想暴露真正的自己，担心受到评判或被别人看到，从而感觉危险，因此隐藏真实部分。他们也容易质疑别人，对别人的身份产生怀疑。</p>
+<p>他们会对真实自我产生质疑，觉得别人说的话不可信、要打折扣。他们也容易起疑心、多疑、敏感，但很多时候这种心理活动被压抑在心里，不一定会展示出来。</p>
+<p>然而，他们的隐性攻击性或被动攻击性一定会让对方感受到，有时与冥王星一宫的人接触会感觉有些压力。但并非所有冥王星一宫的人都会这样，只是如果修炼程度不够，有时会呈现防备心重、气质阴沉的特点，对很多事情不会敞开聊，而是用反问的方式询问对方，这会让对方感到不舒服。</p>
+<p>因此，人际关系对他们来说是个挑战。但同时，他们也有深刻的洞察力和同理心。如果能卸下自我防御机制，对世界和他人多一些信任，他们也能成为很好的倾听者或疗愈师，给别人提供力量。</p>
+<p>但在真正处理好与他人的关系之前，要先处理好与自己的关系。</p>
+<p>如果对自己不接纳、有质疑，那么看待世界的眼光也会是质疑的，会觉得大家都不可信、都会伤害自己，因此要防备、要包裹自己。这是因为他们出生时或童年时经历过出生创伤、童年创伤，所以对世界有这样的防备心，不敢真实暴露自己。</p>
+<p>但千万不要让过去的经历和创伤成为限制自己的枷锁。因为当你封闭自己时，世界也会对你封闭，很可能不知不觉间错失很多与他人建立美好关系的机会。</p>
+<p>如果冥王星一宫的人想与人深交，那么一定要先处理好自己与自己的关系。因为很可能在无意识中，一是伤害别人，二是伤害自己。你在防备别人时，别人其实也会防备你。 当你对这个世界投射恐惧和不信任时，别人也不会对你产生信任，可能会带着有色眼镜看待你。</p>
+<p>有一句话叫做境随心转，你看到的世界环境会随着你的心境转换而发生改变。如果你的心态变得更加轻盈、洒脱、敞开，那么你会看到更多的色彩，而非一直处于灰色基调。</p>
+<p>在亲密关系当中，冥王星一宫和七宫的人都要小心遇到操控型伴侣，PUA、gaslighting这种，你的伴侣可能会看到你的敏感和脆弱点，以此作为拿捏你的手段。</p>
+<p>所以对于冥王一宫和七宫的人来说，与什么样的人建立亲密关系很重要。</p>
+<p>如果你遇到不好的人，把真心交付给他，可能会成为受害者。在关系中受伤后，你会越发想要封闭自己，不愿与别人打交道，这样就陷入了一个死循环。但如果你遇到真诚、愿意对你敞开的人，你也要相应地向对方敞开。</p>
+<p>冥王星一宫的人防备心会比较重，他们会敏感地感觉到你是否对他们有所图，是否有恶意，是否在贬低他们。当然，有些可能是主观臆断，有些也可能是对方真的在贬低你、有所图。但冥王星一宫的人看待世界的眼光比较阴暗，有点像天蝎座，所以他们可能会因为过度的自我封闭、自我保护和防备心而把别人拒之门外。</p>
+<p>当发生冲突时，他们会有一些回避的倾向，不解决问题，选择逃避，不说话，也不把问题放在台面上沟通。</p>
+<p>很多问题可能停留在脑海当中，进行臆断，没有与真实的世界产生碰撞和链接，以至于可能看到的世界和自己都是扭曲的。</p>
+<p>所以冥王星一宫的人会执着于做自己，但做自己的方式可能偏激，缺乏客观性。当然，做自己本身是一件很主观的事情，每个人所认为的自己想成为的自己都是不一样的。虽然做自己是主观的，但同时也应该带着一些理性和客观。</p>
+<p>在与这个世界多种多样的人打交道的过程中，包括经历和受伤的过程中，你可能会发现一个不一样的自己。比如我以前是一个不会品尝咖啡的人，渐渐地随着喝咖啡的次数越来越多，我竟然爱上了喝咖啡。如果是以前，我肯定会说我不喜欢喝咖啡，但现在我完全变成了另外一个人。</p>
+<p>所以冥王星一宫的人应该保持内心的开放性，勇于去尝试，不要让防备心阻挡你去与真实的世界链接，去与他人打交道。</p>
+<p>冥王星落在七宫或者是合下降点的人，他们不可避免地会与他人产生权力斗争。</p>
+<p>我今天才刚看到一个片段，是关于《妻子的浪漫旅行》中的戚薇和李承旭，戚薇性格强势，李承旭则是温柔的暖男，擅长给予情绪价值。在节目片段中，戚薇对数字7很敏感，比如看到酒店门口有7字，她会指着它。当时李承旭作为导游，因需照顾众人而有些紧张，未注意到戚薇的举动。 戚薇连续指着7字三次，李承旭因关注他人他事而未回应。</p>
+<p>回到酒店后，戚薇生气质问，指出自己指了7字三次，李承旭却未看见，并询问他是否因压力太大才未注意。虽然戚薇的表达方式还算替对方着想，但在这个情境中，她认为自己被忽视的需求很重要，表现出一定的压迫感。</p>
+<p>有人评价戚薇像情绪上的巨婴，但我认为这并非完全如此，这个片段很好地展示了在关系中或多或少会有权力斗争和不平衡。关系并非完全对等，而是动态平衡的艺术，有时一人处于高位，另一人多付出，但总体上付出程度相对平衡，不过中间确实会有权力斗争的插曲，比如饮食选择上的分歧。</p>
+<p>若一人愿意听从另一人的选择，就相当于让渡了部分权利；或者一人希望对方无条件包容、哄自己，这同样是一种权利。说白了，这就是权利。</p>
+<p>当然，我并非提倡在关系中一直委曲求全。我们愿意让渡多少权利，也要看对方愿意为我们让渡多少权利，而不是一直让自己处于下风，被别人操纵或利用。</p>
+<p>冥王星合下降或落七宫的人，容易在关系中让渡权力。 你可能会容易处于一种被拿捏、被压榨的境地，很多时候可能会忍气吞声，或遇到问题情绪被压抑。但也有另一种情况，你可能不会把权利给对方，而是紧紧掌控在自己手中，完全没有合作意识，或者很自私地把别人当成工具人，具有天平两端这种极端的倾向。</p>
+<p>但任何一种倾向都不助于我们真正建构一段好的关系。</p>
+<p>解读星盘时，若看到某人冥王星落七宫，可推演其婚姻可能有问题，容易二婚。我曾看过一个合盘，女生和男生的冥王星都在七宫，我问他们是否都离过婚，对方回答是，且现在在交往。</p>
+<p>冥王星落七宫的人婚姻关系易有问题，但并非一定会离婚。很多姐妹会有这样的恐惧。我刚学星盘时也有这样的顾虑，如冥王星落五宫会被视为渣男，落七宫则可能二婚，这虽有一定依据，但并非纯粹吓人，我们需要理解其背后的原因，要理解推论背后的原因。</p>
+<p>冥王星落七宫的人可能掌控权力或让渡权力，易在权力关系中失衡。这需要我们有情商地处理情感关系，同时不让自己处于下风，这需要艺术和智慧。因此，冥王星落七宫的人若想婚姻幸福，不太建议早婚，因为早婚时智慧往往不足。</p>
+<p>早婚者可能连自己都未琢磨清楚，更谈不上处理与他人之间的关系。如果恋爱脑早婚，将精神寄托于他人，可能会因婚姻误事，比如放弃自身事业发展，过早生育等。 因小孩而捆住自己的人生。</p>
+<p>一个人的认知、选择和看问题视角都很重要。不要因为偷懒想早婚，从而找人搭子、饭票或同居室友分担房租，这种偷懒思维不会带来人生幸福。</p>
+<p>对于冥王星落七宫，晚婚是很好的选择。</p>
+<p>多经历不同恋爱关系，与不同人打交道，提升情商和处理关系问题的智慧后，再挑人结婚会更稳妥。并非冥王星落七宫就一定会二婚，只是存在这样的几率。意识到问题后，我们才有能力规避。</p>
+<p>冥王星落七宫的人，其冥王特质可能体现在对方身上，如对方可能从事医疗相关行业，如心理咨询师、医生、护士等。</p>
+<p>无论是冥王一宫还是七宫，关系都极为重要。但此关系颇具挑战性，需通过关系认识自己，同时不能因关系而迷失自我，比如恋爱脑，遇到强势对象，被剥削、困住、控制。</p>
+<p>比如，我遇到一些姐妹，与对方在一起三、七甚至十年，对方却不结婚，总是拖着。两人因结婚的事多次争吵，女生希望结婚，但对方一直不给出明确拒绝或承诺，只说现在结不了。这可能是对方在骑驴找马，或恐婚，此时就需要自己有判断力。</p>
+<p>我们不必一直等待对方给出合理解释，很可能任何理由都是虚伪的。此时需自己给自己答案，明确自己想要什么。与对方在一起那么久，他不想结婚，难道明年就会结婚吗？</p>
+<p>很可能答案是否定的。</p>
+<p>真诚的人不会让你等那么久。</p>
+<p>虽然我是占星师，也是情感咨询师，对情感问题能感同身受。但看到姐妹们在感情中受困、不知如何选择时，一定要记住，你永远有主动权和选择权，即使结婚了也有选择权，不必过得卑微。也不需等待对方给你人生归宿，结婚并非人生归宿。</p>
+<p>人生归宿是成为更好的自己，在此过程中经历结婚、离婚，使人生更圆满、更知足、更自信、更快乐，这样的旅途也值得。但不要因为一个人或一段关系而自我伤害或放弃自我成长的机会。</p>
+<p>在《爱的艺术》中有句话，“为了真实发现另一个人，更确切地说，为了消除幻觉。消除我对他存在的不合理歪曲印象，我必须客观认识他和我自己。只有客观认识一个人，才能在爱的行为中认识其最本质的东西。”</p>
+<p>对于冥王一宫和七宫的人来说，关系是一面镜子，是发现自己和他人本质的镜子。我曾听到一句话，说自己眼中的自己并非真正的自己，自己眼中的他人才是自己。</p>
+<p>当时我不理解，为什么自己眼中的他人才是自己？</p>
+<p>是因为我们看待世界的眼光有滤镜，带着什么样的滤镜看待别人，比如会觉得对方自私、坏、懒惰。当我们看到别人的缺点、自私与阴暗面时，也要借此提醒自己可能也存在类似问题，并改正。人无法仅靠独立存在发现自我，必须在关系中通过与他人的碰撞，才能了解自己的行为和反应，意识到自己的真实面貌。</p>
+<p>例如，许多人在职场上是雷厉风行的女老板或大老板。但在感情中，他们可能变得非常卑微，拥有恋爱脑。因此，在不同的人际关系中，我们会发现自己不同的面向。比如，你的工作能力很好，有领导力、行动力和责任心，但在感情中却缺乏安全感、敏感甚至有点作。</p>
+<p>这时，你会意识到自己的复杂性。当我们能看到自我的复杂性时，也能看到他人的复杂性。</p>
+<p>我们不再会用单一的眼光看待他人，比如认为某人就是渣男或自私的人。但渣男和自私的人也可能有可怜或可爱的一面。</p>
+<p>我并非为渣男开脱，他们肯定有糟糕的一面。但如果我们能看到人的复杂性，就不会轻易陷入恋爱脑，不会因为某人展现出的好一面就轻易相信他们，也不会因为他们的不好一面就全盘否定他们。</p>
+<p>每个人都有可取和不可取的一面，我们需要通过与他人的互动，完善对自己和他人的认知。当我们的认知越深刻，理解越深刻时，就越能处理好自己与自己、自己与他人之间的关系。</p>
+<p>有个姐妹认为我看人很准，非常犀利和独到，但我说我不是天生的。我以前也是个非常糊涂、没有边界感的人。但正是通过咨询很多来看盘的姐妹，她们分享的人生案例，以及我作为占星师的理解，我逐渐明白了人是复杂的综合产物。现在我看一个人时，不再只看他的外表或展现出的东西，而是思考他做出选择背后的逻辑、家庭对他的影响，以及他为何会形成这样的思维模式。</p>
+<p>我觉得这也是占星和咨询带给我的人生启示。</p></div>
+        <div class="back-home">
+            <a href="index.html#articles">← 返回占星干货</a>
+        </div>
+    </article>
+    <footer><p>✦ 瓜瓜占星 ✦</p></footer>
+</body>
+</html>
