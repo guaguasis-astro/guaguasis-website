@@ -1704,9 +1704,17 @@
 
         .testimonials-track {
             display: flex;
-            transition: transform 0.5s ease;
             gap: 1.5rem;
             padding: 0 1rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .testimonials-track::-webkit-scrollbar {
+            display: none;
         }
 
         .testimonial-card {
@@ -1717,6 +1725,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            scroll-snap-align: center;
         }
 
         @media (min-width: 600px) {
@@ -1826,45 +1835,6 @@
             font-style: italic;
         }
 
-        /* 侧边箭头 */
-        .testimonials-slider {
-            position: relative;
-        }
-
-        .testimonial-side-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 2rem;
-            color: #8B7355;
-            opacity: 0.4;
-            cursor: pointer;
-            z-index: 10;
-            padding: 1rem;
-            transition: opacity 0.3s ease;
-            user-select: none;
-        }
-
-        .testimonial-side-arrow:hover {
-            opacity: 0.7;
-        }
-
-        .testimonial-side-arrow.left {
-            left: 1rem;
-        }
-
-        .testimonial-side-arrow.right {
-            right: 1rem;
-        }
-
-        @media (min-width: 768px) {
-            .testimonial-side-arrow.left {
-                left: 3rem;
-            }
-            .testimonial-side-arrow.right {
-                right: 3rem;
-            }
-        }
 
         /* 占星干货卡片 */
         .articles-grid {
@@ -2178,7 +2148,6 @@
         <div class="testimonials-container">
             <div class="section-title">学员反馈</div>
             <div class="testimonials-slider">
-                <div class="testimonial-side-arrow left" id="prevBtn">←</div>
                 <div class="testimonials-track" id="testimonialsTrack">
                     <div class="testimonial-card">
                         <div class="testimonial-content morandi-1">
@@ -2296,7 +2265,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="testimonial-side-arrow right" id="nextBtn">→</div>
             </div>
         </div>
     </section>
@@ -2597,72 +2565,7 @@
             }
         }
 
-        // 学员反馈滑动功能
-        const track = document.getElementById('testimonialsTrack');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const cards = document.querySelectorAll('.testimonial-card');
-
-        let currentIndex = 0;
-        let autoplayInterval;
-
-        function updateSlider() {
-            const cardWidth = cards[0].offsetWidth;
-            track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
-        }
-
-        function nextSlide() {
-            const maxIndex = cards.length - 1;
-            currentIndex = (currentIndex + 1) % (maxIndex + 1);
-            updateSlider();
-        }
-
-        function prevSlide() {
-            const maxIndex = cards.length - 1;
-            currentIndex = (currentIndex - 1 + maxIndex + 1) % (maxIndex + 1);
-            updateSlider();
-        }
-
-        function startAutoplay() {
-            autoplayInterval = setInterval(nextSlide, 4000);
-        }
-
-        function resetAutoplay() {
-            clearInterval(autoplayInterval);
-            startAutoplay();
-        }
-
-        prevBtn.addEventListener('click', () => {
-            prevSlide();
-            resetAutoplay();
-        });
-
-        nextBtn.addEventListener('click', () => {
-            nextSlide();
-            resetAutoplay();
-        });
-
-        // 移动端触摸滑动
-        let touchStartX = 0;
-        let touchEndX = 0;
-
-        track.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        });
-
-        track.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            if (touchStartX - touchEndX > 50) {
-                nextSlide();
-                resetAutoplay();
-            } else if (touchEndX - touchStartX > 50) {
-                prevSlide();
-                resetAutoplay();
-            }
-        });
-
-        updateSlider();
-        startAutoplay();
+        // 学员反馈滑动功能 - 使用原生 scroll-snap 实现手动滑动
 
         // 滚动渐入效果
         const fadeInSections = document.querySelectorAll('.fade-in-section');
