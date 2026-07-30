@@ -1354,27 +1354,18 @@
 
             /* 导航栏优化 */
             nav {
-                padding: 1rem 1.2rem;
-                flex-direction: column;
-                gap: 0.8rem;
+                padding: 0.75rem 1.2rem;
                 background: rgba(253, 248, 232, 0.98);
             }
 
-            .nav-container {
-                width: 100%;
-                flex-direction: column;
-                gap: 0.8rem;
-            }
-
             .logo {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
             }
 
             .nav-links {
-                gap: 1rem;
-                font-size: 0.85rem;
-                flex-wrap: wrap;
-                justify-content: center;
+                gap: 0.7rem;
+                font-size: 0.8rem;
+                justify-content: flex-end;
             }
 
             /* Hero区域手机优化 */
@@ -1718,8 +1709,8 @@
 
         .testimonial-card {
             flex-shrink: 0;
-            width: 70%;
-            padding: 0 0.5rem;
+            width: 85%;
+            padding: 0;
             box-sizing: border-box;
             display: flex;
             justify-content: center;
@@ -1728,14 +1719,14 @@
 
         @media (min-width: 768px) {
             .testimonial-card {
-                width: 55%;
+                width: 60%;
                 padding: 0 1rem;
             }
         }
 
         @media (min-width: 1024px) {
             .testimonial-card {
-                width: 45%;
+                width: 50%;
                 padding: 0 1rem;
             }
         }
@@ -1817,7 +1808,7 @@
 
         .testimonial-text {
             font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
-            font-size: 0.55rem;
+            font-size: 0.75rem;
             line-height: 1.8;
             color: var(--text-dark);
             font-style: italic;
@@ -1924,6 +1915,18 @@
             border: 1px solid var(--soft-gold);
         }
 
+        /* 滚动渐入效果 */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         /* 查看更多文章 */
         .view-more-articles {
             margin-top: 3rem;
@@ -2005,7 +2008,7 @@
     </section>
 
     <!-- 关于瓜瓜 -->
-    <section id="about" class="about">
+    <section id="about" class="about fade-in-section">
         <div class="section">
             <div class="section-title">关于瓜瓜</div>
             <div class="about-content">
@@ -2032,7 +2035,7 @@
     </section>
 
     <!-- 占星课程 -->
-    <section id="courses" class="section">
+    <section id="courses" class="section fade-in-section">
         <div class="section-title">
             <img src="images/蝴蝶.svg" alt="蝴蝶" class="butterfly" style="width: 80px; height: 80px;">
             占星课程
@@ -2152,7 +2155,7 @@
     </section>
 
     <!-- 学员反馈 -->
-    <section id="testimonials" class="testimonials">
+    <section id="testimonials" class="testimonials fade-in-section">
         <div class="testimonials-container">
             <div class="section-title">学员反馈</div>
             <div class="testimonials-slider">
@@ -2256,6 +2259,23 @@
                             </div>
                         </div>
                     </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content morandi-1">
+                            <div class="testimonial-stars">
+                                <span class="star-icon">✦</span>
+                                <span class="star-icon">✦</span>
+                                <span class="star-icon">✦</span>
+                                <span class="star-icon">✦</span>
+                                <span class="star-icon">✦</span>
+                            </div>
+                            <div class="testimonial-text-container">
+                                <p class="testimonial-text">想学习占星，是因为相信每个人都是宇宙中独一无二的存在。出生的那一刻，灵魂落入肉体，呼吸第一口空气与现实客观世界产生链接，宇宙在这一刻颁发了一张特定的星图给每一个人。星图是你的人生脚本，但读懂它，接着活出它，是需要通过系统性学习和练习的。</p>
+                                <p class="testimonial-text">喜欢瓜瓜老师的课，首先因为她的课程系统且完整，有知识点也有实际案例分析。占星更像是一门语言，瓜瓜会帮我们理清知识体系，再让详尽的内容填满骨架，掌握了规律它就没有难学了。当然~ 还有作业，练习是很重要的。</p>
+                                <p class="testimonial-text">还有，很重要的一点~喜欢瓜瓜老师的表达，语速语调都在舒适区，两个小时的课，很快就听完了，不会累！</p>
+                                <p class="testimonial-text">琐碎的现实中，要找一个有意思的方式，向内向上看到自己，也许还能帮到别人~ 瓜瓜的课，很值得一试。</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="testimonial-side-arrow right" id="nextBtn">→</div>
             </div>
@@ -2263,7 +2283,7 @@
     </section>
 
     <!-- 占星干货 -->
-    <section id="articles" class="section">
+    <section id="articles" class="section fade-in-section">
         <div class="section-title">占星干货</div>
         <div class="articles-grid">
             <a href="article-1.html" class="article-card">
@@ -2306,7 +2326,7 @@
     </section>
 
     <!-- 发光星球 -->
-    <section id="glowing-planet" class="section glowing-planet">
+    <section id="glowing-planet" class="section glowing-planet fade-in-section">
         <div class="section-title">✨ 发光星球</div>
 
         <!-- 我的发光之旅时间线 -->
@@ -2493,7 +2513,7 @@
     </section>
 
     <!-- 联系/CTA -->
-    <section id="contact" class="section">
+    <section id="contact" class="section fade-in-section">
         <div class="cta">
             <h2>准备好发光了吗？</h2>
             <p>在这个星球上，每一个人都可以是光源<br>
@@ -2615,6 +2635,27 @@
 
         updateSlider();
         startAutoplay();
+
+        // 滚动渐入效果
+        const fadeInSections = document.querySelectorAll('.fade-in-section');
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        fadeInSections.forEach(section => {
+            observer.observe(section);
+        });
     </script>
 </body>
 </html>
