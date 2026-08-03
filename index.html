@@ -1905,17 +1905,6 @@
             border: 1px solid var(--soft-gold);
         }
 
-        /* 滚动渐入效果 */
-        .fade-in-section {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-
-        .fade-in-section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
 
         /* 查看更多文章 */
         .view-more-articles {
@@ -1998,7 +1987,7 @@
     </section>
 
     <!-- 关于瓜瓜 -->
-    <section id="about" class="about fade-in-section">
+    <section id="about" class="about">
         <div class="section">
             <div class="section-title">关于瓜瓜</div>
             <div class="about-content">
@@ -2025,7 +2014,7 @@
     </section>
 
     <!-- 占星课程 -->
-    <section id="courses" class="section fade-in-section">
+    <section id="courses" class="section">
         <div class="section-title">
             <img src="images/蝴蝶.svg" alt="蝴蝶" class="butterfly" style="width: 80px; height: 80px;">
             占星课程
@@ -2145,7 +2134,7 @@
     </section>
 
     <!-- 学员反馈 -->
-    <section id="testimonials" class="testimonials fade-in-section">
+    <section id="testimonials" class="testimonials">
         <div class="testimonials-container">
             <div class="section-title">学员反馈</div>
             <div class="testimonials-slider">
@@ -2271,11 +2260,11 @@
     </section>
 
     <!-- 占星干货 -->
-    <section id="articles" class="section fade-in-section">
+    <section id="articles" class="section">
         <div class="section-title">占星干货</div>
         <div class="articles-grid">
             <a href="article-7.html" class="article-card">
-                <div class="article-image">🌙</div>
+                <div class="article-image"><img src="images/占星干货图片/冥王星的炼金魔法.png" alt="冥王星的炼金术魔法"></div>
                 <div class="article-content">
                     <h3 class="article-title">冥王星的炼金术魔法，把业力化为愿力</h3>
                     <div class="article-tags">
@@ -2286,7 +2275,7 @@
                 </div>
             </a>
             <a href="article-8.html" class="article-card">
-                <div class="article-image">☀️</div>
+                <div class="article-image"><img src="images/占星干货图片/古典占星的客观性.png" alt="古典占星的客观性与逻辑"></div>
                 <div class="article-content">
                     <h3 class="article-title">古典占星的客观性与逻辑，古占的真正价值被低估了</h3>
                     <div class="article-tags">
@@ -2297,7 +2286,7 @@
                 </div>
             </a>
             <a href="article-9.html" class="article-card">
-                <div class="article-image">💛</div>
+                <div class="article-image"><img src="images/占星干货图片/合盘里的土星能量.png" alt="合盘里的土星能量"></div>
                 <div class="article-content">
                     <h3 class="article-title">合盘里的土星能量——长期关系必不可少的地基</h3>
                     <div class="article-tags">
@@ -2317,7 +2306,7 @@
     </section>
 
     <!-- 发光星球 -->
-    <section id="glowing-planet" class="section glowing-planet fade-in-section">
+    <section id="glowing-planet" class="section glowing-planet">
         <div class="section-title">✨ 发光星球</div>
 
         <!-- 我的发光之旅时间线 -->
@@ -2504,7 +2493,7 @@
     </section>
 
     <!-- 联系/CTA -->
-    <section id="contact" class="section fade-in-section">
+    <section id="contact" class="section">
         <div class="cta">
             <h2>准备好发光了吗？</h2>
             <p>在这个星球上，每一个人都可以是光源<br>
@@ -2562,26 +2551,6 @@
 
         // 学员反馈滑动功能 - 使用原生 scroll-snap 实现手动滑动
 
-        // 滚动渐入效果
-        const fadeInSections = document.querySelectorAll('.fade-in-section');
-
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        fadeInSections.forEach(section => {
-            observer.observe(section);
-        });
     </script>
 </body>
 </html>
