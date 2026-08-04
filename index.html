@@ -1352,6 +1352,25 @@
                 -webkit-tap-highlight-color: transparent;
             }
 
+            /* 学员反馈手机端优化 */
+            .testimonials-track {
+                padding: 0 2.5rem;
+            }
+
+            .slider-arrow {
+                width: 32px;
+                height: 32px;
+                font-size: 1.2rem;
+            }
+
+            .slider-arrow.prev {
+                left: 0.3rem;
+            }
+
+            .slider-arrow.next {
+                right: 0.3rem;
+            }
+
             /* 导航栏优化 */
             nav {
                 padding: 0.75rem 1.2rem;
@@ -1705,17 +1724,78 @@
         .testimonials-track {
             display: flex;
             gap: 1.5rem;
-            padding: 0 1rem;
+            padding: 0 3rem;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
             -ms-overflow-style: none;
-            justify-content: center;
+            justify-content: flex-start;
         }
 
         .testimonials-track::-webkit-scrollbar {
             display: none;
+        }
+
+        /* 滑动箭头按钮 */
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(232, 212, 168, 0.3);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--deep-warm);
+            transition: all 0.3s ease;
+            z-index: 10;
+            backdrop-filter: blur(5px);
+        }
+
+        .slider-arrow:hover {
+            background: rgba(232, 212, 168, 0.7);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .slider-arrow.prev {
+            left: 0.5rem;
+        }
+
+        .slider-arrow.next {
+            right: 0.5rem;
+        }
+
+        /* 滑动提示小点 */
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .slider-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(139, 115, 85, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .slider-dot.active {
+            background: var(--gentle-gold);
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        .slider-dot:hover {
+            background: rgba(139, 115, 85, 0.6);
         }
 
         .testimonial-card {
@@ -1770,7 +1850,7 @@
         }
 
         .testimonial-content.morandi-2 {
-            background: linear-gradient(135deg, #e8c8a8 0%, #f0d8b8 100%);
+            background: linear-gradient(135deg, #c5d5e0 0%, #d8e3eb 100%);
         }
 
         .testimonial-content.morandi-3 {
@@ -2138,6 +2218,8 @@
         <div class="testimonials-container">
             <div class="section-title">学员反馈</div>
             <div class="testimonials-slider">
+                <button class="slider-arrow prev" id="sliderPrev">‹</button>
+                <button class="slider-arrow next" id="sliderNext">›</button>
                 <div class="testimonials-track" id="testimonialsTrack">
                     <div class="testimonial-card">
                         <div class="testimonial-content morandi-1">
@@ -2255,6 +2337,7 @@
                         </div>
                     </div>
                 </div>
+                <div class="slider-dots" id="sliderDots"></div>
             </div>
         </div>
     </section>
@@ -2549,7 +2632,58 @@
             }
         }
 
-        // 学员反馈滑动功能 - 使用原生 scroll-snap 实现手动滑动
+        // 学员反馈滑动功能
+        const track = document.getElementById('testimonialsTrack');
+        const prevBtn = document.getElementById('sliderPrev');
+        const nextBtn = document.getElementById('sliderNext');
+        const dotsContainer = document.getElementById('sliderDots');
+        const cards = document.querySelectorAll('.testimonial-card');
+        let currentIndex = 0;
+
+        // 创建指示点
+        cards.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.classList.add('slider-dot');
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => scrollToCard(index));
+            dotsContainer.appendChild(dot);
+        });
+
+        const dots = document.querySelectorAll('.slider-dot');
+
+        function updateDots() {
+            const cardWidth = cards[0].offsetWidth + 24; // card width + gap
+            currentIndex = Math.round(track.scrollLeft / cardWidth);
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentIndex);
+            });
+        }
+
+        function scrollToCard(index) {
+            const cardWidth = cards[0].offsetWidth + 24;
+            track.scrollTo({
+                left: cardWidth * index,
+                behavior: 'smooth'
+            });
+        }
+
+        prevBtn.addEventListener('click', () => {
+            const cardWidth = cards[0].offsetWidth + 24;
+            track.scrollBy({
+                left: -cardWidth,
+                behavior: 'smooth'
+            });
+        });
+
+        nextBtn.addEventListener('click', () => {
+            const cardWidth = cards[0].offsetWidth + 24;
+            track.scrollBy({
+                left: cardWidth,
+                behavior: 'smooth'
+            });
+        });
+
+        track.addEventListener('scroll', updateDots);
 
     </script>
 </body>
