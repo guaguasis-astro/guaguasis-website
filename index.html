@@ -30,7 +30,11 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            max-width: 100vw;
+        }
+
+        html, body {
+            width: 100%;
+            overflow-x: hidden;
         }
 
         html {
@@ -485,13 +489,17 @@
         /* 学员反馈 */
         .testimonials {
             background: rgba(249, 241, 215, 0.4);
-            margin: 0 -3rem;
-            padding: 6rem 3rem;
+            margin: 0;
+            padding: 6rem 0;
+            width: 100%;
+            overflow: hidden;
         }
 
         .testimonials-container {
-            max-width: 800px;
-            margin: 0 auto;
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+            width: 100%;
         }
 
         .testimonial {
@@ -1354,7 +1362,7 @@
 
             /* 学员反馈手机端优化 */
             .testimonials-track {
-                padding: 0 2.5rem;
+                padding: 0 0.5rem;
             }
 
             .slider-arrow {
@@ -1505,8 +1513,8 @@
 
             /* 学员反馈 */
             .testimonials {
-                padding: 3rem 1.2rem;
-                margin: 0 -1.2rem;
+                padding: 3rem 0;
+                margin: 0;
             }
 
             .benefit-box {
@@ -1724,13 +1732,15 @@
         .testimonials-track {
             display: flex;
             gap: 1.5rem;
-            padding: 0 3rem;
+            padding: 0 1rem;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
             -ms-overflow-style: none;
             justify-content: flex-start;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .testimonials-track::-webkit-scrollbar {
@@ -1764,11 +1774,11 @@
         }
 
         .slider-arrow.prev {
-            left: 0.5rem;
+            left: 0.3rem;
         }
 
         .slider-arrow.next {
-            right: 0.5rem;
+            right: 0.3rem;
         }
 
         /* 滑动提示小点 */
@@ -1800,24 +1810,24 @@
 
         .testimonial-card {
             flex-shrink: 0;
-            width: calc(100% - 2rem);
+            width: 100%;
             padding: 0;
             box-sizing: border-box;
             display: flex;
             justify-content: center;
             align-items: center;
-            scroll-snap-align: center;
+            scroll-snap-align: start;
         }
 
         @media (min-width: 600px) {
             .testimonial-card {
-                width: calc(80% - 2rem);
+                width: 85%;
             }
         }
 
         @media (min-width: 768px) {
             .testimonial-card {
-                width: calc(60% - 2rem);
+                width: 60%;
                 padding: 0 1rem;
             }
             .testimonials-track {
@@ -1828,7 +1838,7 @@
 
         @media (min-width: 1024px) {
             .testimonial-card {
-                width: calc(50% - 2rem);
+                width: 50%;
                 padding: 0 1rem;
             }
         }
@@ -1871,6 +1881,11 @@
 
         .testimonial-content.morandi-7 {
             background: linear-gradient(135deg, #dde8d8 0%, #e6efdf 100%);
+        }
+
+        /* 莫兰迪橙色 */
+        .testimonial-content.morandi-orange {
+            background: linear-gradient(135deg, #e6c9a8 0%, #f0dcc0 100%);
         }
 
         .testimonial-stars {
@@ -2216,7 +2231,7 @@
     <!-- 学员反馈 -->
     <section id="testimonials" class="testimonials">
         <div class="testimonials-container">
-            <div class="section-title">学员反馈</div>
+            <div class="section-title" style="padding: 0 1.5rem;">学员反馈</div>
             <div class="testimonials-slider">
                 <button class="slider-arrow prev" id="sliderPrev">‹</button>
                 <button class="slider-arrow next" id="sliderNext">›</button>
@@ -2236,7 +2251,7 @@
                         </div>
                     </div>
                     <div class="testimonial-card">
-                        <div class="testimonial-content morandi-1">
+                        <div class="testimonial-content morandi-orange">
                             <div class="testimonial-stars">
                                 <span class="star-icon">✦</span>
                                 <span class="star-icon">✦</span>
