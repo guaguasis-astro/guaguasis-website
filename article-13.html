@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>上升天蝎的"恐怖开局"，风暴使树木有更深的根 - 瓜瓜占星</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #FDF8E8;
+            --warm-cream: #FFF8E7;
+            --soft-yellow: #FFEFB8;
+            --soft-gold: #E8D4A8;
+            --gentle-gold: #F5D58F;
+            --warm-sand: #D4C094;
+            --deep-warm: #8B7355;
+            --soft-brown: #A68B6B;
+            --text-dark: #3D382A;
+            --text-mute: #6B6351;
+            --coral: #E8A87C;
+            --rose: #D37D63;
+            --sage: #A8B5A0;
+            --sky: #91B3C4;
+            --lavender: #B89EED;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            max-width: 100vw;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        body {
+            font-family: 'Noto Serif SC', serif;
+            background: linear-gradient(180deg, var(--cream) 0%, #FFFEF7 50%, var(--cream) 100%);
+            color: var(--text-dark);
+            line-height: 1.9;
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
+        }
+
+        /* 流动色块背景 */
+        .paint-blob {
+            position: fixed;
+            border-radius: 50% 40% 60% 50%;
+            filter: blur(40px);
+            opacity: 0.3;
+            pointer-events: none;
+            animation: float 20s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        .blob-1 {
+            width: 400px;
+            height: 400px;
+            top: -100px;
+            right: -100px;
+            background: var(--gentle-gold);
+            animation-delay: 0s;
+        }
+
+        .blob-2 {
+            width: 500px;
+            height: 500px;
+            bottom: -150px;
+            left: -150px;
+            background: var(--coral);
+            animation-delay: -5s;
+            animation-direction: reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); border-radius: 50% 40% 60% 50%; }
+            25% { transform: translate(20px, -30px) rotate(5deg) scale(1.05); border-radius: 40% 60% 50% 50%; }
+            50% { transform: translate(-10px, 20px) rotate(-3deg) scale(0.98); border-radius: 60% 50% 40% 60%; }
+            75% { transform: translate(-20px, -10px) rotate(3deg) scale(1.02); border-radius: 50% 60% 50% 40%; }
+        }
+
+        /* 导航栏 */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 0.75rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(253, 248, 232, 0.95) 0%, transparent 100%);
+            backdrop-filter: blur(5px);
+        }
+
+        .logo {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 1.4rem;
+            letter-spacing: 0.1em;
+            color: var(--text-dark);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-mute);
+            font-size: 0.9rem;
+            transition: color 0.3s;
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            font-weight: 200;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-dark);
+        }
+
+        /* 文章主体 */
+        .article-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 10rem 2rem 6rem;
+        }
+
+        .article-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .article-title {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+        }
+
+        .article-tags {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .article-tag {
+            padding: 0.35rem 1rem;
+            background: var(--cream);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--text-mute);
+            border: 1px solid var(--soft-gold);
+        }
+
+        .article-image-placeholder {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, var(--soft-yellow) 0%, var(--gentle-gold) 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            margin-bottom: 3rem;
+        }
+
+        .article-content {
+            font-size: 1.05rem;
+            line-height: 2;
+            color: var(--text-dark);
+        }
+
+        .article-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .article-content h2 {
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            font-size: 1.5rem;
+            font-weight: 100;
+            margin: 2.5rem 0 1rem;
+            color: var(--deep-warm);
+        }
+
+        .article-content h3 {
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            font-size: 1.25rem;
+            font-weight: 100;
+            margin: 2rem 0 1rem;
+            color: var(--soft-brown);
+        }
+
+        /* 回到主页按钮 */
+        .back-home {
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .back-home a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2.5rem;
+            background: var(--gentle-gold);
+            color: var(--deep-warm);
+            text-decoration: none;
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+            border-radius: 30px 12px 30px 12px;
+            transition: all 0.5s ease;
+        }
+
+        .back-home a:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 12px 36px rgba(245, 213, 143, 0.4);
+        }
+
+        /* 页脚 */
+        footer {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-mute);
+            font-size: 0.9rem;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gentle-gold), transparent);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            nav {
+                padding: 0.75rem 1.2rem;
+                background: rgba(253, 248, 232, 0.98);
+            }
+
+            .logo {
+                font-size: 1.1rem;
+            }
+
+            .nav-links {
+                gap: 0.7rem;
+                font-size: 0.8rem;
+                justify-content: flex-end;
+            }
+
+            .article-container {
+                padding: 8rem 1.2rem 4rem;
+            }
+
+            .article-title {
+                font-size: 1.8rem;
+            }
+
+            .article-image-placeholder {
+                height: 200px;
+                font-size: 3.5rem;
+            }
+
+            .article-content {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .article-title {
+                font-size: 1.5rem;
+            }
+
+            .nav-links {
+                gap: 0.9rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 流动色块 -->
+    <div class="paint-blob blob-1"></div>
+    <div class="paint-blob blob-2"></div>
+
+    <!-- 导航栏 -->
+    <nav>
+        <a href="index.html" class="logo">✦ 瓜瓜占星</a>
+        <div class="nav-links">
+            <a href="index.html#courses">占星课程</a>
+            <a href="index.html#articles">占星干货</a>
+            <a href="index.html#glowing-planet">发光星球</a>
+        </div>
+    </nav>
+
+    <!-- 文章主体 -->
+    <article class="article-container">
+        <header class="article-header">
+            <h1 class="article-title">上升天蝎的"恐怖开局"，风暴使树木有更深的根</h1>
+            <div class="article-tags">
+                <span class="article-tag">上升天蝎</span>
+                <span class="article-tag">成长</span>
+                <span class="article-tag">业力</span>
+            </div>
+        </header>
+<div class="article-content">
+            <p>今天这位分享者叫Mars，上升天蝎，浙大本科，现在在上海做智能驾驶产品经理。他听我的播客快一年了，自告奋勇来分享他的故事。我特别喜欢这种主动站出来的朋友——愿意把自己的经历讲出来，让同样配置的人知道"我不是一个人"，这本身就是一种善意。</p>
+            <p>今天这篇，如果你是上升天蝎，或者身边有上升天蝎的人，一定要看完。你会发现，那些你以为"只有我才经历过"的恐惧，原来很多人都懂。</p>
+            <h2>上升天蝎的童年：像一部恐怖片</h2>
+            <p>我之前发过一个帖子，说童年最苦的三大上升分别是上升白羊、上升摩羯、上升天蝎。上升摩羯是苦，是那种压抑的、沉重的苦。但上升天蝎的苦，是恐怖片——你永远不知道下一秒会发生什么。</p>
+            <p>Mars说，他从小到大最大的感受就是两个字：不安。走在路边，看到经过的车辆，脑子里自动就会冒出来"这个车会不会撞到我"。对危机有一种近乎本能的预判，直觉强到什么程度呢——公司新入职一个人，他还没跟对方说过话，光看外貌就能预判对方大概是什么性格。这种警觉性，几乎是刻在骨子里的。</p>
+            <p>上升和我们的出生背景、童年经历直接相关。有的人是出生时遭遇了难产、剖腹产、早产，有的人是在养育过程中，环境逼着他学会了机警。</p>
+            <p>天蝎就是这样一个星座——怀疑、不容易相信别人、容易把事情往严重了想。这不是性格缺陷，是生存环境教给他的。</p>
+            <p>Mars出生在重庆，九十年代的重庆，打黑之前的环境有多乱，经历过的人都懂。他住的社区里小偷横行，暴力事件频发，整个空气里都是焦灼和不安。这是他长大的地方。</p>
+            <p>从小到大，身体经常会有莫名的发炎、伤口、淤青——早上出门还好好的，晚上回来发现身上多了一大块淤青，都不知道怎么弄的。小时候出过车祸，虽然不致命，但这种"危险随时会来"的感觉，一直跟着他。</p>
+            <p>工作之后也一样。他在智能驾驶公司做产品经理，有一次跟一辆大卡车测试，第二天那个司机就出了重大车祸，车整个翻了，烧成一片火海。</p>
+            <p>他主管事后找到他说，还好你没第二天去跟车，不然后果不堪设想。</p>
+            <p>我听到这里鸡皮疙瘩都起来了。</p>
+            <p>之前看到过一位占星老师写过一句话：上升天蝎的童年像是一部恐怖片。</p>
+            <p>真的就是这种感觉——你不知道下一个转角会遇到什么。</p>
+            <h2>命宫有木星：危险很近，但总能擦身而过</h2>
+            <p>Mars说，他有一种很特别的感觉——那些危险的事情离他非常近，但好像又总是差那么一点点。</p>
+            <p>小时候那场车祸，本来是可以致死的，但最后只是车的边角擦到了他，没有致残。身体经常出状况，但都是小病，从来没有过需要住院的大病。心理上有创伤，但生命中总能遇到帮他的人——心理咨询师朋友、一路指引他的人。</p>
+            <p>这就对应到他命宫里的木星了。木星是五宫主，也是二宫主，两颗宫主星都跟钱财相关，而且五宫还代表偏财运、父亲给的钱、家族遗产这些"不劳而获"的部分。</p>
+            <p>所以虽然冥王星也在命宫，带来了死亡、阴影、秘密的议题，但木星在旁边托着，很多时候他不是直接的受害者，而是一个"见证者"。</p>
+            <p>危险发生在他身边，但总能跟他擦身而过。</p>
+            <p>他自己开玩笑说，可能就是因为木星，他喝白开水都容易发胖。我听完笑了——木星的扩张性，在体重上也是会体现的～</p>
+            <p>还有一个很重要的点：他的命主星火星，虽然落在巨蟹座是落陷的，但落在了九宫。九宫是一个吉宫，不管用普拉希德制还是整宫制，他的火星都妥妥落在九宫。</p>
+            <p>上升天蝎的命主星火星，本身带凶性——容易遇到暴力事件、成长前期容易遇到竞争、被不公平对待。但落在九宫，就把这些凶性转化了。</p>
+            <p>九宫代表什么？高等教育、远行、哲学、信仰。所以他最后考上了浙大，而且是本科——这可不是光靠努力就能解释的。</p>
+            <p>他说自己是"笨鸟先飞"，高中的时候每天只睡四个小时，非常刻苦。但我想说，努力的人多了去了，能考上浙大的有几个？🤣这就是火星九宫的力量——把天蝎的那股狠劲、那股聚焦的能量，用在了学习和成长上。</p>
+            <p>当然，过程也不是一帆风顺的。他说高中的时候也遭遇过同学的竞争、攻击、造谣。这些都是火星的议题。但他把注意力死死地钉在目标上，最后考上了。</p>
+            <h2>土星克太阳水星：父亲是一道未解的题</h2>
+            <p>接下来我们聊到了土星。他的土星同时克了两颗非常重要的星——太阳和水星。而且土星是四宫主，代表原生家庭，土星还在逆行。</p>
+            <p>土星逆行意味着什么？第一，速度慢，很多事情要等，人家少年得志，你可能要等到后面才结果。第二，压抑。</p>
+            <p>太阳代表爸爸，也代表自己。水星代表表达、思维、沟通。被土星一克，这两个领域都会出问题。</p>
+            <p>Mars说，土星对他最大的影响就是表达不顺畅。三岁才开始学说话，小时候上了好几年的语言班、普通话班，都没法完整地说一段话。听力也不好——右耳中度接近重度耳聋，据说是小时候重感冒打了药导致的。水土相位的人，真的很容易听力不好、容易空耳。</p>
+            <p>我听到这里其实挺惊讶的，因为他表达已经非常好了，逻辑清晰，扣题精准，是我采访过的人里表达最自如的前十。而且他还提前写了将近500字的大纲，把我们今天要聊的内容一条一条列出来。别的采访对象都是我催他们准备，他倒好，反过来催我要问题清单，说他要提前准备话术。我当时就笑了——这才是产品经理的自我修养啊！</p>
+            <p>他说自己在工作上也是这样——思维非常聚焦，开会必须有大纲，一条一条过，不允许任何人发散。对接的部门压力很大，因为他会在每个时间节点至少提醒对方三四次，追进度、问困难、要结果。</p>
+            <p>甚至有人请假了，他都会发微信去催工作。他自己也知道有点唐突，但就是控制不住。</p>
+            <p>我说，你这样的下属，老板应该很爽吧？他说，我老板是个P人，我每次都追着他把需求说清楚，把他烦死了。</p>
+            <p>我听完笑到不行——这不就是我的AI助手Claude Code吗？每次跟我对需求都是一条一条列出来，把我没说清楚的地方全部标记出来让我补充。做事是真靠谱。</p>
+            <p>但是土星克太阳，就没那么简单了。Mars说，他最大的困扰是——没法正常地跟男性建立关系。</p>
+            <p>他爸爸是开公司的，年收入千万级，公司资产上亿。但从小到大，他跟爸爸相处的时间加起来，可能也就每年春节那四五天。几乎没有沟通，没有交流。爸爸是非常传统的男性——要求他结婚生子、孝敬父母、定时打钱回家。不是缺这个钱，就是"这是你应该做的"。但私下里，父子俩连一起散步、聊人生话题都做不到。</p>
+            <p>他的朋友里，80-90%都是女性。几乎没有男性朋友——因为他觉得大部分男性太浅薄、太俗、不入流。跟男性没法正常沟通。</p>
+            <p>这就是土星克太阳的典型呈现——跟父亲的关系有距离、有隔阂、有压抑。而且他的太阳还被冥王星克，太阳又是十宫主（事业、权威）。冥王星代表什么？权力、掌控、不在场。他爸爸——一个有权力的、掌控欲强的、但又不在身边的父亲形象。这两个相位，全都应上了。</p>
+            <p>不过我要补充一点：他的太阳合了轩辕十四。这是一颗非常大的大吉星，特朗普的上升就是合轩辕十四的。所以爸爸能力这么强、家底这么厚，不是没有原因的。而且太阳也是他的事业主星——意味着他自己的事业，将来也能达到甚至超越父亲的层次。</p>
+            <p>他自己也有这种感觉——工作六七年了，明显感觉到发展越来越好。我说，你非常有潜力，加油。</p>
+            <h2>月亮被火星克：妈妈是我最大的创伤</h2>
+            <p>接下来聊到月亮。月亮是妈妈。他是月亮白羊，而且月亮跟火星是零度的紧密刑克——入相位，度数精确到四度以内。这种克相，表现会非常激烈。</p>
+            <p>Mars说，他是一个非常情绪化的人，内在有很多情绪。脾气也急躁，很容易被惹怒。但因为火星巨蟹落陷，很多时候对外的攻击会转成对内的自我攻击。情绪藏在心里，自己煎熬。听起来就让人心疼。</p>
+            <p>他妈妈是什么样的人呢？强势、自我中心、情绪化。好几个心理咨询师给的判断是——NPD（自恋型人格障碍），情绪黑洞。他妈妈自己是月亮天蝎，情绪起伏非常大。母子之间的沟通，大部分时候是以争吵结束的。没法静下来好好说话，一说话就上纲上线，哭啊闹啊各种戏码都有。</p>
+            <p>小时候妈妈对他要求极高。有一件事他印象特别深——小学的时候，妈妈让他背一首初中才学的古诗《九月九日忆山东兄弟》。背不下来，就让他在厕所里跪了四五个小时。小学啊。妈妈经常打他，打到初中。小时候吵得凶了，他还会离家出走，一个人在外面待一晚上。</p>
+            <p>我听到这里真的倒吸一口凉气。我本来觉得我妈已经够厉害了，他这个妈是我妈的十倍。</p>
+            <p>还有一个细节，每次想起来都让他很创伤。小时候，爸爸因为生意要出去应酬、跟客户吃饭喝酒。妈妈觉得被忽视了，就会把他当成工具，带到爸爸的生意场上去大闹——"你为什么不回我消息？你不要你儿子了吗？你不关心你儿子了吗？"周围全是成年人，他一个小孩坐在那里，手足无措。所有人都用惊愕的眼神看着这场闹剧。这个画面，到三十多岁了，还在反复出现在他的心理咨询里。</p>
+            <p>另一个童年阴影，是攀比。发小成绩比他好，妈妈就骂他："你怎么这么笨，我怎么生出你这样的孩子。"小学就要做初中的奥数题，做不出来就被吼、被骂。不给方法，就硬逼——"再给你半小时，做不完继续做。"现在想起来这些事，他还是会觉得恐惧和恐慌。</p>
+            <p>为什么妈妈是这样的？他后来慢慢想明白了。妈妈出生在一个大家庭，外婆生了七个孩子，妈妈是最小的那个。穷到什么程度？饭都吃不起，读书的机会只有一个，所有哥哥姐姐都让给了她。所以她是在极度溺爱的环境下长大的。</p>
+            <p>同时她又很聪明（群星水平），读书非常刻苦——跟他小时候一模一样，每天只睡几个小时，一心只有学习。后来家里发达了，她会有一种"我比你们都强"的优越感。喜欢攀比——比房子、比孩子、比成绩，什么都要比。这就是月亮白羊的竞争性。</p>
+            <h2>从"为什么是我"到"我能做什么"</h2>
+            <p>刚开始看懂自己星盘的时候，Mars说他非常痛苦。为什么是我？为什么我有这么多克相？为什么我要天天跟我妈吵架？为什么我有情绪问题？</p>
+            <p>他甚至怀疑是不是排盘排错了——古典的、现代的，各种系统调来调去，还去追问妈妈自己到底是几点几分出生的。那时候的他，不接纳自己的盘。</p>
+            <p>但现在，尤其是土星回归之后，他的看法完全不一样了。他开始客观地、理性地看待这些相位。火星和月亮虽然刑克，但它们有互容接纳——是不是可以缓冲掉一部分激烈的能量？土星克太阳水星，但太阳有轩辕十四加持，水星本身是庙旺的——是不是也有积极的一面？</p>
+            <p>更重要的是，星盘不是判决书，是地图。他看到月亮有问题，就主动去找心理咨询师。看到火星能量需要出口，就开始健身。看到自己容易焦虑、容易操心，就刻意练习"放过自己"。</p>
+            <p>心理咨询给他最大的帮助是什么？是告诉他——你小时候做不出来初中奥数题，太正常了。那本来就不是小学生该做的事。你上那么多补习班，不可能每门都是第一名。小孩子的精力是有限的，你做不到才是正常的。</p>
+            <p>这些话听起来很简单，但对一个从小被骂"笨"、被骂"不如别人"的人来说，第一次听到有人告诉他"你没问题，是要求不合理"，那种释怀是很深的。</p>
+            <p>他跟妈妈做了物理切割——一个人在上海发展，父母在重庆。但有时候还是会忍不住想联系，想修复关系。结果每一次联系，都是再一次受伤。心理咨询师告诉他：NPD是没法修复的，她有自己的一套系统，你打破不了。你能做的，就是过好你自己的生活，建立你自己的小家庭，把注意力放回自己身上。</p>
+            <p>我今年土星回归，也有一个很深的体会。不要把爸妈当爸妈。把他们当成一个不太懂事的同龄人——一个跟你有点关系、有点熟悉的朋友。你一旦把她放在"妈妈"的位置上，就会对她有期待——期待她是一个合格的、爱你的、关心你的母亲。但这种期待，往往都会落空。</p>
+            <p>Mars听完说，这个角度他之前没想过，但会好好琢磨。</p>
+            <p>他现在的状态，比二十几岁的时候平和太多了。以前如果有人迟到、事情delay，他会非常愤怒，要追根究底，要对方给出解释。现在呢？朋友迟到了一个小时，他就自己在公园找个地方坐着玩，完全不生气。"delay肯定有delay的原因嘛"——能说出这句话，对以前的他来说，是不可能的。</p>
+            <h2>风暴使树木有更深的根</h2>
+            <p>我问他，占星对你来说意味着什么？他说，他觉得占星的本质是统计学。大量的符号、数字、密码，就像他平时做数据产品一样——报表上都是冷冰冰的数字和指标，但你去读这些数字，就能挖出业务上哪条链路出了问题，是供应链还是物流还是销售。占星也是一样——那些符号和相位，告诉你人生的哪些领域需要注意，哪些地方有坑，哪里有礼物。</p>
+            <p>我觉得他说得特别好。古典占星本身就是非常严谨的，不是什么玄乎的东西。而它真正的意义，从来不是来吓唬你说"你命不好"。</p>
+            <p>有克相又怎么样呢？土星虽然苦，但随着年纪增长，土星会越来越有建设性——年轻的时候你觉得它是折磨，长大之后你会发现，它让你成为了一个有责任心、有积累、靠得住的人。火星虽然凶，但解决的钥匙也在它自己身上——你意识到了，你去行动，你去找方法，它就从伤害你的力量，变成保护你的力量。</p>
+            <p>Mars就是最好的例子。上升天蝎的童年像恐怖片，但他没有被恐惧定义。月亮被火星克，但他去做心理咨询、去健身、去学习，把那股毁灭性的能量，变成了自我探索的动力。土星克太阳水星，但他把这种严谨、聚焦、抠细节的特质，变成了自己的职业优势——一个靠谱到让人有压力的产品经理。</p>
+            <p>风暴不会因为你害怕就不来。但风暴，也会让树木扎下更深的根。</p>
+            <p>我做这些星盘分享的意义，就是想让大家知道——你经历的不是个例。你的痛苦不是多余的。即使人生中有卡点、有苦难，也不代表它们纯纯是来折磨你的。我们依旧可以在面对这些苦难的过程中，找到属于自己的方法。</p>
+            <p>希望这篇文章，能给所有在暗夜中行走的上升天蝎们，一点点光。你不是一个人～</p>
+            <p>想了解更多占星知识和真实星盘案例，可以关注我的播客「爱的表达式」**（小宇宙APP可搜），已经更新200多期了，每期都有不一样的占星故事。</p>
+            <p>如果想看我朋友圈、咨询或者是了解占星课的话，可以链接我：<strong>guaguasis</strong></p>
+        </div>
+
+        <div class="back-home">
+            <a href="index.html#articles">← 返回占星干货</a>
+        </div>
+    </article>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>✦ 瓜瓜占星 ✦</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>整宫制VS普拉西德制，古占到底用哪个宫位制？ - 瓜瓜占星</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #FDF8E8;
+            --warm-cream: #FFF8E7;
+            --soft-yellow: #FFEFB8;
+            --soft-gold: #E8D4A8;
+            --gentle-gold: #F5D58F;
+            --warm-sand: #D4C094;
+            --deep-warm: #8B7355;
+            --soft-brown: #A68B6B;
+            --text-dark: #3D382A;
+            --text-mute: #6B6351;
+            --coral: #E8A87C;
+            --rose: #D37D63;
+            --sage: #A8B5A0;
+            --sky: #91B3C4;
+            --lavender: #B89EED;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            max-width: 100vw;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        body {
+            font-family: 'Noto Serif SC', serif;
+            background: linear-gradient(180deg, var(--cream) 0%, #FFFEF7 50%, var(--cream) 100%);
+            color: var(--text-dark);
+            line-height: 1.9;
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
+        }
+
+        /* 流动色块背景 */
+        .paint-blob {
+            position: fixed;
+            border-radius: 50% 40% 60% 50%;
+            filter: blur(40px);
+            opacity: 0.3;
+            pointer-events: none;
+            animation: float 20s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        .blob-1 {
+            width: 400px;
+            height: 400px;
+            top: -100px;
+            right: -100px;
+            background: var(--gentle-gold);
+            animation-delay: 0s;
+        }
+
+        .blob-2 {
+            width: 500px;
+            height: 500px;
+            bottom: -150px;
+            left: -150px;
+            background: var(--coral);
+            animation-delay: -5s;
+            animation-direction: reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); border-radius: 50% 40% 60% 50%; }
+            25% { transform: translate(20px, -30px) rotate(5deg) scale(1.05); border-radius: 40% 60% 50% 50%; }
+            50% { transform: translate(-10px, 20px) rotate(-3deg) scale(0.98); border-radius: 60% 50% 40% 60%; }
+            75% { transform: translate(-20px, -10px) rotate(3deg) scale(1.02); border-radius: 50% 60% 50% 40%; }
+        }
+
+        /* 导航栏 */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 0.75rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(253, 248, 232, 0.95) 0%, transparent 100%);
+            backdrop-filter: blur(5px);
+        }
+
+        .logo {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 1.4rem;
+            letter-spacing: 0.1em;
+            color: var(--text-dark);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-mute);
+            font-size: 0.9rem;
+            transition: color 0.3s;
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            font-weight: 200;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-dark);
+        }
+
+        /* 文章主体 */
+        .article-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 10rem 2rem 6rem;
+        }
+
+        .article-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .article-title {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+        }
+
+        .article-tags {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .article-tag {
+            padding: 0.35rem 1rem;
+            background: var(--cream);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--text-mute);
+            border: 1px solid var(--soft-gold);
+        }
+
+        .article-image-placeholder {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, var(--soft-yellow) 0%, var(--gentle-gold) 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            margin-bottom: 3rem;
+        }
+
+        .article-content {
+            font-size: 1.05rem;
+            line-height: 2;
+            color: var(--text-dark);
+        }
+
+        .article-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .article-content h2 {
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            font-size: 1.5rem;
+            font-weight: 100;
+            margin: 2.5rem 0 1rem;
+            color: var(--deep-warm);
+        }
+
+        .article-content h3 {
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            font-size: 1.25rem;
+            font-weight: 100;
+            margin: 2rem 0 1rem;
+            color: var(--soft-brown);
+        }
+
+        /* 回到主页按钮 */
+        .back-home {
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .back-home a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2.5rem;
+            background: var(--gentle-gold);
+            color: var(--deep-warm);
+            text-decoration: none;
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+            border-radius: 30px 12px 30px 12px;
+            transition: all 0.5s ease;
+        }
+
+        .back-home a:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 12px 36px rgba(245, 213, 143, 0.4);
+        }
+
+        /* 页脚 */
+        footer {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-mute);
+            font-size: 0.9rem;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gentle-gold), transparent);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            nav {
+                padding: 0.75rem 1.2rem;
+                background: rgba(253, 248, 232, 0.98);
+            }
+
+            .logo {
+                font-size: 1.1rem;
+            }
+
+            .nav-links {
+                gap: 0.7rem;
+                font-size: 0.8rem;
+                justify-content: flex-end;
+            }
+
+            .article-container {
+                padding: 8rem 1.2rem 4rem;
+            }
+
+            .article-title {
+                font-size: 1.8rem;
+            }
+
+            .article-image-placeholder {
+                height: 200px;
+                font-size: 3.5rem;
+            }
+
+            .article-content {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .article-title {
+                font-size: 1.5rem;
+            }
+
+            .nav-links {
+                gap: 0.9rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 流动色块 -->
+    <div class="paint-blob blob-1"></div>
+    <div class="paint-blob blob-2"></div>
+
+    <!-- 导航栏 -->
+    <nav>
+        <a href="index.html" class="logo">✦ 瓜瓜占星</a>
+        <div class="nav-links">
+            <a href="index.html#courses">占星课程</a>
+            <a href="index.html#articles">占星干货</a>
+            <a href="index.html#glowing-planet">发光星球</a>
+        </div>
+    </nav>
+
+    <!-- 文章主体 -->
+    <article class="article-container">
+        <header class="article-header">
+            <h1 class="article-title">整宫制VS普拉西德制，古占到底用哪个宫位制？</h1>
+            <div class="article-tags">
+                <span class="article-tag">宫位制</span>
+                <span class="article-tag">古典占星</span>
+                <span class="article-tag">方法论</span>
+            </div>
+        </header>
+<div class="article-content">
+            <p>占星界有一个争论了几千年的话题——到底用整宫制，还是普拉西德制？</p>
+            <p>每次跟不同的老师上课，有的用整宫制，有的用象限宫位制。下面永远有学生问：老师，到底用哪个？</p>
+            <p>我自己上高阶课的时候也不断被问：这个是整宫制吗？这个是象限宫位制吗？问得头都要晕了。</p>
+            <p>今天就来把这件事说清楚。</p>
+            <h2>两种宫位制是怎么来的</h2>
+            <p>先说历史。</p>
+            <p>最本源的是古希腊，古希腊传统用的就是整宫制。后来占星传到阿拉伯，发展出了卜卦占星——就是此时此地开一张新盘，卜一卦来回答问题。</p>
+            <p>卜卦占星又发明出了象限宫位制，也就是普拉西德制。</p>
+            <p>但有意思的是，阿拉伯人虽然发明了象限宫位制，他们却是两种都用。有时候用整宫，有时候用象限，并没有非此即彼。</p>
+            <p>这也是为什么到今天还在争，因为源头就没有说死。</p>
+            <h2>两种宫位制到底差在哪</h2>
+            <p>先给不太了解的同学简单讲一下区别。</p>
+            <p>整宫制，就是把12个星座完完整整分成12份，一个星座就是一个宫。</p>
+            <p>每个宫的宫头就是0度，一颗星在哪个星座，它就在哪个宫。干干净净，清清爽爽，没有模糊地带。</p>
+            <p>MC（天顶）不是10宫的宫头，它可能落在10宫里的某个度数，也可能跑到9宫或11宫。AC（上升）也不等于星座的0度，它可能落在1宫的某个度数。</p>
+            <p>普拉西德制就不一样了。</p>
+            <p>每个宫的宫头度数不一样，10宫的宫头就是MC的度数，4宫的宫头就是IC的度数，1宫的宫头就是AC。</p>
+            <p>所以在整宫制里，金星可能在2宫，但切到普拉西德制，它就跑到1宫去了。</p>
+            <p>整宫制没有截夺。</p>
+            <p>一个宫就是一个星座，一颗星在哪就是哪，不会有"我到底算2宫还是1宫"的纠结。</p>
+            <p>但普拉西德制就会有截夺——一个宫位里有两个星座，或者一个宫特别大、跨度特别大，其他宫被压缩了。高纬度地区出生的人，截夺会更明显。</p>
+            <p>这也引出了另一个争论：有截夺的话，一个宫里两个星座，到底哪个星座的守护星是宫主星？</p>
+            <h2>原相机和美颜相机的比喻</h2>
+            <p>我先直接说结论：没有谁更正确。</p>
+            <p>这不是谁对谁错的问题，而是两种不同的描述方式。</p>
+            <p>打个比方——</p>
+            <p>整宫制这张盘，就是原相机拍出来的你，没有美颜、没有磨皮，是你人生最本质的一个切面。</p>
+            <p>普拉西德制拍出来的呢，加了一点磨皮、一点美颜，可能这里过曝了、那里有点噪点，但那张照片里的人也是你，只是不同维度的你。</p>
+            <p>我们有时候会觉得原相机拍出来怎么这么丑，这跟我有啥关系？反而觉得美颜相机里那个人才是自己。</p>
+            <p>很多人接触到整宫制的第一反应也是：不对啊，普拉西德制才像我，整宫制不像我。</p>
+            <p>很正常。因为你用惯了，你已经把普拉西德制里的那些相位、那些位置，当成了"这就是我"。</p>
+            <p>但原相机里的你也是你，美颜相机里的你也是你。它们是两种不一样的真相，但都是你。</p>
+            <p>不用去争谁更对，也不用拿"我是古占所以我只用整宫制"说事——古占很多人也是整宫制跟象限宫位制一起用的。</p>
+            <p>古占不是用宫位制来定义的，而是取决于你用的是什么体系，以及你怎么把这两张盘结合起来。</p>
+            <h2>本质与表象</h2>
+            <p>再往深说一步。</p>
+            <p>整宫制是你的本质。</p>
+            <p>你即使否认，你现在不认可，它也是你的本质。它就是那个原相机。</p>
+            <p>普拉西德制更像是表象，更像是我们自己日常感觉到的那个自己。</p>
+            <p>这两个你可能都有感觉。</p>
+            <p>对于修行比较深、自我觉察比较强的人来说，可能对整宫制更有感觉。但如果比较年轻、经历的事不多，可能会对普拉西德制更有感觉——因为你感觉到的自己就是那个表象的自己。</p>
+            <p>但这不代表你的感受是错的。</p>
+            <p>感觉自己也是对的。</p>
+            <p>还有一个实用小技巧：如果有星落在普拉西德宫位的末尾，你可以去看看它在整宫制里属于哪个宫。</p>
+            <p>之前讲过"穿宫"的概念——如果一颗星在一个宫的末尾5度，就可以算它穿到下一个宫位了。</p>
+            <p>拿不准这颗星到底算3宫还是4宫的时候，切到整宫制看一眼，说不定答案就很清晰——哦，已经在4宫中间了。</p>
+            <h2>萨尔的行星力量判断法</h2>
+            <p>有一位阿拉伯古典占星师叫萨尔（Sahl），他有一套很有意思的判断方法。</p>
+            <p>他的《萨尔占星全集》在台湾有出版，淘宝上也能搜到，推荐大家去看。他的第二本《论本命》今年应该也会出版，到时候有消息我第一时间通知大家。</p>
+            <p>萨尔是怎么判断行星力量的呢？</p>
+            <p>先想一个问题：两颗太阳，一颗在10宫（角宫），一颗在11宫（果宫）。按理来说角宫的太阳力量更强，对不对？</p>
+            <p>但如果11宫那颗太阳，它紧挨着MC呢？</p>
+            <p>萨尔说，靠近MC的那颗力量更强。</p>
+            <p>为什么？第一，它靠近MC这条轴线。第二，你把盘切到普拉西德制就会发现——这颗在整宫制11宫、但靠近MC的太阳，在普拉西德制里是在10宫的。</p>
+            <p>还有一个原理。</p>
+            <p>想象太阳在天空中运行，从凌晨到中午再到下午，它是顺时针走的。一颗星如果正在朝MC的方向走，就是在冲刺阶段——百米冲刺前的那一两秒，所有能量都发挥到极致。</p>
+            <p>但如果它已经走过了MC、穿过去了，那就相当于冲过终点线了，已经在慢跑休息了。</p>
+            <p>所以，往轴线方向冲刺的那颗星，力量更强。</p>
+            <p>这个规律对四个轴点都适用。</p>
+            <p>MC旁边的星，从左边靠近MC的比已经走过MC的更强。</p>
+            <p>DC旁边的星，从左边靠近DC的比已经走过的更强。</p>
+            <p>IC旁边的星，也是一样——正在往IC冲刺的，比已经穿过去的更强。</p>
+            <p>怎么判断左右？想象你站在星盘的中心，眼睛看着那个轴点的方向，你的左手边就是"左边"。不是以屏幕方向为准，是以你站在圆盘中间的视角为准。</p>
+            <p>左侧的力量更强。</p>
+            <h2>乔布斯的例子</h2>
+            <p>说太多不如看一个真人案例。</p>
+            <p>我们来看乔布斯的盘。左边整宫制，右边普拉西德制。</p>
+            <p>乍一看，这怎么像两个人？</p>
+            <p>太阳在整宫制里是7宫，普拉西德制里变成6宫。</p>
+            <p>他的命主星水星，整宫制在6宫，普拉西德制在5宫。</p>
+            <p>这不乱了吗？</p>
+            <p>不乱。因为这两个都是他。</p>
+            <p>命主星水星，一飞五——这个人有创意、灵感爆发、奇思妙想很多、脑子转得快。这是乔布斯。</p>
+            <p>一飞六呢——这个人养生？工作很辛苦？长时间工作？工作狂？这也是乔布斯。</p>
+            <p>一个是美颜相机里的他——"我是一个有创造性的人"。</p>
+            <p>一个是原相机里的他——实际上他就是个工作狂，可能自己都不太愿意承认，但他就是。</p>
+            <p>人是复杂的。看到两张盘之后，你就要承认，我这些特性都有。</p>
+            <p>再看木星。</p>
+            <p>普拉西德制里木星在10宫，又是庙旺——哇，事业做得很大，贵人很多，得到领导重视。</p>
+            <p>整宫制里木星跑到11宫了——贵人运很好，很多人给他投资，很多人看好他，公司名气大流量大，追随者众多，很多人崇拜他。</p>
+            <p>这也都是他。</p>
+            <p>再看月亮。</p>
+            <p>月亮落7宫——他很重视伴侣，围着伴侣转。</p>
+            <p>月亮落8宫——伴侣的钱对他很重要。</p>
+            <p>到底谁重要？</p>
+            <p>都重要。</p>
+            <p>乔布斯不也有合伙人吗？创办苹果就是跟合伙人一起创办的，后来被踢出去，之后又被请回来当CEO。7宫重要，8宫也重要——合伙人的钱、投资人的钱，都很重要。</p>
+            <p>哪一个都是他，没有说哪个更正确，只看这个人愿不愿意承认而已。</p>
+            <p>很多有占星基础的人，我用整宫制给他们看盘，他们自己都会不习惯——因为普拉西德制看惯了，就觉得"我是这个样子的"。</p>
+            <p>但用整宫制看，依旧也是他。</p>
+            <p>只是有个适应过程。</p>
+            <h2>我自己的例子</h2>
+            <p>再拿我自己的盘来感受一下，表象跟实相到底差多少。</p>
+            <p>左边整宫制，右边普拉西德制。</p>
+            <p>先说土星。</p>
+            <p>我以前只看普拉西德制的时候，土星落3宫，离天底很近，也算是土星合四宫。但它在普拉西德制里是果宫，力量不算很强。</p>
+            <p>切到整宫制，土星直接跑到4宫——从果宫跑到角宫，力量大大增强。</p>
+            <p>什么意思呢？</p>
+            <p>表象上，我可能看起来有点自卑、有点胆怯，喜欢把自己藏起来，不愿意抛头露面。土星能量还在，毕竟我是个土星人嘛。</p>
+            <p>但本质上，命主星跑到一个强旺的宫位，说明我其实挺有能力、挺有力量的。只看一飞三的话，好像能力不怎么显著，但其实是有的。</p>
+            <p>金星的对比更明显。</p>
+            <p>金星是我的10宫主星。用普拉西德制看，我是10飞1——这个人很有事业心、很有野心，喜欢创业、搞大事情。</p>
+            <p>但从整宫制来看，是10飞2——飞到财宫去了。</p>
+            <p>这说明什么？</p>
+            <p>说明我本质上并不是一个很有事业心的人。</p>
+            <p>表面上大家觉得，瓜瓜做自由职业这么久，搞自媒体涨粉，做那么多事情，肯定是个很有事业心的人。10飞1嘛，一定要出头。</p>
+            <p>但我真不是。</p>
+            <p>表面上有事业心，内核其实是佛系的，觉得钱够用就行了。之前在很多播客里也说过，我不是那种要赚多少多少的人，够满足我的生活水准就差不多了。</p>
+            <p>如果本质是10飞1的人，那野心会更大一些。对我来说，钱够花就行，落在财宫嘛。</p>
+            <p>再看水星。</p>
+            <p>水星跟我上升合得很紧。用普拉西德制看，水星在12宫；用整宫制看，水星在1宫。</p>
+            <p>从果宫跑到角宫，力量大大增强。</p>
+            <p>说明什么？我的本质里，水星的力量是很强的——思维能力、表达能力、公开演讲的能力，这些本质上都很强。</p>
+            <p>但小时候我其实挺自卑的，挺不敢说话的，害羞，会躲起来。</p>
+            <p>一个人如果能把整宫制里本质的部分活出来，说明他是比较了解自己的人。如果不了解自己，就会给自己找理由——"我是12宫的，所以我比较避世。"</p>
+            <p>但你的本质到底是什么样的，可以去看看整宫制。</p>
+            <p>连自己的本质都不了解的话，就多去感受一下这张盘。天天看自己的盘，去感受，为什么这颗星在这个位置，你感受一下嘛。</p>
+            <h2>从月亮五宫到月亮六宫</h2>
+            <p>再说一个我自己很有感触的变化。</p>
+            <p>以前不懂整宫制的时候，看我月亮落5宫，老开心了——月亮5宫！有创造力！喜欢谈恋爱！喜欢交友！特别有想法！</p>
+            <p>一看到整宫制，月亮怎么跑6宫去了？当时就觉得，怎么变不好了？</p>
+            <p>但换个角度想，我现在越来越养生了，越来越能跟自己的身体感受链接了。</p>
+            <p>可能也是因为身体不太好，容易发炎、容易感冒，所以越来越意识到身体很重要。天天做瑜伽，天天搞保养，喝各种花茶养生。</p>
+            <p>我越来越感觉，自己从一个月亮五宫人，活成了一个月亮六宫人。</p>
+            <p>26岁之前，我完全感受不到什么月亮六宫——我是很操劳的人吗？我是很养生的人吗？完全感受不到。天天蹦跶，怎么会是个养生的人。</p>
+            <p>但现在我就是。</p>
+            <p>这就是一个人的成长。</p>
+            <p>表象跟实相，这两个都是我。你可以说我是很有创造力的人——我确实很有创造力。你也可以说我是很养生的人——我现在确实很养生。</p>
+            <h2>写在最后</h2>
+            <p>讲了这么多，你可能更晕了——那我到底用哪个？</p>
+            <p>我的建议是：不用急着选边站。</p>
+            <p>大部分国外的占星师，都是整宫制跟普拉西德制结合起来用的。不是完完全全只用一个，而是会互相参考。</p>
+            <p>你也可以两边来回切，自己去做实验。给自己看，给朋友看，感受一下哪个宫位制更好用、更准。</p>
+            <p>前期我用普拉西德制最多。但最近这一年，我用整宫制反而更多了。我喜欢两边来回切着看。</p>
+            <p>有一个占星师的回答我特别喜欢，每次有人问他用什么宫位制，他都说：</p>
+            <p>"I use open house system."</p>
+            <p>我爱用哪个用哪个。</p>
+            <p>没有对错。</p>
+            <p>哪个都是你，哪个都是千面的你。</p>
+            <p>如果想看更多占星干货，欢迎关注我的小宇宙「<strong>爱的表达式</strong>」，已经更了200多期啦。</p>
+            <p>如果你想看我朋友圈or咨询or了解占星课，欢迎链接：guaguasis</p>
+        </div>
+
+        <div class="back-home">
+            <a href="index.html#articles">← 返回占星干货</a>
+        </div>
+    </article>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>✦ 瓜瓜占星 ✦</p>
+    </footer>
+</body>
+</html>
