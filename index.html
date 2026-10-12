@@ -297,6 +297,28 @@
             background: rgba(249, 241, 215, 0.5);
         }
 
+        .hero-cta-gold {
+            background: linear-gradient(135deg, #D4B77A 0%, #C4A35A 100%);
+            border-color: #C4A35A;
+            color: #FFF8E7;
+            box-shadow: 0 4px 16px rgba(196, 163, 90, 0.3);
+        }
+
+        .hero-cta-gold:hover {
+            background: linear-gradient(135deg, #E0C58A 0%, #D4B270 100%);
+            box-shadow: 0 6px 20px rgba(196, 163, 90, 0.4);
+        }
+
+        /* 导航栏财富格局按钮 */
+        .nav-fortune {
+            color: #D4A843 !important;
+            font-weight: 600;
+        }
+
+        .nav-fortune:hover {
+            color: var(--deep-warm) !important;
+        }
+
         /* 通用区块样式 */
         .section {
             padding: 6rem 3rem;
@@ -2118,6 +2140,7 @@
             <a href="#courses">占星课程</a>
             <a href="#articles">占星干货</a>
             <a href="#glowing-planet">发光星球</a>
+            <a href="fortune-chart/index.html" class="nav-fortune">财富格局</a>
         </div>
     </nav>
 
@@ -2126,7 +2149,10 @@
         <div class="zodiac-symbol"><img src="images/日与月.svg" alt="日与月"></div>
         <h1>瓜瓜占星</h1>
         <p class="hero-subtitle">星盘 · 你一生的隐喻</p>
-        <a href="#about" class="hero-cta">了解更多</a>
+        <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
+            <a href="#about" class="hero-cta">了解更多</a>
+            <a href="fortune-chart/index.html" class="hero-cta hero-cta-gold">免费解盘</a>
+        </div>
     </section>
 
     <!-- 关于瓜瓜 -->

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>占星解盘辅助工具 · 古典占星</title>
+  <script type="module" src="./assets/index-idti4nd4.js"></script>
+  <link rel="stylesheet" href="./assets/index-bwpPUpKd.css">
+</head>
+<body>
+    <div class="app">
+        <!-- 返回首页 -->
+        <div style="padding: 12px 0;">
+            <a href="../index.html" style="font-size: 0.82rem; color: var(--text-sepia); text-decoration: none; letter-spacing: 1px; font-family: var(--font-display);">
+                ← 返回瓜瓜占星首页
+            </a>
+        </div>
+
+        <!-- 头部 · 杂志刊头 -->
+        <header class="header">
+            <h1>占 星 解 盘 辅 助 工 具</h1>
+            <p class="subtitle">— 古典占星 · 信息提炼 · 结构化呈现 —</p>
+        </header>
+
+        <!-- 输入表单 -->
+        <section class="input-section" id="inputSection">
+            <div class="form-card">
+                <h2>出 生 信 息</h2>
+
+                <!-- 智能解析区 -->
+                <div class="smart-parse-section">
+                    <label for="parseText" class="parse-label">
+                        智能文本解析
+                    </label>
+                    <textarea id="parseText" class="parse-textarea" rows="3"
+                        placeholder=""></textarea>
+                    <button type="button" class="btn-parse" id="parseBtn">解 析 文 本</button>
+                    <p class="parse-hint" id="parseHint"></p>
+                </div>
+
+                <div class="divider"><span>或 手 动 填 写</span></div>
+
+                <form id="birthForm" class="birth-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="birthDate">出生日期</label>
+                            <input type="date" id="birthDate" value="1990-01-01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="birthTime">出生时间</label>
+                            <input type="time" id="birthTime" value="12:00" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="timezone">时区</label>
+                            <select id="timezone">
+                                <!-- 时区由 JS 动态生成 -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="birthPlace">出生地点</label>
+                            <input type="text" id="birthPlace" placeholder="例：北京 / 山东省淄博市" value="北京">
+                        </div>
+                        <div class="form-group">
+                            <label for="latitude">纬度（北纬为正）</label>
+                            <input type="number" id="latitude" step="0.0001" value="39.9042" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="longitude">经度（东经为正）</label>
+                            <input type="number" id="longitude" step="0.0001" value="116.4074" placeholder="">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-primary" id="calcBtn">
+                        <span>开 始 排 盘</span>
+                    </button>
+                </form>
+                <p class="hint">※ 工具使用瑞士星历表计算，精度与专业占星软件一致</p>
+            </div>
+        </section>
+
+        <!-- 结果区域 -->
+        <main class="result-section" id="resultSection" hidden>
+            <!-- 基本信息条 -->
+            <div class="info-bar">
+                <div class="info-item">
+                    <span class="info-label">出生信息</span>
+                    <span class="info-value" id="infoBirth">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">日生 / 夜生</span>
+                    <span class="info-value" id="infoDayNight">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">上 升</span>
+                    <span class="info-value" id="infoAsc">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">天 顶</span>
+                    <span class="info-value" id="infoMC">-</span>
+                </div>
+                <button class="btn-back" id="backBtn">← 重新输入</button>
+            </div>
+
+            <!-- 内容区域 - 从上到下排列 -->
+            <div class="content-area">
+
+                <!-- 第壹章 · 本命盘总览 -->
+                <div class="section" id="section-overview">
+                    <div class="card">
+                        <h3><span style="font-size:0.85rem;color:var(--gold-dark);font-style:italic;">Ⅰ.</span> 行星与四轴</h3>
+                        <div class="table-wrapper">
+                            <table class="data-table" id="planetTable">
+                                <thead>
+                                    <tr>
+                                        <th>行星</th>
+                                        <th>星座度数</th>
+                                        <th>宫位</th>
+                                        <th>尊贵状态</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 第贰章 · 吉凶分布 -->
+                <div class="section" id="section-fortune">
+                    <div class="grid-2">
+                        <div class="card card-good">
+                            <h3><span style="font-size:0.85rem;color:var(--emerald);font-style:italic;">Ⅱ.</span> 最 幸 运 的 地 方</h3>
+                            <div id="mostFortunate"></div>
+                        </div>
+                        <div class="card card-bad">
+                            <h3><span style="font-size:0.85rem;color:var(--vermilion);font-style:italic;">Ⅲ.</span> 最 需 注 意 的 地 方</h3>
+                            <div id="mostUnfortunate"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 第叁章 · 福点 -->
+                <div class="section" id="section-poi">
+                    <div class="card">
+                        <h3><span style="font-size:0.85rem;color:var(--gold-dark);font-style:italic;">Ⅳ.</span> 福 点 <span style="font-size:0.8rem;color:var(--text-faded);font-weight:400;">Part of Fortune</span></h3>
+                        <div id="poiDetails"></div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="card">
+                            <h3>福点落宫力量</h3>
+                            <div id="poiHouseStrength"></div>
+                        </div>
+                        <div class="card">
+                            <h3>福点主星状态</h3>
+                            <div id="poiLordStatus"></div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>福点相位与吉星支持</h3>
+                        <div id="poiAspects"></div>
+                    </div>
+                </div>
+
+                <!-- 第肆章 · 资产点 -->
+                <div class="section" id="section-assets">
+                    <div class="card">
+                        <h3><span style="font-size:0.85rem;color:var(--gold-dark);font-style:italic;">Ⅴ.</span> 资 产 点 <span style="font-size:0.8rem;color:var(--text-faded);font-weight:400;">Lot of Assets</span></h3>
+                        <p class="hint">资产点 ＝ 上升 ＋ 二宫头 − 二宫主（日生夜生公式相同，二宫头基于普拉西德制计算）</p>
+                        <div id="assetsDetails"></div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="card">
+                            <h3>资产点落宫力量</h3>
+                            <div id="assetsHouseStrength"></div>
+                        </div>
+                        <div class="card">
+                            <h3>资产点主星状态</h3>
+                            <div id="assetsLordStatus"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 第伍章 · 恒星合相 -->
+                <div class="section" id="section-stars">
+                    <div class="card">
+                        <h3><span style="font-size:0.85rem;color:var(--gold-dark);font-style:italic;">Ⅵ.</span> 恒 星 合 相  <span style="font-size:0.8rem;color:var(--text-faded);font-weight:400;">容许度 1.5° 以内</span></h3>
+                        <p class="hint">显示本命行星、四轴、福点与重要恒星的合相（基于出生时刻恒星位置）</p>
+                        <div class="table-wrapper">
+                            <table class="data-table" id="fixedStarTable">
+                                <thead>
+                                    <tr>
+                                        <th>本命点</th>
+                                        <th>恒星（英文）</th>
+                                        <th>恒星（中文）</th>
+                                        <th>容许度</th>
+                                        <th>恒星性质</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+
+                        <!-- 合相恒星含义解读 -->
+                        <div id="fixedStarDescriptions" style="margin-top: 28px;"></div>
+                    </div>
+                </div>
+
+                <!-- 第陆章 · 三分主星 -->
+                <div class="section" id="section-triplicity">
+                    <div class="card">
+                        <h3><span style="font-size:0.85rem;color:var(--gold-dark);font-style:italic;">Ⅶ.</span> 三 分 主 星 · 大 财 格 局 判 断</h3>
+                        <p class="hint" id="triplicityHint">-</p>
+                        <div id="triplicityDetails"></div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="card">
+                            <h3 id="triplicityLord1Title">太阳 / 月亮的三分主星</h3>
+                            <div id="triplicityLord1"></div>
+                        </div>
+                        <div class="card">
+                            <h3>二宫星座的三分主星</h3>
+                            <div id="triplicityLord2"></div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>综 合 评 估</h3>
+                        <div id="triplicitySummary"></div>
+                    </div>
+
+                    <!-- 保存报告按钮 -->
+                    <div style="text-align: center; margin-top: 8px;">
+                        <button type="button" class="btn-primary" id="saveReportBtn" style="font-size: 0.85rem; padding: 10px 28px;">
+                            <span>✦ 保存报告为图片 ✦</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- 页脚 -->
+        <footer class="footer">
+            <p>基 于 瑞 士 星 历 表 计 算 · 整 宫 制 · 古 典 占 星 体 系</p>
+        </footer>
+    </div>
+
+</body>
+</html>
