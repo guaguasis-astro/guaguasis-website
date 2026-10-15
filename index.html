@@ -1290,32 +1290,9 @@
         /* CTA区域 */
         .cta {
             text-align: center;
-            padding: 4rem 3rem;
-            background:
-                radial-gradient(circle at 20% 20%, rgba(255, 239, 184, 0.4) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(232, 168, 124, 0.25) 0%, transparent 50%),
-                rgba(253, 248, 232, 0.6);
-            border-radius: 24px 12px 28px 16px;
+            padding: 2rem 3rem;
             position: relative;
-            overflow: hidden;
             margin-top: 2rem;
-        }
-
-        .cta::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(245, 213, 143, 0.1) 0%, transparent 60%);
-            animation: cta-float 12s ease-in-out infinite;
-        }
-
-        @keyframes cta-float {
-            0%, 100% { transform: translate(0, 0); }
-            33% { transform: translate(30px, -20px); }
-            66% { transform: translate(-20px, 20px); }
         }
 
         .cta h2 {
@@ -2151,7 +2128,6 @@
         <div class="nav-links">
             <a href="#courses">占星课程</a>
             <a href="#articles">占星干货</a>
-            <a href="#glowing-planet">发光星球</a>
             <a href="fortune-chart/index.html" class="nav-fortune">财富格局</a>
         </div>
     </nav>
@@ -2178,14 +2154,13 @@
                 </div>
                 <div class="about-text">
                     <h3>你好，我是瓜瓜</h3>
-                    <p>占星师（古典+现代+择地），师从 Chris Brennan《希腊占星学》作者、Patric Watson、Helena Woods。看盘案例 2000+。</p>
+                    <p>古典/择地占星师，萨满实践者，师从 Chris Brennan《希腊占星学》作者、Patric Watson、Helena Woods、Shu Yap。看盘案例 2000+。</p>
                     <p>互联网公司上班 1 年 / 自由职业 6 年，中国和西班牙两地生活。</p>
                     <p>太阳射手 12 宫人，诚实面对自己 / 自我探索，通过咨询帮助他人找到勇气和力量。</p>
                     <p>月冥人，经历多段「创伤型情感关系」，在绝望中长出爱自己的能力。</p>
-                    <p><a href="https://www.xiaoyuzhoufm.com/podcast/61d09a9d8331df2be32c345f" target="_blank">《爱的表达式》</a>播客主理人，社群主理人，全网 50W 粉丝博主。</p>
+                    <p><a href="https://www.xiaoyuzhoufm.com/podcast/61d09a9d8331df2be32c345f" target="_blank">《爱的表达式》</a>播客主理人，<a href="glowing-planet.html">发光星球</a>社群主理人。</p>
                     <div class="about-badges">
                         <span class="badge">古典占星</span>
-                        <span class="badge">现代占星</span>
                         <span class="badge">择地占星</span>
                         <span class="badge">2000+ 案例</span>
                     </div>
@@ -2245,7 +2220,7 @@
                     <div class="course-price">6999<span>元</span></div>
                 </div>
                 <ul class="course-highlights">
-                    <li>课程时长 40+ 小时（直播+回放）</li>
+                    <li>课程时长 45+ 小时（直播+回放）</li>
                     <li>赠送价值 999 的卜卦占星技法课（2h）</li>
                     <li>赠送瓜瓜自制占星手册</li>
                     <li>不定时加餐实操</li>
@@ -2489,202 +2464,13 @@
         </div>
     </section>
 
-    <!-- 发光星球 -->
-    <section id="glowing-planet" class="section glowing-planet">
-        <div class="section-title">✨ 发光星球</div>
-
-        <!-- 我的发光之旅时间线 -->
-        <div class="journey-timeline">
-            <div class="journey-node">
-                <div class="journey-dot-wrapper">
-                    <div class="journey-dot"></div>
-                </div>
-                <div class="journey-card">
-                    <div class="journey-icon">🎙️</div>
-                    <div class="journey-date">2022.8.29</div>
-                    <div class="journey-title">播客的起点</div>
-                    <div class="journey-desc">录制了第一支播客，后面花了2年的时间，我才拥有了2000听众
-而在第3年，我拥有了1W听众</div>
-                </div>
-            </div>
-            <div class="journey-node">
-                <div class="journey-dot-wrapper">
-                    <div class="journey-dot"></div>
-                </div>
-                <div class="journey-card">
-                    <div class="journey-icon">✈️</div>
-                    <div class="journey-date">2023.11.1</div>
-                    <div class="journey-title">逃离日复一日的生活</div>
-                    <div class="journey-desc">离开广州去西班牙，我不知道未来会怎样
-但我很确定自己要逃离国内的生活
-同时学习占星和西班牙语
-允许自己先跟着感觉飘一飘～</div>
-                </div>
-            </div>
-            <div class="journey-node">
-                <div class="journey-dot-wrapper">
-                    <div class="journey-dot"></div>
-                </div>
-                <div class="journey-card">
-                    <div class="journey-icon">⭐</div>
-                    <div class="journey-date">2024.1-至今</div>
-                    <div class="journey-title">通过表达与创作确认了天命</div>
-                    <div class="journey-desc">因为在播客分享占星内容
-意外开启了「职业占星师」道路
-通过占星结缘了很多对玄学、自我探索
-以及对自由职业感兴趣的朋友
-坚定了想要不断创作和做天命事业的决心</div>
-                </div>
-            </div>
-            <div class="journey-node">
-                <div class="journey-dot-wrapper">
-                    <div class="journey-dot"></div>
-                </div>
-                <div class="journey-card">
-                    <div class="journey-icon">🌍</div>
-                    <div class="journey-date">2026.1</div>
-                    <div class="journey-title">通过社群分享我的创作经验</div>
-                    <div class="journey-desc">创办「发光星球」社群，并把其中的2期创作课程作为公开课发布
-成为了热度最高的一期节目，在小宇宙播放量1.3W！完全超预期！
-确认可以通过 "创作与表达、人生自传、AI"帮助加速自我成长</div>
-                </div>
-            </div>
-            <div class="journey-node">
-                <div class="journey-dot-wrapper">
-                    <div class="journey-dot"></div>
-                </div>
-                <div class="journey-card">
-                    <div class="journey-icon">💫</div>
-                    <div class="journey-date">现在ing</div>
-                    <div class="journey-title">带领大家一起发光！</div>
-                    <div class="journey-desc">致力于帮助，真正想发光想创作的人
-把最有潜力的自我活出来
-我经历过很多把自己推倒重来的过程
-这不是失败，而是一次次的校正
-让自己的行动与灵魂目标一致
-主动选择不做一个旁观者，做自己的主角</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 核心价值观 -->
-        <div class="core-values">
-            <div class="value-card">
-                <div class="value-title">✨ 释放创造力</div>
-                <div class="value-desc">
-                    每月瓜瓜会带来表达与创作的公开课，形式不拘泥于艺术、表达、游戏…
-                    一切有利于释放内在小孩的事，我们都愿意尝试。
-                </div>
-                <div class="video-links">
-                    <a href="https://meeting.tencent.com/crm/Ngyqr8RX1a" target="_blank" class="video-link-card">
-                        <div class="video-link-icon">
-                            <img src="https://97415045.pinme.dev" alt="相机">
-                        </div>
-                        <div class="video-link-text">🎬 自媒体创作心法</div>
-                    </a>
-                    <a href="https://meeting.tencent.com/crm/Kzp68Y4Xc5" target="_blank" class="video-link-card">
-                        <div class="video-link-icon">
-                            <img src="https://c7aa3167.pinme.dev" alt="盆栽">
-                        </div>
-                        <div class="video-link-text">🎬 自媒体观察</div>
-                    </a>
-                </div>
-            </div>
-            <div class="value-card">
-                <div class="value-title">
-                    <img src="https://ae65383b.pinme.dev" alt="AI工具">
-                    AI创作联动
-                </div>
-                <div class="value-desc">
-                    使用AI辅助创作：从内容输入、到输出创意、再到播客剪辑，让AI成为你的创作伙伴。
-                </div>
-                <div class="ai-image-stack ai-image-stack-2">
-                    <img src="https://13192e9c.pinme.dev/" alt="AI分析过程" class="stacked-image">
-                    <img src="https://15424df4.pinme.dev" alt="剪辑完成" class="stacked-image">
-                </div>
-            </div>
-            <div class="value-card energy-section">
-                <div class="value-title">🌊 自我觉察与能量流动</div>
-                <div class="value-desc">
-                    分享瓜瓜在自我觉察和能量疗愈的经验，在社群内部组织<span class="highlight">能量流动活动</span>，
-                    让内在的智慧自然流淌。
-                </div>
-                <div class="energy-image-container">
-                    <span class="floating-word">冥想</span>
-                    <span class="floating-word">精油</span>
-                    <span class="floating-word">神谕卡</span>
-                    <span class="floating-word">瑜伽</span>
-                    <img src="https://f34eed64.pinme.dev" alt="能量流动" class="energy-image">
-                </div>
-            </div>
-            <div class="value-card">
-                <div class="value-title">🎙️ 共创与表达</div>
-                <div class="value-desc">
-                    共同创作群播客<a href="https://www.xiaoyuzhoufm.com/podcast/67dfd3748f2a7dd2a59415c8" target="_blank" class="podcast-link">《发光星球》</a>，每个人都有表达的机会。还有<span class="highlight">「一周主理人」</span>活动，
-                    让你站在主理人的位置主动链接群友，展示你的作品与产品。
-                </div>
-                <div class="podcast-player-section">
-                    <a href="https://www.xiaoyuzhoufm.com/podcast/67dfd3748f2a7dd2a59415c8" target="_blank" class="podcast-player-link">
-                        <div class="podcast-player">
-                            <div class="podcast-cover-wrapper">
-                                <img src="https://8ad8bc98.pinme.dev" alt="发光星球播客" class="podcast-cover">
-                            </div>
-                            <div class="podcast-info">
-                                <div class="podcast-title">发光星球</div>
-                                <div class="podcast-subtitle">创造自我，活出最高版本</div>
-                            </div>
-                            <div class="podcast-progress">
-                                <div class="podcast-progress-bar">
-                                    <div class="podcast-progress-fill"></div>
-                                    <div class="podcast-progress-dot"></div>
-                                </div>
-                                <div class="podcast-time">
-                                    <span>1:15</span>
-                                    <span>-2:38</span>
-                                </div>
-                            </div>
-                            <div class="podcast-controls">
-                                <div class="podcast-control-btn">⏮</div>
-                                <div class="podcast-play-btn">▶</div>
-                                <div class="podcast-control-btn">⏭</div>
-                            </div>
-                        </div>
-                        <div class="podcast-player-text">点击收听《发光星球》</div>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- 活动 -->
-        <div class="activities">
-            <div class="activity">
-                <div class="activity-icon">🎨</div>
-                <div>每月创作公开课</div>
-            </div>
-            <div class="activity">
-                <div class="activity-icon">🧘</div>
-                <div>能量流动共修</div>
-            </div>
-            <div class="activity">
-                <div class="activity-icon">🎙️</div>
-                <div>发光星球播客</div>
-            </div>
-            <div class="activity">
-                <div class="activity-icon">🌟</div>
-                <div>一周主理人</div>
-            </div>
-        </div>
-    </section>
+    <!-- 发光星球页面见 glowing-planet.html -->
 
     <!-- 联系/CTA -->
     <section id="contact" class="section">
         <div class="cta">
-            <h2>准备好发光了吗？</h2>
-            <p>在这个星球上，每一个人都可以是光源<br>
-            让我们一起，创造自我，活出最高版本</p>
-            <button class="cta-button">加入发光星球</button>
+            <button class="cta-button">联系瓜瓜</button>
             <div class="qr-code">
-                <p>扫码联系瓜瓜</p>
                 <img src="images/微信二维码.jpg" alt="微信二维码">
             </div>
         </div>
@@ -2693,8 +2479,8 @@
 
     <!-- 页脚 -->
     <footer>
-        <p>✦ 瓜瓜占星 · 发光星球 ✦</p>
-        <p style="margin-top: 0.5rem;">在星空中，遇见自己；在创作中，绽放光芒</p>
+        <p>✦ 瓜瓜占星 ✦</p>
+        <p style="margin-top: 0.5rem;">在宇宙星辰中认识自己</p>
     </footer>
 
     <script>
