@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>占星解盘 · 古典占星</title>
-  <script type="module" crossorigin src="./assets/index-CpZ5rzeb.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-CBMT3Y5k.css">
+    <!-- 预加载占星符号字体，确保 Canvas 星盘图能正确渲染 -->
+    <link rel="preload" href="fonts/HamburgSymbols.ttf" as="font" type="font/ttf" crossorigin>
+  <script type="module" crossorigin src="./assets/index-lmEMQbbf.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-VWJOy3XN.css">
 </head>
 <body>
     <div class="app">
@@ -105,6 +107,11 @@
             <!-- 内容区域 - 从上到下排列 -->
             <div class="content-area">
 
+                <!-- 星盘图 -->
+                <div class="section" id="section-chart" style="text-align: center;">
+                    <canvas id="birthChart" width="600" height="600" style="max-width: 100%; height: auto;"></canvas>
+                </div>
+
                 <!-- 第壹章 · 本命盘总览 -->
                 <div class="section" id="section-overview">
                     <div class="card">
@@ -186,7 +193,6 @@
                 <div class="section" id="section-stars">
                     <div class="card">
                         <h3><span style="font-size:0.85rem;color:var(--gold-dark);font-style:italic;">Ⅵ.</span> 恒 星 合 相  <span style="font-size:0.8rem;color:var(--text-faded);font-weight:400;">容许度 1.5° 以内</span></h3>
-                        <p class="hint">显示本命行星、四轴、福点与重要恒星的合相（基于出生时刻恒星位置）</p>
                         <div class="table-wrapper">
                             <table class="data-table" id="fixedStarTable">
                                 <thead>
