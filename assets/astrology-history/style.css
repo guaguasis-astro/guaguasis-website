@@ -1,0 +1,119 @@
+/* 占星历史地图：样式仅作用于此板块。 */
+#astrology-history {
+    max-width: 1700px;
+    margin: 0 auto;
+    padding: 30px 0 35px;
+    scroll-margin-top: 80px;
+    font: 14px/1.9 'Noto Serif SC', serif;
+    color: var(--text-dark);
+}
+#astrology-history p { margin: 1em 0; }
+#astrology-history {
+    --cream: #FDF8E8;
+    --gentle-gold: #F5D58F;
+    --text-dark: #3D382A;
+    --text-mute: #6B6351;
+    --deep-warm: #8B7355;
+    --line: rgba(139, 115, 85, .24);
+    --ocean: #456979;
+}
+#astrology-history * { box-sizing: border-box; }
+#astrology-history button, #astrology-history a { -webkit-tap-highlight-color: transparent; }
+#astrology-history button { font: inherit; color: inherit; cursor: pointer; }
+#astrology-history button:focus-visible, #astrology-history a:focus-visible, #astrology-history .map-scroll:focus-visible { outline: 2px solid var(--ocean); outline-offset: 5px; }
+#astrology-history a { color: inherit; text-decoration: none; }
+#astrology-history .intro { padding: 46px 24px 28px; text-align: center; position: relative; }
+#astrology-history .eyebrow { font-size: 11px; color: var(--deep-warm); letter-spacing: 5px; margin: 0 0 12px; }
+#astrology-history .history-title { font: 52px/1.4 'ZCOOL XiaoWei', serif; letter-spacing: 8px; margin: 0 0 12px; }
+#astrology-history .intro-text { color: var(--text-mute); margin: 0; font-size: 13px; letter-spacing: 2px; }
+#astrology-history .intro-star { display: block; font-size: 24px; color: #ad8d50; margin-top: 12px; }
+#astrology-history .atlas { display: grid; grid-template-columns: minmax(0, 1fr) 350px; gap: 24px; padding: 0 4%; align-items: start; }
+#astrology-history .map-column { min-width: 0; padding-top: 14px; }
+#astrology-history .map-toolbar { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--text-mute); letter-spacing: 1px; }
+#astrology-history .map-toolbar button { padding: 6px 0 6px 15px; border: 0; background: none; color: var(--deep-warm); font-size: 11px; }
+#astrology-history .map-scroll { overflow-x: auto; scrollbar-width: thin; scrollbar-color: #c5b68f transparent; }
+#astrology-history .map-canvas { position: relative; width: 100%; aspect-ratio: 1584 / 992; margin: 10px 0; }
+#astrology-history .map-art { width: 100%; height: 100%; display: block; object-fit: contain; mask-image: radial-gradient(ellipse 67% 68% at 50% 50%, #000 40%, transparent 76%); }
+#astrology-history .marker { position: absolute; left: var(--x); top: var(--y); transform: translate(-50%, -50%); width: 44px; height: 44px; border: 0; background: none; padding: 0; z-index: 2; }
+#astrology-history .marker::before { content: ''; position: absolute; inset: -16px; border-radius: 50%; background: radial-gradient(circle, rgba(245,213,143,.8), transparent 68%); opacity: 0; transition: opacity .25s; pointer-events: none; }
+#astrology-history .marker-dot { display: block; width: 10px; height: 10px; background: #856631; border: 2px solid #fff5d3; border-radius: 50%; margin: auto; box-shadow: 0 0 0 4px #886e3330; position: relative; }
+#astrology-history .marker-label { position: absolute; top: calc(50% + var(--ly, 15px)); left: calc(50% + var(--lx, 0px)); transform: translateX(-50%); display: block; text-align: center; white-space: nowrap; background: rgba(253,248,232,.91); padding: 3px 8px; border-radius: 2px; font-size: 12px; line-height: 1.6; color: #463c2b; box-shadow: 0 2px 10px #5042210a; }
+#astrology-history .marker-label small { display: block; font-size: 9px; color: #7f6b4a; letter-spacing: 1px; }
+#astrology-history .marker:hover, #astrology-history .marker:focus-visible, #astrology-history .marker[aria-pressed="true"] { z-index: 4; }
+#astrology-history .marker:hover::before, #astrology-history .marker:focus-visible::before, #astrology-history .marker[aria-pressed="true"]::before { opacity: 1; }
+#astrology-history .marker[aria-pressed="true"] .marker-dot { background: #f9dd89; box-shadow: 0 0 0 6px #fff2c54d, 0 0 22px #a76c25; }
+#astrology-history .marker[aria-pressed="true"] .marker-label { background: #fff4d6; color: #65481d; box-shadow: 0 0 0 1px #c4a164; }
+#astrology-history .map-caption { display: flex; justify-content: space-between; gap: 15px; font-size: 10px; color: var(--deep-warm); border-top: 1px solid var(--line); padding-top: 12px; }
+#astrology-history .global-note { margin: 22px 0 0; display: flex; gap: 16px; align-items: center; }
+#astrology-history .global-note > span { color: #ad8d50; font-size: 35px; }
+#astrology-history .global-note p { margin: 0; color: var(--text-mute); font-size: 11px; letter-spacing: 2px; }
+#astrology-history .global-note button { border: 0; background: none; padding: 0; font-size: 14px; }
+#astrology-history .global-note button span { margin-left: 14px; color: var(--deep-warm); }
+#astrology-history .global-note button[aria-pressed="true"] { color: var(--ocean); text-decoration: underline; text-underline-offset: 5px; }
+#astrology-history .story { border-top: 2px solid #a98b50; background: linear-gradient(140deg, #fffdf5d9, #f8efd980); padding: 24px; box-shadow: 0 10px 40px #75603708; }
+#astrology-history .story-meta { display: flex; justify-content: space-between; gap: 10px; font-size: 10px; color: var(--deep-warm); letter-spacing: 1px; }
+#astrology-history .story-era { margin: 22px 0 7px; color: var(--ocean); font-size: 11px; }
+#astrology-history .story h3 { font: 29px/1.4 'ZCOOL XiaoWei', serif; margin: 0 0 13px; }
+#astrology-history .story-lead { font-size: 13px; margin: 0 0 22px; color: var(--text-mute); }
+#astrology-history .story-section { border-top: 1px solid var(--line); padding-top: 15px; margin-top: 17px; }
+#astrology-history .story h4 { font-size: 11px; letter-spacing: 3px; margin: 0 0 12px; color: var(--deep-warm); font-weight: 500; }
+#astrology-history .story ul { padding-left: 17px; margin: 0; }
+#astrology-history .story li { font-size: 12px; padding-left: 3px; margin-bottom: 10px; }
+#astrology-history .story li::marker { color: #b29863; }
+#astrology-history .story-section p { font-size: 12px; margin: 7px 0; }
+#astrology-history .books { color: var(--text-mute); }
+#astrology-history .legacy { border-left: 2px solid #ae985e; padding-left: 12px; margin-top: 20px; }
+#astrology-history .legacy span { font-size: 10px; color: var(--deep-warm); letter-spacing: 2px; }
+#astrology-history .legacy p { font-size: 12px; margin: 5px 0 0; }
+#astrology-history .related:empty { display: none; }
+#astrology-history .related { display: flex; gap: 6px; flex-wrap: wrap; border-top: 1px solid var(--line); margin-top: 20px; padding-top: 15px; }
+#astrology-history .related button { font-size: 10px; border: 1px solid var(--line); background: transparent; padding: 4px 7px; }
+#astrology-history .related button[aria-pressed="true"] { background: #e9debe; }
+#astrology-history .chapter-controls { display: flex; justify-content: space-between; align-items: center; margin-top: 23px; padding-top: 13px; border-top: 1px solid var(--line); font-size: 10px; color: var(--deep-warm); }
+#astrology-history .chapter-controls button { border: 0; padding: 7px 0; background: none; font-size: 11px; }
+#astrology-history .chapter-controls button:disabled { opacity: .35; cursor: default; }
+#astrology-history .chapters { margin: 45px 4% 0; border-top: 1px solid var(--line); padding-top: 22px; }
+#astrology-history .chapters-heading { display: flex; justify-content: space-between; gap: 16px; align-items: baseline; }
+#astrology-history .chapters h3 { font: 21px 'ZCOOL XiaoWei', serif; margin: 0; }
+#astrology-history .chapters-heading p { font-size: 10px; color: var(--text-mute); }
+#astrology-history .chapter-list { display: flex; gap: 0; overflow-x: auto; padding: 17px 0 12px; scrollbar-width: thin; scrollbar-color: #c5b68f transparent; }
+#astrology-history .chapter { flex: 0 0 150px; position: relative; text-align: left; background: none; border: 0; border-top: 1px solid var(--line); padding: 19px 12px 8px 0; }
+#astrology-history .chapter::before { content: ''; position: absolute; width: 5px; height: 5px; border-radius: 50%; background: #b9a881; left: 0; top: -3px; }
+#astrology-history .chapter .number { font-size: 10px; color: #b09a70; margin-right: 7px; }
+#astrology-history .chapter strong { font-size: 12px; font-weight: 500; }
+#astrology-history .chapter small { display: block; font-size: 10px; color: var(--text-mute); padding-top: 5px; }
+#astrology-history .chapter[aria-pressed="true"] { border-top-color: #496d7b; }
+#astrology-history .chapter[aria-pressed="true"]::before { background: #496d7b; box-shadow: 0 0 0 4px #496d7b15; }
+#astrology-history .chapter[aria-pressed="true"] strong { color: #496d7b; }
+#astrology-history .mobile-hint { display: none; }
+#astrology-history .no-script { text-align: center; padding: 30px; }
+@media (min-width: 1500px) {
+#astrology-history .atlas { grid-template-columns: minmax(0, 1fr) 380px; gap: 35px; }
+#astrology-history .story { padding: 30px; }
+}
+@media (max-width: 1100px) and (min-width: 769px) {
+#astrology-history .atlas { grid-template-columns: minmax(0, 1fr) 310px; gap: 15px; }
+#astrology-history .map-canvas { min-width: 700px; }
+}
+@media (max-width: 768px) {
+#astrology-history .intro { padding-top: 35px; }
+#astrology-history .history-title { font-size: 42px; }
+#astrology-history .atlas { display: block; padding: 0 5%; }
+#astrology-history .map-canvas { min-width: 850px; }
+#astrology-history .mobile-hint { display: block; font-size: 10px; color: var(--text-mute); margin: 3px 0 0; }
+#astrology-history .map-caption { font-size: 9px; }
+#astrology-history .global-note { margin: 18px 0 25px; }
+#astrology-history .story { padding: 24px; scroll-margin-top: 90px; }
+#astrology-history .chapters { margin: 30px 5% 0; }
+#astrology-history .chapters-heading { display: block; }
+}
+@media (max-width: 480px) {
+#astrology-history .history-title { font-size: 37px; letter-spacing: 5px; }
+#astrology-history .eyebrow { letter-spacing: 3px; }
+#astrology-history .intro-text { font-size: 12px; letter-spacing: 1px; }
+#astrology-history .story { padding: 22px; }
+#astrology-history .map-caption { flex-direction: column; gap: 3px; }
+}
+@media (prefers-reduced-motion: reduce) {
+#astrology-history * { scroll-behavior: auto !important; transition: none !important; }
+}

@@ -2129,6 +2129,7 @@
             min-height: 100px;
         }
     </style>
+    <link rel="stylesheet" href="assets/astrology-history/style.css">
 </head>
 <body>
     <!-- 流动色块 -->
@@ -2550,6 +2551,49 @@
         </div>
     </section>
 
+    <!-- 占星历史地图 -->
+    <section id="astrology-history" aria-labelledby="history-page-title">
+        <section class="intro" aria-labelledby="history-page-title">
+            <p class="eyebrow">一张地图，四千余年的仰望</p>
+            <h2 class="history-title" id="history-page-title">星辰的来路</h2>
+            <p class="intro-text">从两河流域的泥板，到地中海的手稿。<br>循着地图上的微光，走进占星的历史。</p>
+            <span class="intro-star" aria-hidden="true">✧</span>
+        </section>
+
+        <section class="atlas" aria-label="交互占星历史地图">
+            <div class="map-column">
+                <div class="map-toolbar"><span>✦ 点击地点，展开一段历史</span><button id="history-reset" type="button">回到起点 ↺</button></div>
+                <p class="mobile-hint">左右滑动探索地图，也可以从下方选择章节。</p>
+                <div class="map-scroll" id="history-map-scroll" tabindex="0" aria-label="历史地图，可左右滚动">
+                    <div class="map-canvas" id="history-map-canvas">
+                        <img class="map-art" src="assets/astrology-history/map.png" loading="lazy" decoding="async" alt="羊皮纸风格的连续地图，覆盖欧洲、地中海、西亚与印度，海面为蓝色，外围渐隐。" width="1584" height="992">
+                        <div id="history-markers" role="group" aria-label="历史地点"></div>
+                    </div>
+                </div>
+                <div class="map-caption"><span id="history-map-location">两河流域 · 今日伊拉克</span><span>地点为区域示意，非历史疆界</span></div>
+                <div class="global-note"><span aria-hidden="true">✧</span><div><p>故事，仍在继续</p><button id="history-global" type="button" aria-controls="history-story">走向全球 · 现代复兴 <span>↗</span></button></div></div>
+            </div>
+
+            <aside class="story" id="history-story" aria-labelledby="history-story-title">
+                <div class="story-meta"><span id="history-chapter-number"></span><span id="history-story-region"></span></div>
+                <p class="story-era" id="history-story-era"></p>
+                <h3 id="history-story-title"></h3>
+                <p class="story-lead" id="history-story-lead"></p>
+                <div class="story-section"><h4>留下了什么</h4><ul id="history-discoveries"></ul></div>
+                <div class="story-section"><h4>人物与文献</h4><p id="history-people"></p><p class="books" id="history-books"></p></div>
+                <div class="legacy"><span>与今天的连接</span><p id="history-legacy"></p></div>
+                <div id="history-related" class="related" role="group" aria-label="同地区的其他时期"></div>
+                <div class="chapter-controls" role="group" aria-label="章节翻页"><button id="history-previous" type="button">← 上一章</button><span id="history-chapter-count" aria-live="polite"></span><button id="history-next" type="button">下一章 →</button></div>
+            </aside>
+        </section>
+
+        <section class="chapters" aria-labelledby="history-chapters-title">
+            <div class="chapters-heading"><h3 id="history-chapters-title">沿着时间，继续探索</h3><p>各地传统交叠发展；章节顺序沿用时间线笔记。</p></div>
+            <div class="chapter-list" id="history-chapter-list" role="group" aria-label="全部十三个历史章节"></div>
+        </section>
+        <noscript><p class="no-script">请启用 JavaScript，使用地图地点与历史章节的交互阅读。</p></noscript>
+    </section>
+
     <!-- 发光星球页面见 glowing-planet.html -->
 
     <!-- 联系/CTA -->
@@ -2659,5 +2703,6 @@
         track.addEventListener('scroll', updateDots);
 
     </script>
+    <script src="assets/astrology-history/history.js"></script>
 </body>
 </html>
