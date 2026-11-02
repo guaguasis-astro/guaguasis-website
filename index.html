@@ -1331,6 +1331,16 @@
             margin-top: 2rem;
         }
 
+        /* 历史地图与联系区域之间保留适量呼吸空间 */
+        #astrology-history + #contact {
+            padding-top: 1.5rem;
+        }
+
+        #astrology-history + #contact .cta {
+            margin-top: 0;
+            padding-top: 0;
+        }
+
         .cta h2 {
             font-family: 'ZCOOL XiaoWei', serif;
             font-size: 1.8rem;
@@ -1982,6 +1992,19 @@
             .testimonial-card {
                 width: 50%;
                 padding: 0 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .testimonials-track {
+                padding: 0;
+                gap: 1.5rem;
+            }
+
+            .testimonial-card {
+                width: 100%;
+                padding: 0 1.2rem;
+                scroll-snap-align: center;
             }
         }
 
@@ -2777,35 +2800,44 @@
         const dots = document.querySelectorAll('.slider-dot');
 
         function updateDots() {
-            const cardWidth = cards[0].offsetWidth + 24; // card width + gap
-            currentIndex = Math.round(track.scrollLeft / cardWidth);
+            let nearestDistance = Infinity;
+            cards.forEach((card, index) => {
+                const distance = Math.abs(track.scrollLeft - cardScrollLeft(index));
+                if (distance < nearestDistance) {
+                    nearestDistance = distance;
+                    currentIndex = index;
+                }
+            });
             dots.forEach((dot, index) => {
                 dot.classList.toggle('active', index === currentIndex);
             });
         }
 
+        function cardScrollLeft(index) {
+            const card = cards[index];
+            if (window.matchMedia('(max-width: 768px)').matches) {
+                return track.scrollLeft + card.getBoundingClientRect().left
+                    - track.getBoundingClientRect().left
+                    + card.offsetWidth / 2 - track.clientWidth / 2;
+            }
+            return card.offsetLeft - cards[0].offsetLeft;
+        }
+
         function scrollToCard(index) {
-            const cardWidth = cards[0].offsetWidth + 24;
             track.scrollTo({
-                left: cardWidth * index,
+                left: cardScrollLeft(index),
                 behavior: 'smooth'
             });
         }
 
         prevBtn.addEventListener('click', () => {
-            const cardWidth = cards[0].offsetWidth + 24;
-            track.scrollBy({
-                left: -cardWidth,
-                behavior: 'smooth'
-            });
+            updateDots();
+            scrollToCard(Math.max(0, currentIndex - 1));
         });
 
         nextBtn.addEventListener('click', () => {
-            const cardWidth = cards[0].offsetWidth + 24;
-            track.scrollBy({
-                left: cardWidth,
-                behavior: 'smooth'
-            });
+            updateDots();
+            scrollToCard(Math.min(cards.length - 1, currentIndex + 1));
         });
 
         track.addEventListener('scroll', updateDots);
