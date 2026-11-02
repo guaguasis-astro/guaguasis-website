@@ -99,6 +99,7 @@
 #astrology-history .intro { padding-top: 35px; }
 #astrology-history .history-title { font-size: 42px; }
 #astrology-history .atlas { display: block; padding: 0 5%; }
+#astrology-history .map-scroll { width: 100vw; margin-left: calc(50% - 50vw); }
 #astrology-history .map-canvas { min-width: 850px; }
 #astrology-history .mobile-hint { display: block; font-size: 10px; color: var(--text-mute); margin: 3px 0 0; }
 #astrology-history .map-caption { font-size: 9px; }
