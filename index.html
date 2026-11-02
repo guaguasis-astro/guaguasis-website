@@ -258,14 +258,49 @@
             width: 360px;
             height: 360px;
             margin-bottom: 1.5rem;
+            position: relative;
+            isolation: isolate;
             opacity: 0.9;
             filter: drop-shadow(0 0 30px rgba(232, 212, 168, 0.8));
+        }
+
+        /* 日月柔光呼吸，与轻浮动作错开节奏 */
+        .zodiac-symbol::before {
+            content: '';
+            position: absolute;
+            inset: -15%;
+            z-index: -1;
+            pointer-events: none;
+            border-radius: 50%;
+            background: radial-gradient(circle,
+                rgba(245, 213, 143, 0.65) 0%,
+                rgba(255, 223, 155, 0.3) 35%,
+                rgba(245, 213, 143, 0.08) 55%,
+                transparent 72%);
+            animation: sun-glow-breathe 8s ease-in-out infinite;
         }
 
         .zodiac-symbol img {
             width: 100%;
             height: 100%;
             object-fit: contain;
+            display: block;
+            animation: sun-gentle-float 11s ease-in-out infinite;
+        }
+
+        @keyframes sun-glow-breathe {
+            0%, 100% { opacity: 0.35; transform: scale(0.94); }
+            50% { opacity: 0.75; transform: scale(1.08); }
+        }
+
+        @keyframes sun-gentle-float {
+            0%, 100% { transform: translateY(3px); }
+            50% { transform: translateY(-3px); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .zodiac-symbol::before { animation: none; opacity: 0.5; }
+            .zodiac-symbol img { animation: none; }
         }
 
         .hero h1 {
