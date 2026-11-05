@@ -868,7 +868,7 @@ export function renderInfoBar(chart) {
     const mcSign = ZODIAC_SIGNS[houses.midheaven.signIndex];
 
     document.getElementById("infoBirth").textContent =
-        `${birthData.year}年${birthData.month}月${birthData.day}日 ${String(birthData.hour).padStart(2, "0")}:${String(birthData.minute).padStart(2, "0")} · ${birthData.place || ""}`;
+        `${birthData.year}年${birthData.month}月${birthData.day}日 ${String(birthData.hour).padStart(2, "0")}:${String(birthData.minute).padStart(2, "0")} · ${birthData.place || ""}${birthData.daylightSaving ? " · UTC+9（夏令时）" : birthData.dstRepeated ? " · UTC+8（拨表后）" : ""}`;
     document.getElementById("infoDayNight").textContent = dayNightText;
     document.getElementById("infoAsc").textContent = `${ascSign.symbol} ${ascSign.name}`;
     document.getElementById("infoMC").textContent = `${mcSign.symbol} ${mcSign.name}`;

@@ -6,7 +6,7 @@
     <title>占星解盘 · 古典占星</title>
     <!-- 预加载占星符号字体，确保 Canvas 星盘图能正确渲染 -->
     <link rel="preload" href="fonts/HamburgSymbols.ttf" as="font" type="font/ttf" crossorigin>
-  <script type="module" crossorigin src="./assets/index-CQugxWFd.js"></script>
+  <script type="module" crossorigin src="./assets/index-BWKmojyn.js"></script>
   <link rel="stylesheet" crossorigin href="./assets/index-CrWn_ikr.css">
 </head>
 <body>
@@ -54,8 +54,19 @@
                         </div>
                         <div class="form-group">
                             <label for="timezone">时区</label>
-                            <select id="timezone">
+                            <select id="timezone" aria-describedby="timezoneHint">
                                 <!-- 时区由 JS 动态生成 -->
+                            </select>
+                            <p class="hint" id="timezoneHint" aria-live="polite" style="text-align: left;"></p>
+                        </div>
+                    </div>
+                    <div id="dstOccurrenceGroup" hidden>
+                        <div class="form-group">
+                            <label for="dstOccurrence">重复时刻：出生在拨表前还是拨表后？</label>
+                            <select id="dstOccurrence">
+                                <option value="">请选择</option>
+                                <option value="daylight">第一次出现，拨表前（UTC+9）</option>
+                                <option value="standard">第二次出现，拨表后（UTC+8）</option>
                             </select>
                         </div>
                     </div>

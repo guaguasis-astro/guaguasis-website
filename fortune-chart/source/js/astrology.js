@@ -2,6 +2,7 @@
 // 基于瑞士星历表 (Swiss Ephemeris)
 
 import SwissEPH from "sweph-wasm";
+import { applyMainlandTime } from "./china-dst.js";
 import { getSignPeriod, getSignPeriodRounded } from "./sign-periods.js";
 
 let swe = null;
@@ -2029,6 +2030,7 @@ export function calculateWealthAssessment(partOfFortune, houseLords, greatBenefi
 
 // 主计算函数
 export async function calculateBirthChart(birthData) {
+    birthData = applyMainlandTime(birthData);
     const s = await initSwe();
 
     const { year, month, day, hour, minute, second, lat, lon, timezone } = birthData;
