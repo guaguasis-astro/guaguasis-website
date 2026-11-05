@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { calculateLotOfSpirit, calculateFortuneIndicators, calculateWealthAssessment, calculateHouseLords, calculateTriplicityLords, getDignityStatus, getDignitySummary, getHouseNumber, getHouseType, getWholeSignAspects, PLANET_NAMES, HOUSE_LORDS, PLANET_IDS } from './js/astrology.js';
+import { renderFortuneMatches } from './js/renderer.js';
 const keys = Object.keys(PLANET_NAMES);
 function fixture(lons = {}, pfSign = 5, day = true) {
     const planets = Object.fromEntries(keys.map((key, i) => {
@@ -25,14 +26,14 @@ assert.equal(calculateLotOfSpirit(10, 350, 20, false).longitude, 40);
 let r = indicators(fixture({MERCURY:100, MOON:160, JUPITER:110},5));
 assert(has(r,'wealth','acquisition-reception'));
 assert(has(r,'wealth','sect-benefic-acquisition'));
-assert.equal(r.wealthBonus,4);
+assert.equal(r.wealthBonus,2.5);
 assert(!has(indicators(fixture({MERCURY:100, MOON:110},5)),'wealth','acquisition-reception'));
 // 昼夜只选各自合昼夜性的吉星
 assert(!has(indicators(fixture({JUPITER:110, VENUS:210},5,false)),'wealth','sect-benefic-acquisition'));
 // 夜生金星为福点金牛主星，在获取宫双鱼擢升，组合替代基础吉星加分
 r = indicators(fixture({VENUS:340},1,false));
 assert(has(r,'wealth','layered-acquisition'));
-assert.equal(r.wealthBonus,3);
+assert.equal(r.wealthBonus,1.5);
 // 同一个主星不能伪装成互容
 assert(!has(indicators(fixture({},4)),'wealth','acquisition-reception'));
 // 精神点主星仅同星座即可命中，度数无需精确合相
@@ -49,7 +50,7 @@ assert(has(r,'prominence','fortune-lord-tenth'));
 assert(has(r,'prominence','cross-link'));
 r = indicators(fixture({SUN:40, MOON:100, SATURN:335, VENUS:210},1,true));
 assert(has(r,'wealth','spirit-lord-acquisition'));
-assert.equal(r.wealthBonus,0.5);
+assert.equal(r.wealthBonus,0.25);
 // 双鱼福点的获取宫为摩羯，验证衍生宫跨过黄道零点
 r = indicators(fixture({},11));
 assert.equal(r.acquisitionSign,9);
@@ -74,3 +75,31 @@ for (let n=0;n<50;n++) {
 const f=fixture({SUN:10,MOON:30,MERCURY:20,VENUS:100,MARS:150,JUPITER:200,SATURN:250,URANUS:15,NEPTUNE:25,PLUTO:18},2);
 assert(assess(f).besiegementResults.some(x=>x.targetKey==='MERCURY'&&x.type==='body'&&x.besiegementName==='日月围攻'));
 console.log('财富规则测试通过：昼夜公式、获取宫、互容正反例、叠加去重、显赫层次、50组三王星独立性及身体夹。');
+
+// 命中展示：无命中时无占位文案；每条命中都有盘上证据和通俗解释
+assert.equal(renderFortuneMatches({wealth:[],prominence:[],sources:[]}), '');
+for (let n=0;n<100;n++) {
+    const f = fixture(Object.fromEntries(keys.map((k,i)=>[k,(n*29+i*41+5)%360])),n%12,n%2===0);
+    const result = assess(f);
+    const rules = result.fortuneIndicators;
+    for (const item of [...rules.wealth,...rules.prominence,...rules.sources]) {
+        assert(item.title && item.reason && item.text, item.id);
+        assert(item.reason.includes('你的'), item.id);
+    }
+    const html = renderFortuneMatches(rules);
+    assert(!html.includes('未命中'));
+    assert(!html.includes('undefined'));
+    const expected = Math.round(Math.max(0,Math.min(10,result.baseScore+rules.wealthBonus))*10)/10;
+    assert.equal(result.totalScore,expected);
+    assert(rules.wealthBonus<=2.5);
+}
+const strong = assess(fixture({MERCURY:100, MOON:160, JUPITER:110},5));
+assert.equal(strong.fortuneIndicators.wealthBonus,2.5);
+assert.equal(strong.totalScore,Math.round(Math.min(10,strong.baseScore+2.5)*10)/10);
+console.log('新增验证通过：100组总评分专项加分、封顶、每条规则解释与无命中隐藏。');
+
+// 福点已满分时，强财富结构仍然直接作用于总评
+const cappedPF = assess(fixture({VENUS:340},1,false));
+assert.equal(cappedPF.pfScore,10);
+assert(cappedPF.fortuneIndicators.wealthBonus>0);
+assert.equal(cappedPF.totalScore,Math.round(Math.min(10,cappedPF.baseScore+cappedPF.fortuneIndicators.wealthBonus)*10)/10);

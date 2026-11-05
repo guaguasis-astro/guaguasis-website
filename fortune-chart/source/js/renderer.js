@@ -272,40 +272,33 @@ export function renderPOI(chart) {
     renderLotSignAspects(poiAspectsDiv, pof, planets, "福点");
     const indicators = chart.wealthAssessment.fortuneIndicators;
     const spirit = indicators.spirit;
-    const renderIndicators = (items, empty) => items.length
-        ? `<ul style="margin: 8px 0 0 18px; padding: 0;">${items.map(item => `<li style="margin-bottom: 8px; line-height: 1.8;"><span class="badge badge-neutral">${item.kind}</span> ${item.text}</li>`).join("")}</ul>`
-        : `<div class="detail-desc">${empty}</div>`;
     document.getElementById("poiIndicators").innerHTML = `
         <div class="detail-section">
             <div class="detail-label">精神点</div>
             <div class="detail-value">${ZODIAC_SIGNS[spirit.signIndex].name} ${formatDegreeMinute(spirit.degree)} · 本命第${spirit.house}宫</div>
             <div class="detail-desc">${isDayChart ? "日生：上升 + 太阳 − 月亮" : "夜生：上升 + 月亮 − 太阳"}；主星：${spirit.lordName}</div>
         </div>
-        <div class="detail-section">
-            <div class="detail-label">福点衍生宫</div>
-            <div class="detail-desc">以福点所在的${pofSign.name}为第一宫：第十宫为${ZODIAC_SIGNS[indicators.tenthSign].name}，用于显赫判断；第十一宫为${ZODIAC_SIGNS[indicators.acquisitionSign].name}（获取宫），用于财富取得判断。这里与本命宫位分开计算。</div>
-        </div>
-        <div class="detail-section">
-            <div class="detail-label">财富获取依据</div>
-            ${renderIndicators(indicators.wealth, "未命中本次新增的获取宫指标；仍需结合其他财富结构。")}
-            <div class="detail-desc">新增财富支持修正：+${indicators.wealthBonus}，计入福点维度（该维度上限10分）。福点主在获取宫的基础力量沿用原规则；强化组合不重复累计基础条件。</div>
-        </div>
-        <div class="detail-section">
-            <div class="detail-label">显赫与成就依据</div>
-            ${renderIndicators(indicators.prominence, "未命中本次新增的显赫指标，不代表没有成就。")}
-            <div class="detail-desc">显赫反映地位、成就与知名度，不直接代表财富或正面声誉。核心、辅助与强化指标相关联，不当作多个独立保证，也不直接加财富分。</div>
-        </div>
-        <div class="detail-section">
-            <div class="detail-label">资源来源线索</div>
-            ${renderIndicators(indicators.sources, "未命中本次列出的资源来源线索。")}
-            <div class="detail-desc">来源线索不用于判断财富规模。木星支持按整宫相位判断，合上升采用3°容许度。</div>
-        </div>
-        <div class="detail-section">
-            <div class="detail-label">相关主星状态</div>
-            ${indicators.lordStates.map(lord => `<div class="detail-desc">${lord.name}：本命第${lord.house}宫 · ${lord.dignity}${lord.retrograde ? " · 逆行" : ""}</div>`).join("")}
-            <div class="detail-desc">主星状态需与其他结构合看，逆行或凶星接触不单独等于破财。</div>
-        </div>
+        ${renderFortuneMatches(indicators)}
     `;
+}
+
+// 只展示命中的依据，每条分别说明本盘配置与生活中的含义
+export function renderFortuneMatches(indicators, includeContext = true) {
+    const renderGroup = (title, items, note = "") => items.length ? `
+        <div class="detail-section">
+            <div class="detail-label">${title}</div>
+            ${items.map(item => `
+                <div style="margin-top: 18px; padding-left: 12px; border-left: 2px solid var(--gold-pale);">
+                    <div class="detail-value" style="font-size: 0.95rem;">${item.title}</div>
+                    <div class="detail-desc" style="margin-top: 8px;"><strong>为什么这张盘符合：</strong>${item.reason}</div>
+                    <div class="detail-desc" style="margin-top: 8px;">${item.text}</div>
+                </div>
+            `).join("")}
+            ${note ? `<div class="detail-desc" style="margin-top: 12px;">${note}</div>` : ""}
+        </div>` : "";
+    return renderGroup("财富机会与积累", indicators.wealth)
+        + (includeContext ? renderGroup("成就与被看见的机会", indicators.prominence)
+            + renderGroup("资源可能从哪里来", indicators.sources) : "");
 }
 
 // 渲染资产点
@@ -705,6 +698,14 @@ export function renderTriplicity(chart) {
                     </div>
                 </div>
 
+                ${wa.fortuneIndicators.wealth.length ? `
+                <div class="detail-section">
+                    <div class="detail-label">财富获取格局 · 专项支持</div>
+                    <div class="detail-value">专项支持 +${wa.fortuneIndicators.wealthBonus} 分</div>
+                    <div class="detail-desc">这张盘符合下列财富获取条件，因此在基础评估之上给予专项支持；同一结构的相关条件取较强的一项，多项支持合计最多增加2.5分，总评分最高10分。成就与资源来源另作解读。</div>
+                    ${renderFortuneMatches(wa.fortuneIndicators, false)}
+                </div>` : ""}
+
                 <!-- 围攻维度详解 -->
                 ${wa.besiegementDetails.length > 0 ? `
                 <div class="detail-section">
@@ -743,7 +744,7 @@ export function renderTriplicity(chart) {
                         ${pfDetailList}
                     </ul>
                     <div class="detail-desc" style="margin-top: 8px; font-size: 0.78rem; color: var(--text-faded);">
-                        福点主星落福点第 ${wa.pfLordHouseFromPF} 宫（从福点所在星座起算整宫）。新增财富、显赫及来源依据详见上方「福点 · 财富与显赫」；显赫与来源不直接计入财富分。
+                        福点主星落福点第 ${wa.pfLordHouseFromPF} 宫（从福点所在星座起算整宫）。
                     </div>
                 </div>
 

@@ -711,13 +711,107 @@ export function calculateFortuneIndicators(pof, planets, houses, isDay) {
         const orb = getAspectDifference(planet.longitude, houses.ascendant.longitude);
         if (orb <= 3) add(sources, `asc-${key}`, `点的主星${PLANET_NAMES[key]}合上升（${orb.toFixed(2)}°）：个人能力、身份或身体条件可能成为资源。`, "来源");
     }
-    // 草案未给定分值，采用保守增量；叠加组合取较强值，避免同一结构重复计分
-    // 福点主在获取宫的基础力量已由旧规则计入，本处仅计新增支持
-    const acquisitionBonus = layered ? 3 : sectBeneficInAcquisition ? 2 : 0;
-    const wealthBonus = Math.min(4, acquisitionBonus + (mutualReception ? 3 : 0) + (spiritInAcquisition && spirit.lordKey !== pfLordKey ? 0.5 : 0));
+    // 每条命中同时保留这张盘的具体依据与面向读者的解释
+    const signName = sign => ZODIAC_SIGNS[sign].name;
+    const pfName = PLANET_NAMES[pfLordKey];
+    const acqName = PLANET_NAMES[acquisitionLordKey];
+    const acquisitionReason = `你的福点在${signName(pof.signIndex)}。从这个星座数起，第十一宫是${signName(acquisitionSign)}，我们把它叫作“获取宫”，用来看收入与资源怎样进入生活。`;
+    const tenthReason = `你的福点在${signName(pof.signIndex)}，从这里数起的第十宫是${signName(tenthSign)}，用来看成就、地位与被人看见的机会。`;
+    const explanations = {
+        "fortune-lord-acquisition": {
+            title: "人生中的机会，较容易连接到实际收入",
+            reason: `${acquisitionReason}福点的主星是${pfName}，而${pfName}正好落在${signName(pfLord.signIndex)}，所以符合“福点主星进入获取宫”。`,
+            text: "可以把福点主星理解为帮助你承接机会的那颗星。它来到与收获有关的位置，说明你遇到的机会比较容易与赚钱、取得资源相连。这是一条重要的财富线索；能积累到什么规模，还要看主星状态和其他财富条件。",
+        },
+        "sect-benefic-acquisition": {
+            title: "有利于积累财富的位置，得到了一颗吉星的支持",
+            reason: `${acquisitionReason}你是${isDay ? "日生盘，重点看木星" : "夜生盘，重点看金星"}；这颗与出生昼夜相合的吉星，恰好落在${signName(acquisitionSign)}。`,
+            text: "这个组合对财富取得与财产积累有比较直接的支持。通俗地说，与收获有关的位置上，有一颗更能发挥帮助作用的星。它可能表现为较好的资源条件、愿意支持你的人，或更容易转化为收入的机会，值得在整张盘的财富判断里给予较高重视。",
+        },
+        "acquisition-reception": {
+            title: "机会与收获之间，形成了一条双向通道",
+            reason: `你的福点在${signName(pof.signIndex)}，主星是${pfName}；获取宫是${signName(acquisitionSign)}，主星是${acqName}。${pfName}落入${signName(pfLord.signIndex)}，由${acqName}守护；同时${acqName}落入${signName(acquisitionLord.signIndex)}，由${pfName}守护。两颗主星确实进入了对方守护的星座，构成互容。`,
+            text: "这不是两颗星简单地待在一起，而是它们能够相互接应：一边代表机缘与物质条件，一边代表资源的取得，两边建立了来回的联系。这是草案中值得重点看待的大财潜力结构之一，说明机会与财富积累之间有较强的联动；实际成果仍取决于其他条件如何配合。",
+        },
+        "layered-acquisition": {
+            title: "财富通道与主星状态，同时具备多重好条件",
+            reason: `${acquisitionReason}你的福点主星${pfName}落在获取宫；它同时是${isDay ? "日生盘的木星" : "夜生盘的金星"}，又在${signName(pfLord.signIndex)}${pfLord.dignity.domicile ? "入庙" : "擢升"}，三层条件同时成立。`,
+            text: "这不只是有一条获取资源的通道，负责承接这条通道的星本身也处在比较能发挥作用的位置。因此，比单独出现“主星在获取宫”或“吉星在获取宫”更有支持力。它属于从案例归纳出的强财富组合，值得重点关注，但不能单凭这一项确定现实中的财富规模。",
+        },
+        "spirit-lord-acquisition": {
+            title: "你主动投入的事，有机会成为收入来源",
+            reason: `你的精神点在${signName(spirit.signIndex)}，主星是${spirit.lordName}。${acquisitionReason}${spirit.lordName}落在${signName(spiritLord.signIndex)}，正好进入获取宫。`,
+            text: "精神点更偏向你愿意主动追求的工作、事业和人生方向。它的主星进入获取宫，说明自己的行动与资源取得之间存在联系。可以留意那些能把能力、工作投入或合作成果转化为收入的方向；这是一条行动创富的辅助线索，不单独作为大财的依据。",
+        },
+        "spirit-lord-fortune": {
+            title: "自己想做的事，比较容易与外部机会接上",
+            reason: `你的精神点在${signName(spirit.signIndex)}，由${spirit.lordName}掌管；${spirit.lordName}落在${signName(spiritLord.signIndex)}，与你的福点同在一个星座。这里同星座就符合条件，不要求精确合相。`,
+            text: "精神点代表主动选择和志业，福点更偏向外部机缘。两者通过主星连接，意味着自己的投入有机会碰上合适的环境，让能力或成果被更多人看见。这是显赫与成就的核心线索之一，体现的是出头的机会，不能直接换算成赚多少钱。",
+        },
+        "spirit-lord-tenth": {
+            title: "你的行动与志业，连接到了容易取得成就的位置",
+            reason: `${tenthReason}你的精神点在${signName(spirit.signIndex)}，主星${spirit.lordName}落在${signName(spiritLord.signIndex)}，因此进入了福点第十宫。`,
+            text: "这意味着你主动追求的方向，与社会认可、职业成就或领域内的地位有较明显的联系。它可能体现为在自己的专业中逐渐出头，而不一定是大众明星式的知名度。这条主要说明成就与地位，财富需要另外看获取宫等条件。",
+        },
+        "fortune-lord-tenth": {
+            title: "外部机缘可能把你带到更受瞩目的位置",
+            reason: `${tenthReason}福点主星${pfName}落在${signName(pfLord.signIndex)}，正好位于这个位置。`,
+            text: "与强调自己主动行动的配置相比，这一条更偏向人生际遇、资源条件或外部环境，容易把你推向较突出的社会位置。它可以体现为商业、学术或其他领域的成就，因此不能仅凭它判断一定很有钱。",
+        },
+        "spirit-tenth": {
+            title: "你愿意投入的人生方向，带有成就与被看见的主题",
+            reason: `${tenthReason}你的精神点本身落在${signName(spirit.signIndex)}，因此符合“精神点在福点第十宫”。这里看的是点的位置，与精神点主星的位置分开判断。`,
+            text: "这是一条辅助线索，说明自己的志业方向容易与成就、地位联系起来。如果精神点主星也在同一位置，这个主题会更集中，但不能把相关的两条指标当成两份独立保证。",
+        },
+        "cross-link": {
+            title: "自己的努力与外部机会，有了双向呼应",
+            reason: `你的福点在${signName(pof.signIndex)}，主星${pfName}进入精神点所在的${signName(spirit.signIndex)}；同时精神点主星${spirit.lordName}又进入福点所在的${signName(pof.signIndex)}。两边的连接同时成立。`,
+            text: "可以理解为：你选择做的事能够承接外部机缘，而遇到的机会又能反过来支持你的志业。这是较强的显赫组合，说明行动与际遇之间配合紧密。这里称为两个点的交叉连接，不直接等同于两颗行星的互容，也不直接确定财富多少。",
+        },
+        "family": {
+            title: "家庭与出身，可能是你取得资源的一条线索",
+            reason: `你的福点落在本命第四宫；这个宫位与家庭、父母、居所及根基有关。`,
+            text: "可以留意家庭提供的支持、成长环境积累的资源，或与居所、家族相关的机会。这说明资源可能从哪里来，并不代表家里一定富裕。",
+        },
+        "asset-transfer": {
+            title: "个人财务与他人的资产，存在相互联系",
+            reason: `你的福点在本命第${pof.house}宫，连接二、八宫的财务主题。二宫主${PLANET_NAMES[secondLordKey]}落在${signName(planets[secondLordKey].signIndex)}，八宫主${PLANET_NAMES[eighthLordKey]}落在${signName(planets[eighthLordKey].signIndex)}，两者又交换了守护星座。`,
+            text: "这可能让个人收入、共同资产、遗产或资产转移成为彼此关联的议题。它帮助辨认资源来源，但不能据此断定一定会继承大笔遗产，也不能把与他人共同管理的钱全部视作个人财富。",
+        },
+        "external-funding": {
+            title: "外部资金或他人的支持，可能带来机会",
+            reason: `你的福点在本命第八宫，同时木星在${signName(planets.JUPITER.signIndex)}，与福点所在的${signName(pof.signIndex)}形成整宫相位，符合这里采用的木星支持条件。`,
+            text: "这个组合可能与资助、捐赠、合作资金等资源有关。它说明有机会获得外部支持，但获得使用或管理的资金，不一定全都属于你的个人资产。",
+        },
+    };
+    for (const item of [...wealth, ...prominence, ...sources]) {
+        if (explanations[item.id]) Object.assign(item, explanations[item.id]);
+    }
+    for (const key of pointLords) {
+        const role = [key === pfLordKey ? "福点主星" : "", key === spirit.lordKey ? "精神点主星" : ""].filter(Boolean).join("与");
+        const friendItem = sources.find(item => item.id === `friends-${key}`);
+        if (friendItem) Object.assign(friendItem, {
+            title: "朋友、团体或合作，可能为你提供助力",
+            reason: `你的${role}是${PLANET_NAMES[key]}，它落在本命第十一宫，这个位置与朋友、团体及共同目标有关。`,
+            text: "可以留意人际网络、团队协作或共同项目带来的支持。这是一条资源来源线索，说明人与人之间的联系可能发挥作用，不代表只要交朋友就能发财。",
+        });
+        const ascItem = sources.find(item => item.id === `asc-${key}`);
+        if (ascItem) Object.assign(ascItem, {
+            title: "你自身的能力与特点，可能就是重要资源",
+            reason: `你的${role}${PLANET_NAMES[key]}与上升相距${getAspectDifference(planets[key].longitude, houses.ascendant.longitude).toFixed(2)}°，在这里采用的3°范围以内，因此构成合上升。`,
+            text: "这让机会与个人身份、能力、形象或身体条件更紧密地联系在一起。可以留意自己哪些特长容易得到认可、成为可用的资源。这条说明资源与自身有关，不单独保证有钱或成名。",
+        });
+    }
+    // 专项加分直接进入总评，不再受福点封顶或与三分主星取高分的影响
+    // 获取宫的嵌套条件取最强一项；互容为不同结构，辅助同星不重复计分
+    const acquisitionBonus = layered ? 1.5 : sectBeneficInAcquisition ? 1 : lordInAcquisition ? 0.6 : 0;
+    const receptionBonus = mutualReception ? 1.5 : 0;
+    const spiritBonus = spiritInAcquisition && spirit.lordKey !== pfLordKey ? 0.25 : 0;
+    const wealthBonus = Math.min(2.5, acquisitionBonus + receptionBonus + spiritBonus);
     return {
         spirit, tenthSign, acquisitionSign, acquisitionLordKey,
         wealth, prominence, sources, wealthBonus,
+        bonusBreakdown: { acquisition: acquisitionBonus, reception: receptionBonus, spirit: spiritBonus },
         lordStates: pointLords.map(key => ({ name: PLANET_NAMES[key], house: planets[key].house,
             dignity: planets[key].dignitySummary.summaryText, retrograde: planets[key].isRetrograde })),
     };
@@ -1437,10 +1531,8 @@ export function calculateWealthAssessment(partOfFortune, houseLords, greatBenefi
         pfDetails.push(`福点主星${pfLord.name}落角宫（第${pfLordPlanet.house}宫），力量增强`);
     }
 
-    // 获取宫新增规则只修正福点维度；显赫与来源均不直接加财富分
+    // 财富获取规则作为总评专项支持，显赫与来源只作解读
     const fortuneIndicators = calculateFortuneIndicators(partOfFortune, planets, houses, isDayChart);
-    pfScore += fortuneIndicators.wealthBonus;
-    pfDetails.push(...fortuneIndicators.wealth.map(item => item.text));
 
     // 限制在 0-10 分范围内
     pfScore = Math.max(0, Math.min(10, pfScore));
@@ -1837,7 +1929,10 @@ export function calculateWealthAssessment(partOfFortune, houseLords, greatBenefi
         moonNormalized * 0.10 +
         extraNormalized * 0.10;
 
-    const weightNote = `五维度加权：围攻35% · 福点&三分主星30%（${pfTriplicityNote}） · 钱财宫15% · 月亮10% · 额外10%`;
+    const baseScore = totalScore;
+    totalScore = Math.max(0, Math.min(10, totalScore + fortuneIndicators.wealthBonus));
+
+    const weightNote = `基础五维度加权：围攻35% · 福点&三分主星30%（${pfTriplicityNote}） · 钱财宫15% · 月亮10% · 额外10%；财富获取专项支持另加${fortuneIndicators.wealthBonus}分`;
 
     totalScore = Math.round(totalScore * 10) / 10;
 
@@ -1881,6 +1976,7 @@ export function calculateWealthAssessment(partOfFortune, houseLords, greatBenefi
 
     return {
         totalScore,
+        baseScore,
         wealthLevel,
         wealthClass,
         wealthDesc,
