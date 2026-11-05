@@ -1,6 +1,8 @@
 // UI 渲染模块
 import { ZODIAC_SIGNS, formatDegree, formatDegreeMinute, getHouseType, PLANET_PERIODS, getWholeSignAspects } from "./astrology.js";
 
+import { splitHamburgSymbols } from "./symbols.js";
+
 // 行星符号映射（用于恒星性质等场景）
 const PLANET_SYMBOLS = {
     "太阳": "☉",
@@ -31,9 +33,32 @@ export function toPlanetSymbols(text) {
 
 export function symbolizeReport(container) {
     const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
+    const nodes = [];
     while (walker.nextNode()) {
         const node = walker.currentNode;
-        if (!node.parentElement.closest("script, style")) node.nodeValue = toPlanetSymbols(node.nodeValue);
+        if (!node.parentElement.closest("script, style, .astro-symbol")) nodes.push(node);
+    }
+    for (const node of nodes) {
+        const text = toPlanetSymbols(node.nodeValue);
+        const tokens = splitHamburgSymbols(text);
+        if (!tokens.some(token => token.key)) {
+            node.nodeValue = text;
+            continue;
+        }
+        const fragment = document.createDocumentFragment();
+        for (const token of tokens) {
+            if (token.text !== undefined) fragment.appendChild(document.createTextNode(token.text));
+            else {
+                const symbol = document.createElement("span");
+                symbol.className = "astro-symbol";
+                symbol.textContent = token.key;
+                symbol.setAttribute("role", "img");
+                symbol.setAttribute("aria-label", token.label);
+                symbol.title = token.label;
+                fragment.appendChild(symbol);
+            }
+        }
+        node.replaceWith(fragment);
     }
 }
 
@@ -213,7 +238,7 @@ export function renderCompactLot(lot, label) {
 
 // 渲染福点及精神点解读
 export function renderPOI(chart) {
-    const { partOfFortune: pof, planets, isDayChart } = chart;
+    const { partOfFortune: pof, planets } = chart;
     const compact = renderCompactLot(pof, "福点");
     document.getElementById("poiDetails").innerHTML = compact.position;
     document.getElementById("poiLordStatus").innerHTML = compact.lordStatus;
@@ -228,7 +253,6 @@ export function renderPOI(chart) {
                 <span>第${spirit.house}宫</span>
                 <span class="badge badge-neutral">主星 ${spirit.lordName}</span>
             </div>
-            <div class="detail-desc">${isDayChart ? "日生：上升 + 太阳 − 月亮" : "夜生：上升 + 月亮 − 太阳"}</div>
         </div>
         ${renderFortuneMatches(indicators)}
     `;
@@ -555,6 +579,7 @@ export function renderTriplicity(chart) {
             <div class="lot-line">
                 <span class="detail-label">发光体</span>
                 <strong>${triplicity.luminaryName}</strong>
+                <span>${ZODIAC_SIGNS[chart.planets[triplicity.luminaryKey].signIndex].symbol} ${ZODIAC_SIGNS[chart.planets[triplicity.luminaryKey].signIndex].name}</span>
                 <span class="badge badge-neutral">${isDayChart ? "日生盘主星" : "夜生盘主星"}</span>
             </div>
             <div class="detail-desc">其三分主星代表天生的财富格局和资源获取能力。</div>
@@ -777,7 +802,7 @@ export function renderTriplicity(chart) {
 // 渲染单个三分主星列表
 function renderTriplicityLords(lords, starConjunctions = {}, lordComprehensive = {}) {
     let html = "";
-    for (const lord of lords) {
+    for (const [index, lord] of lords.entries()) {
         const p = lord.planet;
         const sign = ZODIAC_SIGNS[p.signIndex];
         const periodYears = PLANET_PERIODS[lord.planetKey] || null;
@@ -806,7 +831,7 @@ function renderTriplicityLords(lords, starConjunctions = {}, lordComprehensive =
         }
 
         html += `
-            <div class="detail-section" style="padding-bottom: 12px; border-bottom: 1px solid var(--border-light); margin-bottom: 12px;">
+            <div class="detail-section" style="padding-bottom: 12px; ${index < lords.length - 1 ? "border-bottom: 1px solid var(--border-light);" : ""} margin-bottom: 12px;">
                 <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px; flex-wrap: wrap;">
                     <span class="badge badge-purple">${lord.orderName}</span>
                     <strong>${lord.planetName}</strong>

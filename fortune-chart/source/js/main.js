@@ -296,6 +296,8 @@ birthForm.addEventListener("submit", async (e) => {
         renderFixedStars(chart);
         renderTriplicity(chart);
         symbolizeReport(document.querySelector(".content-area"));
+        symbolizeReport(document.getElementById("infoAsc"));
+        symbolizeReport(document.getElementById("infoMC"));
 
         // 绘制星盘图
         const canvas = document.getElementById("birthChart");

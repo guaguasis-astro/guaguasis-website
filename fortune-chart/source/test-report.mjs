@@ -49,3 +49,13 @@ for (const symbol of ['☉','☽','☿','♀','♂','♃','♄','♅','♆','♇
 assert.equal(toPlanetSymbols(symbolText),symbolText);
 assert.equal(toPlanetSymbols('日生盘、夜生盘、福点、精神点、资产点'),'日生盘、夜生盘、福点、精神点、资产点');
 console.log('符号转换验证通过：十颗行星、重复调用、非行星术语保留。');
+
+const { splitHamburgSymbols, PLANET_HAMBURG, ZODIAC_HAMBURG } = await import('./js/symbols.js');
+const glyphs = splitHamburgSymbols('☉☽☿♀♂♃♄♅♆♇♈♉♊♋♌♍♎♏♐♑♒♓');
+assert.equal(glyphs.map(g=>g.key).join(''),'QWERTYUIOPasdfghjklzxc');
+assert.equal(glyphs.slice(0,10).map(g=>g.key).join(''),Object.values(PLANET_HAMBURG).join(''));
+assert.equal(glyphs.slice(10).map(g=>g.key).join(''),ZODIAC_HAMBURG);
+assert(glyphs.every(g=>g.label));
+const inline = splitHamburgSymbols('主星 ☿︎，落在♑️ 摩羯座');
+assert.deepEqual(inline.map(g=>g.key||g.text),['主星 ','E','，落在','z',' 摩羯座']);
+console.log('Hamburg字形验证通过：10颗行星和12星座、共享Canvas键位、文字与符号分离及变体选择符处理。');

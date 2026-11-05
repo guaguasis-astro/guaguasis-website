@@ -136,7 +136,8 @@ body::before {
 }
 
 .header h1::before {
-    content: "☉ ☽ ";
+    content: "Q W ";
+    font-family: "HamburgSymbols";
     color: var(--gold-dark);
     font-size: 1.6rem;
     margin-right: 12px;
@@ -144,7 +145,8 @@ body::before {
 }
 
 .header h1::after {
-    content: " ☿ ♀";
+    content: " E R";
+    font-family: "HamburgSymbols";
     color: var(--gold-dark);
     font-size: 1.6rem;
     margin-left: 12px;
@@ -463,7 +465,8 @@ body::before {
 }
 
 .info-bar::before {
-    content: "☉ ☽ ☿ ♀ ♂ ♃ ♄";
+    content: "Q W E R T Y U";
+    font-family: "HamburgSymbols";
     position: absolute;
     top: -10px;
     left: 50%;
@@ -683,6 +686,18 @@ body::before {
     margin-top: 4px;
 }
 
+/* 与星盘共用的行星、星座符号字形 */
+.astro-symbol {
+    font-family: "HamburgSymbols" !important;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 1.2em;
+    line-height: 1;
+    display: inline-block;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
 /* 点位与主星的紧凑信息行 */
 .lot-line {
     display: flex;
@@ -718,8 +733,6 @@ body::before {
 
 .triplicity-second-group {
     margin-top: 18px;
-    padding-top: 14px;
-    border-top: 1px solid var(--border-light);
 }
 
 /* ===== 徽章 ===== */
