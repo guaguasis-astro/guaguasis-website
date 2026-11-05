@@ -6,7 +6,7 @@
     <title>占星解盘 · 古典占星</title>
     <!-- 预加载占星符号字体，确保 Canvas 星盘图能正确渲染 -->
     <link rel="preload" href="fonts/HamburgSymbols.ttf" as="font" type="font/ttf" crossorigin>
-  <script type="module" crossorigin src="./assets/index-BWKmojyn.js"></script>
+  <script type="module" crossorigin src="./assets/index-BF-SA1ac.js"></script>
   <link rel="stylesheet" crossorigin href="./assets/index-CrWn_ikr.css">
 </head>
 <body>
@@ -162,25 +162,23 @@
                     <div class="card">
                         <h3><span style="font-size:0.85rem;color:var(--gold-dark);font-style:italic;">Ⅳ.</span> 福 点 <span style="font-size:0.8rem;color:var(--text-faded);font-weight:400;">Part of Fortune</span></h3>
                         <div id="poiDetails"></div>
-                    </div>
-
-                    <div class="grid-2">
-                        <div class="card">
-                            <h3>福点落宫力量</h3>
-                            <div id="poiHouseStrength"></div>
+                        <div class="grid-2">
+                            <div>
+                                <h4 class="detail-label">落宫力量</h4>
+                                <div id="poiHouseStrength"></div>
+                            </div>
+                            <div>
+                                <h4 class="detail-label">主星状态</h4>
+                                <div id="poiLordStatus"></div>
+                            </div>
                         </div>
-                        <div class="card">
-                            <h3>福点主星状态</h3>
-                            <div id="poiLordStatus"></div>
-                        </div>
                     </div>
-
                     <div class="card">
                         <h3>福点相位与吉星支持</h3>
                         <div id="poiAspects"></div>
                     </div>
                     <div class="card">
-                        <h3>福点 · 财富与显赫</h3>
+                        <h3>福点/精神点·财富显赫</h3>
                         <div id="poiIndicators"></div>
                     </div>
                 </div>
@@ -190,16 +188,15 @@
                     <div class="card">
                         <h3><span style="font-size:0.85rem;color:var(--gold-dark);font-style:italic;">Ⅴ.</span> 资 产 点 <span style="font-size:0.8rem;color:var(--text-faded);font-weight:400;">Lot of Assets</span></h3>
                         <div id="assetsDetails"></div>
-                    </div>
-
-                    <div class="grid-2">
-                        <div class="card">
-                            <h3>资产点落宫力量</h3>
-                            <div id="assetsHouseStrength"></div>
-                        </div>
-                        <div class="card">
-                            <h3>资产点主星状态</h3>
-                            <div id="assetsLordStatus"></div>
+                        <div class="grid-2">
+                            <div>
+                                <h4 class="detail-label">落宫力量</h4>
+                                <div id="assetsHouseStrength"></div>
+                            </div>
+                            <div>
+                                <h4 class="detail-label">主星状态</h4>
+                                <div id="assetsLordStatus"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -234,16 +231,15 @@
                         <h3><span style="font-size:0.85rem;color:var(--gold-dark);font-style:italic;">Ⅶ.</span> 三 分 主 星 · 财 富 格 局</h3>
                         <p class="hint" id="triplicityHint">-</p>
                         <div id="triplicityDetails"></div>
-                    </div>
-
-                    <div class="grid-2">
-                        <div class="card">
-                            <h3 id="triplicityLord1Title">太阳 / 月亮的三分主星</h3>
-                            <div id="triplicityLord1"></div>
-                        </div>
-                        <div class="card">
-                            <h3>二宫星座的三分主星</h3>
-                            <div id="triplicityLord2"></div>
+                        <div class="grid-2">
+                            <div>
+                                <h4 class="detail-label" id="triplicityLord1Title">太阳 / 月亮的三分主星</h4>
+                                <div id="triplicityLord1"></div>
+                            </div>
+                            <div>
+                                <h4 class="detail-label">二宫星座的三分主星</h4>
+                                <div id="triplicityLord2"></div>
+                            </div>
                         </div>
                     </div>
 

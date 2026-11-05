@@ -2,7 +2,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node test-china-dst.mjs && node test-fortune-rules.mjs"
+    "test": "node test-china-dst.mjs && node test-fortune-rules.mjs && node test-report.mjs"
   },
   "dependencies": {
     "sweph-wasm": "^2.6.9"

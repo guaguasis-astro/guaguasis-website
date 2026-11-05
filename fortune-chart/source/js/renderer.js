@@ -128,13 +128,6 @@ export function renderFortune(chart) {
             </div>
             <div class="detail-desc">${beneficPlanet.dignitySummary.summaryText}</div>
         </div>
-        <div class="detail-section">
-            <div class="detail-label">解读提示</div>
-            <div class="detail-desc">
-                ${greatBenefic.name}落第${greatBenefic.house}宫，${beneficPlanet.dignitySummary.score > 0 ? '状态良好，吉性增强' : beneficPlanet.dignitySummary.score < 0 ? '状态偏弱，吉性有所折扣' : '状态中等，吉性平稳'}。
-                第${greatBenefic.house}宫所代表的人生领域是盘主最容易获得幸运和助力的地方。
-            </div>
-        </div>
     `;
 
     // 最不幸的地方
@@ -142,15 +135,6 @@ export function renderFortune(chart) {
     const maleficPlanet = greatMalefic.planet;
     const maleficSign = ZODIAC_SIGNS[maleficPlanet.signIndex];
     const maleficHouseType = getHouseType(greatMalefic.house);
-
-    let maleficAssessment = "";
-    if (maleficPlanet.dignitySummary.score > 0) {
-        maleficAssessment = `凶星有尊贵加持，凶性有所收敛，表现为有节制的困难，可通过努力转化`;
-    } else if (maleficPlanet.dignitySummary.score < -3) {
-        maleficAssessment = `凶星落陷/失意，凶性较强，该领域容易遭遇较明显的挫折和考验`;
-    } else {
-        maleficAssessment = `凶性中等，该领域存在压力和挑战，但也伴随着成长的机会`;
-    }
 
     unfortunateDiv.innerHTML = `
         <div class="detail-section">
@@ -169,13 +153,6 @@ export function renderFortune(chart) {
             </div>
             <div class="detail-desc">${maleficPlanet.dignitySummary.summaryText}</div>
         </div>
-        <div class="detail-section">
-            <div class="detail-label">解读提示</div>
-            <div class="detail-desc">
-                ${greatMalefic.name}落第${greatMalefic.house}宫，${maleficAssessment}。
-                第${greatMalefic.house}宫所代表的人生领域是盘主最需要谨慎应对、容易遇到挑战的地方。
-            </div>
-        </div>
     `;
 }
 
@@ -191,19 +168,10 @@ export function renderPOI(chart) {
     // 福点详情
     const poiDetails = document.getElementById("poiDetails");
     poiDetails.innerHTML = `
-        <div class="grid-2">
-            <div class="detail-section">
-                <div class="detail-label">福点位置</div>
-                <div class="detail-value">${pofSign.symbol} ${pofSign.name} ${formatDegreeMinute(pof.degree)}</div>
-                <div class="detail-desc">第${pof.house}宫</div>
-            </div>
-            <div class="detail-section">
-                <div class="detail-label">计算公式</div>
-                <div class="detail-value">${isDayChart ? '日生盘' : '夜生盘'}</div>
-                <div class="detail-desc">
-                    ${isDayChart ? '福点 = 上升 + 月亮 - 太阳' : '福点 = 上升 + 太阳 - 月亮'}
-                </div>
-            </div>
+        <div class="detail-section">
+            <div class="detail-label">福点位置</div>
+            <div class="detail-value">${pofSign.symbol} ${pofSign.name} ${formatDegreeMinute(pof.degree)}</div>
+            <div class="detail-desc">第${pof.house}宫</div>
         </div>
     `;
 
@@ -496,10 +464,6 @@ function renderLotSignAspects(containerDiv, lot, planets, lotName) {
                 </tbody>
             </table>
         </div>
-        <div class="detail-desc" style="font-size: 0.8rem; color: var(--text-faded); margin-top: 8px;">
-            注：星座相位（Whole Sign Aspect）只看行星所在星座与${lotName}所在星座的关系，不苛求具体度数容许度。
-            精确度数差仅作参考，不作为相位成立的判断依据。
-        </div>
     `;
     containerDiv.innerHTML = html;
 }
@@ -586,6 +550,89 @@ export function renderFixedStars(chart) {
     descDiv.innerHTML = html;
 }
 
+// 相同结论合写一次，保留各项配置作为依据。
+export function consolidateAssessmentDetails(details) {
+    const groups = new Map();
+    for (const detail of new Set(details)) {
+        const index = detail.indexOf("，");
+        const fact = index < 0 ? detail : detail.slice(0, index);
+        const conclusion = index < 0 ? "" : detail.slice(index + 1);
+        const key = conclusion || detail;
+        if (!groups.has(key)) groups.set(key, { facts: [], conclusion });
+        groups.get(key).facts.push(fact);
+    }
+    return [...groups.values()].map(group => group.facts.join("；") + (group.conclusion ? `，${group.conclusion}` : ""));
+}
+
+// 汇总现有评估中的相位，不额外引入或重新计分。
+export function buildAssessmentAspectNarratives(wa) {
+    const records = new Map();
+    const getRecord = target => {
+        if (!records.has(target)) records.set(target, new Map());
+        return records.get(target);
+    };
+    const add = (target, planet, fact, kind) => {
+        const record = getRecord(target);
+        if (!record.has(planet)) record.set(planet, { facts: new Set(), kinds: new Set() });
+        record.get(planet).facts.add(fact);
+        record.get(planet).kinds.add(kind);
+    };
+    for (const aspect of wa.moonHardAspects) add("月亮", aspect.planet, aspect.aspect, "pressure");
+    for (const aspect of wa.moonBeneficAspects) {
+        add("月亮", aspect.planet, `整宫${aspect.aspects.join("、")}`, "support");
+    }
+    const otherDetails = [];
+    for (const detail of wa.extraDetails) {
+        const match = detail.match(/^(太阳|月亮)与(金星|木星)成(.+?)，(受吉星加持|吉中带摩擦)$/);
+        if (match) add(match[1], match[2], match[3], match[4] === "受吉星加持" ? "support" : "friction");
+        else otherDetails.push(detail);
+    }
+    const narratives = [...records].map(([target, record]) => {
+        const support = [], pressure = [], friction = [];
+        for (const [planet, data] of record) {
+            const fact = `${planet}（${[...data.facts].join("、")}）`;
+            if (data.kinds.has("pressure")) pressure.push(fact);
+            else if (data.kinds.has("friction")) friction.push(fact);
+            else support.push(fact);
+        }
+        const evidence = [
+            support.length ? `吉星联系：${support.join("、")}` : "",
+            pressure.length ? `火土压力：${pressure.join("、")}` : "",
+            friction.length ? `吉星摩擦：${friction.join("、")}` : "",
+        ].filter(Boolean).join("；");
+        const hasPressure = pressure.length || friction.length;
+        const conclusion = support.length && hasPressure
+            ? "机会和压力会一起来：有资源可借力，也容易有消耗。把助力用在稳定收入上，给开支和周转留些余地。"
+            : pressure.length > 1 ? "火土带来的压力比较集中，求财时容易有消耗或周转压力，先稳住收支、留好缓冲。"
+            : pressure.length ? "求财中容易有消耗或周转压力，先把收支安排稳妥，按自己的节奏积累。"
+            : friction.length ? "机会的落实需要多一些协调，合作中容易有分歧，把条件谈清楚更容易促成收获。"
+            : "资源和人际支持较容易接上，有利于改善收入、慢慢积累生活所需。";
+        return { target, evidence, conclusion };
+    });
+    return { narratives, otherDetails: consolidateAssessmentDetails(otherDetails) };
+}
+
+export function buildTriplicityStarNarratives(chart) {
+    const wa = chart.wealthAssessment;
+    const groups = [
+        ["发光体三分主", chart.triplicity.luminaryTriplicityLords],
+        ["二宫三分主", chart.triplicity.secondHouseTriplicityLords],
+    ];
+    const facts = new Map();
+    for (const [group, lords] of groups) {
+        for (const lord of lords) {
+            for (const star of wa.triplicityStarConjunctions[lord.planetKey] || []) {
+                const key = `${lord.planetKey}-${star.starNameEn}`;
+                if (!facts.has(key)) facts.set(key, { lord: lord.planetName, star, roles: new Set() });
+                facts.get(key).roles.add(group);
+            }
+        }
+    }
+    return [...facts.values()].map(({ lord, star, roles }) =>
+        `${lord}（${[...roles].join("、")}）合恒星${star.starNameZh}（${star.starNameEn}），容许度${star.orb.toFixed(2)}°`
+    );
+}
+
 // 渲染三分主星
 export function renderTriplicity(chart) {
     const { triplicity, isDayChart } = chart;
@@ -632,16 +679,21 @@ export function renderTriplicity(chart) {
     const summaryDiv = document.getElementById("triplicitySummary");
     const wa = chart.wealthAssessment;
 
+    const aspectSummary = buildAssessmentAspectNarratives(wa);
+    const moonNarrative = aspectSummary.narratives.find(item => item.target === "月亮");
+    const otherAspectNarratives = aspectSummary.narratives.filter(item => item.target !== "月亮");
+    const renderAspectNarrative = item => `<div class="detail-desc" style="margin-top: 8px;">${item.evidence}。</div><div class="detail-desc" style="margin-top: 8px;">${item.conclusion}</div>`;
+
     // 福点详情列表
-    const pfDetailList = wa.pfDetails.map(d => `<li style="margin-bottom: 6px; line-height: 1.7;">${d}</li>`).join("");
+    const pfDetailList = consolidateAssessmentDetails(wa.pfDetails).map(d => `<li style="margin-bottom: 6px; line-height: 1.7;">${d}</li>`).join("");
 
     // 钱财宫详情列表
-    const mhDetailList = wa.moneyHouseDetails.map(d => `<li style="margin-bottom: 6px; line-height: 1.7;">${d}</li>`).join("");
+    const mhDetailList = consolidateAssessmentDetails(wa.moneyHouseDetails).map(d => `<li style="margin-bottom: 6px; line-height: 1.7;">${d}</li>`).join("");
 
     // 三分主星恒星详情
     let triplicityStarList = "";
     if (wa.triplicityStarDetails.length > 0) {
-        triplicityStarList = wa.triplicityStarDetails.map(d =>
+        triplicityStarList = buildTriplicityStarNarratives(chart).map(d =>
             `<li style="margin-bottom: 6px; line-height: 1.7;">${d}</li>`
         ).join("");
     }
@@ -729,11 +781,9 @@ export function renderTriplicity(chart) {
                 <div class="detail-section">
                     <div class="detail-label">维度二 · 月亮状态</div>
                     <div class="detail-desc" style="margin-top: 6px;">
-                        月相：<strong>${wa.moonPhase}</strong>${wa.isWaxingMoon ? '（力量渐增）' : '（力量渐减）'}
+                        月相：<strong>${wa.moonPhase}</strong>。${wa.isWaxingMoon ? "适合主动开拓收入。" : "更适合稳住已有收入、慢慢积累。"}
                     </div>
-                    <ul style="margin: 8px 0 0 18px; padding: 0; list-style: none;">
-                        ${wa.moonDetails.map(d => `<li style="margin-bottom: 6px; line-height: 1.7;">${d}</li>`).join("")}
-                    </ul>
+                    ${moonNarrative ? renderAspectNarrative(moonNarrative) : ""}
                 </div>
 
                 <!-- 福点维度详解 -->
@@ -742,9 +792,10 @@ export function renderTriplicity(chart) {
                     <ul style="margin: 8px 0 0 18px; padding: 0; list-style: none;">
                         ${pfDetailList}
                     </ul>
+                    ${wa.pfDetails.some(detail => detail.includes(`福点第${wa.pfLordHouseFromPF}宫`)) ? "" : `
                     <div class="detail-desc" style="margin-top: 8px; font-size: 0.78rem; color: var(--text-faded);">
                         福点主星落福点第 ${wa.pfLordHouseFromPF} 宫（从福点所在星座起算整宫）。
-                    </div>
+                    </div>`}
                 </div>
 
                 <!-- 钱财宫维度详解 -->
@@ -768,12 +819,18 @@ export function renderTriplicity(chart) {
                 </div>
                 ` : ''}
 
+                ${otherAspectNarratives.map(item => `
+                <div class="detail-section">
+                    <div class="detail-label">${item.target} · 相位综合解读</div>
+                    ${renderAspectNarrative(item)}
+                </div>`).join("")}
+
                 <!-- 其他加分项 -->
                 ${wa.extraDetails && wa.extraDetails.length > 0 ? `
                 <div class="detail-section">
                     <div class="detail-label">其他加分 / 减分项</div>
                     <ul style="margin: 8px 0 0 18px; padding: 0; list-style: none;">
-                        ${wa.extraDetails.map(d => `<li style="margin-bottom: 6px; line-height: 1.7;">✧ ${d}</li>`).join("")}
+                        ${aspectSummary.otherDetails.map(d => `<li style="margin-bottom: 6px; line-height: 1.7;">✧ ${d}</li>`).join("")}
                     </ul>
                     <div class="detail-desc" style="margin-top: 8px; font-size: 0.78rem; color: var(--text-faded);">
                         额外修正分：<strong style="color: var(--text-bistre);">${wa.extraBonus > 0 ? '+' : ''}${wa.extraBonus}</strong>
