@@ -8,6 +8,7 @@ import {
     renderFixedStars,
     renderTriplicity,
     renderInfoBar,
+    symbolizeReport,
 } from "./renderer.js";
 import { parseBirthInfo } from "./parser.js";
 import { getCityLatLng } from "./cities.js";
@@ -294,6 +295,7 @@ birthForm.addEventListener("submit", async (e) => {
         renderAssets(chart);
         renderFixedStars(chart);
         renderTriplicity(chart);
+        symbolizeReport(document.querySelector(".content-area"));
 
         // 绘制星盘图
         const canvas = document.getElementById("birthChart");

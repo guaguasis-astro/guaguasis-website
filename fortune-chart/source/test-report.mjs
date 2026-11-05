@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { buildAssessmentAspectNarratives, consolidateAssessmentDetails, buildTriplicityStarNarratives } from './js/renderer.js';
+import { buildAssessmentAspectNarratives, consolidateAssessmentDetails, buildTriplicityStarNarratives, toPlanetSymbols } from './js/renderer.js';
 const wa = {
     moonHardAspects: [
         {planet:'火星',aspect:'刑相'},
@@ -41,3 +41,11 @@ assert.deepEqual(consolidateAssessmentDetails(['甲，力量强','乙，力量�
 const lord = {planetKey:'VENUS',planetName:'金星'};
 assert.equal(buildTriplicityStarNarratives({triplicity:{luminaryTriplicityLords:[lord],secondHouseTriplicityLords:[lord]},wealthAssessment:{triplicityStarConjunctions:{VENUS:[{starNameEn:'Spica',starNameZh:'角宿一',orb:0.5}]}}}).length,1);
 console.log('报告解读测试通过：混合相位综合、同星去重、精确硬相位摩擦、相同结论合写、跨三分主星组恒星去重、原数据不变。');
+
+const planetText = '太阳 月亮 水星 金星 火星 木星 土星 天王星 海王星 冥王星';
+const symbolText = toPlanetSymbols(planetText);
+assert(!/太阳|月亮|水星|金星|火星|木星|土星|天王星|海王星|冥王星/.test(symbolText));
+for (const symbol of ['☉','☽','☿','♀','♂','♃','♄','♅','♆','♇']) assert(symbolText.includes(symbol));
+assert.equal(toPlanetSymbols(symbolText),symbolText);
+assert.equal(toPlanetSymbols('日生盘、夜生盘、福点、精神点、资产点'),'日生盘、夜生盘、福点、精神点、资产点');
+console.log('符号转换验证通过：十颗行星、重复调用、非行星术语保留。');

@@ -1,0 +1,867 @@
+/* ========================================
+   占星解盘辅助工具 · 文艺复兴杂志风
+   ======================================== */
+
+/* 占星符号字体 */
+@font-face {
+    font-family: "HamburgSymbols";
+    src: url("../fonts/HamburgSymbols.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ===== 基础变量 ===== */
+:root {
+    /* 羊皮纸色系 */
+    --bg-parchment: #f0e6d0;
+    --bg-parchment-dark: #e8dcc0;
+    --bg-cream: #faf5e8;
+    --bg-card: #f7f0de;
+    --bg-card-alt: #f2e9d2;
+
+    /* 墨色系 */
+    --text-ink: #1a120b;
+    --text-bistre: #3d2914;
+    --text-sepia: #6b4f2e;
+    --text-faded: #8b7355;
+
+    /* 鎏金系 */
+    --gold-dark: #8b6914;
+    --gold: #a67c00;
+    --gold-light: #c9a227;
+    --gold-bright: #d4af37;
+    --gold-pale: #e8d5a3;
+
+    /* 朱砂/墨绿 */
+    --vermilion: #8b2500;
+    --vermilion-light: #a83a1a;
+    --vermilion-pale: #d4a59a;
+    --emerald: #2d5a27;
+    --emerald-light: #3d7a35;
+    --emerald-pale: #a3c4a0;
+
+    /* 线条/边框 */
+    --border-ink: #8b7355;
+    --border-light: #c4b089;
+    --border-gold: #b8922a;
+
+    /* 字体 */
+    --font-display: "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, "Times New Roman", serif;
+    --font-body: "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --font-small: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+
+    /* 装饰 */
+    --ornament: "✦";
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--text-ink);
+    line-height: 1.75;
+    min-height: 100vh;
+    background: var(--bg-parchment);
+    position: relative;
+}
+
+/* 羊皮纸纹理叠加 */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+        radial-gradient(ellipse at 20% 30%, rgba(139, 105, 20, 0.04) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 70%, rgba(139, 69, 19, 0.04) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(201, 162, 39, 0.02) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.app {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 32px 48px 48px;
+    position: relative;
+    z-index: 1;
+}
+
+/* ===== 头部 · 杂志刊头 ===== */
+.header {
+    text-align: center;
+    padding: 48px 0 36px;
+    position: relative;
+    border-bottom: 1px solid var(--border-gold);
+    margin-bottom: 40px;
+}
+
+.header::before,
+.header::after {
+    content: "✦  ✧  ✦";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--gold);
+    letter-spacing: 8px;
+    font-size: 0.75rem;
+}
+
+.header::before {
+    top: 16px;
+}
+
+.header::after {
+    bottom: 14px;
+}
+
+.header h1 {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--text-ink);
+    letter-spacing: 6px;
+    margin-bottom: 4px;
+}
+
+.header h1::before {
+    content: "☉ ☽ ";
+    color: var(--gold-dark);
+    font-size: 1.6rem;
+    margin-right: 12px;
+    vertical-align: middle;
+}
+
+.header h1::after {
+    content: " ☿ ♀";
+    color: var(--gold-dark);
+    font-size: 1.6rem;
+    margin-left: 12px;
+    vertical-align: middle;
+}
+
+.subtitle {
+    color: var(--text-sepia);
+    margin-top: 12px;
+    font-size: 0.9rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-style: italic;
+}
+
+/* ===== 输入表单 ===== */
+.input-section {
+    padding: 0 0 32px;
+}
+
+.form-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-gold);
+    padding: 40px 48px 36px;
+    position: relative;
+    width: 100%;
+}
+
+/* 四角装饰 */
+.form-card::before,
+.form-card::after {
+    content: "";
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--gold);
+}
+
+.form-card::before {
+    top: 8px;
+    left: 8px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.form-card::after {
+    bottom: 8px;
+    right: 8px;
+    border-left: none;
+    border-top: none;
+}
+
+.form-card h2 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    margin-bottom: 28px;
+    text-align: center;
+    color: var(--text-bistre);
+    letter-spacing: 3px;
+    font-weight: 600;
+}
+
+.form-card h2::before,
+.form-card h2::after {
+    content: "—";
+    color: var(--gold);
+    margin: 0 16px;
+    font-weight: normal;
+}
+
+.birth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+.smart-parse-section {
+    grid-column: 1 / -1;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    font-size: 0.78rem;
+    color: var(--text-sepia);
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: none;
+}
+
+.form-group input,
+.form-group select {
+    padding: 9px 12px;
+    border: 1px solid var(--border-light);
+    border-radius: 0;
+    font-size: 0.9rem;
+    font-family: var(--font-body);
+    background: var(--bg-cream);
+    color: var(--text-ink);
+    transition: all 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 2px rgba(166, 124, 0, 0.1);
+}
+
+#timezone {
+    appearance: auto;
+    -webkit-appearance: menulist;
+}
+
+/* ===== 智能解析区 ===== */
+.smart-parse-section {
+    margin-bottom: 8px;
+}
+
+.parse-label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-bistre);
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.parse-label::before {
+    content: "✒ ";
+    color: var(--gold-dark);
+}
+
+.parse-textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--border-light);
+    border-radius: 0;
+    font-size: 0.9rem;
+    font-family: var(--font-body);
+    background: var(--bg-cream);
+    color: var(--text-ink);
+    resize: vertical;
+    min-height: 72px;
+    transition: border-color 0.2s;
+    line-height: 1.6;
+}
+
+.parse-textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 2px rgba(166, 124, 0, 0.1);
+}
+
+.btn-parse {
+    margin-top: 8px;
+    padding: 7px 18px;
+    background: transparent;
+    color: var(--gold-dark);
+    border: 1px solid var(--gold);
+    border-radius: 0;
+    cursor: pointer;
+    font-size: 0.82rem;
+    font-weight: 600;
+    font-family: var(--font-body);
+    letter-spacing: 1px;
+    transition: all 0.2s;
+}
+
+.btn-parse:hover {
+    background: var(--gold-dark);
+    color: var(--bg-cream);
+    border-color: var(--gold-dark);
+}
+
+.parse-hint {
+    margin-top: 6px;
+    font-size: 0.78rem;
+    min-height: 1.2em;
+}
+
+.parse-hint.success {
+    color: var(--emerald);
+}
+
+.parse-hint.error {
+    color: var(--vermilion);
+}
+
+/* ===== 分割线 ===== */
+.divider {
+    display: flex;
+    align-items: center;
+    margin: 20px 0 24px;
+    color: var(--text-faded);
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--border-light), transparent);
+}
+
+.divider span {
+    padding: 0 16px;
+}
+
+/* ===== 主按钮 ===== */
+.btn-primary {
+    margin-top: 8px;
+    padding: 14px 32px;
+    background: var(--gold-dark);
+    color: var(--bg-cream);
+    border: none;
+    border-radius: 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: var(--font-display);
+    letter-spacing: 4px;
+    transition: all 0.25s;
+    position: relative;
+    align-self: center;
+}
+
+.btn-primary::before,
+.btn-primary::after {
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border: 1px solid var(--gold-bright);
+}
+
+.btn-primary::before {
+    top: 4px;
+    left: 4px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.btn-primary::after {
+    bottom: 4px;
+    right: 4px;
+    border-left: none;
+    border-top: none;
+}
+
+.btn-primary:hover {
+    background: var(--text-ink);
+    color: var(--gold-bright);
+}
+
+.btn-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.hint {
+    margin-top: 16px;
+    font-size: 0.78rem;
+    color: var(--text-faded);
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+
+/* ===== 加载状态 ===== */
+.loading-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 0;
+    gap: 16px;
+    color: var(--text-sepia);
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--border-light);
+    border-top-color: var(--gold-dark);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ===== 信息条 ===== */
+.info-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 28px;
+    padding: 18px 28px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-gold);
+    margin-bottom: 28px;
+    align-items: center;
+    position: relative;
+}
+
+.info-bar::before {
+    content: "☉ ☽ ☿ ♀ ♂ ♃ ♄";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-parchment);
+    padding: 0 12px;
+    font-size: 0.7rem;
+    color: var(--gold-dark);
+    letter-spacing: 4px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.info-label {
+    font-size: 0.72rem;
+    color: var(--text-faded);
+    letter-spacing: 1px;
+}
+
+.info-value {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-bistre);
+    font-family: var(--font-display);
+}
+
+.btn-back {
+    margin-left: auto;
+    padding: 7px 16px;
+    background: transparent;
+    color: var(--text-sepia);
+    border: 1px solid var(--border-light);
+    border-radius: 0;
+    cursor: pointer;
+    font-size: 0.82rem;
+    font-family: var(--font-body);
+    transition: all 0.2s;
+}
+
+.btn-back:hover {
+    color: var(--gold-dark);
+    border-color: var(--gold);
+}
+
+/* ===== 内容区域 ===== */
+.content-area {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ===== 卡片 ===== */
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-gold);
+    padding: 28px 32px;
+    position: relative;
+}
+
+/* 章节编号标签 */
+.card h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: var(--text-ink);
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-light);
+    position: relative;
+}
+
+.card h3::after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 80px;
+    height: 1px;
+    background: var(--gold-dark);
+}
+
+.card-icon {
+    font-size: 1.8rem;
+    margin-bottom: 4px;
+    color: var(--gold-dark);
+}
+
+/* 吉凶卡片 */
+.card-good {
+    border-left: 3px solid var(--emerald);
+}
+
+.card-bad {
+    border-left: 3px solid var(--vermilion);
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* ===== 表格 ===== */
+.table-wrapper {
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+}
+
+.data-table th {
+    text-align: left;
+    padding: 10px 12px;
+    font-weight: 600;
+    color: var(--text-sepia);
+    border-bottom: 2px solid var(--gold-dark);
+    font-size: 0.78rem;
+    letter-spacing: 1px;
+    font-family: var(--font-display);
+}
+
+.data-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border-light);
+    color: var(--text-bistre);
+}
+
+.data-table tr:last-child td {
+    border-bottom: none;
+}
+
+.data-table tr:hover td {
+    background: rgba(166, 124, 0, 0.05);
+}
+
+/* 四轴分隔行 */
+.data-table tr td[colspan="4"] {
+    padding: 12px 0 !important;
+    border-bottom: none !important;
+    font-size: 0.75rem !important;
+    color: var(--gold-dark) !important;
+    letter-spacing: 4px !important;
+    text-align: center !important;
+    background: transparent !important;
+    font-family: var(--font-display) !important;
+}
+
+/* ===== 尊贵状态颜色 ===== */
+.dignity-yes {
+    color: var(--emerald);
+    font-weight: 600;
+}
+
+.dignity-no {
+    color: var(--text-faded);
+}
+
+.dignity-bad {
+    color: var(--vermilion);
+    font-weight: 600;
+}
+
+/* 相位类型 */
+.aspect-conjunction { color: var(--gold-dark); font-weight: 600; }
+.aspect-opposition { color: var(--vermilion); font-weight: 600; }
+.aspect-square { color: #a85a1a; font-weight: 600; }
+.aspect-trine { color: var(--emerald); font-weight: 600; }
+.aspect-sextile { color: #5a4a8b; font-weight: 600; }
+
+.aspect-harmonious { color: var(--emerald); }
+.aspect-hard { color: var(--vermilion); }
+.aspect-neutral { color: var(--gold-dark); }
+
+/* ===== 详情内容 ===== */
+.detail-section {
+    margin-bottom: 16px;
+}
+
+.detail-section:last-child {
+    margin-bottom: 0;
+}
+
+.detail-label {
+    font-size: 0.75rem;
+    color: var(--text-faded);
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+}
+
+.detail-value {
+    font-size: 1.05rem;
+    color: var(--text-ink);
+    font-weight: 600;
+    font-family: var(--font-display);
+}
+
+.detail-desc {
+    font-size: 0.85rem;
+    color: var(--text-sepia);
+    margin-top: 4px;
+}
+
+/* 点位与主星的紧凑信息行 */
+.lot-line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 5px 10px;
+    font-size: 0.85rem;
+    color: var(--text-sepia);
+}
+
+.lot-line strong {
+    color: var(--text-ink);
+    font-size: 1rem;
+    font-family: var(--font-display);
+}
+
+.lot-line .detail-label {
+    margin-bottom: 0;
+}
+
+.lot-description {
+    margin: 6px 0 10px;
+}
+
+.report-subheading {
+    margin: 18px 0 10px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-light);
+    color: var(--text-bistre);
+    font-size: 0.9rem;
+    font-family: var(--font-display);
+}
+
+.triplicity-second-group {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border-light);
+}
+
+/* ===== 徽章 ===== */
+.badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 0;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border: 1px solid transparent;
+}
+
+.badge-good {
+    background: rgba(45, 90, 39, 0.1);
+    color: var(--emerald);
+    border-color: var(--emerald-pale);
+}
+
+.badge-bad {
+    background: rgba(139, 37, 0, 0.08);
+    color: var(--vermilion);
+    border-color: var(--vermilion-pale);
+}
+
+.badge-neutral {
+    background: rgba(166, 124, 0, 0.1);
+    color: var(--gold-dark);
+    border-color: var(--gold-pale);
+}
+
+.badge-purple {
+    background: rgba(90, 74, 139, 0.08);
+    color: #5a4a8b;
+    border-color: #b8aed4;
+}
+
+/* ===== 恒星含义区块 ===== */
+#fixedStarDescriptions {
+    margin-top: 24px;
+}
+
+/* ===== 页脚 ===== */
+.footer {
+    text-align: center;
+    padding: 48px 0 24px;
+    color: var(--text-faded);
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    border-top: 1px solid var(--border-light);
+    margin-top: 40px;
+}
+
+.footer::before {
+    content: "✦  ✧  ★  ✧  ✦";
+    display: block;
+    color: var(--gold);
+    letter-spacing: 10px;
+    margin-bottom: 16px;
+    font-size: 0.7rem;
+}
+
+/* ===== 响应式 ===== */
+@media (max-width: 900px) {
+    .app {
+        padding: 16px 20px;
+    }
+
+    .header {
+        padding: 32px 0 28px;
+    }
+
+    .header h1 {
+        font-size: 1.6rem;
+        letter-spacing: 3px;
+    }
+
+    .header h1::before,
+    .header h1::after {
+        font-size: 1rem;
+    }
+
+    .form-card {
+        padding: 24px 20px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .grid-2 {
+        grid-template-columns: 1fr;
+    }
+
+    .info-bar {
+        gap: 16px;
+        padding: 16px;
+    }
+
+    .btn-back {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    /* 输入框在移动端不要溢出 */
+    .form-group input,
+    .form-group select {
+        max-width: 100%;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* 综合评估移动端：预约咨询改到下面 */
+    #triplicitySummary > div {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+    }
+}
+
+/* ===== 星盘图 ===== */
+#section-chart {
+    text-align: center;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#birthChart {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+    width: 600px;
+}
+
+@media (max-width: 640px) {
+    #birthChart {
+        width: 100%;
+    }
+}

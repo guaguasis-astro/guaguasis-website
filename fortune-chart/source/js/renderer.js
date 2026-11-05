@@ -12,15 +12,34 @@ const PLANET_SYMBOLS = {
     "土星": "♄",
 };
 
+// 统一转换报告正文、标题和表格中的行星名；保留完整计算数据。
+const REPORT_PLANET_SYMBOLS = {
+    ...PLANET_SYMBOLS,
+    "天王星": "♅",
+    "海王星": "♆",
+    "冥王星": "♇",
+};
+
+export function toPlanetSymbols(text) {
+    let result = text;
+    for (const [name, symbol] of Object.entries(REPORT_PLANET_SYMBOLS)) {
+        result = result.replaceAll(name, symbol + "\uFE0E");
+    }
+    return result.replaceAll("日月围攻", "☉☽围攻")
+        .replaceAll("金木围攻", "♀︎♃围攻").replaceAll("火土", "♂︎♄").replaceAll("日月", "☉☽");
+}
+
+export function symbolizeReport(container) {
+    const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
+    while (walker.nextNode()) {
+        const node = walker.currentNode;
+        if (!node.parentElement.closest("script, style")) node.nodeValue = toPlanetSymbols(node.nodeValue);
+    }
+}
+
 // 将恒星性质文字中的行星名替换为符号
 function natureToSymbols(nature) {
-    let result = nature;
-    for (const [name, sym] of Object.entries(PLANET_SYMBOLS)) {
-        result = result.replaceAll(name, sym);
-    }
-    // 去掉"性质"二字，让更简洁
-    result = result.replace(/性质/g, "");
-    return result;
+    return toPlanetSymbols(nature.replace(/性质/g, ""));
 }
 
 // 渲染本命盘总览（行星 + 四轴合并）
@@ -156,95 +175,60 @@ export function renderFortune(chart) {
     `;
 }
 
-// 渲染福点状态
+// 点位与主星信息用一组紧凑行展示，移动端自然换行。
+export function renderCompactLot(lot, label) {
+    const sign = ZODIAC_SIGNS[lot.signIndex];
+    const houseType = lot.houseType;
+    const lord = lot.lord;
+    const planet = lord.planet;
+    const lordSign = ZODIAC_SIGNS[planet.signIndex];
+    const lordHouseType = getHouseType(lord.house);
+    const description = label === "福点"
+        ? { 3: "机遇容易落到实处，财富与资源更容易显现。", 2: "机遇适合通过持续经营、慢慢积累来兑现。", 1: "机遇的显现偏慢，需要更多耐心和积累。" }[houseType.strengthLevel]
+        : { 3: "资产更容易积累，也更容易看到实际成果。", 2: "资产适合靠长期经营，细水长流地积累。", 1: "资产积累的节奏偏慢，适合多些耐心、持续投入。" }[houseType.strengthLevel];
+    const aspects = (lot.lordSignAspects || []).filter(aspect => aspect.type !== "aversion");
+    const relation = lot.isLordAversion ? `与${label}不合意`
+        : aspects.length ? `与${label} ${aspects.map(aspect => aspect.symbol).join(" ")}` : `与${label}无主要相位`;
+    const position = `
+        <div class="lot-line">
+            <strong>${sign.symbol} ${sign.name} ${formatDegreeMinute(lot.degree)}</strong>
+            <span>第${lot.house}宫</span>
+            <span class="badge badge-neutral">${houseType.type} · 力量${houseType.strength}</span>
+        </div>
+        <p class="detail-desc lot-description">${description}</p>
+    `;
+    const lordStatus = `
+        <div class="lot-line lot-lord">
+            <span class="detail-label">${label}主星</span>
+            <strong>${lord.name}</strong>
+            <span>${lordSign.symbol} ${lordSign.name} ${formatDegreeMinute(planet.degree)}</span>
+            <span>第${lord.house}宫 · ${lordHouseType.type}</span>
+            <span class="badge ${planet.dignitySummary.levelClass}">力量${planet.dignitySummary.level}</span>
+            <span class="badge badge-neutral">${planet.dignitySummary.summaryText}</span>
+            <span class="badge ${lot.isLordAversion ? "badge-neutral" : "badge-good"}">${relation}</span>
+        </div>
+    `;
+    return { position, lordStatus };
+}
+
+// 渲染福点及精神点解读
 export function renderPOI(chart) {
     const { partOfFortune: pof, planets, isDayChart } = chart;
-    const pofSign = ZODIAC_SIGNS[pof.signIndex];
-    const lord = pof.lord;
-    const lordPlanet = lord.planet;
-    const lordSign = ZODIAC_SIGNS[lordPlanet.signIndex];
-    const lordHouseType = getHouseType(lord.house);
-
-    // 福点详情
-    const poiDetails = document.getElementById("poiDetails");
-    poiDetails.innerHTML = `
-        <div class="detail-section">
-            <div class="detail-label">福点位置</div>
-            <div class="detail-value">${pofSign.symbol} ${pofSign.name} ${formatDegreeMinute(pof.degree)}</div>
-            <div class="detail-desc">第${pof.house}宫</div>
-        </div>
-    `;
-
-    // 福点落宫力量
-    const houseStrengthDiv = document.getElementById("poiHouseStrength");
-    const houseType = pof.houseType;
-    let houseStrengthDesc = "";
-    if (houseType.strengthLevel === 3) {
-        houseStrengthDesc = "福点落角宫，力量强劲，福气容易显化，人生的财富和机遇较为突出和实在。";
-    } else if (houseType.strengthLevel === 2) {
-        houseStrengthDesc = "福点落续宫，力量中等，福气需要通过积累和经营才能显现，属于细水长流型。";
-    } else {
-        houseStrengthDesc = "福点落果宫，力量偏弱，福气较为内敛或延迟显现，可能需要通过服务他人或灵性修行来积累福报。";
-    }
-
-    houseStrengthDiv.innerHTML = `
-        <div class="detail-section">
-            <div class="detail-label">宫位类型</div>
-            <div class="detail-value">${houseType.type} <span class="badge badge-neutral">力量：${houseType.strength}</span></div>
-        </div>
-        <div class="detail-section">
-            <div class="detail-label">说明</div>
-            <div class="detail-desc">${houseStrengthDesc}</div>
-        </div>
-    `;
-
-    // 福点主星状态
-    const lordStatusDiv = document.getElementById("poiLordStatus");
-
-    // 星座相位符号（只显示符号，不显示文字）
-    const signAspectSymbols = pof.lordSignAspects && pof.lordSignAspects.length > 0
-        ? pof.lordSignAspects.map(a => `<span style="font-size: 1.1rem; margin-right: 4px;">${a.symbol}</span>`).join("")
-        : '<span style="color: var(--text-faded);">无</span>';
-
-    let relationDesc = "";
-    if (pof.isLordAversion) {
-        relationDesc = "福点主星与福点在星座层面不合意（aversion），能量传递有阻碍，福气的表达可能有曲折。";
-    } else if (pof.lordSignAspects && pof.lordSignAspects.length > 0) {
-        relationDesc = "福点主星与福点在星座层面有相位关系，能量有流通渠道。";
-    } else {
-        relationDesc = "福点主星与福点没有明显的星座相位关系。";
-    }
-
-    lordStatusDiv.innerHTML = `
-        <div class="detail-section">
-            <div class="detail-label">福点主星</div>
-            <div class="detail-value">${lord.name} <span class="badge ${lordPlanet.dignitySummary.levelClass}">力量：${lordPlanet.dignitySummary.level}</span></div>
-            <div class="detail-desc">${lordSign.symbol} ${lordSign.name} ${formatDegreeMinute(lordPlanet.degree)} · 第${lord.house}宫（${lordHouseType.type}）</div>
-        </div>
-        <div class="detail-section">
-            <div class="detail-label">主星尊贵</div>
-            <div class="detail-desc">${lordPlanet.dignitySummary.summaryText}</div>
-        </div>
-        <div class="detail-section">
-            <div class="detail-label">与福点的星座相位</div>
-            <div class="detail-value" style="font-size: 1rem;">${signAspectSymbols}</div>
-        </div>
-        <div class="detail-section">
-            <div class="detail-label">说明</div>
-            <div class="detail-desc">${relationDesc}</div>
-        </div>
-    `;
-
-    // 福点星座相位与吉星支持
-    const poiAspectsDiv = document.getElementById("poiAspects");
-    renderLotSignAspects(poiAspectsDiv, pof, planets, "福点");
+    const compact = renderCompactLot(pof, "福点");
+    document.getElementById("poiDetails").innerHTML = compact.position;
+    document.getElementById("poiLordStatus").innerHTML = compact.lordStatus;
+    renderLotSignAspects(document.getElementById("poiAspects"), pof, planets, "福点");
     const indicators = chart.wealthAssessment.fortuneIndicators;
     const spirit = indicators.spirit;
     document.getElementById("poiIndicators").innerHTML = `
         <div class="detail-section">
-            <div class="detail-label">精神点</div>
-            <div class="detail-value">${ZODIAC_SIGNS[spirit.signIndex].name} ${formatDegreeMinute(spirit.degree)} · 本命第${spirit.house}宫</div>
-            <div class="detail-desc">${isDayChart ? "日生：上升 + 太阳 − 月亮" : "夜生：上升 + 月亮 − 太阳"}；主星：${spirit.lordName}</div>
+            <div class="lot-line">
+                <span class="detail-label">精神点</span>
+                <strong>${ZODIAC_SIGNS[spirit.signIndex].name} ${formatDegreeMinute(spirit.degree)}</strong>
+                <span>第${spirit.house}宫</span>
+                <span class="badge badge-neutral">主星 ${spirit.lordName}</span>
+            </div>
+            <div class="detail-desc">${isDayChart ? "日生：上升 + 太阳 − 月亮" : "夜生：上升 + 月亮 − 太阳"}</div>
         </div>
         ${renderFortuneMatches(indicators)}
     `;
@@ -256,7 +240,7 @@ export function renderFortuneMatches(indicators, includeContext = true) {
         <div class="detail-section">
             <div class="detail-label">${title}</div>
             ${items.map(item => `
-                <div style="margin-top: 18px; padding-left: 12px; border-left: 2px solid var(--gold-pale);">
+                <div style="margin-top: 10px; padding-left: 12px; border-left: 2px solid var(--gold-pale);">
                     <div class="detail-value" style="font-size: 0.95rem;">${item.title}</div>
                     <div class="detail-desc" style="margin-top: 8px;">${item.reason}${item.text}</div>
                 </div>
@@ -270,85 +254,9 @@ export function renderFortuneMatches(indicators, includeContext = true) {
 
 // 渲染资产点
 export function renderAssets(chart) {
-    const { lotOfAssets: loa, planets } = chart;
-    const loaSign = ZODIAC_SIGNS[loa.signIndex];
-    const lord = loa.lord;
-    const lordPlanet = lord.planet;
-    const lordSign = ZODIAC_SIGNS[lordPlanet.signIndex];
-    const cusp2nd = loa.placidus2ndCusp;
-    const cusp2ndSign = ZODIAC_SIGNS[cusp2nd.signIndex];
-
-    // 资产点详情
-    const detailsDiv = document.getElementById("assetsDetails");
-    detailsDiv.innerHTML = `
-        <div class="grid-2">
-            <div class="detail-section">
-                <div class="detail-label">资产点位置</div>
-                <div class="detail-value">${loaSign.symbol} ${loaSign.name} ${formatDegreeMinute(loa.degree)}</div>
-                <div class="detail-desc">第${loa.house}宫（整宫制）</div>
-            </div>
-        </div>
-    `;
-
-    // 资产点落宫力量
-    const houseStrengthDiv = document.getElementById("assetsHouseStrength");
-    const houseType = loa.houseType;
-    let houseStrengthDesc = "";
-    if (houseType.strengthLevel === 3) {
-        houseStrengthDesc = "资产点落角宫，力量强劲，资产积累能力强，物质生活容易有显著的积累和显化。";
-    } else if (houseType.strengthLevel === 2) {
-        houseStrengthDesc = "资产点落续宫，力量中等，资产需要通过持续积累和经营才能增长，属于细水长流型。";
-    } else {
-        houseStrengthDesc = "资产点落果宫，力量偏弱，资产积累较为内敛或延迟显现，可能需要通过服务他人或长期规划来积累。";
-    }
-
-    houseStrengthDiv.innerHTML = `
-        <div class="detail-section">
-            <div class="detail-label">宫位类型</div>
-            <div class="detail-value">${houseType.type} <span class="badge badge-neutral">力量：${houseType.strength}</span></div>
-        </div>
-        <div class="detail-section">
-            <div class="detail-label">说明</div>
-            <div class="detail-desc">${houseStrengthDesc}</div>
-        </div>
-    `;
-
-    // 资产点主星状态
-    const lordStatusDiv = document.getElementById("assetsLordStatus");
-    const lordHouseType = getHouseType(lord.house);
-
-    const signAspectSymbols = loa.lordSignAspects && loa.lordSignAspects.length > 0
-        ? loa.lordSignAspects.map(a => `<span style="font-size: 1.1rem; margin-right: 4px;">${a.symbol}</span>`).join("")
-        : '<span style="color: var(--text-faded);">无</span>';
-
-    let relationDesc = "";
-    if (loa.isLordAversion) {
-        relationDesc = "资产点主星与资产点在星座层面不合意，能量传递有阻碍，资产积累的过程可能有曲折或延迟。";
-    } else if (loa.lordSignAspects && loa.lordSignAspects.length > 0) {
-        relationDesc = "资产点主星与资产点在星座层面有相位关系，能量有流通渠道，资产的积累和运转相对顺畅。";
-    } else {
-        relationDesc = "资产点主星与资产点没有明显的星座相位关系。";
-    }
-
-    lordStatusDiv.innerHTML = `
-        <div class="detail-section">
-            <div class="detail-label">资产点主星</div>
-            <div class="detail-value">${lord.name} <span class="badge ${lordPlanet.dignitySummary.levelClass}">力量：${lordPlanet.dignitySummary.level}</span></div>
-            <div class="detail-desc">${lordSign.symbol} ${lordSign.name} ${formatDegreeMinute(lordPlanet.degree)} · 第${lord.house}宫（${lordHouseType.type}）</div>
-        </div>
-        <div class="detail-section">
-            <div class="detail-label">主星尊贵</div>
-            <div class="detail-desc">${lordPlanet.dignitySummary.summaryText}</div>
-        </div>
-        <div class="detail-section">
-            <div class="detail-label">与资产点的星座相位</div>
-            <div class="detail-value" style="font-size: 1rem;">${signAspectSymbols}</div>
-        </div>
-        <div class="detail-section">
-            <div class="detail-label">说明</div>
-            <div class="detail-desc">${relationDesc}</div>
-        </div>
-    `;
+    const compact = renderCompactLot(chart.lotOfAssets, "资产点");
+    document.getElementById("assetsDetails").innerHTML = compact.position;
+    document.getElementById("assetsLordStatus").innerHTML = compact.lordStatus;
 }
 
 // 渲染某个 Lot 的星座相位与吉星支持（只显示传统七行星 + 日月，不含三王星）
@@ -643,21 +551,22 @@ export function renderTriplicity(chart) {
     // 总体详情
     const detailsDiv = document.getElementById("triplicityDetails");
     detailsDiv.innerHTML = `
-        <div class="grid-2">
-            <div class="detail-section">
-                <div class="detail-label">发光体</div>
-                <div class="detail-value">${triplicity.luminaryName} <span class="badge badge-neutral">${isDayChart ? '日生盘主星' : '夜生盘主星'}</span></div>
-                <div class="detail-desc">
-                    ${triplicity.luminaryName}所在星座的三分主星代表天生的财富格局和资源获取能力
-                </div>
+        <div class="detail-section">
+            <div class="lot-line">
+                <span class="detail-label">发光体</span>
+                <strong>${triplicity.luminaryName}</strong>
+                <span class="badge badge-neutral">${isDayChart ? "日生盘主星" : "夜生盘主星"}</span>
             </div>
-            <div class="detail-section">
-                <div class="detail-label">二宫星座</div>
-                <div class="detail-value">${triplicity.secondHouseSignName}</div>
-                <div class="detail-desc">
-                    二宫星座的三分主星代表实际的财富积累和物质生活状况
-                </div>
+            <div class="detail-desc">其三分主星代表天生的财富格局和资源获取能力。</div>
+        </div>
+    `;
+    document.getElementById("secondHouseDetails").innerHTML = `
+        <div class="detail-section">
+            <div class="lot-line">
+                <span class="detail-label">二宫星座</span>
+                <strong>${triplicity.secondHouseSignName}</strong>
             </div>
+            <div class="detail-desc">下列三分主星代表实际的财富积累和物质生活状况。</div>
         </div>
     `;
 
