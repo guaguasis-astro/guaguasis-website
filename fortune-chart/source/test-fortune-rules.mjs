@@ -84,10 +84,13 @@ for (let n=0;n<100;n++) {
     const rules = result.fortuneIndicators;
     for (const item of [...rules.wealth,...rules.prominence,...rules.sources]) {
         assert(item.title && item.reason && item.text, item.id);
+        assert([...item.title + item.reason + item.text].length <= 100, `${item.id}: ${[...item.title + item.reason + item.text].length}字`);
         assert(item.reason.includes('你的'), item.id);
     }
     const html = renderFortuneMatches(rules);
     assert(!html.includes('未命中'));
+    assert(!html.includes('为什么这张盘符合'));
+    assert(!/不单独保证|不能.*换算|不能.*判断|不能.*确定|不代表/.test(html));
     assert(!html.includes('undefined'));
     const expected = Math.round(Math.max(0,Math.min(10,result.baseScore+rules.wealthBonus))*10)/10;
     assert.equal(result.totalScore,expected);

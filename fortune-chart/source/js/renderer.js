@@ -290,8 +290,7 @@ export function renderFortuneMatches(indicators, includeContext = true) {
             ${items.map(item => `
                 <div style="margin-top: 18px; padding-left: 12px; border-left: 2px solid var(--gold-pale);">
                     <div class="detail-value" style="font-size: 0.95rem;">${item.title}</div>
-                    <div class="detail-desc" style="margin-top: 8px;"><strong>为什么这张盘符合：</strong>${item.reason}</div>
-                    <div class="detail-desc" style="margin-top: 8px;">${item.text}</div>
+                    <div class="detail-desc" style="margin-top: 8px;">${item.reason}${item.text}</div>
                 </div>
             `).join("")}
             ${note ? `<div class="detail-desc" style="margin-top: 12px;">${note}</div>` : ""}
