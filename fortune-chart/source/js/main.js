@@ -1,3 +1,4 @@
+import "../css/assessment-view.css";
 // 主入口文件
 import { initSwe, calculateBirthChart } from "./astrology.js";
 import {
@@ -401,7 +402,15 @@ saveReportBtn.addEventListener("click", async () => {
     saveReportBtn.querySelector("span").textContent = "生成中...";
     saveReportBtn.disabled = true;
 
+    const assessmentRoot = document.querySelector(".visual-assessment");
+    const assessmentDetails = [...document.querySelectorAll(".visual-assessment details")];
+    const originalOpenStates = assessmentDetails.map(detail => detail.open);
+
     try {
+        assessmentRoot?.classList.add("va-export");
+        assessmentDetails.forEach(detail => { detail.open = true; });
+        await document.fonts.load('16px "HamburgSymbols"');
+
         // 截图目标：整个结果区域（不含按钮本身）
         const target = document.querySelector(".content-area");
 
@@ -433,6 +442,9 @@ saveReportBtn.addEventListener("click", async () => {
         console.error("保存图片失败:", error);
         alert("保存图片失败：" + error.message);
     } finally {
+        saveReportBtn.style.visibility = "visible";
+        assessmentRoot?.classList.remove("va-export");
+        assessmentDetails.forEach((detail, index) => { detail.open = originalOpenStates[index]; });
         saveReportBtn.querySelector("span").textContent = originalText;
         saveReportBtn.disabled = false;
     }

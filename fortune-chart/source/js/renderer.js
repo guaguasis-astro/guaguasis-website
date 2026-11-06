@@ -2,6 +2,7 @@
 import { ZODIAC_SIGNS, formatDegree, formatDegreeMinute, getHouseType, PLANET_PERIODS, getWholeSignAspects } from "./astrology.js";
 
 import { splitHamburgSymbols } from "./symbols.js";
+import { renderVisualAssessment } from "./assessment-view.js";
 
 // 行星符号映射（用于恒星性质等场景）
 const PLANET_SYMBOLS = {
@@ -521,11 +522,13 @@ export function buildAssessmentAspectNarratives(wa) {
     }
     const narratives = [...records].map(([target, record]) => {
         const support = [], pressure = [], friction = [];
+        const supportContacts = [], pressureContacts = [], frictionContacts = [];
         for (const [planet, data] of record) {
             const fact = `${planet}（${[...data.facts].join("、")}）`;
-            if (data.kinds.has("pressure")) pressure.push(fact);
-            else if (data.kinds.has("friction")) friction.push(fact);
-            else support.push(fact);
+            const contact = { name: planet, facts: [...data.facts] };
+            if (data.kinds.has("pressure")) { pressure.push(fact); pressureContacts.push(contact); }
+            else if (data.kinds.has("friction")) { friction.push(fact); frictionContacts.push(contact); }
+            else { support.push(fact); supportContacts.push(contact); }
         }
         const evidence = [
             support.length ? `吉星联系：${support.join("、")}` : "",
@@ -539,7 +542,7 @@ export function buildAssessmentAspectNarratives(wa) {
             : pressure.length ? "求财中容易有消耗或周转压力，先把收支安排稳妥，按自己的节奏积累。"
             : friction.length ? "机会的落实需要多一些协调，合作中容易有分歧，把条件谈清楚更容易促成收获。"
             : "资源和人际支持较容易接上，有利于改善收入、慢慢积累生活所需。";
-        return { target, evidence, conclusion };
+        return { target, evidence, conclusion, supportContacts, pressureContacts, frictionContacts };
     });
     return { narratives, otherDetails: consolidateAssessmentDetails(otherDetails) };
 }
@@ -609,194 +612,13 @@ export function renderTriplicity(chart) {
     const lord2Div = document.getElementById("triplicityLord2");
     lord2Div.innerHTML = renderTriplicityLords(triplicity.secondHouseTriplicityLords, starConjs, lordComp);
 
-    // 综合评估
-    const summaryDiv = document.getElementById("triplicitySummary");
-    const wa = chart.wealthAssessment;
-
-    const aspectSummary = buildAssessmentAspectNarratives(wa);
-    const moonNarrative = aspectSummary.narratives.find(item => item.target === "月亮");
-    const otherAspectNarratives = aspectSummary.narratives.filter(item => item.target !== "月亮");
-    const renderAspectNarrative = item => `<div class="detail-desc" style="margin-top: 8px;">${item.evidence}。</div><div class="detail-desc" style="margin-top: 8px;">${item.conclusion}</div>`;
-
-    // 福点详情列表
-    const pfDetailList = consolidateAssessmentDetails(wa.pfDetails).map(d => `<li style="margin-bottom: 6px; line-height: 1.7;">${d}</li>`).join("");
-
-    // 钱财宫详情列表
-    const mhDetailList = consolidateAssessmentDetails(wa.moneyHouseDetails).map(d => `<li style="margin-bottom: 6px; line-height: 1.7;">${d}</li>`).join("");
-
-    // 三分主星恒星详情
-    let triplicityStarList = "";
-    if (wa.triplicityStarDetails.length > 0) {
-        triplicityStarList = buildTriplicityStarNarratives(chart).map(d =>
-            `<li style="margin-bottom: 6px; line-height: 1.7;">${d}</li>`
-        ).join("");
-    }
-
-    summaryDiv.innerHTML = `
-        <div style="display: grid; grid-template-columns: 1fr 280px; gap: 36px; align-items: start;" class="assessment-grid">
-            <div>
-                <!-- 总评估 -->
-                <div class="detail-section">
-                    <div class="detail-label">财富格局总评</div>
-                    <div class="detail-value">
-                        <span class="badge ${wa.wealthClass}" style="font-size: 1rem; padding: 6px 18px; font-family: var(--font-display);">${wa.wealthLevel}</span>
-                    </div>
-                    <div class="detail-desc" style="margin-top: 12px; line-height: 1.9;">${wa.wealthDesc}</div>
-                </div>
-
-                <div class="detail-section">
-                    <div class="detail-label">五维度评分（标准化 0-10 分）</div>
-                    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-top: 8px;">
-                        <div style="text-align: center; padding: 12px 4px; background: var(--bg-card-alt); border: 2px solid var(--border-gold);">
-                            <div style="font-size: 0.72rem; color: var(--gold-dark); margin-bottom: 4px; font-weight: 600;">围攻</div>
-                            <div style="font-size: 1.25rem; font-family: var(--font-display); color: var(--gold-dark); font-weight: 600;">
-                                ${wa.normalized.besiegement}
-                            </div>
-                        </div>
-                        <div style="text-align: center; padding: 12px 4px; background: var(--bg-card-alt); border: 1px solid var(--border-light);">
-                            <div style="font-size: 0.72rem; color: var(--text-faded); margin-bottom: 4px; font-weight: 600;">福点&三分主星</div>
-                            <div style="font-size: 1.25rem; font-family: var(--font-display); color: var(--gold-dark); font-weight: 600;">
-                                ${wa.normalized.pfTriplicityCombined}
-                            </div>
-                            <div style="font-size: 0.62rem; color: var(--text-faded); margin-top: 2px;">
-                                福 ${wa.normalized.partOfFortune} · 三 ${wa.normalized.triplicity}
-                            </div>
-                        </div>
-                        <div style="text-align: center; padding: 12px 4px; background: var(--bg-card-alt); border: 1px solid var(--border-light);">
-                            <div style="font-size: 0.72rem; color: var(--text-faded); margin-bottom: 4px; font-weight: 600;">钱财宫</div>
-                            <div style="font-size: 1.25rem; font-family: var(--font-display); color: var(--gold-dark); font-weight: 600;">
-                                ${wa.normalized.moneyHouse}
-                            </div>
-                        </div>
-                        <div style="text-align: center; padding: 12px 4px; background: var(--bg-card-alt); border: 1px solid var(--border-light);">
-                            <div style="font-size: 0.72rem; color: var(--text-faded); margin-bottom: 4px; font-weight: 600;">月亮</div>
-                            <div style="font-size: 1.25rem; font-family: var(--font-display); color: var(--gold-dark); font-weight: 600;">
-                                ${wa.normalized.moon}
-                            </div>
-                        </div>
-                        <div style="text-align: center; padding: 12px 4px; background: var(--bg-card-alt); border: 1px solid var(--border-light);">
-                            <div style="font-size: 0.72rem; color: var(--text-faded); margin-bottom: 4px; font-weight: 600;">额外</div>
-                            <div style="font-size: 1.25rem; font-family: var(--font-display); color: var(--gold-dark); font-weight: 600;">
-                                ${wa.normalized.extra}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                ${wa.fortuneIndicators.wealth.length ? `
-                <div class="detail-section">
-                    <div class="detail-label">财富获取格局 · 专项支持</div>
-                    <div class="detail-value">专项支持 +${wa.fortuneIndicators.wealthBonus} 分</div>
-                    <div class="detail-desc">这张盘符合下列财富获取条件，因此在基础评估之上给予专项支持；同一结构的相关条件取较强的一项，多项支持合计最多增加2.5分，总评分最高10分。成就与资源来源另作解读。</div>
-                    ${renderFortuneMatches(wa.fortuneIndicators, false)}
-                </div>` : ""}
-
-                <!-- 围攻维度详解 -->
-                ${wa.besiegementDetails.length > 0 ? `
-                <div class="detail-section">
-                    <div class="detail-label">维度一 · 围攻（Besiegement）</div>
-                    <ul style="margin: 8px 0 0 18px; padding: 0; list-style: none;">
-                        ${wa.besiegementDetails.map(d => `<li style="margin-bottom: 6px; line-height: 1.7;">◆ ${d}</li>`).join("")}
-                    </ul>
-                    <div class="detail-desc" style="margin-top: 8px; font-size: 0.78rem; color: var(--text-faded);">
-                        围攻是古典占星中极为重要的格局，日月围攻或金木围攻代表被夹持的行星力量被强化、受到保护
-                    </div>
-                </div>
-                ` : `
-                <div class="detail-section">
-                    <div class="detail-label">维度一 · 围攻（Besiegement）</div>
-                    <div class="detail-desc" style="margin-top: 6px; color: var(--text-faded);">
-                        本命盘未形成纯粹的日月围攻或金木围攻格局
-                    </div>
-                </div>
-                `}
-
-                <!-- 月亮状态详解 -->
-                <div class="detail-section">
-                    <div class="detail-label">维度二 · 月亮状态</div>
-                    <div class="detail-desc" style="margin-top: 6px;">
-                        月相：<strong>${wa.moonPhase}</strong>。${wa.isWaxingMoon ? "适合主动开拓收入。" : "更适合稳住已有收入、慢慢积累。"}
-                    </div>
-                    ${moonNarrative ? renderAspectNarrative(moonNarrative) : ""}
-                </div>
-
-                <!-- 福点维度详解 -->
-                <div class="detail-section">
-                    <div class="detail-label">维度三 · 福点</div>
-                    <ul style="margin: 8px 0 0 18px; padding: 0; list-style: none;">
-                        ${pfDetailList}
-                    </ul>
-                    ${wa.pfDetails.some(detail => detail.includes(`福点第${wa.pfLordHouseFromPF}宫`)) ? "" : `
-                    <div class="detail-desc" style="margin-top: 8px; font-size: 0.78rem; color: var(--text-faded);">
-                        福点主星落福点第 ${wa.pfLordHouseFromPF} 宫（从福点所在星座起算整宫）。
-                    </div>`}
-                </div>
-
-                <!-- 钱财宫维度详解 -->
-                <div class="detail-section">
-                    <div class="detail-label">维度四 · 钱财宫（2宫）</div>
-                    <ul style="margin: 8px 0 0 18px; padding: 0; list-style: none;">
-                        ${mhDetailList}
-                    </ul>
-                </div>
-
-                <!-- 三分主星恒星合相（如有） -->
-                ${wa.triplicityStarDetails.length > 0 ? `
-                <div class="detail-section">
-                    <div class="detail-label">维度五 · 三分主星恒星合相</div>
-                    <ul style="margin: 8px 0 0 18px; padding: 0; list-style: none;">
-                        ${triplicityStarList}
-                    </ul>
-                    <div class="detail-desc" style="margin-top: 8px; font-size: 0.78rem; color: var(--text-faded);">
-                        恒星合相作为财富判断依据之一，详见上方「恒星合相」章节
-                    </div>
-                </div>
-                ` : ''}
-
-                ${otherAspectNarratives.map(item => `
-                <div class="detail-section">
-                    <div class="detail-label">${item.target} · 相位综合解读</div>
-                    ${renderAspectNarrative(item)}
-                </div>`).join("")}
-
-                <!-- 其他加分项 -->
-                ${wa.extraDetails && wa.extraDetails.length > 0 ? `
-                <div class="detail-section">
-                    <div class="detail-label">其他加分 / 减分项</div>
-                    <ul style="margin: 8px 0 0 18px; padding: 0; list-style: none;">
-                        ${aspectSummary.otherDetails.map(d => `<li style="margin-bottom: 6px; line-height: 1.7;">✧ ${d}</li>`).join("")}
-                    </ul>
-                    <div class="detail-desc" style="margin-top: 8px; font-size: 0.78rem; color: var(--text-faded);">
-                        额外修正分：<strong style="color: var(--text-bistre);">${wa.extraBonus > 0 ? '+' : ''}${wa.extraBonus}</strong>
-                    </div>
-                </div>
-                ` : ''}
-
-                <div class="detail-section">
-                    <div class="detail-label">参考说明</div>
-                    <div class="detail-desc" style="font-size: 0.82rem; color: var(--text-faded); line-height: 1.8;">
-                        此评估由AI作出评测，仅供参考，实际财富格局还需结合整张星盘和大运综合判断。
-                        人的自由意志和努力同样重要，命由天定，运由己造。
-                    </div>
-                </div>
-            </div>
-            <div style="background: var(--bg-card-alt); border: 1px solid var(--border-gold); padding: 24px 20px; text-align: center; position: relative;" class="consult-card">
-                <div style="position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: var(--bg-card); padding: 0 12px; font-size: 0.75rem; color: var(--gold-dark); letter-spacing: 3px;">
-                    ✦ 咨 询 ✦
-                </div>
-                <div style="font-family: var(--font-display); font-size: 1.05rem; color: var(--text-bistre); margin: 8px 0 14px; font-weight: 600; letter-spacing: 2px;">
-                    预 约 咨 询
-                </div>
-                <div style="font-size: 0.82rem; color: var(--text-sepia); line-height: 1.9; margin-bottom: 8px;">
-                    如需更深入的财富格局解读<br>与人生整体运势分析
-                </div>
-                <div style="border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); padding: 12px 8px; margin-top: 14px; font-size: 0.85rem; color: var(--text-bistre); line-height: 1.8;">
-                    找 瓜 瓜 本 人 预 约<br>
-                    <strong style="font-size: 1rem; letter-spacing: 1px; color: var(--gold-dark); font-family: var(--font-display);">微 信：guaguasis</strong>
-                </div>
-            </div>
-        </div>
-    `;
+    // 综合评估：已确认的可视化模板，直接读取真实排盘数据。
+    renderVisualAssessment(
+        document.getElementById("triplicitySummary"),
+        chart,
+        buildAssessmentAspectNarratives(chart.wealthAssessment),
+        symbolizeReport
+    );
 }
 
 // 渲染单个三分主星列表
