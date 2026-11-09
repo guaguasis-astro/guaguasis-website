@@ -380,20 +380,15 @@ function fillByPlace(place) {
     syncMainlandTimezone(true);
 }
 
-// 出生地点输入框：输入后自动定位经纬度和时区
+// 城市库在本地，直接匹配；中文输入法选字完成后立即定位。
 const birthPlaceInput = document.getElementById("birthPlace");
-let placeLookupTimer = null;
-birthPlaceInput.addEventListener("input", () => {
-    clearTimeout(placeLookupTimer);
-    placeLookupTimer = setTimeout(() => {
-        fillByPlace(birthPlaceInput.value.trim());
-    }, 500); // 500ms 防抖
+const updateBirthPlace = () => fillByPlace(birthPlaceInput.value.trim());
+birthPlaceInput.addEventListener("input", (event) => {
+    if (!event.isComposing) updateBirthPlace();
 });
-
-// 出生地点失焦时也尝试定位（确保最后一次输入能生效）
-birthPlaceInput.addEventListener("blur", () => {
-    fillByPlace(birthPlaceInput.value.trim());
-});
+birthPlaceInput.addEventListener("compositionend", updateBirthPlace);
+birthPlaceInput.addEventListener("change", updateBirthPlace);
+birthPlaceInput.addEventListener("blur", updateBirthPlace);
 
 // 保存报告为图片
 const saveReportBtn = document.getElementById("saveReportBtn");
