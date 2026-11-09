@@ -305,7 +305,7 @@ function renderLotSignAspects(containerDiv, lot, planets, lotName) {
         const isBeneficSupport = beneficSupportKeys.includes(pKey);
         const isMalefic = maleficKeys.includes(pKey);
 
-        // 精确度数差（作为参考）
+        // 同类相位按精确度数差排序
         let exactDiff = Math.abs(lot.longitude - p.longitude);
         exactDiff = Math.min(exactDiff, 360 - exactDiff);
 
@@ -360,7 +360,7 @@ function renderLotSignAspects(containerDiv, lot, planets, lotName) {
                   `${lotName}缺乏吉星的星座相位支持，福气的显化可能需要更多努力和时间。`}
             </div>
             <div class="detail-desc" style="font-size: 0.8rem; color: var(--text-faded); margin-top: 4px;">
-                吉星支持：太阳、月亮、木星、金星（星座层面任何相位均视为支持）
+                吉星支持：太阳、月亮、木星、金星
             </div>
         </div>
         <div class="table-wrapper">
@@ -370,7 +370,6 @@ function renderLotSignAspects(containerDiv, lot, planets, lotName) {
                         <th>行星</th>
                         <th>行星所在星座</th>
                         <th>星座相位</th>
-                        <th>精确度数差</th>
                         <th>性质</th>
                     </tr>
                 </thead>
@@ -387,7 +386,6 @@ function renderLotSignAspects(containerDiv, lot, planets, lotName) {
                 <td><strong>${a.planet}</strong></td>
                 <td>${pSign.symbol} ${pSign.name}</td>
                 <td style="font-size: 1.1rem;">${aspectSymbols}</td>
-                <td>${formatDegreeMinute(a.exactDiff)}</td>
                 <td class="${a.natureClass}">${a.nature}</td>
             </tr>
         `;

@@ -820,7 +820,7 @@ body::before {
     }
 
     .form-row {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
     }
 
     .grid-2 {
@@ -847,6 +847,15 @@ body::before {
         max-width: 100%;
         width: 100%;
         box-sizing: border-box;
+    }
+
+    /* 让 iOS 原生日期和时间控件服从表单宽度 */
+    .form-group input[type="date"],
+    .form-group input[type="time"] {
+        display: block;
+        min-width: 0;
+        -webkit-appearance: none;
+        appearance: none;
     }
 
     /* 综合评估移动端：预约咨询改到下面 */

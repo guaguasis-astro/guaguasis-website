@@ -2296,6 +2296,24 @@
             display: block;
             min-height: 100px;
         }
+
+        .course-card.with-image.course-card-foundations {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .course-card-foundations .course-side-image img {
+            max-height: 450px;
+        }
+
+        @media (max-width: 768px) {
+            .course-card.with-image.course-card-foundations {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .course-card-foundations .course-side-image {
+                max-width: 300px;
+            }
+        }
     </style>
     <link rel="stylesheet" href="assets/astrology-history/style.css">
 </head>
@@ -2379,7 +2397,7 @@
                 <a href="https://meeting.tencent.com/crm/K04mk8Vre1" target="_blank" class="course-button">查看公开课</a>
             </div>
 
-            <div class="course-card with-image">
+            <div class="course-card with-image course-card-foundations">
                 <div>
                     <div class="course-header">
                         <h3 class="course-title">占星初中阶课</h3>

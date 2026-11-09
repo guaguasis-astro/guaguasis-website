@@ -108,7 +108,7 @@ var e=Object.create,t=Object.defineProperty,n=Object.getOwnPropertyDescriptor,r=
                 ${l>=4?`${r}得到全部吉星的星座相位支持，福气丰厚，财运亨通。`:l>=3?`${r}得到多颗吉星的星座相位支持，福气和财运基础较好。`:l>=2?`${r}有两颗吉星的星座相位支持，有一定福气助力。`:l===1?`${r}有一颗吉星的星座相位支持，有轻微的福气和财运助力。`:`${r}缺乏吉星的星座相位支持，福气的显化可能需要更多努力和时间。`}
             </div>
             <div class="detail-desc" style="font-size: 0.8rem; color: var(--text-faded); margin-top: 4px;">
-                吉星支持：太阳、月亮、木星、金星（星座层面任何相位均视为支持）
+                吉星支持：太阳、月亮、木星、金星
             </div>
         </div>
         <div class="table-wrapper">
@@ -118,7 +118,6 @@ var e=Object.create,t=Object.defineProperty,n=Object.getOwnPropertyDescriptor,r=
                         <th>行星</th>
                         <th>行星所在星座</th>
                         <th>星座相位</th>
-                        <th>精确度数差</th>
                         <th>性质</th>
                     </tr>
                 </thead>
@@ -128,7 +127,6 @@ var e=Object.create,t=Object.defineProperty,n=Object.getOwnPropertyDescriptor,r=
                 <td><strong>${e.planet}</strong></td>
                 <td>${t.symbol} ${t.name}</td>
                 <td style="font-size: 1.1rem;">${r}</td>
-                <td>${B(e.exactDiff)}</td>
                 <td class="${e.natureClass}">${e.nature}</td>
             </tr>
         `}u+=`
