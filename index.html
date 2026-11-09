@@ -451,6 +451,68 @@
             font-size: 0.85rem;
         }
 
+        .about-text .consultation-badge {
+            background: var(--soft-gold);
+            text-underline-offset: 0.2em;
+        }
+
+        .consultation-badge:focus-visible {
+            outline: 2px solid var(--text-dark);
+            outline-offset: 3px;
+        }
+
+        /* 直播课预告 */
+        .live-schedule {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.65rem 1.5rem;
+            margin-bottom: 1.5rem;
+            padding: 0.85rem 1rem;
+            background: var(--cream);
+            border: 1px solid var(--soft-gold);
+        }
+
+        .live-schedule h2 {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 1.15rem;
+        }
+
+        .live-dot {
+            width: 0.55rem;
+            height: 0.55rem;
+            border-radius: 50%;
+            background: #c43b42;
+            animation: live-pulse 2s ease-out infinite;
+        }
+
+        @keyframes live-pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(196, 59, 66, 0.35); }
+            65% { box-shadow: 0 0 0 0.35rem rgba(196, 59, 66, 0); }
+        }
+
+        .live-schedule ul {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.25rem 1.25rem;
+            list-style: none;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+        }
+
+        @media (max-width: 480px) {
+            .live-schedule ul { display: grid; justify-content: start; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .live-dot { animation: none; }
+        }
+
         /* 课程卡片 */
         .courses-grid {
             display: grid;
@@ -2286,7 +2348,7 @@
                     <div class="about-badges">
                         <span class="badge">古典占星</span>
                         <span class="badge">择地占星</span>
-                        <span class="badge">2000+ 案例</span>
+                        <a href="consultation.html" class="badge consultation-badge" aria-label="2000+ 案例，查看咨询收费介绍">2000+ 案例 ↗</a>
                     </div>
                 </div>
             </div>
@@ -2295,6 +2357,13 @@
 
     <!-- 占星课程 -->
     <section id="courses" class="section">
+        <div class="live-schedule">
+            <h2><span class="live-dot" aria-hidden="true"></span>直播课安排</h2>
+            <ul>
+                <li><time datetime="2027-01">2027 年 1 月</time>古典高阶占星直播Live开课</li>
+                <li><time datetime="2027-04">2027 年 4 月</time>择地占星直播课</li>
+            </ul>
+        </div>
         <div class="section-title">
             <img src="images/蝴蝶.svg" alt="蝴蝶" class="butterfly" style="width: 80px; height: 80px;">
             占星课程
@@ -2371,6 +2440,7 @@
                         <h3 class="course-title">🗺️ 择地占星</h3>
                         <div class="course-price">早鸟价2999<span>元 原价3666元</span></div>
                     </div>
+                    <p style="color: var(--rose); font-size: 0.9rem; margin-bottom: 0.8rem;">2027 年 4 月开启新一轮直播课，早鸟价截止至 3 月</p>
                     <p style="color: var(--text-mute); margin-bottom: 1rem;">适合有初中阶占星基础的同学</p>
                     <ul class="course-highlights">
                         <li>择地占星历史</li>
@@ -2382,8 +2452,8 @@
                         <li>精神故乡、爱情邂逅地、事业增长线怎么定位？</li>
                         <li>地理行运：世界行运？怎么判断时机？什么时候去什么地方？</li>
                     </ul>
-                    <p style="margin-top: 1rem;">课时 12 小时（回放）</p>
-                    <p style="color: var(--text-mute);">🎁 赠送价值 2500 元 Astro Gold 软件注册（需要苹果系统）</p>
+                    <p style="margin-top: 1rem;">课时 12 小时（直播+回放）</p>
+                    <p style="color: var(--text-mute);">🎁 赠送价值 2500 元 Astro Gold 软件注册（苹果 or Windows电脑均可）</p>
                 </div>
                 <div class="course-side-image">
                     <img src="images/择地透明背景.svg" alt="择地星盘" style="width: 100%;">

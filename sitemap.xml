@@ -162,4 +162,7 @@
         <changefreq>yearly</changefreq>
         <priority>0.7</priority>
     </url>
+    <url>
+        <loc>https://guaguasis.online/consultation.html</loc>
+    </url>
 </urlset>

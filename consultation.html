@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="瓜瓜本人提供的占星咨询收费介绍，包括桃花感情、二人合盘、金钱事业、本命盘、择地和问题占星。">
+    <title>占星咨询 Astrology · 瓜瓜占星</title>
+    <style>
+        :root {
+            --paper: #fffdf7;
+            --ink: #231b19;
+            --orange: #b93e22;
+            --yellow: #ffe183;
+            --pink: #ac356e;
+            --line: #e5d9c7;
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            color: var(--ink);
+            font: 1rem/1.8 "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+            background-color: var(--paper);
+            background-image: url("images/consultation-paper.svg");
+        }
+
+        .sheet { width: min(100% - 2.5rem, 920px); margin: auto; }
+        .back {
+            display: inline-block;
+            margin-top: 1.25rem;
+            color: var(--ink);
+            text-underline-offset: 0.25em;
+            font-size: 0.9rem;
+        }
+
+        .hero { padding: 2.8rem 0 2.4rem; text-align: center; }
+        .hero h1 {
+            position: relative;
+            display: inline-block;
+            isolation: isolate;
+            margin: 0 0 1.4rem;
+            font-size: clamp(2.7rem, 10vw, 6.5rem);
+            line-height: 1.15;
+            font-weight: 900;
+            letter-spacing: 0.035em;
+        }
+
+        .hero h1::before {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            inset: -12% -8% -14% 19%;
+            border-radius: 50%;
+            transform: rotate(-14deg);
+            background: var(--yellow);
+        }
+
+        .hero h1 span {
+            display: block;
+            margin-right: -0.6em;
+            color: var(--pink);
+            text-align: right;
+            font: italic 600 0.4em/1.15 "Snell Roundhand", "Segoe Script", cursive;
+            transform: rotate(-5deg);
+        }
+
+        .sparkle { color: #9a6d0e; font-size: 1.2rem; vertical-align: top; }
+        .hero p { max-width: 44rem; margin: 0.5rem auto; }
+        .services { border-top: 1px solid var(--line); }
+        .service {
+            display: grid;
+            grid-template-columns: clamp(5rem, 23vw, 13rem) minmax(0, 1fr);
+            align-items: start;
+            gap: clamp(1.2rem, 6vw, 4rem);
+            padding: clamp(1.5rem, 5vw, 3rem) 0;
+            border-bottom: 1px dashed var(--line);
+        }
+
+        .sticker { width: 100%; height: auto; overflow: visible; }
+        .service h2 {
+            margin: 0 0 0.35rem;
+            color: var(--orange);
+            font-size: clamp(1.35rem, 4.2vw, 2.15rem);
+            line-height: 1.3;
+        }
+
+        .terms {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 0.2rem 0.9rem;
+            color: var(--orange);
+            font-weight: 700;
+        }
+
+        .price { font-size: 1.24rem; }
+        .service p { margin: 0.65rem 0 0; }
+        .service ul { padding-inline-start: 1.1em; margin: 0.65rem 0 0; }
+        .service li::marker { color: var(--orange); }
+        .service .note {
+            width: fit-content;
+            background: #caeee8;
+            padding: 0.25rem 0.7rem;
+            border-radius: 0.8rem;
+        }
+
+        footer { padding: 1.5rem 0 2.5rem; text-align: center; }
+        .artwork { position: absolute; width: 0; height: 0; }
+        @media (max-width: 480px) {
+            .sheet { width: calc(100% - 2rem); }
+            .hero { padding-top: 2.25rem; }
+            .service { grid-template-columns: 1fr; gap: 0.65rem; }
+            .sticker { width: 5rem; }
+        }
+    </style>
+</head>
+<body>
+    <svg class="artwork" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+            <filter id="crayon" x="-10%" y="-10%" width="120%" height="120%">
+                <feTurbulence type="fractalNoise" baseFrequency=".21" numOctaves="3" seed="8" result="grain"/>
+                <feDisplacementMap in="SourceGraphic" in2="grain" scale="2.1"/>
+            </filter>
+        </defs>
+        <symbol id="shell" viewBox="0 0 160 140">
+            <g stroke="#493331" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" filter="url(#crayon)">
+                <path fill="#f395b2" d="M20 86C6 74 17 54 31 47c0-16 21-25 35-24 14-11 32-9 43 2 18-3 34 9 35 25 11 17-20 32-58 48Z"/>
+                <path fill="none" d="M32 51q13 23 45 42M66 29q0 37 15 62m28-60Q99 64 86 92m53-43q-16 21-45 43"/>
+                <path fill="#ee9bb5" d="M17 85q30 24 126 1-6 39-61 43-49 2-65-44Z"/>
+                <path fill="#c7749e" d="M28 95q59 14 103-3-12 28-49 28-32 0-54-25Z"/>
+                <circle cx="81" cy="93" r="13" fill="#fff9ed"/>
+            </g>
+        </symbol>
+        <symbol id="hearts" viewBox="0 0 160 140">
+            <g stroke-width="3" stroke-linecap="round" stroke-linejoin="round" filter="url(#crayon)">
+                <path fill="#efb0b7" stroke="#ac5663" d="M77 118C64 109 16 79 17 52c1-25 34-34 56-8l-8 17 14 12-12 18Z"/>
+                <path fill="#f7a3c5" stroke="#b86082" d="M83 118c21-13 65-43 62-68-3-26-36-30-63-7l-9 17 15 13-12 20Z"/>
+                <path fill="none" stroke="#b86082" d="M31 29q-10-9 2-15m89 13q10-8 3-15"/>
+            </g>
+        </symbol>
+        <symbol id="coin" viewBox="0 0 160 140">
+            <g stroke="#55412c" stroke-width="3" stroke-linejoin="round" filter="url(#crayon)">
+                <ellipse cx="84" cy="74" rx="56" ry="51" fill="#f6d25e"/>
+                <ellipse cx="75" cy="66" rx="54" ry="49" fill="#ffad47"/>
+                <path fill="#ffdc71" d="m76 35 8 22 25 1-20 16 6 24-20-14-21 14 7-24-20-16 26-1Z"/>
+            </g>
+        </symbol>
+        <symbol id="wheel" viewBox="0 0 160 140">
+            <g stroke="#c66b38" stroke-width="3" filter="url(#crayon)">
+                <circle cx="80" cy="70" r="58" fill="#ffdbac"/>
+                <path d="M80 12v116M22 70h116M30 41l100 58M30 99l100-58M51 20l58 100M51 120l58-100"/>
+                <circle cx="80" cy="70" r="18" fill="#ffe5c4"/>
+            </g>
+            <g fill="#76472f" font-size="16" text-anchor="middle">
+                <text x="91" y="37">♈︎</text><text x="112" y="50">♉︎</text>
+                <text x="116" y="67">♊︎</text><text x="115" y="86">♋︎</text>
+                <text x="107" y="103">♌︎</text><text x="90" y="114">♍︎</text>
+                <text x="70" y="114">♎︎</text><text x="53" y="103">♏︎</text>
+                <text x="44" y="86">♐︎</text><text x="44" y="67">♑︎</text>
+                <text x="52" y="50">♒︎</text><text x="69" y="37">♓︎</text>
+            </g>
+        </symbol>
+        <symbol id="pin" viewBox="0 0 160 140">
+            <g stroke="#463637" stroke-width="3" stroke-linejoin="round" filter="url(#crayon)">
+                <ellipse cx="80" cy="116" rx="54" ry="16" fill="#ffe376"/>
+                <path fill="#ee7877" fill-rule="evenodd" d="M80 117C69 91 39 71 39 46a41 39 0 1 1 82 0c0 25-28 47-41 71ZM80 28a17 17 0 1 0 0 34 17 17 0 1 0 0-34Z"/>
+            </g>
+        </symbol>
+        <symbol id="cards" viewBox="0 0 160 140">
+            <g stroke="#44344e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" filter="url(#crayon)">
+                <g transform="rotate(11 100 70)">
+                    <rect x="66" y="17" width="65" height="105" rx="12" fill="#e6d6f7"/>
+                    <path d="M115 52a19 19 0 1 0 0 33c-13-4-17-23 0-33Z" fill="#ffe498"/>
+                </g>
+                <g transform="rotate(-10 61 70)">
+                    <rect x="27" y="16" width="66" height="105" rx="12" fill="#fff8ec"/>
+                    <path d="M39 70q20-23 42 0-22 22-42 0Zm8-12-5-8m16 5v-9m12 12 6-8" fill="none"/>
+                    <circle cx="60" cy="70" r="7" fill="#c4a7e8"/>
+                </g>
+            </g>
+        </symbol>
+    </svg>
+
+    <main class="sheet">
+        <a class="back" href="index.html#about">← 返回官网</a>
+        <header class="hero">
+            <span class="sparkle" aria-hidden="true">✦</span>
+            <h1>占星咨询 <span lang="en">Astrology</span></h1>
+            <p>占星咨询均由<strong>瓜瓜本人</strong>提供，因个人时间有限，需提前预约，具体的可以私聊了解详情～</p>
+            <p>咨询方式有<strong>打字/电话/腾讯会议</strong>（三选一），问题占星仅限打字</p>
+        </header>
+
+        <div class="services">
+            <article class="service">
+                <svg class="sticker" viewBox="0 0 160 140" aria-hidden="true"><use href="#shell"/></svg>
+                <div>
+                    <h2>星盘桃花感情</h2>
+                    <div class="terms"><span class="price">💰268</span><span>30分钟</span></div>
+                    <p>分析你在感情中的性格、容易出现的感情卡点/问题、最近的桃花运、正缘的特征、出现时间、婚运的时间。</p>
+                    <p>如果是目前有暧昧/交往对象，想判断桃花优劣、匹配度如何，则建议看合盘。</p>
+                </div>
+            </article>
+
+            <article class="service">
+                <svg class="sticker" viewBox="0 0 160 140" aria-hidden="true"><use href="#hearts"/></svg>
+                <div>
+                    <h2>二人合盘</h2>
+                    <div class="terms"><span class="price">💰368</span><span>45分钟</span></div>
+                    <p class="note">对方具体出生时间如果不知道，按中午12点算</p>
+                    <ul>
+                        <li>分析对方的在感情中的性格+恋爱需求</li>
+                        <li>双方在感情中的匹配度、合适的/不合适的地方</li>
+                        <li>经济上是否对自己有帮助，以及相应的情感建议</li>
+                        <li>如果要看对方财运如何则需要对方具体生时</li>
+                    </ul>
+                </div>
+            </article>
+
+            <article class="service">
+                <svg class="sticker" viewBox="0 0 160 140" aria-hidden="true"><use href="#coin"/></svg>
+                <div>
+                    <h2>星盘金钱事业</h2>
+                    <div class="terms"><span class="price">💰288</span><span>30分钟</span></div>
+                    <ul>
+                        <li>分析个人的赚钱方式</li>
+                        <li>自身对于工作的嚮求</li>
+                        <li>工作上的优势和特长</li>
+                        <li>适合的工作领域</li>
+                        <li>未来创业or发展的方向</li>
+                        <li>搞事业/财运的关键时间节点</li>
+                    </ul>
+                </div>
+            </article>
+
+            <article class="service">
+                <svg class="sticker" viewBox="0 0 160 140" aria-hidden="true"><use href="#wheel"/></svg>
+                <div>
+                    <h2>本命盘全盘分析</h2>
+                    <div class="terms"><span class="price">💰688</span><span>80分钟</span></div>
+                    <p>本命盘全盘分析可以免费校正生时，解读包括：性格特质、原生家庭、桃花感情、金钱事业、天赋使命、身体健康<strong>【不含择地，择地为另外的项目】</strong></p>
+                    <p>以上的方面都会包括，每个人星盘的重点不同，会结合个人的命盘优势，给出发挥自己最大能量和可能性的相关建议。也可以具体问题具体分析。</p>
+                </div>
+            </article>
+
+            <article class="service">
+                <svg class="sticker" viewBox="0 0 160 140" aria-hidden="true"><use href="#pin"/></svg>
+                <div>
+                    <h2>择地占星</h2>
+                    <div class="terms"><span class="price">💰388</span><span>30分钟</span></div>
+                    <ul>
+                        <li>你的“精神故乡”在哪里？</li>
+                        <li>哪里容易遇见你的爱情？</li>
+                        <li>旺事业发展方位/城市</li>
+                        <li>短期旅游从哪里借“能量”？</li>
+                        <li>什么时候出行旅游？</li>
+                        <li>盘主也可以给出自己的意向城市看和自己的匹配度</li>
+                    </ul>
+                </div>
+            </article>
+
+            <article class="service">
+                <svg class="sticker" viewBox="0 0 160 140" aria-hidden="true"><use href="#cards"/></svg>
+                <div>
+                    <h2>问题占星</h2>
+                    <div class="terms"><span class="price">💰150/个问题</span><span>打字回答问题（不超过15分钟）</span></div>
+                    <p>用卜卦盘or塔罗牌的方式，结合当下的具体问题给出明确建议和解答，只针对单个问题</p>
+                    <p>比如学业考试、面试、工作选择、是与否问题…</p>
+                </div>
+            </article>
+        </div>
+        <footer><a class="back" href="index.html#about">← 返回官网</a></footer>
+    </main>
+</body>
+</html>
