@@ -109,6 +109,25 @@
             border-radius: 0.8rem;
         }
 
+        .annual-service {
+            margin-top: 2.5rem;
+            padding: clamp(1.25rem, 4vw, 2.5rem);
+            border: 1px solid #edc58d;
+            border-radius: 1.4rem;
+            background: #fff0d9;
+        }
+        .annual-service h2 { font-size: clamp(1.35rem, 3.5vw, 1.9rem); }
+        .annual-service .note { background: #ffe1a3; }
+        .annual-options { display: grid; gap: 1.25rem; margin: 1.5rem 0; }
+        .annual-options h3 { margin: 0; color: var(--orange); font-size: 1.15rem; }
+        .annual-options p { margin-top: 0.25rem; }
+        .annual-methods {
+            padding-top: 1rem;
+            border-top: 1px dashed #dfb47d;
+            font-size: 0.9rem;
+            font-weight: 300;
+        }
+
         footer { padding: 1.5rem 0 2.5rem; text-align: center; }
         .artwork { position: absolute; width: 0; height: 0; }
         @media (max-width: 480px) {
@@ -190,6 +209,37 @@
                     <path d="M39 70q20-23 42 0-22 22-42 0Zm8-12-5-8m16 5v-9m12 12 6-8" fill="none"/>
                     <circle cx="60" cy="70" r="7" fill="#c4a7e8"/>
                 </g>
+            </g>
+        </symbol>
+        <symbol id="annual-book" viewBox="0 0 160 140">
+            <g stroke="#63432c" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" filter="url(#crayon)">
+                <g fill="none" stroke="#877445" stroke-width="2.3">
+                    <path d="M80 104Q65 62 44 35M80 104Q80 56 83 22M80 104Q105 62 119 39M79 101Q55 78 25 64M82 102Q107 83 141 68M80 100Q58 56 61 28M82 101Q95 68 105 26"/>
+                </g>
+                <g fill="#c8b574" stroke="#877445" stroke-width="1.8">
+                    <path d="M65 71Q47 73 45 58q15-3 20 13ZM57 58Q61 42 70 45q3 12-13 13ZM78 61Q62 57 65 46q12 1 13 15ZM82 48Q98 46 95 33q-12 1-13 15ZM98 75q-1-17 12-18 3 11-12 18ZM111 60q-2-14-12-15-3 12 12 15ZM117 81q4-16 17-15-1 12-17 15ZM46 77Q37 62 30 68q1 12 16 9Z"/>
+                </g>
+                <g fill="#f5b445">
+                    <path d="M43 48Q23 44 27 28q4-5 10 1-1-18 9-19 8 2 8 15 9-8 13 0 3 17-24 23Z"/>
+                    <path d="M81 34Q64 28 69 15q6-6 11 0 2-16 10-12 7 5 2 16 12-3 11 6-3 11-22 9Z"/>
+                    <path d="M117 53q-19-5-15-20 6-7 12 1-1-17 8-17 9 2 6 17 11-7 14 1 1 15-25 18Z"/>
+                </g>
+                <g fill="#e58c35" stroke-width="2">
+                    <path d="M43 48Q32 39 37 29q10 1 12 13 2-12 12-15 4 15-18 21Z"/>
+                    <path d="M81 34q-7-11-1-19 10 2 10 14Z"/>
+                    <path d="M117 53q-9-9-3-19 10 0 10 13 3-10 12-11-1 13-19 17Z"/>
+                </g>
+                <g fill="#ffcf69" stroke-width="1.8">
+                    <path d="M26 58q-9-12-10-3-9-4-6 3 1 4 11 5-7 8 0 8 5-2 5-8 10 3 8-3-2-4-8-2Z"/>
+                    <path d="M106 24q-8-11-9-3-9-2-5 4 3 3 10 2-4 9 2 7 4-2 2-7 10 2 8-3-2-4-8 0Z"/>
+                    <circle cx="47" cy="18" r="2"/>
+                    <circle cx="139" cy="55" r="2"/>
+                </g>
+                <path fill="#df8b38" d="M11 110Q45 96 80 111q34-15 68-1l5 17q-38 8-73 1-33 7-73-1Z"/>
+                <path fill="#ffe3a2" d="M17 102q34-10 63 12 31-22 64-12l4 18q-38-5-68 5-32-10-68-4Z"/>
+                <path fill="#fff1c9" d="M24 90q32 1 56 24 25-23 55-24l9 21q-38-2-64 14-26-15-63-13Z"/>
+                <path fill="none" stroke="#cc944e" stroke-width="1.7" d="M24 103q32-1 56 19 23-19 58-20M19 117q34-4 61 8 25-11 62-8"/>
+                <path fill="#b86b32" d="M72 126q8-6 16 0l-1 6q-7 4-15 0Z"/>
             </g>
         </symbol>
     </svg>
@@ -281,6 +331,24 @@
                 </div>
             </article>
         </div>
+        <section class="service annual-service" aria-labelledby="annual-title">
+            <svg class="sticker" viewBox="0 0 160 140" aria-hidden="true"><use href="#annual-book"/></svg>
+            <div>
+                <h2 id="annual-title">年运：接下来一年的运势表现</h2>
+                <p class="note">📆建议在每年过生日的前一周预约</p>
+                <div class="annual-options">
+                    <div>
+                        <h3>整体年运：💰688/60分钟</h3>
+                        <p>金钱事业、桃花感情、身体健康、家人、择地</p>
+                    </div>
+                    <div>
+                        <h3>单方面运势：💰360/30分钟</h3>
+                        <p>金钱事业、桃花感情、身体健康、家人</p>
+                    </div>
+                </div>
+                <p class="annual-methods">会结合多种推运方式，包含Transits、太阳返照、小限、黄道释放，给出接下来一年的关注重点和行动建议</p>
+            </div>
+        </section>
         <footer><a class="back" href="index.html#about">← 返回官网</a></footer>
     </main>
 </body>
