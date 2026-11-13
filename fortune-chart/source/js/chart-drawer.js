@@ -596,15 +596,15 @@ export function drawBirthChart(canvas, chart, logicalSize) {
 
     ctx.font = `bold 18px "Noto Serif SC", "Songti SC", Georgia, serif`;
     ctx.fillStyle = COLORS.goldDark;
-    ctx.fillText("瓜瓜占星", center, center - 14);
+    ctx.fillText(window.GuaguaI18n?.language === "en" ? "Guagua Astrology" : "瓜瓜占星", center, center - 14, 150 * (size / 600));
 
     ctx.font = `11px "Noto Serif SC", Georgia, serif`;
     ctx.fillStyle = COLORS.textSepia;
-    ctx.fillText(chart.dayNightText, center, center + 6);
+    ctx.fillText(window.GuaguaI18n?.language === "en" ? window.GuaguaI18n.english(chart.dayNightText) : chart.dayNightText, center, center + 6);
 
     ctx.font = `10px "Noto Serif SC", Georgia, serif`;
     ctx.fillStyle = COLORS.textFaded;
-    ctx.fillText("整宫制 · 古典占星", center, center + 22);
+    ctx.fillText(window.GuaguaI18n?.language === "en" ? "Whole Sign · Traditional" : "整宫制 · 古典占星", center, center + 22, 160 * (size / 600));
 
     // ✦ 装饰符号
     ctx.fillStyle = COLORS.goldDark;

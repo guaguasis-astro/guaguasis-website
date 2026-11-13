@@ -28,6 +28,9 @@ export function toPlanetSymbols(text) {
     for (const [name, symbol] of Object.entries(REPORT_PLANET_SYMBOLS)) {
         result = result.replaceAll(name, symbol + "\uFE0E");
     }
+    for (const [name, symbol] of Object.entries({ Sun: '☉', Moon: '☽', Mercury: '☿', Venus: '♀', Mars: '♂', Jupiter: '♃', Saturn: '♄', Uranus: '♅', Neptune: '♆', Pluto: '♇' })) {
+        result = result.replace(new RegExp('\\b' + name + '\\b', 'g'), symbol + "\uFE0E");
+    }
     return result.replaceAll("日月围攻", "☉☽围攻")
         .replaceAll("金木围攻", "♀︎♃围攻").replaceAll("火土", "♂︎♄").replaceAll("日月", "☉☽");
 }
@@ -40,7 +43,9 @@ export function symbolizeReport(container) {
         if (!node.parentElement.closest("script, style, .astro-symbol")) nodes.push(node);
     }
     for (const node of nodes) {
-        const text = toPlanetSymbols(node.nodeValue);
+        const localized = globalThis.window?.GuaguaI18n?.language === "en"
+            ? window.GuaguaI18n.english(node.nodeValue) : node.nodeValue;
+        const text = toPlanetSymbols(localized);
         const tokens = splitHamburgSymbols(text);
         if (!tokens.some(token => token.key)) {
             node.nodeValue = text;

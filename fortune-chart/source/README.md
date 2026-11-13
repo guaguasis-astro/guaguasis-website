@@ -77,3 +77,13 @@
 月相按月亮减太阳黄经归一至0—360°，每45°一阶段，采用左闭右开区间；精确0°／180°时不附增光／减光标签。只显示对应阶段及用户提供的评语，不改变原计分。阶段划分参考[Rudhyar八阶段定义](https://www.khaldea.com/rudhyar/astroarticles/lunationbirthday_4.php)。
 
 保存报告时展开所有分页与补充依据，截图后恢复原先分页和折叠状态。`test-visual-assessment.mjs`覆盖月相边界、原档批语、真实命中路径、无命中隐藏、结构化相位、三枚星芒与40组评估数据不变。测试在带有原依赖的完整开发工程运行。
+
+## 中英双语
+
+官网主页、咨询页与解盘工具由 `assets/i18n/language.js` 共用语言状态，支持 `?lang=en` / `?lang=zh` 和本地记忆。计算模块继续返回原始数据；报告渲染时先翻译完整句子，再转换行星符号。切换语言会重新渲染现有星盘，不重新计算、不清空表单。Canvas 与图片导出跟随当前语言。
+
+英文文案维护于官网根目录 `assets/i18n/site-en.tsv` 与 `chart-en.tsv`。修改后运行 `python3 assets/i18n/build-dictionary.py` 更新 `en.js`。静态官网运行无需此步骤或任何依赖。文章详情及列表仍为中文。
+
+本次工具在 `/tmp/guagua-chart-en` 临时工程中构建，沿用本机完整工程的 Vite、html2canvas、sweph-wasm 依赖，将本目录 `js/`、`css/` 和工具 HTML 作为输入；未修改 `/Users/rosie/astrology-tool`。重新构建时将 HTML 中工具的已打包入口替换为 `./js/main.js`，CSS 替换为 `./css/style.css`，保留官网共用语言资源的外部引用；复制新产物并更新官网工具入口。
+
+`test-language.mjs` 在已有依赖的开发工程运行，覆盖100组综合评估的英文完整性、计算数据不变、英文城市别名与中国大陆夏令时。若测试文件复制到临时工程，第二个参数传入官网 `assets/i18n` 的绝对路径。

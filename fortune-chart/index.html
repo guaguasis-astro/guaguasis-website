@@ -6,8 +6,13 @@
     <title>占星解盘 · 古典占星</title>
     <!-- 预加载占星符号字体，确保 Canvas 星盘图能正确渲染 -->
     <link rel="preload" href="fonts/HamburgSymbols.ttf" as="font" type="font/ttf" crossorigin>
-  <script type="module" crossorigin src="./assets/index-Dchg7_kO.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-C5TBbdZM.css">
+  <script type="module" crossorigin src="./assets/index-DEZgPDDp.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-iZAlcZWE.css">
+    <link rel="stylesheet" href="../assets/i18n/language.css">
+    <script src="../assets/i18n/en.js"></script>
+    <script src="../assets/i18n/language.js"></script>
+    <link rel="alternate" hreflang="zh-CN" href="https://guaguasis.online/fortune-chart/index.html?lang=zh">
+    <link rel="alternate" hreflang="en" href="https://guaguasis.online/fortune-chart/index.html?lang=en">
 </head>
 <body>
     <div class="app">
@@ -35,7 +40,7 @@
                         智能文本解析
                     </label>
                     <textarea id="parseText" class="parse-textarea" rows="3"
-                        placeholder=""></textarea>
+                        placeholder="例：1990-01-01 12:00 UTC+8; place: Beijing; 39.9042 N 116.4074 E"></textarea>
                     <button type="button" class="btn-parse" id="parseBtn">解 析 文 本</button>
                     <p class="parse-hint" id="parseHint"></p>
                 </div>
@@ -88,6 +93,7 @@
                         <span>开 始 排 盘</span>
                     </button>
                 </form>
+                <p class="hint">支持中文及常用英文城市名；未识别的地点请手动填写经纬度。中国大陆以外，请核对出生当日的 UTC 偏移（含夏令时）。</p>
                 <p class="hint">※ 使用瑞士星历表计算，精度与专业占星软件一致</p>
             </div>
         </section>

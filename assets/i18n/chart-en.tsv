@@ -1,0 +1,632 @@
+占星解盘 · 古典占星	Birth Chart Reading · Traditional Astrology
+← 返回瓜瓜占星首页	← Back to Guagua Astrology
+占 星 解 盘	Birth Chart Reading
+— 古典占星 · 信息提炼 · 结构化呈现 —	— Traditional Astrology · Clear Insights —
+出 生 信 息	Birth Details
+智能文本解析	Paste Birth Details
+解 析 文 本	Read Details
+或 手 动 填 写	Or enter details below
+出生日期	Date of birth
+出生时间	Time of birth
+出生地点（精确到市）	Birthplace (city)
+例：北京 / 山东省淄博市	E.g. Beijing, London, New York
+纬度（北纬为正）	Latitude (north is positive)
+经度（东经为正）	Longitude (east is positive)
+时区	UTC offset
+重复时刻：出生在拨表前还是拨表后？	Repeated hour: before or after the clock change?
+请选择	Please select
+第一次出现，拨表前（UTC+9）	First occurrence · Before the change (UTC+9)
+第二次出现，拨表后（UTC+8）	Second occurrence · After the change (UTC+8)
+开 始 排 盘	Calculate Chart
+※ 使用瑞士星历表计算，精度与专业占星软件一致	※ Calculated with Swiss Ephemeris, as used in professional astrology software
+出生信息	Birth details
+日生 / 夜生	Sect
+上 升	Ascendant
+天 顶	Midheaven
+← 重新输入	← Edit details
+行星与四轴	Planets & Angles
+星座度数	Zodiac position
+宫位	House
+尊贵状态	Essential dignity
+最 幸 运 的 地 方	Areas of Opportunity
+最 需 注 意 的 地 方	Areas Needing Care
+福 点	Lot of Fortune
+资 产 点	Lot of Assets
+相位与吉星支持	Aspects & Benefic Support
+福点/精神点·财富显赫	Fortune & Spirit · Wealth and Prominence
+恒 星 合 相	Fixed Star Conjunctions
+容许度 1.5° 以内	Within a 1.5° orb
+本命点	Natal point
+恒星	Fixed star
+中文	Name
+容许度	Orb
+性质	Nature
+三 分 主 星 · 财 富 格 局	Triplicity Rulers · Wealth Potential
+综 合 评 估	Overall Assessment
+✦ 保存报告为图片 ✦	✦ Save Report as Image ✦
+基 于 瑞 士 星 历 表 计 算 · 整 宫 制 · 古 典 占 星 体 系	Swiss Ephemeris · Whole Sign Houses · Traditional Astrology
+计算中...	Calculating…
+生成中...	Preparing image…
+计算出错：	Calculation failed: 
+保存图片失败：	Could not save image: 
+当天02:00直接跳到03:00，02:00—02:59不存在，请核对出生时间。	Clocks jumped from 02:00 to 03:00 that day. The time 02:00–02:59 did not occur; please check your birth time.
+当天02:00拨回01:00，这个时间出现过两次，请在下方选择。	Clocks moved back from 02:00 to 01:00 that day. This time occurred twice; please choose an occurrence below.
+已自动使用中国大陆夏令时 UTC+9，出生时间保持不变。	Mainland China daylight time (UTC+9) applied automatically. Your recorded birth time is unchanged.
+中国大陆此时使用 UTC+8。	Mainland China used UTC+8 at this time.
+请先粘贴出生信息文本	Please paste your birth details first.
+请输入出生信息文本	Please enter your birth details.
+未能识别出生日期	Date of birth was not recognized
+未能识别出生时间	Time of birth was not recognized
+未能识别时区，默认使用 UTC+8	UTC offset was not recognized; using UTC+8 by default
+未能识别纬度	Latitude was not recognized
+未能识别经度	Longitude was not recognized
+解析成功	Details read successfully
+（姓名：	(Name: 
+，请核对后点击	. Please check the details, then click 
+开始排盘	Calculate Chart
+解析完成，但有	Details read; please confirm 
+项需要确认：	 items: 
+已自动匹配到最近的	 matched to the nearest 
+，请核实	; please verify
+已根据	Using 
+自动定位时区	 to set UTC offset 
+中国大陆夏令时	Mainland China daylight time
+贝克岛	Baker Island
+萨摩亚/美属萨摩亚	Samoa / American Samoa
+夏威夷/檀香山	Hawaii / Honolulu
+马克萨斯群岛	Marquesas Islands
+阿拉斯加	Alaska
+太平洋时间（美加）	Pacific Time (US / Canada)
+山地时间（美加）	Mountain Time (US / Canada)
+中部时间（美加）/墨西哥城	Central Time (US / Canada) / Mexico City
+东部时间（美加）/波哥大/利马	Eastern Time (US / Canada) / Bogota / Lima
+委内瑞拉	Venezuela
+大西洋时间（加）/圣地亚哥/卡拉卡斯	Atlantic Time / Santiago / Caracas
+纽芬兰	Newfoundland
+布宜诺斯艾利斯/圣保罗/格陵兰	Buenos Aires / Sao Paulo / Greenland
+中大西洋	Mid-Atlantic
+亚速尔群岛/佛得角	Azores / Cape Verde
+格林威治/伦敦/里斯本	Greenwich / London / Lisbon
+巴黎/柏林/罗马/马德里	Paris / Berlin / Rome / Madrid
+开罗/雅典/伊斯坦布尔/耶路撒冷	Cairo / Athens / Istanbul / Jerusalem
+莫斯科/内罗毕/利雅得	Moscow / Nairobi / Riyadh
+德黑兰	Tehran
+迪拜/巴库/埃里温	Dubai / Baku / Yerevan
+喀布尔	Kabul
+巴基斯坦/塔什干	Pakistan / Tashkent
+印度/斯里兰卡	India / Sri Lanka
+尼泊尔	Nepal
+达卡/阿拉木图/科伦坡	Dhaka / Almaty / Colombo
+仰光/曼德勒	Yangon / Mandalay
+曼谷/河内/雅加达	Bangkok / Hanoi / Jakarta
+北京/上海/香港/台北/新加坡	Beijing / Shanghai / Hong Kong / Taipei / Singapore
+尤克拉（澳）	Eucla (Australia)
+东京/首尔/平壤	Tokyo / Seoul / Pyongyang
+达尔文/阿德莱德	Darwin / Adelaide
+悉尼/墨尔本/关岛	Sydney / Melbourne / Guam
+豪勋爵岛	Lord Howe Island
+所罗门群岛/新喀里多尼亚	Solomon Islands / New Caledonia
+奥克兰/惠灵顿/斐济	Auckland / Wellington / Fiji
+查塔姆群岛	Chatham Islands
+萨摩亚/汤加	Samoa / Tonga
+莱恩群岛	Line Islands
+太阳	Sun
+月亮	Moon
+水星	Mercury
+金星	Venus
+火星	Mars
+木星	Jupiter
+土星	Saturn
+天王星	Uranus
+海王星	Neptune
+冥王星	Pluto
+白羊座	Aries
+金牛座	Taurus
+双子座	Gemini
+巨蟹座	Cancer
+狮子座	Leo
+处女座	Virgo
+天秤座	Libra
+天蝎座	Scorpio
+射手座	Sagittarius
+摩羯座	Capricorn
+水瓶座	Aquarius
+双鱼座	Pisces
+合相（同座）	Conjunction (same sign)
+冲相（对座）	Opposition (opposing signs)
+刑相（刑座）	Square (by sign)
+拱相（拱座）	Trine (by sign)
+六合（六合座）	Sextile (by sign)
+合相	Conjunction
+六合	Sextile
+刑相	Square
+拱相	Trine
+冲相	Opposition
+入庙	Domicile
+擢升	Exaltation
+三分主	Triplicity ruler
+落陷	Detriment
+失意	Fall
+外来	Peregrine
+无特殊尊贵	No essential dignity
+逆行	Retrograde
+行星喜乐宫	Planetary joy
+喜乐	Joy
+庙	Domicile
+旺	Exaltation
+陷	Detriment
+落	Fall
+三分	Triplicity
+界	Bound
+面	Face
+四 轴 与 虚 点	Angles & Calculated Points
+最大吉星	Benefic of sect
+最大凶星	Malefic contrary to sect
+日生盘	Day chart
+夜生盘	Night chart
+所落宫位	House placement
+角宫	Angular
+续宫	Succedent
+果宫	Cadent
+较强	Fairly strong
+较弱	Weak
+偏弱	Below average
+中强	Moderately strong
+中等	Moderate
+强力	Strong
+强	Strong
+弱	Weak
+中	Moderate
+力量：	Strength: 
+力量	Strength: 
+主星	 ruler 
+上升	Ascendant
+天顶	Midheaven
+下降	Descendant
+天底	IC
+北交	North Node
+南交	South Node
+四轴	Angles
+福点	Fortune 
+精神点	Spirit
+资产点	Assets 
+机遇容易落到实处，财富与资源更容易显现。	Opportunities are more readily realized, bringing wealth and resources into view.
+机遇适合通过持续经营、慢慢积累来兑现。	Opportunities develop through sustained effort and gradual accumulation.
+机遇的显现偏慢，需要更多耐心和积累。	Opportunities may take time to materialize, calling for patience and steady effort.
+资产更容易积累，也更容易看到实际成果。	Assets accumulate more readily, with tangible results easier to see.
+资产适合靠长期经营，细水长流地积累。	Assets benefit from long-term management and steady accumulation.
+资产积累的节奏偏慢，适合多些耐心、持续投入。	Asset accumulation may be slower; patience and consistent effort are helpful.
+不合意	Aversion
+无主要相位	No major aspect
+财富机会与积累	Wealth Opportunities & Accumulation
+成就与被看见的机会	Achievement & Visibility
+资源可能从哪里来	Potential Sources of Resources
+中性	Neutral
+吉星支持评估（星座相位）	Benefic Support (Whole Sign Aspects)
+吉星支持	Benefic support
+凶星	Malefic
+与各行星在星座层面没有主要相位关系。	 has no major whole sign aspects to the planets.
+颗吉星在星座层面支持	 benefics offering whole sign support
+缺乏直接的吉星支持	No direct benefic support
+得到全部吉星的星座相位支持，福气丰厚，财运亨通。	 receives whole sign support from all benefics, indicating abundant opportunity and favorable financial prospects.
+得到多颗吉星的星座相位支持，福气和财运基础较好。	 receives whole sign support from several benefics, providing a favorable foundation for opportunity and finances.
+有两颗吉星的星座相位支持，有一定福气助力。	 receives whole sign support from two benefics, offering a measure of opportunity.
+有一颗吉星的星座相位支持，有轻微的福气和财运助力。	 receives whole sign support from one benefic, providing modest support for opportunity and finances.
+缺乏吉星的星座相位支持，福气的显化可能需要更多努力和时间。	 lacks whole sign benefic support; realizing opportunities may require more effort and time.
+行星所在星座	Planet’s sign
+星座相位	Whole sign aspect
+行星	Planet
+没有发现 1.5° 以内的恒星合相	No fixed star conjunctions within 1.5°
+合相恒星含义解读	Fixed Star Interpretations
+吉星联系：	Benefic contacts: 
+火土压力：	Mars / Saturn pressure: 
+吉星摩擦：	Friction with benefics: 
+机会和压力会一起来：有资源可借力，也容易有消耗。把助力用在稳定收入上，给开支和周转留些余地。	Opportunity and pressure arrive together: resources are available, but so are demands. Use support to stabilize income and leave room for expenses and cash flow.
+火土带来的压力比较集中，求财时容易有消耗或周转压力，先稳住收支、留好缓冲。	Mars and Saturn concentrate pressure, potentially bringing costs or cash-flow strain. Stabilize income and expenses and keep a buffer.
+求财中容易有消耗或周转压力，先把收支安排稳妥，按自己的节奏积累。	Earning may involve costs or cash-flow pressure. Plan income and expenses carefully and build at your own pace.
+机会的落实需要多一些协调，合作中容易有分歧，把条件谈清楚更容易促成收获。	Realizing opportunities takes coordination. Clarifying terms helps resolve disagreements and bring cooperation to fruition.
+资源和人际支持较容易接上，有利于改善收入、慢慢积累生活所需。	Resources and interpersonal support connect more readily, helping improve income and gradually meet material needs.
+发光体	Sect light
+日生盘主星	Light of the day sect
+夜生盘主星	Light of the night sect
+其三分主星代表天生的财富格局和资源获取能力。	Its triplicity rulers describe inherent wealth potential and access to resources.
+二宫星座	Second-house sign
+下列三分主星代表实际的财富积累和物质生活状况。	These triplicity rulers describe material circumstances and the practical accumulation of wealth.
+的三分主星（含星座年限）	 · Triplicity rulers and sign periods
+行星周期	Planetary period
+星座年限	Sign period
+所落	Placement: 
+年限：	 · Period: 
+合恒星：	Fixed star conjunction: 
+尊贵：	Dignity: 
+第一三分主	First triplicity ruler
+第二三分主	Second triplicity ruler
+第三三分主	Participating triplicity ruler
+增光月（盈月）	Waxing Moon
+减光月（亏月）	Waning Moon
+增光月	Waxing Moon
+减光月	Waning Moon
+增光	Waxing
+减光	Waning
+新月	New Moon
+峨眉月	Waxing Crescent
+上弦月	First Quarter
+盈凸月	Waxing Gibbous
+满月	Full Moon
+亏凸月	Waning Gibbous
+下弦月	Last Quarter
+残月	Balsamic Moon
+从新月到满月，此时的月亮活跃、具有生产力、也会视为财富好的象征	From new to full Moon, the Moon is active and productive, traditionally associated with favorable conditions for wealth.
+从满月到新月，此时的月亮比较消极和冷、生产力较弱	From full to new Moon, the Moon is more passive and cool, with lower productivity.
+天真开放、过度的自我or踌躇，以本能的方式前进	Open and innocent, sometimes overly self-focused or hesitant; moves forward instinctively.
+缺乏安全感、敏感、有来自环境的阻力	Sensitive and uncertain of security, encountering resistance from the environment.
+恐惧、缺乏勇气而行动瘫痪，不自觉地制造危机，建议用新秩序解决问题，展示个性	Fear or a lack of courage can inhibit action and unconsciously create crises. Establish a new order to solve problems and express individuality.
+专注熟练、内省、做有价值的实事	Focused, skilled, and introspective; committed to practical work of value.
+把他人愿望反射到自己身上，渴望关系与互动，整合两极	Reflects others’ wishes onto the self, seeks relationship and interaction, and integrates polarities.
+分享、传达、沟通、有信仰的生活	Sharing, communicating, and living with conviction.
+内在心理的危机，建议调整思维方式，破旧立新	An inner psychological crisis calls for a change in thinking, letting go of the old to make way for the new.
+与众不同、格格不入，使命感、萃取智慧进化，命运的召唤、“老灵魂”	Distinctive and sometimes out of place; a sense of mission, distilling wisdom and evolving, an “old soul” responding to a calling.
+围攻格局	Enclosure Patterns
+福点与三分主星	Fortune & Triplicity Rulers
+钱财宫	Money House
+月亮状态	Moon’s Condition
+其他修正	Other Factors
+需要留意	Needs care
+主要助力	Major support
+可用支持	Available support
+仍需经营	Needs cultivation
+支持较少	Limited support
+财富获取	Wealth Acquisition
+额外助力	Additional support
+福点第十一宫 · 获取宫	11th from Fortune · Acquisition
+福点第十宫 · 成就位置	10th from Fortune · Achievement
+日生盘吉星	Benefic of the day sect
+夜生盘吉星	Benefic of the night sect
+合昼夜性	In sect
+交换守护星座	Mutual reception by domicile
+福点所在星座	Fortune’s sign
+双向连接	Two-way connection
+进入	Enters 
+落入	Placed in 
+当前为	Current phase: 
+当前	Current
+财富格局需结合各项已有判断一起看。	Read wealth potential alongside all the chart’s contributing factors.
+财富总评	Overall Wealth Potential
+各项支持概览	Contributing Factors
+支持表现	Support
+压力与摩擦	Pressure & Friction
+支持与压力	Support & Pressure
+物资与安全感	Material needs & security
+有助力	Supported
+有牵制	Under pressure
+机会怎样变成收获，行动怎样被看见。	How opportunity becomes reward, and action becomes visible.
+你的人生支持系统	Your Life’s Support System
+其他支持与压力	Other Support & Pressure
+查看其他判断依据	Explore the Supporting Evidence
+相位	Aspects
+综合评估内容	Assessment sections
+综合评估	Overall Assessment
+机缘与行动	Opportunity & Action
+三分主星	Triplicity Rulers
+如需更深入的财富格局解读与人生整体运势分析	For an in-depth reading of your wealth potential and wider life patterns
+找瓜瓜本人预约 · 微信：guaguasis	Book with Guagua · WeChat: guaguasis
+这一项没有额外的支持依据。	No additional supporting evidence for this factor.
+小康	Comfortable
+中富	Affluent
+大富	High wealth
+巨富	Exceptional wealth
+巨富之格	Exceptional Wealth Potential
+大富之格	High Wealth Potential
+中富之格	Affluent Potential
+小康之格	Comfortable Potential
+财运偏弱	Below-Average Wealth Support
+财运较弱	Limited Wealth Support
+财富格局极为罕见，乃万中无一之象。围攻格局、福点力量、恒星吉曜多重顶级吉象叠加，天生资源极为丰沛，财运宏大深远。多主出身不凡或白手兴家，一生财运亨通，易积累巨额财富，名利双收，声名远播。宜深修德行，善用财富，持盈保泰，方得长久。	An exceptionally rare wealth pattern. Enclosure, a strong Lot of Fortune, and favorable fixed stars combine to indicate abundant resources and far-reaching financial potential. Traditionally, this suggests an exceptional background or self-made success, substantial wealth, and recognition. Cultivate integrity, use wealth wisely, and manage prosperity carefully to sustain it.
+财富格局宏大，多个维度均呈现强吉之象，天生资源丰沛，赚钱能力出众。或有围攻护身，或有吉星守财，或福点与三分主星得力，配合得当则财源广进，容易积累大量财富。善用资源、保持谦逊则财运绵长，富甲一方。	A strong wealth pattern, with favorable indications across several dimensions, abundant resources, and strong earning ability. Support may come from enclosure, benefics protecting finances, or an effective Lot of Fortune and triplicity rulers. When well coordinated, these can support substantial accumulation. Use resources wisely and remain humble to sustain prosperity.
+财富格局良好，有稳定的财富基础和创收能力。福点或钱财宫有得力吉星支持，三分主星亦有吉象，通过自身努力和合理规划可达到较为富裕的生活水平，家境殷实，衣食无忧且有结余。	A favorable wealth pattern with a stable financial foundation and earning capacity. Benefic support for Fortune or the money house, together with favorable triplicity rulers, suggests that effort and sound planning can support an affluent life, secure necessities, and a surplus.
+财富格局中等，财运平稳，衣食无忧。部分维度有吉象但整体力量中等，没有明显的大富大贵之兆，但也无重大破财之虞。通过持续努力和稳健理财可以稳步提升生活水平，小富由俭。	A moderate wealth pattern indicating steady finances and basic material comfort. Some factors are favorable, while overall strength is moderate, without clear indications of great wealth or major financial loss. Consistent effort, prudent management, and thrift can gradually improve living standards.
+财富格局偏弱，求财过程可能较为辛苦，容易有财务压力。或福点力量不足，或钱财宫主星状态欠佳，收入不甚稳定。建议量入为出，培养专业技能，以稳定收入为主，避免投机冒险，稳中求进。	Wealth support is below average, and earning may involve greater effort or financial pressure. Fortune may lack strength, or the money-house ruler may be poorly placed, making income less stable. Live within your means, develop professional skills, prioritize stable income, and pursue steady progress over speculation.
+财富格局多有挑战，财运方面阻力较大。可能多个维度同时呈现凶象，求财多波折，容易有意外破财或财务压力。建议注重节俭，避免借贷和高风险投资，以稳健为主，同时关注精神层面的富足与个人成长，安贫乐道亦是福。	This wealth pattern contains several challenges. Difficult indications across multiple factors may bring obstacles, unexpected losses, or financial pressure. Emphasize thrift and stability, avoid borrowing and high-risk investments, and also value inner richness and personal growth. Contentment itself can be a source of well-being.
+整宫制 · 古典占星	Whole Sign · Traditional
+整宫制	Whole Sign Houses
+整宫	Whole sign
+日月围攻	Luminary enclosure
+金木围攻	Benefic enclosure
+围攻	Enclosure
+火土	Mars / Saturn
+日月	Sun / Moon
+光线夹	Enclosure by rays
+身体夹	Bodily enclosure
+基础	Basic
+核心	Core
+辅助	Supporting
+来源	Source
+案例强化	Reinforced example
+强化组合	Reinforced pattern
+宫主	House ruler
+点的主星	Lot ruler
+被围攻，力量加倍）	 enclosed, doubling the strength)
+四轴被围攻）	 angles enclosed)
+格局纯粹，力量强大	A pure pattern with strong effect
+身体夹）：被两星左右夹持，弧宽约	Bodily enclosure): flanked by two planets; arc approximately 
+无其他星体干扰	No intervening planets
+均落角宫（福点第	 are both angular (Fortune: house 
+宫，主星第	; ruler: house 
+宫），力量强劲	), indicating strong effectiveness
+福点与福点主星	Fortune and its ruler
+福点落角宫（第	Fortune is angular (house 
+宫），力量强	), indicating strength
+福点落续宫（第	Fortune is succedent (house 
+宫），力量中等	), indicating moderate strength
+福点落果宫（第	Fortune is cadent (house 
+宫），力量偏弱	), indicating reduced strength
+福点主星落福点第	Fortune’s ruler is in house 
+宫（财富支持位：1/2/11宫），属良好格局	 from Fortune (supportive houses: 1 / 2 / 11), a favorable pattern
+宫（弱位：6/8/12宫），力量受限	 from Fortune (weak houses: 6 / 8 / 12), limiting its effectiveness
+尊贵有力（	 has strong dignity (
+尊贵偏弱（	 has weak dignity (
+福气加倍	Opportunity is reinforced
+福点（	Fortune (
+作用顺畅	 functions effectively
+与福点不合意（aversion），难以发挥作用	 is in aversion to Fortune and has difficulty acting effectively
+落角宫（第	 is angular (house 
+宫），力量增强	), increasing strength
+落在第2宫（钱财宫），财运有强力加持	 is in the second house (money), strongly supporting finances
+二宫主星	Second-house ruler
+落续宫（第	 is succedent (house 
+落果宫（第	 is cadent (house 
+尊贵状态良好（	 has favorable dignity (
+尊贵状态偏弱（	 has weak dignity (
+自守2宫（飞入本宫），财库稳固	 rules and occupies the second house, supporting financial stability
+发光体三分主	Sect-light triplicity ruler
+二宫三分主	Second-house triplicity ruler
+月相为	Lunar phase: 
+月亮力量渐增，对财富积累有利	The Moon’s strength is increasing, favoring wealth accumulation
+月亮力量渐减，财运上更适合守成	The Moon’s strength is decreasing, favoring preservation of resources
+月亮受	The Moon receives 
+刑克，情绪与安全感易受挑战，对财运有消耗	 challenging aspects, placing pressure on emotions, security, and finances
+月亮与	The Moon and 
+受吉星支持，物资生活较丰沛	Supported by benefics, favoring material well-being
+吉星照临，吉象倍增	Benefic testimony reinforces favorable indications
+发光体的三分主星有	Sect-light triplicity rulers: 
+颗落角宫（	 angular (
+力量强大	Strong effectiveness
+月亮落角宫，月亮力量强，物资与情绪安全感充足	An angular Moon is strong, supporting material and emotional security
+太阳落角宫，太阳力量强，人生舞台大，易得机遇与表现机会	An angular Sun is strong, offering a broad stage for opportunities and expression
+太阳落果宫，太阳力量减弱，人生表现与行动力受限	A cadent Sun has reduced strength, limiting visibility and initiative
+月亮落果宫，月亮力量减弱，情绪安全感与物资运受限	A cadent Moon has reduced strength, limiting emotional security and material support
+月亮合北交（	Moon conjunct North Node (
+情绪与宿命议题相关，人生起伏较大	Emotions connect with fated themes and greater life fluctuations
+月亮合南交（	Moon conjunct South Node (
+情绪与过去世习气相关，易有内耗	Emotions connect with habitual patterns from past lives, with a tendency toward inner depletion
+吉中带摩擦	Support with friction
+受吉星加持	Supported by benefics
+以福点为主	Primarily based on Fortune
+福点偏弱，以三分主星弥补	Triplicity rulers compensate for a weaker Fortune
+夏令时）	 daylight time)
+拨表后）	 after the clock change)
+机会更容易变成收入	Opportunities Can Become Income
+赚钱路上容易遇到助力	Support Along Your Earning Path
+机会与财富相互带动	Opportunity & Wealth Reinforce Each Other
+财富积累得到多重支持	Multiple Supports for Accumulation
+主动投入的事能带来收入	Initiative Can Generate Income
+想做的事容易碰上好机会	Your Intentions Meet Opportunity
+靠自己的投入做出名堂	Recognition Through Your Efforts
+人生机遇容易把你推到台前	Opportunities Bring Visibility
+想做的事与成就感紧密相连	Purpose Connects with Achievement
+努力与机会形成双向呼应	Effort & Opportunity Work Together
+家庭可能是你的资源后盾	Family as a Source of Support
+个人财务与他人资产有联系	Personal & Shared Assets Connect
+有机会得到外部资金支持	Potential External Funding
+朋友和团队能带来助力	Support Through Friends & Teams
+你自身的特点就是资源	Your Personal Qualities Are Resources
+你的福点主星	Your Fortune ruler 
+你的精神点主星	Your Spirit ruler 
+落在	 is in 
+正好进入福点的十一宫，也就是看财富进账的“获取宫”。	, the eleventh from Fortune, the place of acquisition and financial gains. 
+遇到好机会时，你更容易从中找到赚钱的门路，把资源变成实在的收获。	You are more able to find earning channels in good opportunities and turn resources into tangible gains.
+你的星盘是	Your chart is a 
+更能发挥吉星作用；它落在	 acts more effectively as a benefic; it is in 
+进入福点的获取宫。	, the place of acquisition from Fortune. 
+赚钱和积累资产时，比较容易遇到好机会、好资源，或愿意帮你一把的人。	Earning and asset accumulation may benefit from opportunities, useful resources, or people willing to help.
+获取宫主星	Acquisition ruler 
+两星各自进入对方守护的星座，形成互容。	. Each occupies a sign ruled by the other, forming mutual reception. 
+机缘和财富通道能相互接应，是值得重视的大财潜力组合。	Opportunity and channels for wealth reinforce each other, a notable combination for substantial wealth potential.
+进入获取宫，既是	 enters the place of acquisition, is the effective benefic of the 
+得力的吉星，又在	, and in 
+更能发挥作用。	 can act more effectively. 
+赚钱的通道和承接机会的能力都得到支持，是较强的财富组合。	Both earning channels and the ability to receive opportunities are supported, a strong wealth combination.
+你愿意花心思做的工作、事业或合作，更容易找到收入出口，让自己的能力变成收获。	Work, career, or collaborations that receive your attention are more likely to find an income channel and turn your abilities into rewards.
+与福点同在一个星座。	, the same sign as Fortune. 
+自己的想法和外部机会容易接上，投入的事情更有机会被看见、得到认可。	Your intentions connect more readily with external opportunities, helping your efforts gain visibility and recognition.
+进入福点的第十宫，这里看成就与社会地位。	, the tenth from Fortune, associated with achievement and social standing. 
+你主动追求的事业方向，更容易让你在自己的领域出头，获得认可。	The career directions you actively pursue are more likely to bring recognition in your field.
+外部机会和资源容易助你一把，让你走到更受关注的位置。	External opportunities and resources may help you reach a more visible position.
+你的精神点落在	Your Spirit is in 
+正好是福点的第十宫，这里看成就与社会地位。	, the tenth from Fortune, associated with achievement and social standing. 
+你愿意投入的人生方向，容易与事业成绩、个人地位和被人看见的机会联系起来。	The life directions you commit to connect more readily with professional achievement, standing, and visibility.
+进入精神点所在的	 enters Spirit’s sign, 
+又进入福点所在的	 enters Fortune’s sign, 
+努力容易接住机会，机会又反过来支持你想做的事，是较强的成就组合。	Effort can meet opportunity, while opportunity supports your intentions: a strong achievement combination.
+你的福点落在本命第四宫，这里与父母、家庭和居所有关。	Your Fortune is in the natal fourth house, associated with parents, family, and home. 
+家人的支持、成长中积累的资源，或与居所相关的机会，都值得留意。	Notice family support, resources built through your upbringing, or opportunities connected with home.
+你的福点在本命第	Your Fortune is in natal house 
+宫，二宫主	; the second-house ruler 
+与八宫主	 and eighth-house ruler 
+交换守护星座。	 exchange domiciles. 
+自己的钱与共同资产、遗产或资产转移之间联系较紧，这些可能成为取得资源的渠道。	Personal finances connect closely with shared assets, inheritance, or transfers, potentially providing channels for resources.
+你的福点在本命第八宫，并与	Your Fortune is in the natal eighth house, receiving a whole sign aspect from Jupiter in 
+的木星形成整宫相位，得到吉星支持。	 and thereby benefic support. 
+资助、捐赠、合作资金等外部资源，可能成为你推进事情的一份助力。	External resources such as funding, donations, or partnership capital may help you move forward.
+落在本命第十一宫，这里与朋友和团体有关。	 is in the natal eleventh house, associated with friends and groups. 
+人际往来、团队合作或共同项目，可能为你带来资源和机会。	Social connections, teamwork, or joint projects may bring resources and opportunities.
+与上升相距	 is separated from the Ascendant by 
+构成合相。	, forming a conjunction. 
+个人能力、形象或身体条件容易成为优势，让别人记住你，也为你带来机会。	Personal ability, image, or physical qualities can become strengths that make you memorable and bring opportunities.
+落获取宫，物质机缘连接财富取得。	 in the place of acquisition connects material opportunity with wealth gains.
+落获取宫，是较强的财富取得与积累征象。	 in the place of acquisition strongly indicates wealth gains and accumulation.
+交换守护星座，形成大财潜力组合。	 exchange domiciles, indicating substantial wealth potential.
+福点主星在获取宫，同时为合昼夜性的吉星且入庙或擢升，财富通道获得多重支持。	Fortune’s ruler is in acquisition, a benefic in sect and in domicile or exaltation, providing multiple supports for wealth.
+落获取宫，行动与志业连接资源获取。	 in acquisition connects action and purpose with access to resources.
+落福点星座，行动与机缘连接。	 in Fortune’s sign connects action with opportunity.
+落福点第十宫，行动通向成就与社会地位。	 in the tenth from Fortune connects action with achievement and standing.
+落福点第十宫，机缘连接突出的社会位置。	 in the tenth from Fortune connects opportunity with prominence.
+精神点本身落福点第十宫，作为志业与显赫的辅助指标。	Spirit in the tenth from Fortune offers supporting testimony for vocation and prominence.
+福点主星进入精神点星座，精神点主星进入福点星座，形成双向交叉连接；不直接等同行星互容。	Fortune’s ruler is in Spirit’s sign and Spirit’s ruler in Fortune’s sign: a two-way connection, distinct from planetary mutual reception.
+福点在本命四宫：家庭、父母或出身可能提供机缘，不能据此判断家境富裕。	Fortune in the natal fourth: family, parents, or background may provide opportunities; this alone does not establish family wealth.
+福点连接本命二、八宫，二宫主与八宫主交换守护星座：个人财务与遗产、资产转移主题相连，不代表一定继承巨额资产。	Fortune connects the natal second and eighth houses, whose rulers exchange domiciles. Personal finances connect with inheritance or transfers; this does not guarantee a large inheritance.
+福点在本命八宫且木星有整宫相位支持：可能连接资助、捐赠或外部资金，不等于个人资产。	Fortune in the natal eighth with whole sign Jupiter support may connect with funding, donations, or outside capital; these are distinct from personal assets.
+落本命十一宫：朋友、团体或合作可能提供助力。	 in the natal eleventh: friends, groups, or collaboration may help.
+个人能力、身份或身体条件可能成为资源。	Personal ability, identity, or physical qualities may become resources.
+角宿一	Spica
+织女一（织女星）	Vega
+北落师门	Fomalhaut
+天津四	Deneb Adige
+贯索四（侯）	Alphecca
+轩辕十四	Regulus
+大角	Arcturus
+河鼓二（牵牛星）	Altair
+心宿二	Antares
+天狼星	Sirius
+参宿七	Rigel
+参宿二	Alnilam
+五车三	Menkalinan
+天渊三	Rukbat
+大陵五	Algol
+五车二	Capella
+氐宿四	Zuben Eschemali
+北河二	Castor
+北河三	Pollux
+毕宿五	Aldebaran
+参宿五	Bellatrix
+南河三	Procyon
+参宿四	Betelgeuse
+壁宿二	Alpheratz
+室宿二	Sheat
+南门二（半人马座α）	Toliman
+天园六	Acamar
+五帝座一	Denebola
+西上相	Zosma
+星宿一	Alphard
+吉	Benefic
+凶	Malefic
+性质，最凶恒星之一	 nature; among the most malefic fixed stars
+性质	 nature
+具有水星和金星性质的吉星，象征权力与专业领域的洞见。对科学家、作家、艺术家（画家、雕塑家、音乐家）格外幸运。被视为所有恒星中最重要、最幸运的一颗。	A benefic of Mercury and Venus nature, associated with power and professional insight. Especially favorable for scientists, writers, painters, sculptors, and musicians. Traditionally regarded as one of the most important and fortunate fixed stars.
+合上升则好运、幸福、易得馈赠，感情与婚姻顺遂，可通过遗产与遗赠获益。合 MC 则荣誉与成功，通过与女性打交道获得帮助，在金星性质的职业中取得成功。	Conjunct the Ascendant: good fortune, happiness, gifts, favorable love and marriage, and benefits through legacies. Conjunct the MC: honor and success, help through women, and success in Venus-related professions.
+波斯四大皇家之星之一，南方的守望者，象征冬至。赋予从上而来的巨大力量与智慧，与将我们从过去的惰性中解放、开启新时代有很大关系。伟大而持久的荣誉，不朽的名声。	One of the four Persian royal stars, the Watcher of the South, associated with the winter solstice. Symbolizes great power and wisdom from above, release from past inertia, and the opening of a new era, with enduring honor and lasting fame.
+使人变得巧妙、善于接受任何学习或知识。直觉精炼，若遵循精神道路、注意精神向导，可被引导至许多神圣目的。知名、著名、足智多谋、非常博学、雄辩、有创意、有洞察力。	Associated with ingenuity and receptivity to learning. Refined intuition and attention to spiritual guidance can lead toward sacred purposes. Fame, resourcefulness, scholarship, eloquence, creativity, and insight.
+赋予荣誉、尊严以及诗意和艺术能力。形象是母鸡或戴王冠的人。给予人的贞洁、爱和善意。光荣，大祭司或女祭司，领导人的朋友，充满活力的身体，成名并受到许多人的喜爱。	Confers honor, dignity, and poetic and artistic ability. Its images include a hen or crowned person. Associated with chastity, love, goodwill, priestly standing, friendship with leaders, vitality, fame, and public affection.
+狮子的心，象征雄心、骄傲、热爱权力、宏大的视野。AC 合相带来军事荣誉，MC 合相带来高教会荣誉、军事偏好、商业繁荣。一生为众人所知，拥有自由权力，不施展恶意的毒药。	The Lion’s Heart symbolizes ambition, pride, love of power, and a broad vision. Ascendant conjunctions signify military honors; MC conjunctions signify ecclesiastical distinction, military favor, and commercial prosperity. Public recognition and independent authority, without malicious intent.
+通过航行带来财富、荣誉、决心和繁荣。传达美术、商业、好运的成功，但许多焦虑的时刻、高荣誉、高职位。湍流是可能的。	Associated with wealth through voyages, honor, resolve, and prosperity. Success in the arts and commerce, good fortune, distinction, and high office, alongside anxiety and possible turbulence.
+赋予大胆、自信、英勇、不屈不挠、雄心勃勃和自由的天性，巨大而突然但短暂的财富，以及指挥地位。辉煌的生活；强大和指挥的天性；名声，忙于许多活动，丰富的资源。	Confers boldness, confidence, courage, perseverance, ambition, and independence. Associated with sudden but short-lived wealth, command, prominence, many activities, and abundant resources.
+波斯四大皇家之星之一，蝎子的心。带来恶意、破坏性，同时也有慷慨、心胸宽广的特质，存在邪恶预示和死亡危险。传统上被认为是暴力死亡的重要指征，火灾、武器或机械可能造成危险。	One of the four Persian royal stars, the Scorpion’s Heart. Traditionally combines destructive or hostile tendencies with generosity and broad-mindedness. Older texts associate it with danger, including violence, fire, weapons, and machinery.
+夜间最亮的星。雄心勃勃，喜欢行使权力，具有宏伟的前景，好的声誉与荣耀，信念的保卫者。有利于商业繁荣、荣誉、财富和名誉。受到上级和朋友的青睐。	The brightest star in the night sky. Associated with ambition, authority, a grand outlook, reputation, honor, and defending one’s beliefs. Favors commercial prosperity, wealth, recognition, and support from superiors and friends.
+赋予荣光、名望、财富与顺遂。独立自主、行事果敢，凭借自身成就收获财富与显赫地位。年少顺遂兴旺，家底丰厚、家境富庶，运势昌隆，财源广进，坐拥至高且长久的名望与殊荣。	Confers honor, fame, wealth, and favorable circumstances. Independence and decisive action bring standing through personal achievement. Traditionally associated with early prosperity, a wealthy background, growing resources, and enduring distinction.
+所有受其星力影响出生的人都将获得世人的赞誉与殊荣。一生辉煌显赫；品性伟岸威严、气势磅礴；声名远扬，行事广博，家底丰厚，在各城各地声名卓著。	Traditionally promises praise and distinction, a prominent life, dignity, authority, far-reaching activities, substantial resources, and a reputation extending across many places.
+御夫座第二亮星。罗布森指出具有金星特质，会招致毁灭、耻辱，且常常带来横祸，源于过度沉溺于享乐。整体具备木星的星性特质，夹杂微弱的火星与金星性影响。	The second-brightest star in Auriga. Robson attributes Venus-like qualities and warns of ruin, disgrace, or misfortune through excessive pleasure. Its overall nature is described as Jupiter-like, with slight Mars and Venus influences.
+热衷权势、手握大权、具备统领之才、坐拥军功荣誉、获君王赏识、克敌制胜、心胸豁达且拥有广阔包容的眼界。有望收获崇高名望、丰厚财富与赫赫声名。	Associated with a desire for power, authority, leadership, military honors, favor from rulers, victory, generosity, and a broad outlook. Potential for distinction, substantial wealth, and renown.
+恶魔之首，咽部颈部的危险，象征戈耳工三姐妹中美杜莎的头颅。上升合相：失明、眼疾、面部受伤、声名狼藉、刺伤、创口、牢狱之灾。最凶的恒星之一。	The Demon’s Head represents Medusa and is traditionally associated with danger to the throat and neck. Older interpretations of an Ascendant conjunction list eye or facial injury, disgrace, wounds, and imprisonment. Traditionally considered among the most malefic fixed stars.
+带来荣誉、财富、名望、声誉、受人信赖的公职地位与显贵挚友，同时会让命主心思缜密、性格怯懦、好奇心强、极度渴求学识，尤其热衷于新奇事物。	Associated with honor, wealth, reputation, trusted public office, and influential friends, alongside careful thought, timidity, curiosity, and a strong appetite for knowledge and novelty.
+天之根。思维与才智格外敏锐，同时往往还蕴含极强的灵性特质；但若星体格局与相位凶煞凌厉，这份特质便会演变为精神失常。吉星高照，赐世间荣华与功成名就。	The Root of Heaven. Associated with sharp intelligence and strong spiritual qualities; difficult configurations were traditionally linked with psychological disturbance. Favorable testimony signifies worldly prosperity and accomplishment.
+象征与众不同、思维敏锐、法务领域有所成就、游历四方、喜爱骏马、一朝声名鹊起且荣加身，但往往随之而来的是家财散尽、身败名裂、病痛缠身。上升合：失明、眼疾、面部受伤、声名狼藉、刺伤、牢狱之灾。	Associated with distinction, keen thought, legal achievement, travel, and a love of horses. Sudden fame and honor may be followed by loss, disgrace, or illness. Older Ascendant interpretations include eye and facial injuries, wounds, and imprisonment.
+象征狡黠诡诈、英气勇武，兼具胆大妄为的特质，又交织着残忍与鲁莽。财富、权力、勇气、慷慨、聪慧机敏、身居高位、战功卓著，同时易遭遇割伤、创伤、意外事故、面部损伤。	Combines cunning and martial courage with audacity, harshness, and recklessness. Associated with wealth, power, generosity, intelligence, high office, and military success, alongside cuts, injuries, accidents, or facial wounds.
+古波斯四大皇家星之一，波斯战神，象征财富与荣耀。年少得志，坐拥故土繁华。声名显赫、德望卓著、荣光加身，可执掌城邑与一方疆域。因女性助力而财运亨通、富贵盈门。	One of the four Persian royal stars, associated with the Persian war god, wealth, and honor. Traditionally signifies early success, prosperity at home, distinction, authority over a city or territory, and financial benefits through women.
+主享有极高的文职或武职荣誉，但易突遭名誉折损；亦能带来声名、财富、显贵挚友，同时易遭遇意外灾厄，有失明与破败之虞。赋予对权力的热衷、战胜对手的执念、强大的威望、野心勃勃。	Associated with high civil or military honors, potentially followed by sudden reputational loss. Fame, wealth, influential friends, ambition, authority, and determination to overcome rivals, alongside traditional warnings of accidents and reversals.
+象征行动力、暴戾之气、突发且凶狠的恶意、凭一己之力骤然获擢升、位高权重却终遭祸殃，还有被犬只咬伤与罹患狂犬病的风险。性情乖戾、傲慢无礼、浮躁轻率。	Traditionally associated with forceful action, sudden hostility, rapid advancement through personal effort, and later reversals from high office. Older texts mention dog bites and rabies, as well as irritability, arrogance, and haste.
+目前已知体积最大的恒星之一。象征勇武荣誉、仕途晋升与财富福报。上升合：天资出众的运动员，天生具备超凡的身体敏捷度与奔跑速度。情绪起伏多变，一生可获荣誉加身、名号傍身。	One of the largest known stars. Associated with martial honor, advancement, and wealth. Ascendant conjunctions traditionally signify athletic talent, agility, and speed, alongside emotional variability and a life marked by honors and titles.
+被锁链束缚女子之首。赋予人独立、自由、爱情、财富、荣誉以及聪慧敏锐的心智。开朗性情、乐观心态、多才多艺、出色判断力、热爱生活、向往安逸舒适，同时也会使人产生慵懒懈怠的倾向。	The Head of the Chained Woman. Associated with independence, freedom, love, wealth, honor, and a keen mind. Cheerfulness, optimism, versatility, judgment, love of life and comfort, with a possible tendency toward idleness.
+马的肩膀。会招致极大的厄运、凶杀、自杀以及溺水身亡。命主性格倔强、好争好斗。亲友聚散无常，运势多有不顺，性情多变、事业心极强，且易卷入暴力事端。	The Horse’s Shoulder. Older texts associate it with severe misfortune, violence, and drowning, as well as stubbornness, conflict, unstable relationships, changing fortunes, strong ambition, and involvement in disputes.
+赋予命主宿命论的心态，带来尊贵的地位，同时赐予命主优雅涵养的潜质以及愿意伸出援手相助的友人。	Associated with a sense of fate, distinguished standing, refinement, and friends willing to offer help.
+河的尽头，象征在公职领域或宗教神职领域能够获得成就与顺遂。品性纯粹、性情随和、热爱音乐、交友广泛、虔诚笃信、豁达慷慨、理智通透、乐于倾听。	The End of the River. Associated with success in public or religious office, purity of character, an easygoing disposition, music, wide friendships, devotion, generosity, clear reasoning, and receptiveness.
+狮子座尾部的蓝星。象征决断仓促、意志消沉、心生悔憾、身败名裂、天灾横祸、乐极生悲。受其降生之人，性情高贵果敢、自制力强、慷慨大方。	The blue star at the Lion’s Tail. Traditionally associated with hasty decisions, discouragement, regret, disgrace, reversals, or sorrow after pleasure. Also signifies a noble, courageous, self-controlled, and generous nature.
+象征政务清明高效、宰相贤能干练。上升合：运势顺遂、生活喜乐、易得馈赠，感情与婚姻运势佳，可通过遗赠及遗产获得收益。属性同金星。	Associated with capable administration and wise officials. Ascendant conjunctions signify favorable circumstances, happiness, gifts, love and marriage, and benefits through legacies or inheritance. Venus-like in nature.
+蛇之心，大幅加重与毒物相关的凶险事宜：败血症、投毒谋杀、蓄意下毒加害、煤气中毒、滥用药物、毒蛇咬伤、毒虫蜇咬、狂犬咬伤等。沉迷女色，行事放纵无度。	The Serpent’s Heart. Older texts associate it with dangers involving poisons, infection, gases, substance misuse, bites and stings, and excessive sensual indulgence.
+支持中文及常用英文城市名；未识别的地点请手动填写经纬度。中国大陆以外，请核对出生当日的 UTC 偏移（含夏令时）。	Chinese and common English city names are supported. For an unrecognized location, enter coordinates manually. Outside mainland China, verify the UTC offset on your birth date, including daylight saving time.
+年	years
+与	 with 
+有	 has 
+在	 in 
+合	 conjunct 
+呈	 forming 
+成	 forming 
+受	 receiving 
+能	 can 
+看见	 aspect 
+渐增，对财富积累有利	 is increasing, favoring wealth accumulation
+渐减，财运上更适合守成	 is decreasing, favoring preservation of resources
+状态	Condition
+助力	Support
+吉（	Benefic (
+凶（	Malefic (
+中（	Neutral (
+的星座	’s sign
+所在星座	’s sign
+项	items
+日生木星	Day-sect Jupiter
+夜生金星	Night-sect Venus
+与获取宫主星	 and the acquisition ruler 
+合上升（	 conjunct Ascendant (
+宫 	House 
+星盘报告	Chart Report
+夏令时开始当天02:00直接跳到03:00，请核对出生记录上的时间。	Clocks jumped from 02:00 to 03:00 at the start of daylight saving time. Please check your recorded birth time.
+夏令时结束当天这个时间出现过两次，请选择拨表前或拨表后。	This time occurred twice when daylight saving time ended. Please choose before or after the clock change.
+福点主星 · 落精神点星座	Fortune’s ruler · In Spirit’s sign
+精神点主星 · 落福点星座	Spirit’s ruler · In Fortune’s sign
+你的	Your 
+宫	 house
+第	House 
+分	points
+月	month
+日	day
+基础五维度加权：围攻35	Base weights: enclosure 35
+额外10	other factors 10
+财富获取专项支持另加	additional wealth-acquisition support: 
+以内的恒星合相	fixed star conjunctions within the orb
+没有发现 1	None found within 1
+月亮与福点不合意（aversion），难以发挥作用	Moon is in aversion to Fortune and has difficulty acting effectively
+北京	Beijing
+上海	Shanghai
+天津	Tianjin
+重庆	Chongqing
+广州	Guangzhou
+深圳	Shenzhen
+成都	Chengdu
+杭州	Hangzhou
+武汉	Wuhan
+南京	Nanjing
+西安	Xian
+青岛	Qingdao
+济南	Jinan
+淄博	Zibo
+香港	Hong Kong
+澳门	Macau
+台北	Taipei
+伦敦	London
+巴黎	Paris
+柏林	Berlin
+罗马	Rome
+马德里	Madrid
+巴塞罗那	Barcelona
+纽约	New York
+洛杉矶	Los Angeles
+旧金山	San Francisco
+芝加哥	Chicago
+西雅图	Seattle
+温哥华	Vancouver
+多伦多	Toronto
+悉尼	Sydney
+墨尔本	Melbourne
+东京	Tokyo
+大阪	Osaka
+首尔	Seoul
+新加坡	Singapore
+曼谷	Bangkok
+孟买	Mumbai
+新德里	New Delhi
+迪拜	Dubai
+莫斯科	Moscow
+开罗	Cairo
+雅典	Athens
+里斯本	Lisbon
+奥克兰	Auckland

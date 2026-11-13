@@ -505,10 +505,61 @@ function getCityTimezone(cityObj) {
     return Math.round(cityObj.lng / 15);
 }
 
+// 常用英文城市名与现有城市库共用坐标和时区。
+const ENGLISH_CITY_ALIASES = {
+    "beijing": "北京",
+    "shanghai": "上海",
+    "tianjin": "天津",
+    "chongqing": "重庆",
+    "guangzhou": "广州",
+    "shenzhen": "深圳",
+    "chengdu": "成都",
+    "hangzhou": "杭州",
+    "wuhan": "武汉",
+    "nanjing": "南京",
+    "xian": "西安",
+    "qingdao": "青岛",
+    "jinan": "济南",
+    "zibo": "淄博",
+    "hong kong": "香港",
+    "macau": "澳门",
+    "taipei": "台北",
+    "london": "伦敦",
+    "paris": "巴黎",
+    "berlin": "柏林",
+    "rome": "罗马",
+    "madrid": "马德里",
+    "barcelona": "巴塞罗那",
+    "new york": "纽约",
+    "los angeles": "洛杉矶",
+    "san francisco": "旧金山",
+    "chicago": "芝加哥",
+    "seattle": "西雅图",
+    "vancouver": "温哥华",
+    "toronto": "多伦多",
+    "sydney": "悉尼",
+    "melbourne": "墨尔本",
+    "tokyo": "东京",
+    "osaka": "大阪",
+    "seoul": "首尔",
+    "singapore": "新加坡",
+    "bangkok": "曼谷",
+    "mumbai": "孟买",
+    "new delhi": "新德里",
+    "dubai": "迪拜",
+    "moscow": "莫斯科",
+    "cairo": "开罗",
+    "athens": "雅典",
+    "lisbon": "里斯本",
+    "auckland": "奥克兰"
+};
+
 // 搜索城市
 export function searchCity(query) {
     if (!query || !query.trim()) return null;
-    const q = query.trim();
+    const input = query.trim();
+    const englishCity = input.split(',')[0].trim().toLowerCase().replace(/’|'/g, '');
+    const q = ENGLISH_CITY_ALIASES[englishCity] || input;
 
     // 精确匹配城市名
     let result = CITIES.find(c => c.city === q);

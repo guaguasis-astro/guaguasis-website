@@ -17,6 +17,25 @@ import { drawBirthChart } from "./chart-drawer.js";
 import html2canvas from "html2canvas";
 import { resolveMainlandTime, applyMainlandTime, isMainlandPlace } from "./china-dst.js";
 
+let displayedChart = null;
+let displayedChartSize = 600;
+window.addEventListener("guagua-languagechange", () => {
+    if (displayedChart) {
+        renderInfoBar(displayedChart);
+        renderOverview(displayedChart);
+        renderFortune(displayedChart);
+        renderPOI(displayedChart);
+        renderAssets(displayedChart);
+        renderFixedStars(displayedChart);
+        renderTriplicity(displayedChart);
+        symbolizeReport(document.querySelector(".content-area"));
+        symbolizeReport(document.getElementById("infoAsc"));
+        symbolizeReport(document.getElementById("infoMC"));
+        drawBirthChart(document.getElementById("birthChart"), displayedChart, displayedChartSize);
+        window.GuaguaI18n?.apply();
+    }
+});
+
 // DOM 元素
 const birthForm = document.getElementById("birthForm");
 const inputSection = document.getElementById("inputSection");
@@ -277,7 +296,7 @@ birthForm.addEventListener("submit", async (e) => {
     });
 
     // 显示计算中状态（按钮变文字提示）
-    const originalBtnText = calcBtn.querySelector("span").textContent;
+    const originalBtnText = "开 始 排 盘";
     calcBtn.querySelector("span").textContent = "计算中...";
     calcBtn.disabled = true;
 
@@ -305,6 +324,8 @@ birthForm.addEventListener("submit", async (e) => {
         // 响应式尺寸：桌面约600px居中，手机版与内容同宽
         const contentWidth = document.querySelector(".content-area")?.clientWidth || (window.innerWidth - 40);
         const chartSize = Math.min(600, contentWidth);
+        displayedChart = chart;
+        displayedChartSize = chartSize;
         canvas.style.width = chartSize + "px";
         canvas.style.height = chartSize + "px";
 
@@ -393,7 +414,7 @@ birthPlaceInput.addEventListener("blur", updateBirthPlace);
 // 保存报告为图片
 const saveReportBtn = document.getElementById("saveReportBtn");
 saveReportBtn.addEventListener("click", async () => {
-    const originalText = saveReportBtn.querySelector("span").textContent;
+    const originalText = "✦ 保存报告为图片 ✦";
     saveReportBtn.querySelector("span").textContent = "生成中...";
     saveReportBtn.disabled = true;
 
@@ -407,6 +428,7 @@ saveReportBtn.addEventListener("click", async () => {
         await document.fonts.load('16px "HamburgSymbols"');
 
         // 截图目标：整个结果区域（不含按钮本身）
+        window.GuaguaI18n?.apply();
         const target = document.querySelector(".content-area");
 
         // 临时隐藏按钮
@@ -425,7 +447,7 @@ saveReportBtn.addEventListener("click", async () => {
         // 生成文件名
         const now = new Date();
         const dateStr = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, "0")}${String(now.getDate()).padStart(2, "0")}`;
-        const fileName = `星盘报告_${dateStr}.png`;
+        const fileName = `${window.GuaguaI18n?.language === "en" ? "Guagua_Chart_Report" : "星盘报告"}_${dateStr}.png`;
 
         // 下载图片
         const link = document.createElement("a");

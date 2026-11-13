@@ -165,4 +165,7 @@
     <url>
         <loc>https://guaguasis.online/consultation.html</loc>
     </url>
+    <url><loc>https://guaguasis.online/index.html?lang=en</loc></url>
+    <url><loc>https://guaguasis.online/consultation.html?lang=en</loc></url>
+    <url><loc>https://guaguasis.online/fortune-chart/index.html?lang=en</loc></url>
 </urlset>

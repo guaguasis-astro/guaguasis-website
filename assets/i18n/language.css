@@ -1,0 +1,38 @@
+.language-switch { display: inline-flex; align-items: center; gap: .3rem; flex: 0 0 auto; padding: .2rem .4rem; border: 1px solid #bba47b; border-radius: 2rem; color: #6b6351; background: #fffdf7; font: .82rem/1.4 system-ui, sans-serif; }
+.language-switch button { border: 0; background: transparent; color: inherit; padding: .35rem .45rem; cursor: pointer; font: inherit; border-radius: 1rem; }
+.language-switch button[aria-pressed="true"] { background: #f5d58f; color: #3d382a; font-weight: 600; }
+.language-switch button:focus-visible { outline: 2px solid #8b7355; outline-offset: 2px; }
+.app > div > .language-switch { float: right; }
+.sheet > .language-switch { float: right; margin-top: 1.25rem; }
+html[lang="en"] body { overflow-wrap: break-word; }
+html[lang="en"] h1, html[lang="en"] h2, html[lang="en"] h3, html[lang="en"] .section-title { letter-spacing: .02em; }
+html[lang="en"] .hero h1 { font-size: clamp(2.5rem, 7vw, 5rem); }
+html[lang="en"] .hero-subtitle { letter-spacing: .04em; }
+html[lang="en"] .course-header { flex-wrap: wrap; gap: .7rem; }
+html[lang="en"] .course-title { font-size: 1.5rem; }
+html[lang="en"] .course-price { white-space: normal; }
+html[lang="en"] .nav-links { gap: 1.3rem; }
+html[lang="en"] .hero h1 span { font-size: .35em; }
+html[lang="en"] .data-table { letter-spacing: normal; }
+html[lang="en"] .va-grade-labels { font-size: .65rem; gap: .25rem; }
+html[lang="en"] .va-factor { grid-template-columns: minmax(0, 1fr) minmax(45px, .6fr) minmax(75px, .7fr); }
+html[lang="en"] .marker-label { min-width: 7rem; }
+@media (max-width: 768px) {
+    body > nav { flex-wrap: wrap; gap: .65rem; }
+    body > nav .logo { font-size: 1.1rem; }
+    body > nav .nav-links { order: 3; width: 100%; justify-content: center; gap: 1rem; }
+    body > nav .language-switch { margin-left: auto; }
+    html[lang="en"] .nav-links a { font-size: .8rem; }
+    html[lang="en"] body > .hero { padding-top: 10rem; }
+    html[lang="en"] .va-factor { gap: .5rem; font-size: .75rem; }
+    html[lang="en"] .va-grade-labels { font-size: .55rem; }
+    html[lang="en"] .data-table th { letter-spacing: normal; white-space: normal; min-width: 70px; }
+    html[lang="en"] .va-lord-position { white-space: normal; }
+}
+@media (max-width: 480px) {
+    html[lang="en"] .hero h1 { font-size: 2.4rem; }
+    html[lang="en"] .course-title { font-size: 1.3rem; }
+}
+
+html[lang="en"] .va-grade-labels span { white-space: normal; min-width: 0; }
+html[lang="en"] #fixedStarTable th:nth-child(3), html[lang="en"] #fixedStarTable td:nth-child(3) { display: none; }
