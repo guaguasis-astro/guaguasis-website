@@ -2317,18 +2317,18 @@
         /* 导航文字与单行布局 */
         nav { gap: 0.75rem; flex-wrap: nowrap; }
         nav .logo { white-space: nowrap; flex-shrink: 0; }
-        nav .nav-links { flex-wrap: nowrap; }
+        nav .nav-links { flex-wrap: nowrap; gap: 2.5rem; margin-left: auto; margin-right: 1.5rem; }
         nav .nav-links a { font-size: 1.05rem; font-weight: 400; white-space: nowrap; }
         @media (max-width: 768px) {
             nav { padding-left: 0.75rem; padding-right: 0.75rem; }
             nav .logo { font-size: 1rem; letter-spacing: 0.05em; }
-            nav .nav-links { gap: 0.65rem; }
+            html body > nav .nav-links { gap: 1rem; justify-content: space-between; margin: 0; }
             nav .nav-links a { font-size: 0.85rem; }
         }
         @media (max-width: 400px) {
             nav { gap: 0.4rem; padding-left: 0.5rem; padding-right: 0.5rem; }
             nav .logo { font-size: 0.9rem; }
-            nav .nav-links { gap: 0.4rem; }
+            html body > nav .nav-links { gap: 1rem; }
             nav .nav-links a { font-size: 0.8rem; }
         }
     </style>
