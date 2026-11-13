@@ -43,6 +43,8 @@ export function resolveMainlandTime({ year, month, day, hour, minute = 0, place,
 
 // 只改计算使用的时区，保留出生记录的日期、小时和分钟，避免重复减一小时。
 export function applyMainlandTime(birthData) {
+    // 已按IANA历史时区或用户明确手动指定，不再被旧大陆兼容逻辑覆盖。
+    if (birthData.timezoneResolved) return birthData;
     const result = resolveMainlandTime(birthData);
     if (result.mode === 'invalid') throw new Error('夏令时开始当天02:00直接跳到03:00，请核对出生记录上的时间。');
     if (result.mode === 'ambiguous') throw new Error('夏令时结束当天这个时间出现过两次，请选择拨表前或拨表后。');

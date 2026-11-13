@@ -87,3 +87,11 @@
 本次工具在 `/tmp/guagua-chart-en` 临时工程中构建，沿用本机完整工程的 Vite、html2canvas、sweph-wasm 依赖，将本目录 `js/`、`css/` 和工具 HTML 作为输入；未修改 `/Users/rosie/astrology-tool`。重新构建时将 HTML 中工具的已打包入口替换为 `./js/main.js`，CSS 替换为 `./css/style.css`，保留官网共用语言资源的外部引用；复制新产物并更新官网工具入口。
 
 `test-language.mjs` 在已有依赖的开发工程运行，覆盖100组综合评估的英文完整性、计算数据不变、英文城市别名与中国大陆夏令时。若测试文件复制到临时工程，第二个参数传入官网 `assets/i18n` 的绝对路径。
+
+## 全球地点与历史时区
+
+`global-cities.js`在GeoNames静态分片中检索，展示国家和行政区，用户明确选择后才回填坐标。`location-form.js`管理异步请求序号、防抖、失败重试、手动输入和重复时刻确认；未选择城市不可使用旧地点坐标提交。数据在`fortune-chart/data/`，来源、授权、生成方式见该目录README。
+
+`global-time.js`将出生记录的当地钟表时间映射为UTC候选，使用IANA 2026f转换表，不按当前时差或经度估算；零个候选表示不存在的当地时间，两个候选要求选择第一次/第二次。偏移精确到秒，支持非整小时和负夏令时；1900—2100年的尾部规则已展开。`timezoneResolved`标记防止原大陆兼容逻辑再次改写已解析的时区。报告出生信息同时记录IANA标识及实际UTC偏移。
+
+`test-global-location.mjs`验证全部城市坐标与时区引用、同名城市国家筛选、南北半球、美国和中国历史夏令时、Lord Howe半小时拨表、Apia整日跳过、Dublin负夏令时、Kathmandu历史秒级偏移以及2100年尾部规则。复制到临时工程运行时，参数传入官网`fortune-chart/data`绝对路径。

@@ -887,3 +887,15 @@ body::before {
         width: 100%;
     }
 }
+
+/* 全球城市选择：确认同名城市，保留键盘可操作的原生按钮。 */
+.manual-location { display: flex; align-items: center; gap: 8px; margin: 12px 0 20px; font-size: .85rem; color: var(--text-sepia); }
+.manual-location input { width: auto; accent-color: var(--gold-dark); }
+.city-search { position: relative; }
+.city-results { max-height: 240px; overflow-y: auto; border-radius: 4px; }
+.city-results:empty { display: none; }
+.city-choice { display: block; width: 100%; text-align: left; border: 1px solid var(--border-light); padding: 12px; background: var(--bg-card); color: var(--text-ink); font: inherit; font-size: .8rem; line-height: 1.6; cursor: pointer; overflow-wrap: anywhere; }
+.city-choice:hover, .city-choice:focus-visible { background: var(--gold-pale); outline: 2px solid var(--gold-dark); outline-offset: -2px; }
+#locationHint { text-align: left; letter-spacing: normal; line-height: 1.6; }
+#timezone:disabled, input[readonly] { opacity: .8; cursor: default; }
+.location-credit a { color: inherit; text-underline-offset: 3px; }

@@ -930,7 +930,6 @@ window.GuaguaEnglish = {
     "夜生金星": "Night-sect Venus",
     "与获取宫主星": " and the acquisition ruler ",
     "合上升（": " conjunct Ascendant (",
-    "宫 ": "House ",
     "星盘报告": "Chart Report",
     "夏令时开始当天02:00直接跳到03:00，请核对出生记录上的时间。": "Clocks jumped from 02:00 to 03:00 at the start of daylight saving time. Please check your recorded birth time.",
     "夏令时结束当天这个时间出现过两次，请选择拨表前或拨表后。": "This time occurred twice when daylight saving time ended. Please choose before or after the clock change.",
@@ -992,6 +991,16 @@ window.GuaguaEnglish = {
     "开罗": "Cairo",
     "雅典": "Athens",
     "里斯本": "Lisbon",
-    "奥克兰": "Auckland"
+    "奥克兰": "Auckland",
+    "手动填写地点和UTC偏移": "Enter coordinates and UTC offset manually",
+    "例：北京 / London / Springfield, United States": "E.g. Beijing / London / Springfield, United States",
+    "城市搜索结果": "City search results",
+    "支持全球城市中英文搜索，请确认国家和地区；自动识别出生当天的历史时区与夏令时。小型村镇未收录时可手动填写。": "Search cities worldwide in English or Chinese and confirm the country and region. Historical UTC offsets and daylight saving time are applied for the birth date. For an unlisted small settlement, use manual entry.",
+    "城市数据：": "City data:",
+    "（CC BY 4.0）；历史时区：": " (CC BY 4.0); Historical time zones:",
+    "标准时": "Standard time",
+    "夏令时": "Daylight saving time",
+    "第一次出现，拨表前": "First occurrence, before the clock change",
+    "第二次出现，拨表后": "Second occurrence, after the clock change"
   }
 };

@@ -683,8 +683,11 @@ export function renderInfoBar(chart) {
     const ascSign = ZODIAC_SIGNS[houses.ascendant.signIndex];
     const mcSign = ZODIAC_SIGNS[houses.midheaven.signIndex];
 
+    const offsetSeconds = Math.round(Math.abs(birthData.timezone) * 3600);
+    const utcLabel = `UTC${birthData.timezone < 0 ? '−' : '+'}${String(Math.floor(offsetSeconds / 3600)).padStart(2, '0')}:${String(Math.floor(offsetSeconds % 3600 / 60)).padStart(2, '0')}${offsetSeconds % 60 ? ':' + String(offsetSeconds % 60).padStart(2, '0') : ''}`;
+    const zoneLabel = birthData.timeZoneId ? ` · ${birthData.timeZoneId} · ${utcLabel}${birthData.daylightSaving ? '（夏令时）' : '（标准时）'}` : ` · ${utcLabel}`;
     document.getElementById("infoBirth").textContent =
-        `${birthData.year}年${birthData.month}月${birthData.day}日 ${String(birthData.hour).padStart(2, "0")}:${String(birthData.minute).padStart(2, "0")} · ${birthData.place || ""}${birthData.daylightSaving ? " · UTC+9（夏令时）" : birthData.dstRepeated ? " · UTC+8（拨表后）" : ""}`;
+        `${birthData.year}年${birthData.month}月${birthData.day}日 ${String(birthData.hour).padStart(2, "0")}:${String(birthData.minute).padStart(2, "0")} · ${birthData.place || ""}${zoneLabel}`;
     document.getElementById("infoDayNight").textContent = dayNightText;
     document.getElementById("infoAsc").textContent = `${ascSign.symbol} ${ascSign.name}`;
     document.getElementById("infoMC").textContent = `${mcSign.symbol} ${mcSign.name}`;

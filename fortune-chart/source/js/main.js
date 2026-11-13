@@ -12,10 +12,10 @@ import {
     symbolizeReport,
 } from "./renderer.js";
 import { parseBirthInfo } from "./parser.js";
-import { getCityLatLng } from "./cities.js";
 import { drawBirthChart } from "./chart-drawer.js";
 import html2canvas from "html2canvas";
-import { resolveMainlandTime, applyMainlandTime, isMainlandPlace } from "./china-dst.js";
+import { initLocationForm } from "./location-form.js";
+let locationForm;
 
 let displayedChart = null;
 let displayedChartSize = 600;
@@ -104,65 +104,6 @@ function initTimezoneSelect() {
     tzSelect.value = "8";
 }
 
-// 根据出生记录自动切换大陆夏令时；不改写出生时间输入。
-let lastAutoTimezone = null;
-function syncMainlandTimezone(resetChoice = false) {
-    const dateInput = document.getElementById("birthDate");
-    const timeInput = document.getElementById("birthTime");
-    const tzSelect = document.getElementById("timezone");
-    const hint = document.getElementById("timezoneHint");
-    const repeatedGroup = document.getElementById("dstOccurrenceGroup");
-    const occurrence = document.getElementById("dstOccurrence");
-    const utc9Option = tzSelect.querySelector('option[value="9"]');
-    if (utc9Option) utc9Option.textContent = "UTC+09:00 东京/首尔/平壤";
-    if (resetChoice) occurrence.value = "";
-    timeInput.setCustomValidity("");
-    repeatedGroup.hidden = true;
-    occurrence.required = false;
-    hint.textContent = "";
-    if (!dateInput.value || !timeInput.value) return;
-    const [year, month, day] = dateInput.value.split("-").map(Number);
-    const [hour, minute] = timeInput.value.split(":").map(Number);
-    const place = document.getElementById("birthPlace").value.trim();
-    const data = { year, month, day, hour, minute, place, dstOccurrence: occurrence.value };
-    const result = resolveMainlandTime(data);
-    if (result.mode === "unmanaged") {
-        // 从大陆夏令时切换到其他地点，清除上一地点遗留的自动+9。
-        if (lastAutoTimezone !== null && Number(tzSelect.value) === lastAutoTimezone) {
-            const city = getCityLatLng(place);
-            tzSelect.value = String(city ? city.timezone : 8);
-        }
-        lastAutoTimezone = null;
-        return;
-    }
-    if (result.repeated || result.mode === "ambiguous") {
-        repeatedGroup.hidden = false;
-        occurrence.required = true;
-    }
-    if (result.mode === "invalid") {
-        hint.textContent = "当天02:00直接跳到03:00，02:00—02:59不存在，请核对出生时间。";
-        timeInput.setCustomValidity(hint.textContent);
-        return;
-    }
-    if (result.mode === "ambiguous") {
-        hint.textContent = "当天02:00拨回01:00，这个时间出现过两次，请在下方选择。";
-        return;
-    }
-    if (result.mode === "daylight" && utc9Option) {
-        utc9Option.textContent = "UTC+09:00 中国大陆夏令时";
-    }
-    tzSelect.value = String(result.timezone);
-    lastAutoTimezone = result.timezone;
-    hint.textContent = result.mode === "daylight"
-        ? "已自动使用中国大陆夏令时 UTC+9，出生时间保持不变。"
-        : "中国大陆此时使用 UTC+8。";
-}
-for (const id of ["birthDate", "birthTime"]) {
-    document.getElementById(id).addEventListener("input", () => syncMainlandTimezone(true));
-    document.getElementById(id).addEventListener("change", () => syncMainlandTimezone(true));
-}
-document.getElementById("dstOccurrence").addEventListener("change", () => syncMainlandTimezone());
-
 // 返回按钮
 backBtn.addEventListener("click", () => {
     resultSection.hidden = true;
@@ -191,30 +132,7 @@ parseBtn.addEventListener("click", () => {
         document.getElementById("birthTime").value = timeStr;
     }
 
-    if (result.timezone !== null) {
-        const tzSelect = document.getElementById("timezone");
-        // 看看预设里有没有（找最接近的）
-        let found = false;
-        let closestValue = null;
-        let minDiff = Infinity;
-        for (const opt of tzSelect.options) {
-            const val = parseFloat(opt.value);
-            const diff = Math.abs(val - result.timezone);
-            if (diff < minDiff) {
-                minDiff = diff;
-                closestValue = val;
-            }
-            if (diff < 0.01) {
-                tzSelect.value = opt.value;
-                found = true;
-                break;
-            }
-        }
-        if (!found && closestValue !== null) {
-            tzSelect.value = String(closestValue);
-            result.warnings.push(`时区 ${result.timezone} 已自动匹配到最近的 UTC${closestValue >= 0 ? '+' : ''}${closestValue}，请核实`);
-        }
-    }
+    if (result.timezone !== null) setTimezoneByValue(result.timezone, document.getElementById('timezone'));
 
     if (result.latitude !== null) {
         document.getElementById("latitude").value = result.latitude.toFixed(4);
@@ -226,33 +144,14 @@ parseBtn.addEventListener("click", () => {
         document.getElementById("birthPlace").value = result.place;
     }
 
-    // 如果解析到了地点，尝试用城市库定位经纬度和时区
-    if (result.place) {
-        const cityInfo = getCityLatLng(result.place);
-        if (cityInfo) {
-            // 经纬度
-            if (result.latitude === null || result.longitude === null) {
-                document.getElementById("latitude").value = cityInfo.lat.toFixed(4);
-                document.getElementById("longitude").value = cityInfo.lng.toFixed(4);
-                result.warnings = result.warnings.filter(w => !w.includes('纬度') && !w.includes('经度'));
-            }
-            // 时区（如果没解析到时区，或默认设的+8但城市不是中国的，都更新）
-            const tzSelect = document.getElementById("timezone");
-            const defaultTzWarningIndex = result.warnings.findIndex(w => w.includes('未能识别时区'));
-            if (defaultTzWarningIndex >= 0 || result.timezone === null) {
-                setTimezoneByValue(cityInfo.timezone, tzSelect);
-                if (defaultTzWarningIndex >= 0) {
-                    result.warnings.splice(defaultTzWarningIndex, 1);
-                }
-                result.warnings.push(`已根据"${cityInfo.city}"自动定位时区 UTC${cityInfo.timezone >= 0 ? '+' : ''}${cityInfo.timezone}，请核实`);
-            }
-        }
+    // 文本明确给出经纬度和偏移时保留原值，转入显式手动模式。
+    if (result.latitude !== null && result.longitude !== null && !result.warnings.some(w => w.includes('未能识别时区'))) {
+        document.getElementById('manualLocation').checked = true;
+        document.getElementById('manualLocation').dispatchEvent(new Event('change'));
     }
-
-    syncMainlandTimezone(true);
-    if (isMainlandPlace(document.getElementById("birthPlace").value)) {
-        result.warnings = result.warnings.filter(w => !w.includes("自动定位时区") && !w.includes("未能识别时区"));
-    }
+    // 地点必须由用户确认国家/地区，不能只凭第一个同名城市推定。
+    if (result.place && !document.getElementById('manualLocation').checked) locationForm.search();
+    else locationForm.sync(true);
 
     // 显示结果提示
     if (result.warnings.length === 0) {
@@ -267,8 +166,8 @@ parseBtn.addEventListener("click", () => {
 // 表单提交
 birthForm.addEventListener("submit", async (e) => {
     e.preventDefault();
-    syncMainlandTimezone();
-    if (!birthForm.reportValidity()) return;
+    const birthLocation = locationForm.getBirthLocation();
+    if (!birthLocation || !birthForm.reportValidity()) return;
 
     // 获取表单数据
     const dateInput = document.getElementById("birthDate").value;
@@ -281,7 +180,7 @@ birthForm.addEventListener("submit", async (e) => {
     const [year, month, day] = dateInput.split("-").map(Number);
     const [hour, minute] = timeInput.split(":").map(Number);
 
-    const birthData = applyMainlandTime({
+    const birthData = {
         year,
         month,
         day,
@@ -292,8 +191,8 @@ birthForm.addEventListener("submit", async (e) => {
         lon,
         timezone,
         place: placeInput,
-        dstOccurrence: document.getElementById("dstOccurrence").value,
-    });
+        ...birthLocation,
+    };
 
     // 显示计算中状态（按钮变文字提示）
     const originalBtnText = "开 始 排 盘";
@@ -367,49 +266,12 @@ birthForm.addEventListener("submit", async (e) => {
     }
 });
 
-// 根据数值设置时区下拉（找最接近的选项）
-function setTimezoneByValue(tzValue, tzSelect) {
-    let closestValue = null;
-    let minDiff = Infinity;
-    for (const opt of tzSelect.options) {
-        const val = parseFloat(opt.value);
-        const diff = Math.abs(val - tzValue);
-        if (diff < minDiff) {
-            minDiff = diff;
-            closestValue = val;
-        }
-        if (diff < 0.01) {
-            tzSelect.value = opt.value;
-            return;
-        }
-    }
-    if (closestValue !== null) {
-        tzSelect.value = String(closestValue);
-    }
+// 手动解析也保留精确偏移，不近似到预设选项。
+function setTimezoneByValue(value, select) {
+    let option = [...select.options].find(option => Number(option.value) === value);
+    if (!option) { option = new Option(`UTC${value >= 0 ? '+' : ''}${value}`, String(value)); select.add(option); }
+    select.value = option.value;
 }
-
-// 根据地点名自动填充经纬度和时区
-function fillByPlace(place) {
-    if (!place) return;
-    const cityInfo = getCityLatLng(place);
-    if (cityInfo) {
-        document.getElementById("latitude").value = cityInfo.lat.toFixed(4);
-        document.getElementById("longitude").value = cityInfo.lng.toFixed(4);
-        const tzSelect = document.getElementById("timezone");
-        setTimezoneByValue(cityInfo.timezone, tzSelect);
-    }
-    syncMainlandTimezone(true);
-}
-
-// 城市库在本地，直接匹配；中文输入法选字完成后立即定位。
-const birthPlaceInput = document.getElementById("birthPlace");
-const updateBirthPlace = () => fillByPlace(birthPlaceInput.value.trim());
-birthPlaceInput.addEventListener("input", (event) => {
-    if (!event.isComposing) updateBirthPlace();
-});
-birthPlaceInput.addEventListener("compositionend", updateBirthPlace);
-birthPlaceInput.addEventListener("change", updateBirthPlace);
-birthPlaceInput.addEventListener("blur", updateBirthPlace);
 
 // 保存报告为图片
 const saveReportBtn = document.getElementById("saveReportBtn");
@@ -470,5 +332,5 @@ saveReportBtn.addEventListener("click", async () => {
 // 页面加载完成后初始化
 document.addEventListener("DOMContentLoaded", () => {
     initTimezoneSelect();
-    syncMainlandTimezone();
+    locationForm = initLocationForm();
 });

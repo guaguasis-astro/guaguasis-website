@@ -6,8 +6,8 @@
     <title>占星解盘 · 古典占星</title>
     <!-- 预加载占星符号字体，确保 Canvas 星盘图能正确渲染 -->
     <link rel="preload" href="fonts/HamburgSymbols.ttf" as="font" type="font/ttf" crossorigin>
-  <script type="module" crossorigin src="./assets/index-DEZgPDDp.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-iZAlcZWE.css">
+  <script type="module" crossorigin src="./assets/index-Kh-BKA3P.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-BeJzbuIF.css">
     <link rel="stylesheet" href="../assets/i18n/language.css">
     <script src="../assets/i18n/en.js"></script>
     <script src="../assets/i18n/language.js"></script>
@@ -48,10 +48,11 @@
                 <div class="divider"><span>或 手 动 填 写</span></div>
 
                 <form id="birthForm" class="birth-form">
+                    <label class="manual-location"><input type="checkbox" id="manualLocation"> 手动填写地点和UTC偏移</label>
                     <div class="form-row">
                         <div class="form-group">
                             <label for="birthDate">出生日期</label>
-                            <input type="date" id="birthDate" value="1990-01-01" required>
+                            <input type="date" id="birthDate" value="1990-01-01" min="1900-01-01" max="2100-12-31" required>
                         </div>
                         <div class="form-group">
                             <label for="birthTime">出生时间</label>
@@ -70,30 +71,33 @@
                             <label for="dstOccurrence">重复时刻：出生在拨表前还是拨表后？</label>
                             <select id="dstOccurrence">
                                 <option value="">请选择</option>
-                                <option value="daylight">第一次出现，拨表前（UTC+9）</option>
-                                <option value="standard">第二次出现，拨表后（UTC+8）</option>
+                                <option value="earlier">第一次出现，拨表前</option>
+                                <option value="later">第二次出现，拨表后</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group">
+                        <div class="form-group city-search">
                             <label for="birthPlace">出生地点（精确到市）</label>
-                            <input type="text" id="birthPlace" placeholder="例：北京 / 山东省淄博市" value="北京">
+                            <input type="text" id="birthPlace" placeholder="例：北京 / London / Springfield, United States" value="" autocomplete="off" required aria-describedby="locationHint">
+                            <div id="cityResults" class="city-results" role="group" aria-label="城市搜索结果"></div>
+                            <p id="locationHint" class="hint" aria-live="polite"></p>
                         </div>
                         <div class="form-group">
                             <label for="latitude">纬度（北纬为正）</label>
-                            <input type="number" id="latitude" step="0.0001" value="39.9042" placeholder="">
+                            <input type="number" id="latitude" step="any" value="" min="-90" max="90" required>
                         </div>
                         <div class="form-group">
                             <label for="longitude">经度（东经为正）</label>
-                            <input type="number" id="longitude" step="0.0001" value="116.4074" placeholder="">
+                            <input type="number" id="longitude" step="any" value="" min="-180" max="180" required>
                         </div>
                     </div>
                     <button type="submit" class="btn-primary" id="calcBtn">
                         <span>开 始 排 盘</span>
                     </button>
                 </form>
-                <p class="hint">支持中文及常用英文城市名；未识别的地点请手动填写经纬度。中国大陆以外，请核对出生当日的 UTC 偏移（含夏令时）。</p>
+                <p class="hint">支持全球城市中英文搜索，请确认国家和地区；自动识别出生当天的历史时区与夏令时。小型村镇未收录时可手动填写。</p>
+                <p class="hint location-credit">城市数据： <a href="https://www.geonames.org/" target="_blank" rel="noopener">GeoNames</a>（CC BY 4.0）；历史时区： <a href="https://www.iana.org/time-zones" target="_blank" rel="noopener">IANA 2026f</a> · 1900—2100年</p>
                 <p class="hint">※ 使用瑞士星历表计算，精度与专业占星软件一致</p>
             </div>
         </section>
