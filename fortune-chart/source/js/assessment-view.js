@@ -64,6 +64,8 @@ function renderEvidence(chart, narratives) {
 }
 
 export function buildVisualAssessmentHTML(chart, narratives) {
+    const email = globalThis.window?.GuaguaI18n?.language === 'en'
+        ? '<a href="mailto:guaguasis@icloud.com">Email: guaguasis@icloud.com</a>' : '';
     const phase = getAssessmentMoonPhase(chart.planets.SUN.longitude, chart.planets.MOON.longitude);
     const factors = getAssessmentFactors(chart.wealthAssessment);
     const relations = getAssessmentRelations(chart);
@@ -75,7 +77,7 @@ export function buildVisualAssessmentHTML(chart, narratives) {
     ];
     return `<div class="visual-assessment"><nav class="va-nav" role="tablist" aria-label="综合评估内容">${tabs.map((tab, index) => `<button type="button" role="tab" id="va-tab-${tab.key}" data-va-tab="${tab.key}" aria-controls="va-panel-${tab.key}" aria-selected="${index === 0}" tabindex="${index === 0 ? '0' : '-1'}">${tab.label}</button>`).join('')}</nav>
         ${tabs.map((tab, index) => `<section class="va-panel" role="tabpanel" id="va-panel-${tab.key}" aria-labelledby="va-tab-${tab.key}"${index ? ' hidden' : ''}>${tab.html}</section>`).join('')}
-        <div class="va-consult"><span>如需更深入的财富格局解读与人生整体运势分析</span><strong>找瓜瓜本人预约 · 微信：guaguasis</strong></div></div>`;
+        <div class="va-consult"><span>如需更深入的财富格局解读与人生整体运势分析</span><div class="va-contact-details"><strong>找瓜瓜本人预约 · 微信：guaguasis</strong>${email}</div></div></div>`;
 }
 
 export function renderVisualAssessment(container, chart, narratives, decorate) {

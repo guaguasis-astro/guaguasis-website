@@ -19,6 +19,8 @@ export function initLocationForm() {
     const place = byId('birthPlace'), results = byId('cityResults'), hint = byId('locationHint');
     const manual = byId('manualLocation'), tzSelect = byId('timezone'), timeHint = byId('timezoneHint');
     const occurrence = byId('dstOccurrence'), group = byId('dstOccurrenceGroup');
+    // 每次打开默认自动定位；手动模式仅由盘主勾选开启。
+    manual.checked = false;
     let selected = null, database = null, resolved = null, timer, generation = 0;
     const data = () => {
         const [year, month, day] = byId('birthDate').value.split('-').map(Number);

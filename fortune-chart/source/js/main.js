@@ -132,23 +132,21 @@ parseBtn.addEventListener("click", () => {
         document.getElementById("birthTime").value = timeStr;
     }
 
-    if (result.timezone !== null) setTimezoneByValue(result.timezone, document.getElementById('timezone'));
+    const manualLocation = document.getElementById('manualLocation').checked;
+    if (manualLocation && result.timezone !== null && !result.warnings.some(w => w.includes('未能识别时区'))) {
+        setTimezoneByValue(result.timezone, document.getElementById('timezone'));
+    }
 
-    if (result.latitude !== null) {
+    if (manualLocation && result.latitude !== null) {
         document.getElementById("latitude").value = result.latitude.toFixed(4);
     }
-    if (result.longitude !== null) {
+    if (manualLocation && result.longitude !== null) {
         document.getElementById("longitude").value = result.longitude.toFixed(4);
     }
     if (result.place) {
         document.getElementById("birthPlace").value = result.place;
     }
 
-    // 文本明确给出经纬度和偏移时保留原值，转入显式手动模式。
-    if (result.latitude !== null && result.longitude !== null && !result.warnings.some(w => w.includes('未能识别时区'))) {
-        document.getElementById('manualLocation').checked = true;
-        document.getElementById('manualLocation').dispatchEvent(new Event('change'));
-    }
     // 地点必须由用户确认国家/地区，不能只凭第一个同名城市推定。
     if (result.place && !document.getElementById('manualLocation').checked) locationForm.search();
     else locationForm.sync(true);
