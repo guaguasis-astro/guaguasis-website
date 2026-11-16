@@ -12,7 +12,7 @@
 .va-muted{font-size:.78rem;color:var(--text-faded)}
 .va-score{font-family:var(--font-display);font-size:4.5rem;line-height:1.2;margin-top:6px;letter-spacing:-2px;font-variant-numeric:tabular-nums}
 .va-score small{font-family:var(--font-small);font-size:.85rem;color:var(--text-faded);letter-spacing:0;margin-left:8px}
-.va-level{font-family:var(--font-display);font-size:1.2rem;margin:5px 0 12px;color:var(--gold-dark)}
+.va-level{font-family:var(--font-display);font-size:2.3rem;line-height:1.4;margin:8px 0 18px;color:var(--gold-dark)}
 .va-wealth-reading{font-size:.83rem;color:var(--text-sepia);line-height:1.95;margin:0}
 .va-grade{position:relative;margin-top:24px}
 .va-grade-track{display:flex;gap:2px;height:7px}
@@ -112,3 +112,8 @@
 
 .va-contact-details{display:grid;gap:6px}
 .va-contact-details a{color:inherit;text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere}
+
+.va-prominence-group{margin-bottom:24px;padding:18px;border:1px solid var(--border-light);background:var(--cream)}
+.va-prominence{margin-top:12px;color:var(--text-sepia);overflow-wrap:anywhere}
+.va-prominence strong{color:var(--gold-dark);margin-right:14px}.va-prominence span{font-size:.8rem}
+.va-prominence p{font-size:.85rem;line-height:1.9;margin:8px 0 0}

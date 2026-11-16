@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { calculateLotOfSpirit, calculateFortuneIndicators, calculateWealthAssessment, calculateHouseLords, calculateTriplicityLords, getDignityStatus, getDignitySummary, getHouseNumber, getHouseType, getWholeSignAspects, PLANET_NAMES, HOUSE_LORDS, PLANET_IDS } from './js/astrology.js';
 import { buildAssessmentAspectNarratives } from './js/renderer.js';
-import { getAssessmentMoonPhase, getWealthBand, getAssessmentFactors, getAssessmentRelations } from './js/assessment-model.js';
+import { getAssessmentMoonPhase, getWealthBand, getWealthConclusion, getAssessmentFactors, getAssessmentRelations } from './js/assessment-model.js';
 import { buildVisualAssessmentHTML } from './js/assessment-view.js';
 const keys = Object.keys(PLANET_NAMES);
 function fixture(lons = {}, pfSign = 5, day = true) {
@@ -37,7 +37,7 @@ assert.equal(getAssessmentMoonPhase(0,180).growth,null);
 assert.equal(getAssessmentMoonPhase(0,179.99).growth,'增光');
 assert.equal(getAssessmentMoonPhase(0,180.01).growth,'减光');
 assert.equal(getAssessmentMoonPhase(0,135).reading,'专注熟练、内省、做有价值的实事');
-assert.deepEqual([0,1.5,2.5,4,5,6.5,10].map(getWealthBand),[0,1,2,3,4,5,5]);
+assert.deepEqual([0,3,4,5,5.5,6.5,7.5,10].map(getWealthBand),[0,1,2,2,3,4,5,5]);
 function chartOf(f) {
     const wa=assess(f);
     return {planets:f.planets,partOfFortune:f.pof,isDayChart:f.day,wealthAssessment:wa,
@@ -54,8 +54,15 @@ for(let n=0;n<40;n++) {
     const rules=[...chart.wealthAssessment.fortuneIndicators.wealth,...chart.wealthAssessment.fortuneIndicators.prominence];
     assert(relations.paths.every(path=>rules.some(rule=>rule.id===path.id)));
     const html=buildVisualAssessmentHTML(chart,buildAssessmentAspectNarratives(chart.wealthAssessment));
-    assert(html.includes(chart.wealthAssessment.wealthDesc));
-    assert(html.includes(chart.wealthAssessment.totalScore.toFixed(1)));
+    const conclusion=getWealthConclusion(chart.wealthAssessment.totalScore);
+    assert(html.includes(conclusion.label));
+    assert(html.includes(conclusion.reading));
+    assert(!html.includes('class="va-score"'));
+    assert(!html.includes('va-grade-marker'));
+    assert(!html.includes('5分为中性'));
+    assert(!html.includes('中性支持'));
+    assert(!/三分主星支持：[0-9]/.test(html));
+    assert(factors.filter(f=>f.status==='无').every(f=>f.width===0));
     assert(html.includes('你的人生支持系统'));
     assert.equal((html.match(/class="va-star-strength"/g)||[]).length,6);
     assert.equal(html.includes('id="va-tab-relations"'),!!(relations.paths.length||relations.sources.length));
@@ -75,3 +82,6 @@ const contacts=buildAssessmentAspectNarratives({moonHardAspects:[{planet:'火星
 assert.deepEqual(contacts.supportContacts.map(c=>c.name),['金星']);
 assert.deepEqual(contacts.pressureContacts.map(c=>c.name),['火星']);
 console.log('可视化综合评估测试通过：月相边界与评语、档位、真实规则路径、无命中隐藏、三枚星芒、结构化相位、40组评分不变。');
+
+assert.deepEqual([2.9,3,4,5.5,6.5,7.5].map(score=>getWealthConclusion(score).label),['财富稀薄','财富较弱','小康','中富','大富','巨富']);
+console.log('结论展示通过：六档名称与解释、无总分及分项分数、中性显示无、计算数据保持不变。');

@@ -517,6 +517,7 @@ export function buildAssessmentAspectNarratives(wa) {
     for (const aspect of wa.moonBeneficAspects) {
         add("月亮", aspect.planet, `整宫${aspect.aspects.join("、")}`, "support");
     }
+    for (const contact of wa.moonFrictionAspects || []) add("月亮", contact.planet, contact.fact, "friction");
     const otherDetails = [];
     for (const detail of wa.extraDetails) {
         const match = detail.match(/^(太阳|月亮)与(金星|木星)成(.+?)，(受吉星加持|吉中带摩擦)$/);

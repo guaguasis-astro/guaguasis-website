@@ -5,7 +5,7 @@ import { getCityLatLng } from './js/cities.js';
 import { resolveMainlandTime } from './js/china-dst.js';
 import { calculateLotOfSpirit, calculateFortuneIndicators, calculateWealthAssessment, calculateHouseLords, calculateTriplicityLords, getDignityStatus, getDignitySummary, getHouseNumber, getHouseType, getWholeSignAspects, PLANET_NAMES, HOUSE_LORDS, PLANET_IDS } from './js/astrology.js';
 import { buildAssessmentAspectNarratives } from './js/renderer.js';
-import { getAssessmentMoonPhase, getWealthBand, getAssessmentFactors, getAssessmentRelations } from './js/assessment-model.js';
+import { WEALTH_READINGS, getAssessmentMoonPhase, getWealthBand, getAssessmentFactors, getAssessmentRelations } from './js/assessment-model.js';
 import { buildVisualAssessmentHTML } from './js/assessment-view.js';
 const keys = Object.keys(PLANET_NAMES);
 function fixture(lons = {}, pfSign = 5, day = true) {
@@ -24,11 +24,11 @@ function fixture(lons = {}, pfSign = 5, day = true) {
     pof.isLordAversion = pof.lordSignAspects.some(a=>a.type === 'aversion');
     return {planets, houses, pof, day};
 }
-function assess(f) {
+function assess(f, stars = []) {
     const hl = calculateHouseLords(f.planets,0);
     const triplicity = { luminaryTriplicityLords: calculateTriplicityLords(f.planets.SUN.signIndex,f.day,f.planets,0), secondHouseTriplicityLords: calculateTriplicityLords(1,f.day,f.planets,0) };
     const key = f.day ? 'JUPITER':'VENUS';
-    return calculateWealthAssessment(f.pof,hl,{key,name:PLANET_NAMES[key],planet:f.planets[key],house:f.planets[key].house},triplicity,[],f.day,f.planets,f.houses);
+    return calculateWealthAssessment(f.pof,hl,{key,name:PLANET_NAMES[key],planet:f.planets[key],house:f.planets[key].house},triplicity,stars,f.day,f.planets,f.houses);
 }
 
 for (let i=0;i<8;i++) {
@@ -41,7 +41,7 @@ assert.equal(getAssessmentMoonPhase(0,180).growth,null);
 assert.equal(getAssessmentMoonPhase(0,179.99).growth,'增光');
 assert.equal(getAssessmentMoonPhase(0,180.01).growth,'减光');
 assert.equal(getAssessmentMoonPhase(0,135).reading,'专注熟练、内省、做有价值的实事');
-assert.deepEqual([0,1.5,2.5,4,5,6.5,10].map(getWealthBand),[0,1,2,3,4,5,5]);
+assert.deepEqual([0,3,4,5,5.5,6.5,7.5,10].map(getWealthBand),[0,1,2,2,3,4,5,5]);
 function chartOf(f) {
     const wa=assess(f);
     return {planets:f.planets,partOfFortune:f.pof,isDayChart:f.day,wealthAssessment:wa,
@@ -57,8 +57,12 @@ const context = { window: { alert() {} }, location: { pathname: '/fortune-chart/
 vm.createContext(context);
 for (const file of ['en.js', 'language.js']) vm.runInContext(fs.readFileSync(translationRoot + '/' + file, 'utf8'), context);
 const english = context.window.GuaguaI18n.english;
+for (const item of WEALTH_READINGS) for (const value of [item.label,item.reading]) assert(!/[\u3400-\u9fff]/.test(english(value)), value);
 for (let n = 0; n < 100; n++) {
     const chart = chartOf(fixture(Object.fromEntries(keys.map((key, i) => [key, (n * 17 + i * 47 + 5) % 360])), n % 12, n % 2 === 0));
+    if (n === 0) {
+        chart.wealthAssessment = assess(fixture(), [{pointKey:'ASC',pointName:'上升',starNameEn:'Regulus',starNameZh:'轩辕十四',starNature:'吉（火星/木星）',orb:0.88}]);
+    }
     const before = structuredClone(chart);
     const html = buildVisualAssessmentHTML(chart, buildAssessmentAspectNarratives(chart.wealthAssessment));
     for (const text of html.split(/<[^>]*>/)) assert(!/[\u3400-\u9fff]/.test(english(text)), `未翻译: ${text}`);

@@ -688,11 +688,12 @@ export function calculateFortuneIndicators(pof, planets, houses, isDay) {
     if (mutualReception) add(wealth, "acquisition-reception", `福点主星${PLANET_NAMES[pfLordKey]}与获取宫主星${PLANET_NAMES[acquisitionLordKey]}交换守护星座，形成大财潜力组合。`, "强化组合");
     if (layered) add(wealth, "layered-acquisition", "福点主星在获取宫，同时为合昼夜性的吉星且入庙或擢升，财富通道获得多重支持。", "案例强化");
     if (spiritInAcquisition) add(wealth, "spirit-lord-acquisition", `精神点主星${spirit.lordName}落获取宫，行动与志业连接资源获取。`, "辅助");
+    if (pfLord.house === 2) add(wealth, "fortune-lord-natal-second", `福点主星${PLANET_NAMES[pfLordKey]}落本命第二宫，机缘与个人钱财相连。`);
     if (spiritLord.signIndex === pof.signIndex) add(prominence, "spirit-lord-fortune", `精神点主星${spirit.lordName}落福点星座，行动与机缘连接。`);
     if (spiritLord.signIndex === tenthSign) add(prominence, "spirit-lord-tenth", `精神点主星${spirit.lordName}落福点第十宫，行动通向成就与社会地位。`);
     if (pfLord.signIndex === tenthSign) add(prominence, "fortune-lord-tenth", `福点主星${PLANET_NAMES[pfLordKey]}落福点第十宫，机缘连接突出的社会位置。`);
     if (spirit.signIndex === tenthSign) add(prominence, "spirit-tenth", "精神点本身落福点第十宫，作为志业与显赫的辅助指标。", "辅助");
-    if (pfLord.signIndex === spirit.signIndex && spiritLord.signIndex === pof.signIndex) add(prominence, "cross-link", "福点主星进入精神点星座，精神点主星进入福点星座，形成双向交叉连接；不直接等同行星互容。", "强化组合");
+    if (pfLordKey !== spirit.lordKey && pfLord.signIndex === spirit.signIndex && spiritLord.signIndex === pof.signIndex) add(prominence, "cross-link", "福点主星进入精神点星座，精神点主星进入福点星座，形成双向交叉连接；不直接等同行星互容。", "强化组合");
     if (pof.house === 4) add(sources, "family", "福点在本命四宫：家庭、父母或出身可能提供机缘，不能据此判断家境富裕。", "来源");
     const secondSign = (houses.ascendant.signIndex + 1) % 12;
     const eighthSign = (houses.ascendant.signIndex + 7) % 12;
@@ -717,6 +718,11 @@ export function calculateFortuneIndicators(pof, planets, houses, isDay) {
     const pfName = PLANET_NAMES[pfLordKey];
     const acqName = PLANET_NAMES[acquisitionLordKey];
     const explanations = {
+        "fortune-lord-natal-second": {
+            title: "人生机缘连接个人钱财",
+            reason: `你的福点主星${pfName}落在${signName(pfLord.signIndex)}，进入本命第二宫。`,
+            text: "机会与个人收入、资产积累形成联系，是财富评估的一项支持。",
+        },
         "fortune-lord-acquisition": {
             title: "机会更容易变成收入",
             reason: `你的福点主星${pfName}落在${signName(pfLord.signIndex)}，正好进入福点的十一宫，也就是看财富进账的“获取宫”。`,
@@ -801,11 +807,12 @@ export function calculateFortuneIndicators(pof, planets, houses, isDay) {
             text: "个人能力、形象或身体条件容易成为优势，让别人记住你，也为你带来机会。",
         });
     }
-    // 专项加分直接进入总评，不再受福点封顶或与三分主星取高分的影响
+    // 获取宫支持仅进入福点维度，受该维度封顶与30%权重约束
     // 获取宫的嵌套条件取最强一项；互容为不同结构，辅助同星不重复计分
     const acquisitionBonus = layered ? 1.5 : sectBeneficInAcquisition ? 1 : lordInAcquisition ? 0.6 : 0;
     const receptionBonus = mutualReception ? 1.5 : 0;
-    const spiritBonus = spiritInAcquisition && spirit.lordKey !== pfLordKey ? 0.25 : 0;
+    // 精神点主落获取宫移到点位关系评分，不在福点基础分里重复加入。
+    const spiritBonus = 0;
     const wealthBonus = Math.min(2.5, acquisitionBonus + receptionBonus + spiritBonus);
     return {
         spirit, tenthSign, acquisitionSign, acquisitionLordKey,
@@ -1234,7 +1241,7 @@ function findPtolemaicAspectWithinOrb(lon1, lon2, key1, key2, maxOrb) {
 function calculateBesiegement(planets, partOfFortune, houseLords, triplicity, greatBenefic, isDayChart, houses) {
     const results = [];
 
-    // 围攻检测目标：所有传统行星 + 四轴 + 福点
+    // 围攻检测目标：所有传统行星 + 四轴；福点不作为被围攻对象
     // 任何重要点被日月/金木围攻都是财富吉格
     const targets = [];
 
@@ -1255,9 +1262,6 @@ function calculateBesiegement(planets, partOfFortune, houseLords, triplicity, gr
     targets.push({ key: "MC", name: "天顶", lon: houses.midheaven.longitude, signIndex: houses.midheaven.signIndex, category: "四轴" });
     targets.push({ key: "DESC", name: "下降", lon: houses.descendant.longitude, signIndex: houses.descendant.signIndex, category: "四轴" });
     targets.push({ key: "IC", name: "天底", lon: houses.imumCoeli.longitude, signIndex: houses.imumCoeli.signIndex, category: "四轴" });
-
-    // 福点
-    targets.push({ key: "POF", name: "福点", lon: partOfFortune.longitude, signIndex: partOfFortune.signIndex, category: "福点" });
 
     // 围攻组合
     const besiegementPairs = [
@@ -1310,721 +1314,327 @@ function calculateBesiegement(planets, partOfFortune, houseLords, triplicity, gr
     return results;
 }
 
-// ===== 财富格局综合评估 =====
-// 综合围攻、福点、钱财宫、三分主星、月亮状态判断财富格局
+// 支持能力用于围攻星与接纳者；分值为本网站待案例验证的实现参数。
+export function getSupportCapacity(key, planets, isDayChart) {
+    const planet = planets[key];
+    const d = planet.dignity;
+    let factor = 1;
+    if (d.domicile || d.exaltation) factor += 0.15;
+    if (d.detriment) factor -= 0.25;
+    if (d.fall) factor -= 0.25;
+    if ([1, 4, 7, 10].includes(planet.house)) factor += 0.1;
+    if ([3, 6, 9, 12].includes(planet.house)) factor -= 0.1;
+    if (planet.isRetrograde) factor -= 0.1;
+    const sunDistance = getAspectDifference(planet.longitude, planets.SUN.longitude);
+    if (key !== 'SUN' && key !== 'MOON' && sunDistance > 17 / 60 && sunDistance <= 8.5) factor -= 0.25;
+    const inSect = isDayChart ? ['SUN', 'JUPITER', 'SATURN'] : ['MOON', 'VENUS', 'MARS'];
+    if (key !== 'MERCURY' && !inSect.includes(key)) factor -= 0.1;
+    if (key === 'MOON') {
+        const phase = (planet.longitude - planets.SUN.longitude + 360) % 360;
+        factor += phase > 0 && phase < 180 ? 0.05 : -0.05;
+    }
+    return Math.round(Math.max(0.25, Math.min(1.25, factor)) * 100) / 100;
+}
+
+// 判断主人对客人的尊贵关系，保留方向；庙旺优先，较弱尊贵降低力度。
+function getReceptionDignity(hostKey, guest, isDayChart) {
+    const d = getDignityStatus(hostKey, guest.signIndex, guest.degree, isDayChart);
+    if (d.domicile) return { name: '入庙', strength: 1 };
+    if (d.exaltation) return { name: '擢升', strength: 0.8 };
+    const minor = [['triplicity', '三分'], ['term', '界'], ['face', '面']].filter(([key]) => d[key]);
+    return { name: minor.map(([, name]) => name).join('、'), strength: minor.length >= 2 ? 0.4 : minor.length ? 0.15 : 0 };
+}
+
+export function calculateMoneyReceptions(planets, houseLords, isDayChart) {
+    const secondKey = houseLords.find(h => h.house === 2).lordKey;
+    const second = planets[secondKey];
+    const related = new Map();
+    for (const house of [5, 10, 11]) {
+        const key = houseLords.find(h => h.house === house).lordKey;
+        if (key === secondKey) continue;
+        if (!related.has(key)) related.set(key, []);
+        related.get(key).push(house);
+    }
+    const relations = [];
+    for (const [key, roles] of related) {
+        const host = planets[key];
+        const received = getReceptionDignity(key, second, isDayChart);
+        const reverse = getReceptionDignity(secondKey, host, isDayChart);
+        const degreeAspect = checkAspect(second.longitude, host.longitude, secondKey, key);
+        const signContact = getWholeSignAspects(second.signIndex, host.signIndex).some(a => a.type !== 'aversion');
+        const aspect = signContact ? degreeAspect : null;
+        const mutual = received.strength > 0 && reverse.strength > 0;
+        if (!mutual && (!aspect || (!received.strength && !reverse.strength))) continue;
+        const capacity = getSupportCapacity(key, planets, isDayChart);
+        const friction = aspect?.nature === 'hard' ? 0.75 : 1;
+        let score = 0;
+        if (mutual) {
+            const strength = Math.min(received.strength, reverse.strength);
+            const base = strength >= 0.8 ? 2 : strength >= 0.4 ? 1 : 0.75;
+            score = base * Math.max(0.7, Math.min(1, (capacity + getSupportCapacity(secondKey, planets, isDayChart)) / 2)) * friction;
+        } else if (received.strength) {
+            score = (received.strength >= 0.8 ? 1.5 : 0.75) * Math.max(0.7, Math.min(1, capacity)) * friction;
+        }
+        // 反向单向接纳记录资源关系，不视作二宫主获得支持而加分。
+        const role = roles.map(h => `${h}宫主`).join('/');
+        const state = `${PLANET_NAMES[key]}${host.dignitySummary.summaryText}，第${host.house}宫`;
+        const contact = aspect ? `相位：${aspect.name}` : '无相位互容';
+        const description = mutual
+            ? `二宫主星${PLANET_NAMES[secondKey]}与${role}${PLANET_NAMES[key]}互容（${received.name}/${reverse.name}；${contact}）；接纳者状态：${state}`
+            : received.strength
+                ? `${role}${PLANET_NAMES[key]}接纳二宫主星${PLANET_NAMES[secondKey]}（${received.name}；${contact}）；接纳者状态：${state}`
+                : `二宫主星${PLANET_NAMES[secondKey]}接纳${role}${PLANET_NAMES[key]}（${reverse.name}；${contact}）；反向关系不增加收入支持分`;
+        relations.push({ key, roles, mutual, direction: mutual ? 'mutual' : received.strength ? 'received' : 'outgoing',
+            received, reverse, aspect: aspect?.name || null, capacity, score: Math.round(score * 100) / 100, description });
+    }
+    return { relations, score: Math.min(3, relations.reduce((sum, r) => sum + r.score, 0)) };
+}
+
+// 试验尺度：5分为中性。支持区间只描述本模型，不替代待校准的财富档位。
+export const SUPPORT_BANDS = [
+    { label: '薄弱', start: 0, end: 3, level: '支持薄弱' },
+    { label: '偏弱', start: 3, end: 4, level: '支持偏弱' },
+    { label: '中性', start: 4, end: 5.5, level: '中性支持' },
+    { label: '较好', start: 5.5, end: 6.5, level: '较好支持' },
+    { label: '较强', start: 6.5, end: 7.5, level: '较强支持' },
+    { label: '很强', start: 7.5, end: 10, level: '很强支持' },
+];
+const supportScore = value => Math.round(Math.max(0, Math.min(10, value)) * 10) / 10;
+function fixedStarEffect(star) {
+    // 混合性质不按纯吉星处理；取消“任何恒星合相都加分”。
+    const good = star.starNature.includes('吉'), bad = star.starNature.includes('凶');
+    return good && !bad ? 0.75 : bad && !good ? -0.5 : 0;
+}
+
+// 点位关系在福点/三分取高后加入，避免三分较高时吞掉已命中的关系支持。
+// 数字为本地验证参数；仍受30%维度的10分上限约束，不直加总分。
+export function calculateLotRelationSupport(indicators, partOfFortune, planets, isDayChart) {
+    const pfKey = partOfFortune.lord.key;
+    const spiritKey = indicators.spirit.lordKey;
+    const matches = [...indicators.wealth, ...indicators.prominence];
+    const specs = {
+        'spirit-lord-acquisition': { base: 0.75, keys: [spiritKey], sign: indicators.acquisitionSign },
+        'spirit-lord-fortune': { base: 1, keys: [spiritKey], sign: partOfFortune.signIndex },
+        'spirit-lord-tenth': { base: 1.5, keys: [spiritKey], sign: indicators.tenthSign },
+        'fortune-lord-tenth': { base: 1, keys: [pfKey], sign: indicators.tenthSign },
+        'spirit-tenth': { base: 0.5, keys: [], sign: indicators.tenthSign },
+        'cross-link': { base: 1.5, keys: [pfKey, spiritKey] },
+        'fortune-lord-natal-second': { base: 1, keys: [pfKey], sign: planets[pfKey].signIndex },
+    };
+    const items = matches.filter(item => specs[item.id]).map(item => {
+        const spec = specs[item.id];
+        const capacity = spec.keys.length
+            ? Math.max(0.7, Math.min(1, spec.keys.reduce((sum, key) => sum + getSupportCapacity(key, planets, isDayChart), 0) / spec.keys.length)) : 1;
+        return { id: item.id, title: item.title, reason: item.reason, base: spec.base, capacity,
+            score: Math.round(spec.base * capacity * 100) / 100, counted: true,
+            group: spec.keys.length === 1 ? `${spec.keys[0]}-${spec.sign}` : item.id };
+    });
+    const cross = items.find(item => item.id === 'cross-link');
+    if (pfKey === spiritKey) {
+        for (const item of items) {
+            if (item.id === 'spirit-lord-acquisition') { item.counted = false; item.note = '已包含在福点主星获取宫支持中'; }
+        }
+    }
+    if (cross) {
+        for (const item of items) {
+            if (item.id === 'spirit-lord-fortune') { item.counted = false; item.note = '已包含在双向联系中'; }
+        }
+    }
+    const strongest = new Map();
+    for (const item of items.filter(item => item.counted)) {
+        const previous = strongest.get(item.group);
+        if (!previous || item.score > previous.score) strongest.set(item.group, item);
+    }
+    for (const item of items.filter(item => item.counted)) {
+        if (strongest.get(item.group) !== item) { item.counted = false; item.note = '同一主星的同一位置只计一次'; }
+    }
+    const rawScore = items.filter(item => item.counted).reduce((sum, item) => sum + item.score, 0);
+    return { items, rawScore: Math.round(rawScore * 100) / 100, score: Math.round(Math.min(3, rawScore) * 100) / 100, cap: 3 };
+}
+
+// ===== 财富格局综合评估（尺度试验版） =====
 export function calculateWealthAssessment(partOfFortune, houseLords, greatBenefic, triplicity, fixedStars, isDayChart, planets, houses) {
-    // ========== 围攻（Besiegement）——与福点同等重要的顶级格局 ==========
     const besiegementResults = calculateBesiegement(planets, partOfFortune, houseLords, triplicity, greatBenefic, isDayChart, houses);
-
-    let besiegementScore = 0;
-    const besiegementDetails = [];
-    const besiegementScored = []; // 每个围攻的评分详情
-
-    // 福点主星（通过signIndex查找对应宫主星）
-    const pfLordSignEntry = houseLords.find(hl => hl.signIndex === partOfFortune.signIndex);
-    const pfLordKey = pfLordSignEntry ? pfLordSignEntry.lordKey : null;
-
-    // 高价值宫主星（1/2/10/11宫）
-    const HIGH_VALUE_HOUSES = [1, 2, 10, 11];
-
-    for (const b of besiegementResults) {
-        let siegeScore = 5; // 基础分：5分（10分制）
-        let siegeLevel = "基础";
-        let upgradeReason = "";
-
-        // 判断是否升级为高分围攻
-        const isPfLord = b.targetKey && b.targetKey === pfLordKey;
-        const isHighValueAxis = (b.targetCategory === "四轴") &&
-            (b.target.includes("上升") || b.target.includes("天顶"));
-        const isPof = b.targetCategory === "福点";
-
-        // 检查被围攻的行星是否为高价值宫主星（1/2/10/11宫主）
-        let isHighValueLord = false;
-        let highValueLordHouses = [];
-        if (b.targetCategory === "行星" && b.targetKey) {
-            for (const hl of houseLords) {
-                if (hl.lordKey === b.targetKey && HIGH_VALUE_HOUSES.includes(hl.house)) {
-                    isHighValueLord = true;
-                    highValueLordHouses.push(hl.house);
-                }
-            }
-        }
-
-        if (isPfLord || isHighValueAxis || isPof || isHighValueLord) {
-            siegeScore = 8;
-            siegeLevel = "强力";
-            const reasons = [];
-            if (isPfLord) reasons.push("福点主星");
-            if (isHighValueAxis) reasons.push("四轴（上升/天顶）");
-            if (isPof) reasons.push("福点");
-            if (isHighValueLord) reasons.push(`${highValueLordHouses.map(h => h + '宫主').join('/')}`);
-            upgradeReason = `（${reasons.join(' + ')}被围攻，力量加倍）`;
-        }
-
-        // 四轴中 DESC/IC 算中等
-        const isMidAxis = (b.targetCategory === "四轴") &&
-            (b.target.includes("下降") || b.target.includes("天底"));
-        if (isMidAxis) {
-            siegeScore = 6;
-            siegeLevel = "中强";
-            upgradeReason = "（四轴被围攻）";
-        }
-
-        besiegementScore += siegeScore;
-        besiegementScored.push({
-            ...b,
-            score: siegeScore,
-            level: siegeLevel,
-        });
-
-        let desc;
-        if (b.type === "ray") {
-            desc = `${b.target} 受${b.besiegementName}（光线夹）：${b.starA.name}呈${b.starA.aspect}，${b.starB.name}呈${b.starB.aspect}，格局纯粹，力量强大${upgradeReason}`;
-        } else {
-            desc = `${b.target} 受${b.besiegementName}（身体夹）：被两星左右夹持，弧宽约${b.arcSize}°，无其他星体干扰${upgradeReason}`;
-        }
-        besiegementDetails.push(desc);
-    }
-
-    // ========== 月亮状态（影响整体财富格局的基础因素） ==========
-    const moon = planets.MOON;
-    const sun = planets.SUN;
-
-    // 月相：增光（waxing）vs 减光（waning）
-    // 月亮在太阳东边（黄经大于太阳）为增光月，力量更强
-    const moonMinusSun = ((moon.longitude - sun.longitude + 360) % 360);
-    const isWaxingMoon = moonMinusSun > 0 && moonMinusSun < 180;
-    const moonPhaseText = isWaxingMoon ? "增光月（盈月）" : "减光月（亏月）";
-
-    // 月亮被火星/土星硬相位刑克（合/刑/冲，度数相位）
-    const hardAspectsToMoon = [];
-    for (const pkey of ["MARS", "SATURN"]) {
-        const p = planets[pkey];
-        const diff = getAspectDifference(moon.longitude, p.longitude);
-        // 检查合(0°)/刑(90°)/冲(180°)，用古典容许度
-        const orb = (PLANET_ORBS.MOON + PLANET_ORBS[pkey]) / 2;
-        const isConjunction = diff <= orb;
-        const isSquare = Math.abs(diff - 90) <= orb;
-        const isOpposition = Math.abs(diff - 180) <= orb;
-        if (isConjunction || isSquare || isOpposition) {
-            let aspectName = isConjunction ? "合相" : isSquare ? "刑相" : "冲相";
-            hardAspectsToMoon.push({ planet: PLANET_NAMES[pkey], planetKey: pkey, aspect: aspectName, orb: diff });
-        }
-    }
-
-    // 月亮受吉星支持（星座相位层面：木星/金星/太阳）
-    const moonBeneficAspects = [];
-    const beneficKeys = ["JUPITER", "VENUS", "SUN"];
-    for (const bkey of beneficKeys) {
-        const b = planets[bkey];
-        const signAspects = getWholeSignAspects(moon.signIndex, b.signIndex);
-        // 排除不合意
-        const goodAspects = signAspects.filter(a => a.type !== "aversion");
-        if (goodAspects.length > 0) {
-            moonBeneficAspects.push({
-                planet: PLANET_NAMES[bkey],
-                planetKey: bkey,
-                aspects: goodAspects.map(a => a.name),
-            });
-        }
-    }
-
-    // ========== 维度一：福点 ==========
-    const pfHouseStrength = partOfFortune.houseType.strengthLevel; // 3=角宫 2=续宫 1=果宫
     const pfLord = partOfFortune.lord;
+    const pfLordKey = pfLord.key;
     const pfLordPlanet = pfLord.planet;
-    const pfLordHouseStrength = pfLordPlanet.house;
+    const besiegementDetails = [], besiegementScored = [];
+    const siegeByTarget = new Map();
+    for (const b of besiegementResults) {
+        const highHouses = houseLords.filter(h => h.lordKey === b.targetKey && [1, 2, 10, 11].includes(h.house));
+        const important = b.targetKey === pfLordKey || ['ASC', 'MC'].includes(b.targetKey) || highHouses.length > 0;
+        const base = important ? 3 : ['DESC', 'IC'].includes(b.targetKey) ? 2 : 1.5;
+        const capacityA = getSupportCapacity(b.starA.key, planets, isDayChart);
+        const capacityB = getSupportCapacity(b.starB.key, planets, isDayChart);
+        const uplift = Math.round(base * Math.sqrt(capacityA * capacityB) * 100) / 100;
+        siegeByTarget.set(b.targetKey, Math.max(siegeByTarget.get(b.targetKey) || 0, uplift));
+        besiegementScored.push({ ...b, baseScore: base, capacityA, capacityB, score: uplift, level: important ? '强力' : '基础' });
+        const states = [b.starA, b.starB].map(star => `${star.name}${planets[star.key].dignitySummary.summaryText}，第${planets[star.key].house}宫`).join('；');
+        besiegementDetails.push(`${b.target}受${b.besiegementName}（${b.typeName}）；围攻星状态：${states}`);
+    }
+    const besiegementScore = supportScore(5 + [...siegeByTarget.values()].reduce((a, b) => a + b, 0));
+    if (!besiegementResults.length) besiegementDetails.push('未见围攻强化，按中性支持处理');
 
-    // (a) 福点和福点主星是否落在角宫
-    const pfInAngular = partOfFortune.houseType.type === "角宫";
-    const pfLordInAngular = [1, 4, 7, 10].includes(pfLordPlanet.house);
-
-    // (b) 福点主星能不能看到福点（有无星座相位）
-    const pfLordCanSeePoF = !partOfFortune.isLordAversion;
-    const pfLordSignAspectList = partOfFortune.lordSignAspects
-        .filter(a => a.type !== "aversion")
-        .map(a => a.name);
-
-    // (c) 福点主星落在福点的几宫（从福点所在星座起算整宫）
-    // 福点星座 = 1宫，依次类推
-    const pfLordHouseFromPF = ((pfLordPlanet.signIndex - partOfFortune.signIndex + 12) % 12) + 1;
-    const pfLordInGoodHouseFromPF = [1, 2, 11].includes(pfLordHouseFromPF);
-    const pfLordInBadHouseFromPF = [6, 8, 12].includes(pfLordHouseFromPF);
-
-    // 福点主星尊贵状态
-    const pfLordDignity = pfLordPlanet.dignity;
-    const pfLordDignityScore = pfLordPlanet.dignitySummary.score;
-    const pfLordIsStrongDignity = pfLordDignity.domicile || pfLordDignity.exaltation;
-    const pfLordIsWeakDignity = pfLordDignity.detriment || pfLordDignity.fall;
-
-    // 福点是否合恒星（从fixedStars中查找）
-    const pfStarConjs = fixedStars.filter(fs => fs.pointKey === "POF");
-    const pfHasStar = pfStarConjs.length > 0;
-
-    // 福点综合评分（满分10分）
-    // 基准：中等福点 = 5 分
-    // 顶级条件（达到任一即基础分 8 分）：
-    //   1. 福点+福点主都落角宫
-    //   2. 福点主落福点1/2/11宫
-    // 加减分项：恒星+1，主星庙旺+2，主星落陷-2，可视性+1/-1等
-    let pfScore = 5; // 基准分
+    // 福点：位置、主星、获取宫各自计入，全部在本维度封顶。
+    let pfScore = 5;
     const pfDetails = [];
-
-    // 判定是否满足顶级条件
-    const isTopTierPF = (pfInAngular && pfLordInAngular) || pfLordInGoodHouseFromPF;
-
-    if (pfInAngular && pfLordInAngular) {
-        pfDetails.push(`福点与福点主星${pfLord.name}均落角宫（福点第${partOfFortune.house}宫，主星第${pfLordPlanet.house}宫），力量强劲`);
-    } else if (pfInAngular) {
-        pfScore += 1.5;
-        pfDetails.push(`福点落角宫（第${partOfFortune.house}宫），力量强`);
-    } else if (partOfFortune.houseType.type === "续宫") {
-        pfDetails.push(`福点落续宫（第${partOfFortune.house}宫），力量中等`);
-    } else {
-        pfScore -= 1.5;
-        pfDetails.push(`福点落果宫（第${partOfFortune.house}宫），力量偏弱`);
+    const pfLordHouseFromPF = ((pfLordPlanet.signIndex - partOfFortune.signIndex + 12) % 12) + 1;
+    const pfInAngular = [1, 4, 7, 10].includes(partOfFortune.house);
+    if (pfInAngular) { pfScore += 1; pfDetails.push(`福点落角宫（第${partOfFortune.house}宫），力量强`); }
+    else if ([3, 6, 9, 12].includes(partOfFortune.house)) { pfScore -= 0.5; pfDetails.push(`福点落果宫（第${partOfFortune.house}宫），力量偏弱`); }
+    if ([1, 4, 7, 10].includes(pfLordPlanet.house)) { pfScore += 1; pfDetails.push(`福点主星${pfLord.name}落角宫（第${pfLordPlanet.house}宫），力量增强`); }
+    if ([1, 2, 11].includes(pfLordHouseFromPF)) { pfScore += 1.5; pfDetails.push(`福点主星落福点第${pfLordHouseFromPF}宫（财富支持位：1/2/11宫），属良好格局`); }
+    else if ([6, 8, 12].includes(pfLordHouseFromPF)) { pfScore -= 1; pfDetails.push(`福点主星落福点第${pfLordHouseFromPF}宫（弱位：6/8/12宫），力量受限`); }
+    if (pfLordPlanet.dignity.domicile || pfLordPlanet.dignity.exaltation) { pfScore += 1.5; pfDetails.push(`福点主星${pfLord.name}尊贵有力（${pfLordPlanet.dignitySummary.summaryText}）`); }
+    if (pfLordPlanet.dignity.detriment || pfLordPlanet.dignity.fall) { pfScore -= 1; pfDetails.push(`福点主星${pfLord.name}尊贵偏弱（${pfLordPlanet.dignitySummary.summaryText}）`); }
+    if (partOfFortune.isLordAversion) { pfScore -= 0.5; pfDetails.push(`福点主星${pfLord.name}与福点不合意（aversion），难以发挥作用`); }
+    for (const star of fixedStars.filter(s => s.pointKey === 'POF')) {
+        pfScore += fixedStarEffect(star);
+        pfDetails.push(`福点合恒星${star.starNameZh}（${star.starNature}），容许度${star.orb.toFixed(2)}°`);
     }
-
-    if (pfLordInGoodHouseFromPF) {
-        pfDetails.push(`福点主星落福点第${pfLordHouseFromPF}宫（财富支持位：1/2/11宫），属良好格局`);
-    } else if (pfLordInBadHouseFromPF) {
-        pfScore -= 1.5;
-        pfDetails.push(`福点主星落福点第${pfLordHouseFromPF}宫（弱位：6/8/12宫），力量受限`);
-    }
-
-    // 满足顶级条件 → 基础分拉到 8
-    if (isTopTierPF) {
-        pfScore = Math.max(pfScore, 8);
-    }
-
-    // 福点主星庙旺 +2
-    if (pfLordIsStrongDignity) {
-        pfScore += 2;
-        pfDetails.push(`福点主星${pfLord.name}尊贵有力（${pfLordPlanet.dignitySummary.summaryText}）`);
-    }
-    // 福点主星落陷 -2
-    if (pfLordIsWeakDignity) {
-        pfScore -= 2;
-        pfDetails.push(`福点主星${pfLord.name}尊贵偏弱（${pfLordPlanet.dignitySummary.summaryText}）`);
-    }
-
-    // 福点合恒星 +1
-    if (pfHasStar) {
-        pfScore += 1;
-        const starNames = pfStarConjs.map(s => `${s.starNameZh}（${s.orb.toFixed(2)}°）`).join("、");
-        pfDetails.push(`福点合恒星${starNames}，福气加倍`);
-    }
-
-    // 福点主星可视性（能看见福点 +1，看不见 -1）
-    if (pfLordCanSeePoF) {
-        pfScore += 1;
-        pfDetails.push(`福点主星${pfLord.name}能"看见"福点（${pfLordSignAspectList.join("、")}），作用顺畅`);
-    } else {
-        pfScore -= 1;
-        pfDetails.push(`福点主星${pfLord.name}与福点不合意（aversion），难以发挥作用`);
-    }
-
-    // 福点主星落角宫（单独加，非顶级条件时）
-    if (pfLordInAngular && !isTopTierPF) {
-        pfScore += 1;
-        pfDetails.push(`福点主星${pfLord.name}落角宫（第${pfLordPlanet.house}宫），力量增强`);
-    }
-
-    // 财富获取规则作为总评专项支持，显赫与来源只作解读
     const fortuneIndicators = calculateFortuneIndicators(partOfFortune, planets, houses, isDayChart);
+    const pfBaseScore = pfScore;
+    pfScore = supportScore(pfScore + fortuneIndicators.wealthBonus);
+    pfDetails.push(...fortuneIndicators.wealth.filter(item => !['fortune-lord-natal-second', 'spirit-lord-acquisition'].includes(item.id)).map(item => item.reason + item.text));
 
-    // 限制在 0-10 分范围内
-    pfScore = Math.max(0, Math.min(10, pfScore));
-    pfScore = Math.round(pfScore * 10) / 10;
-
-    // 福点状态判断（是否需要多参考三分主星）
-    const pfIsWeak = pfScore <= 0;
-
-    // ========== 维度二：钱财宫（2宫）==========
+    // 二宫：主星不利因素合计最多扣2分；关系支持仍限定直接接纳/互容。
     const secondHouseLord = houseLords.find(h => h.house === 2);
-    const secondLordPlanet = secondHouseLord.lordPlanet;
+    const second = secondHouseLord.lordPlanet;
     const secondLordHouse = secondHouseLord.lordHouse;
-    const secondLordDignityScore = secondLordPlanet.dignitySummary.score;
-
-    // 最大吉星是否在2宫
-    const greatBeneficIn2nd = greatBenefic.house === 2;
-
-    let moneyHouseScore = 0;
+    let moneyHouseScore = 5, moneyPenalty = 0;
     const moneyHouseDetails = [];
-
-    if (greatBeneficIn2nd) {
-        moneyHouseScore += 4;
-        moneyHouseDetails.push(`最大吉星${greatBenefic.name}落在第2宫（钱财宫），财运有强力加持`);
+    for (const key of ['VENUS', 'JUPITER']) {
+        if (planets[key].house !== 2) continue;
+        const inSect = key === (isDayChart ? 'JUPITER' : 'VENUS');
+        moneyHouseScore += 1 + (inSect ? 0.5 : 0);
+        moneyHouseDetails.push(`${PLANET_NAMES[key]}落在第2宫（钱财宫），吉星支持${inSect ? '，合昼夜性' : ''}`);
     }
+    const moneyHouseType = getHouseType(secondLordHouse).type;
+    if (moneyHouseType === '角宫') { moneyHouseScore += 1; moneyHouseDetails.push(`二宫主星${secondHouseLord.lordName}落角宫（第${secondLordHouse}宫），力量强`); }
+    else if (moneyHouseType === '续宫') { moneyHouseScore += 0.5; moneyHouseDetails.push(`二宫主星${secondHouseLord.lordName}落续宫（第${secondLordHouse}宫），力量中等`); }
+    else { moneyPenalty += secondLordHouse === 12 ? 1 : 0.5; moneyHouseDetails.push(`二宫主星${secondHouseLord.lordName}落果宫（第${secondLordHouse}宫），力量偏弱`); }
+    if (second.dignity.domicile || second.dignity.exaltation) moneyHouseScore += 1.5;
+    else if (second.dignity.triplicity || second.dignity.term) moneyHouseScore += 0.5;
+    if (second.dignity.detriment || second.dignity.fall) moneyPenalty += 1;
+    if (second.isRetrograde) moneyPenalty += 0.5;
+    const sunDistance = getAspectDifference(second.longitude, planets.SUN.longitude);
+    if (!['SUN', 'MOON'].includes(secondHouseLord.lordKey) && sunDistance > 17/60 && sunDistance <= 8.5) moneyPenalty += 0.5;
+    moneyHouseDetails.push(`二宫主星${secondHouseLord.lordName}尊贵状态（${second.dignitySummary.summaryText}）`);
+    if (secondLordHouse === 2) { moneyHouseScore += 1; moneyHouseDetails.push(`二宫主星${secondHouseLord.lordName}自守2宫（飞入本宫），财库稳固`); }
+    const moneyReceptions = calculateMoneyReceptions(planets, houseLords, isDayChart);
+    moneyHouseDetails.push(...moneyReceptions.relations.map(r => r.description));
+    moneyHouseScore = supportScore(moneyHouseScore + moneyReceptions.score - Math.min(2, moneyPenalty));
 
-    // 二宫主星落宫力量
-    const secondLordHouseType = getHouseType(secondLordHouse);
-    if (secondLordHouseType.type === "角宫") {
-        moneyHouseScore += 2;
-        moneyHouseDetails.push(`二宫主星${secondHouseLord.lordName}落角宫（第${secondLordHouse}宫），力量强`);
-    } else if (secondLordHouseType.type === "续宫") {
-        moneyHouseScore += 1;
-        moneyHouseDetails.push(`二宫主星${secondHouseLord.lordName}落续宫（第${secondLordHouse}宫），力量中等`);
-    } else {
-        moneyHouseScore -= 1;
-        moneyHouseDetails.push(`二宫主星${secondHouseLord.lordName}落果宫（第${secondLordHouse}宫），力量偏弱`);
-    }
-
-    // 二宫主星必然尊贵
-    if (secondLordDignityScore >= 3) {
-        moneyHouseScore += 2;
-        moneyHouseDetails.push(`二宫主星${secondHouseLord.lordName}尊贵状态良好（${secondLordPlanet.dignitySummary.summaryText}）`);
-    } else if (secondLordDignityScore <= -3) {
-        moneyHouseScore -= 2;
-        moneyHouseDetails.push(`二宫主星${secondHouseLord.lordName}尊贵状态偏弱（${secondLordPlanet.dignitySummary.summaryText}）`);
-    }
-
-    // 二宫主星是否在2宫（入庙/入垣于钱财宫）
-    if (secondLordHouse === 2) {
-        moneyHouseScore += 2;
-        moneyHouseDetails.push(`二宫主星${secondHouseLord.lordName}自守2宫（飞入本宫），财库稳固`);
-    }
-
-    // ========== 维度三：三分主星 ==========
-    // 先统计三分主星恒星合相
-    const allTriplicityLords = [
-        ...triplicity.luminaryTriplicityLords.map(l => ({ ...l, group: "发光体三分主" })),
-        ...triplicity.secondHouseTriplicityLords.map(l => ({ ...l, group: "二宫三分主" })),
-    ];
-
-    // 为每颗三分主星找恒星合相
-    const triplicityStarConjunctions = {}; // key: planetKey, value: [{starNameZh, starNameEn, orb}]
-    for (const lord of allTriplicityLords) {
-        const key = lord.planetKey;
-        if (!triplicityStarConjunctions[key]) {
-            triplicityStarConjunctions[key] = fixedStars
-                .filter(fs => fs.pointKey === key)
-                .map(fs => ({
-                    starNameZh: fs.starNameZh,
-                    starNameEn: fs.starNameEn,
-                    orb: fs.orb,
-                    nature: fs.starNature,
-                }));
-        }
-    }
-
-    // 三分主星恒星合相详情
-    const triplicityStarDetails = [];
-    for (const lord of allTriplicityLords) {
-        const stars = triplicityStarConjunctions[lord.planetKey] || [];
-        for (const star of stars) {
-            triplicityStarDetails.push(`${lord.group}·${lord.planetName}合恒星${star.starNameZh}（${star.starNameEn}），容许度${star.orb.toFixed(2)}°`);
-        }
-    }
-
-    // 三分主星新评分标准：
-    // 1. 必然尊贵：入庙/擢升 +3分，三分主 +1分，落陷/失意 -3分
-    //    （界、面、外来不计入财富评分）
-    // 2. 落宫力量：角宫 +3分，果宫 -3分，续宫 0分
-    // 3. 恒星合相：每有一颗重要恒星合相 +3分
-    let triplicityScore = 0;
-    let triplicityStarBonus = 0;
-    const triplicityLordComprehensive = {}; // planetKey -> {score, level, levelClass}
-    for (const lord of allTriplicityLords) {
+    // 每颗三分主从5分起算；两组各三颗直接平均，不再双重压缩。
+    const allLords = [...triplicity.luminaryTriplicityLords, ...triplicity.secondHouseTriplicityLords];
+    const triplicityStarConjunctions = {}, triplicityLordComprehensive = {}, triplicityStarDetails = [];
+    for (const lord of allLords) {
+        if (triplicityLordComprehensive[lord.planetKey]) continue;
+        const stars = fixedStars.filter(s => s.pointKey === lord.planetKey);
+        triplicityStarConjunctions[lord.planetKey] = stars.map(s => ({starNameZh:s.starNameZh,starNameEn:s.starNameEn,orb:s.orb,nature:s.starNature}));
         const d = lord.dignity;
-        let lordScore = 0;
-        // 必然尊贵
-        if (d.domicile) lordScore += 3;
-        if (d.exaltation) lordScore += 3;
-        if (d.triplicity) lordScore += 1;
-        if (d.detriment) lordScore -= 3;
-        if (d.fall) lordScore -= 3;
-        // 落宫力量
-        const houseType = getHouseType(lord.house);
-        if (houseType.type === "角宫") lordScore += 3;
-        if (houseType.type === "果宫") lordScore -= 3;
-        // 恒星合相
-        const stars = triplicityStarConjunctions[lord.planetKey] || [];
-        if (stars.length > 0) {
-            lordScore += 3 * stars.length;
-            triplicityStarBonus += 3 * stars.length;
+        let score = 5;
+        if (d.domicile || d.exaltation) score += 1.5;
+        if (d.triplicity) score += 0.5;
+        if (d.detriment || d.fall) score -= 1;
+        if ([1,4,7,10].includes(lord.house)) score += 1;
+        if ([3,6,9,12].includes(lord.house)) score -= lord.house === 12 ? 1 : 0.5;
+        const starBonus = Math.max(-1, Math.min(1.5, stars.reduce((sum,s) => sum + fixedStarEffect(s),0)));
+        score = supportScore(score + starBonus);
+        triplicityLordComprehensive[lord.planetKey] = { score, level: score >= 8 ? '强' : score >= 6 ? '较强' : score >= 4 ? '中等' : score >= 3 ? '较弱' : '弱', levelClass: score >= 6 ? 'badge-good' : score >= 4 ? 'badge-neutral' : 'badge-bad', starBonus };
+        for (const star of stars) triplicityStarDetails.push(`${lord.planetName}合恒星${star.starNameZh}（${star.starNameEn}），容许度${star.orb.toFixed(2)}°`);
+    }
+    const average = group => group.reduce((sum,l) => sum + triplicityLordComprehensive[l.planetKey].score,0)/group.length;
+    const triplicityGroups = { luminary: supportScore(average(triplicity.luminaryTriplicityLords)), money: supportScore(average(triplicity.secondHouseTriplicityLords)) };
+    const triplicityScore = supportScore((triplicityGroups.luminary + triplicityGroups.money)/2);
+    const triplicityStarBonus = allLords.reduce((sum,l) => sum + triplicityLordComprehensive[l.planetKey].starBonus,0)/allLords.length;
+
+    // 月亮：每颗金木联系只判断一次，精确刑冲优先归入摩擦。
+    const moon = planets.MOON, sun = planets.SUN;
+    const phase = (moon.longitude - sun.longitude + 360) % 360;
+    const isWaxingMoon = phase > 0 && phase < 180;
+    const moonPhaseText = isWaxingMoon ? '增光月（盈月）' : '减光月（亏月）';
+    let moonBonus = isWaxingMoon ? 1 : -0.5;
+    const moonDetails = [isWaxingMoon ? `月相为${moonPhaseText}，月亮力量渐增，对财富积累有利` : `月相为${moonPhaseText}，月亮力量渐减，财运上更适合守成`];
+    const moonHardAspects = [], moonBeneficAspects = [], moonFrictionAspects = [];
+    for (const key of ['MARS', 'SATURN']) {
+        const aspect = checkAspect(moon.longitude, planets[key].longitude, 'MOON', key);
+        if (!aspect || ![0,90,180].includes(aspect.angle)) continue;
+        moonBonus -= 0.75;
+        moonHardAspects.push({planet:PLANET_NAMES[key],planetKey:key,aspect:aspect.name,orb:aspect.exactOrb});
+        moonDetails.push(`月亮受${PLANET_NAMES[key]}${aspect.name}刑克，情绪与安全感易受挑战，对财运有消耗`);
+    }
+    for (const key of ['JUPITER','VENUS']) {
+        const signs = getWholeSignAspects(moon.signIndex, planets[key].signIndex).filter(a => a.type !== 'aversion');
+        const exact = checkAspect(moon.longitude, planets[key].longitude, 'MOON', key);
+        if (exact?.nature === 'hard' || (!exact && signs.some(a => ['square','opposition'].includes(a.type)))) {
+            moonBonus -= 0.25;
+            moonFrictionAspects.push({planet:PLANET_NAMES[key],fact:exact ? `${exact.name}（${exact.exactOrb.toFixed(2)}°）` : `整宫${signs.map(a=>a.name).join('、')}`});
+            moonDetails.push(`月亮与${PLANET_NAMES[key]}有刑冲联系，资源支持伴随摩擦`);
+        } else if (exact || signs.some(a => ['conjunction','trine','sextile'].includes(a.type))) {
+            moonBonus += exact ? 0.75 : 0.5;
+            moonBeneficAspects.push({planet:PLANET_NAMES[key],planetKey:key,aspects:signs.length ? signs.map(a=>a.name) : [exact.name]});
+            moonDetails.push(`月亮与${PLANET_NAMES[key]}有和谐联系，受吉星支持`);
         }
-        triplicityScore += lordScore;
-
-        // 记录每颗三分主星的综合力量评分（未压缩）
-        let level, levelClass;
-        if (lordScore >= 6) { level = "强"; levelClass = "badge-good"; }
-        else if (lordScore >= 3) { level = "较强"; levelClass = "badge-good"; }
-        else if (lordScore >= 0) { level = "中等"; levelClass = "badge-neutral"; }
-        else if (lordScore >= -3) { level = "较弱"; levelClass = "badge-bad"; }
-        else { level = "弱"; levelClass = "badge-bad"; }
-        triplicityLordComprehensive[lord.planetKey] = {
-            score: lordScore,
-            level,
-            levelClass,
-        };
-    }
-    // 压缩分值：6颗星总分除以5，使三分主星维度与福点维度（满分约12分）量级相当
-    triplicityScore = Math.round(triplicityScore / 5 * 10) / 10;
-    triplicityStarBonus = Math.round(triplicityStarBonus / 5 * 10) / 10;
-
-    // ========== 月亮状态修正 ==========
-    // 月亮代表生活物资、情绪安全感，与财富格局密切相关
-    const moonDetails = [];
-    let moonBonus = 0;
-
-    // 月相：增光月力量更强
-    if (isWaxingMoon) {
-        moonBonus += 1.5;
-        moonDetails.push(`月相为${moonPhaseText}，月亮力量渐增，对财富积累有利`);
-    } else {
-        moonBonus -= 0.5;
-        moonDetails.push(`月相为${moonPhaseText}，月亮力量渐减，财运上更适合守成`);
     }
 
-    // 月亮被火星/土星硬相位刑克
-    for (const h of hardAspectsToMoon) {
-        moonBonus -= 2;
-        moonDetails.push(`月亮受${h.planet}${h.aspect}刑克，情绪与安全感易受挑战，对财运有消耗`);
-    }
-
-    // 月亮受吉星支持（星座相位）
-    for (const b of moonBeneficAspects) {
-        moonBonus += 1;
-        moonDetails.push(`月亮与${b.planet}有${b.aspects.join("、")}，受吉星支持，物资生活较丰沛`);
-    }
-
-    // ========== 额外加分/减分项 ==========
-    // 这些是独立于五大维度的特殊格局指征，直接加减分
+    // 恒星与关键修正：重要显赫格局单列，风险依据保留，不抵消格局识别。
+    const extraDetails = [], prominencePatterns = [];
     let extraBonus = 0;
-    const extraDetails = [];
-
-    // 4. 四轴合重要恒星
-    // 恒星分级：皇家一等星（最高级）、一等大星、其他重要恒星
-    const ROYAL_STARS = ["Regulus", "Spica", "Fomalhaut", "Antares"]; // 波斯四大皇家之星 + 角宿一（最吉之星）
-    const FIRST_MAGNITUDE = ["Sirius", "Vega", "Rigel", "Arcturus", "Capella", "Procyon",
-        "Betelgeuse", "Altair", "Aldebaran", "Deneb Adige"]; // 一等大星
-    const IMPORTANT_STARS_SET = new Set([...ROYAL_STARS, ...FIRST_MAGNITUDE,
-        "Algol", "Alnilam", "Castor", "Pollux", "Bellatrix", "Alphard"]); // 其他需考虑的凶星
-    const axes = [
-        { key: "ASC", name: "上升" },
-        { key: "MC", name: "天顶" },
-        { key: "DESC", name: "下降" },
-        { key: "IC", name: "天底" },
-    ];
-    for (const axis of axes) {
-        const starConjs = fixedStars.filter(fs =>
-            fs.pointKey === axis.key && IMPORTANT_STARS_SET.has(fs.starNameEn)
-        );
-        for (const sc of starConjs) {
-            const isGood = sc.starNature.includes("吉");
-            const isBad = sc.starNature.includes("凶");
-            const isRoyal = ROYAL_STARS.includes(sc.starNameEn);
-            const isFirstMag = FIRST_MAGNITUDE.includes(sc.starNameEn);
-            // 皇家之星吉星 +4，凶星 -3；一等大星吉星 +3，凶星 -2；其他吉星 +2，凶星 -1
-            let bonus;
-            if (isRoyal) {
-                bonus = isGood ? 4 : -3;
-            } else if (isFirstMag) {
-                bonus = isGood ? 3 : -2;
-            } else {
-                bonus = isGood ? 2 : isBad ? -1 : 1;
-            }
-            extraBonus += bonus;
-            extraDetails.push(
-                `${axis.name}合恒星${sc.starNameZh}（${sc.starNameEn}），容许度${sc.orb.toFixed(2)}°`
-            );
+    const axisNames = {ASC:'上升',MC:'天顶',DESC:'下降',IC:'天底'};
+    const angularProfiles = {Regulus:9.5,Spica:9,Sirius:9,Fomalhaut:9,Antares:8.5};
+    for (const star of fixedStars.filter(s => ['ASC','MC','DESC','IC','SUN','MOON'].includes(s.pointKey))) {
+        extraBonus += fixedStarEffect(star);
+        extraDetails.push(`${star.pointName}合恒星${star.starNameZh}（${star.starNameEn}），容许度${star.orb.toFixed(2)}°`);
+        if (['ASC','MC'].includes(star.pointKey) && angularProfiles[star.starNameEn] && star.orb <= 1.5) {
+            const score = angularProfiles[star.starNameEn] - (star.orb > 1 ? 0.5 : 0);
+            prominencePatterns.push({id:`${star.pointKey}-${star.starNameEn}`,title:`${axisNames[star.pointKey]}合${star.starNameZh}`,evidence:`容许度${star.orb.toFixed(2)}°`,score,
+                reading:'重要显赫格局，体现地位、声望与资源层级的突出潜力'});
         }
     }
-
-    // 5. 金星/木星合四轴
-    for (const planetKey of ["VENUS", "JUPITER"]) {
-        const planet = planets[planetKey];
-        for (const axis of axes) {
-            const axisLon = houses[axis.key === "ASC" ? "ascendant" : axis.key === "MC" ? "midheaven" : axis.key === "DESC" ? "descendant" : "imumCoeli"].longitude;
-            const diff = getAspectDifference(planet.longitude, axisLon);
-            if (diff <= 3) { // 3度以内算作合轴
-                extraBonus += 2;
-                extraDetails.push(
-                    `${PLANET_NAMES[planetKey]}合${axis.name}（${diff.toFixed(2)}°），吉星照临，吉象倍增`
-                );
-            }
+    for (const key of ['VENUS','JUPITER']) {
+        for (const [axis, field] of [['ASC','ascendant'],['MC','midheaven'],['DESC','descendant'],['IC','imumCoeli']]) {
+            const diff = getAspectDifference(planets[key].longitude,houses[field].longitude);
+            if (diff <= 3) { extraBonus += 0.75; extraDetails.push(`${PLANET_NAMES[key]}合${axisNames[axis]}（${diff.toFixed(2)}°），吉星照临，吉象倍增`); }
         }
     }
-
-    // 6. 发光体的三分主星2颗及以上落角宫
-    const luminaryTriplicityLords = triplicity.luminaryTriplicityLords;
-    const angularLuminaryLords = luminaryTriplicityLords.filter(lord =>
-        [1, 4, 7, 10].includes(lord.house)
-    );
-    if (angularLuminaryLords.length >= 2) {
-        extraBonus += 2;
-        extraDetails.push(
-            `发光体的三分主星有 ${angularLuminaryLords.length} 颗落角宫（${angularLuminaryLords.map(l => l.planetName).join("、")}），力量强大`
-        );
-    }
-
-    // 7. 福点合恒星
-    const pofStarConjs = fixedStars.filter(fs =>
-        fs.pointKey === "POF" && IMPORTANT_STARS_SET.has(fs.starNameEn)
-    );
-    for (const sc of pofStarConjs) {
-        const isGood = sc.starNature.includes("吉");
-        const isBad = sc.starNature.includes("凶");
-        const isRoyal = ROYAL_STARS.includes(sc.starNameEn);
-        const isFirstMag = FIRST_MAGNITUDE.includes(sc.starNameEn);
-        let bonus;
-        if (isRoyal) {
-            bonus = isGood ? 4 : -3;
-        } else if (isFirstMag) {
-            bonus = isGood ? 3 : -2;
-        } else {
-            bonus = isGood ? 2 : isBad ? -1 : 1;
-        }
-        extraBonus += bonus;
-        extraDetails.push(
-            `福点合恒星${sc.starNameZh}（${sc.starNameEn}），容许度${sc.orb.toFixed(2)}°`
-        );
-    }
-
-    // 7b. 日月合恒星（重要恒星与日月合相也加分）
-    for (const planetKey of ["SUN", "MOON"]) {
-        const planetName = PLANET_NAMES[planetKey];
-        const sunMoonStarConjs = fixedStars.filter(fs =>
-            fs.pointKey === planetKey && IMPORTANT_STARS_SET.has(fs.starNameEn)
-        );
-        for (const sc of sunMoonStarConjs) {
-            const isGood = sc.starNature.includes("吉");
-            const isBad = sc.starNature.includes("凶");
-            const isRoyal = ROYAL_STARS.includes(sc.starNameEn);
-            const isFirstMag = FIRST_MAGNITUDE.includes(sc.starNameEn);
-            let bonus;
-            if (isRoyal) {
-                bonus = isGood ? 3 : -2.5;
-            } else if (isFirstMag) {
-                bonus = isGood ? 2 : -1.5;
-            } else {
-                bonus = isGood ? 1 : isBad ? -0.5 : 0.5;
-            }
-            extraBonus += bonus;
-            extraDetails.push(
-                `${planetName}合恒星${sc.starNameZh}（${sc.starNameEn}），容许度${sc.orb.toFixed(2)}°`
-            );
+    for (const key of ['SUN','MOON']) {
+        if ([1,4,7,10].includes(planets[key].house)) { extraBonus += 0.5; extraDetails.push(`${PLANET_NAMES[key]}落角宫，力量增强`); }
+        if ([3,6,9,12].includes(planets[key].house)) { extraBonus -= 0.25; extraDetails.push(`${PLANET_NAMES[key]}落果宫，力量偏弱`); }
+        for (const benefic of ['VENUS','JUPITER']) {
+            const aspect = checkAspect(planets[key].longitude,planets[benefic].longitude,key,benefic);
+            if (!aspect) continue;
+            // 月亮联系已在月亮维度计分，此处只保留说明，太阳联系才计入其他修正。
+            const good = aspect.nature !== 'hard';
+            if (key === 'SUN') extraBonus += good ? 0.5 : -0.25;
+            extraDetails.push(`${PLANET_NAMES[key]}与${PLANET_NAMES[benefic]}成${aspect.name}（${aspect.exactOrb.toFixed(2)}°），${good ? '受吉星加持' : '吉中带摩擦'}`);
         }
     }
-
-    // 8. 日月落宫力量
-    const sunInAngular = [1, 4, 7, 10].includes(planets.SUN.house);
-    const moonInAngular = [1, 4, 7, 10].includes(planets.MOON.house);
-    const sunInCadent = [3, 6, 9, 12].includes(planets.SUN.house);
-    const moonInCadent = [3, 6, 9, 12].includes(planets.MOON.house);
-    if (moonInAngular) {
-        extraBonus += 3;
-        extraDetails.push("月亮落角宫，月亮力量强，物资与情绪安全感充足");
-    }
-    if (sunInAngular) {
-        extraBonus += 2;
-        extraDetails.push("太阳落角宫，太阳力量强，人生舞台大，易得机遇与表现机会");
-    }
-    if (sunInCadent) {
-        extraBonus -= 1;
-        extraDetails.push("太阳落果宫，太阳力量减弱，人生表现与行动力受限");
-    }
-    if (moonInCadent) {
-        extraBonus -= 1;
-        extraDetails.push("月亮落果宫，月亮力量减弱，情绪安全感与物资运受限");
-    }
-
-    // 9. 月亮合南北交减分
-    const moonNodeOrb = 3; // 3度以内算作合相
-    const moonNorthNodeDiff = getAspectDifference(planets.MOON.longitude, planets.NORTH_NODE.longitude);
-    if (moonNorthNodeDiff <= moonNodeOrb) {
-        extraBonus -= 1.5;
-        extraDetails.push(
-            `月亮合北交（${moonNorthNodeDiff.toFixed(2)}°），情绪与宿命议题相关，人生起伏较大`
-        );
-    }
-    const moonSouthNodeDiff = getAspectDifference(planets.MOON.longitude, planets.SOUTH_NODE.longitude);
-    if (moonSouthNodeDiff <= moonNodeOrb) {
-        extraBonus -= 1.5;
-        extraDetails.push(
-            `月亮合南交（${moonSouthNodeDiff.toFixed(2)}°），情绪与过去世习气相关，易有内耗`
-        );
-    }
-
-    // 10. 日月与吉星（木星/金星）有度数相位
-    for (const luminary of [
-        { key: "SUN", name: "太阳" },
-        { key: "MOON", name: "月亮" },
-    ]) {
-        for (const beneficKey of ["JUPITER", "VENUS"]) {
-            const aspect = checkAspect(
-                planets[luminary.key].longitude,
-                planets[beneficKey].longitude,
-                luminary.key,
-                beneficKey
-            );
-            if (aspect) {
-                // 和谐相位（合、拱、六合）加分，硬相位（刑、冲）减分
-                if (aspect.nature === "harmonious" || aspect.angle === 0) {
-                    extraBonus += 1.5;
-                    extraDetails.push(
-                        `${luminary.name}与${PLANET_NAMES[beneficKey]}成${aspect.name}（${aspect.exactOrb.toFixed(2)}°），受吉星加持`
-                    );
-                } else if (aspect.nature === "hard") {
-                    extraBonus -= 0.5;
-                    extraDetails.push(
-                        `${luminary.name}与${PLANET_NAMES[beneficKey]}成${aspect.name}（${aspect.exactOrb.toFixed(2)}°），吉中带摩擦`
-                    );
-                }
-            }
-        }
-    }
-
-    // ========== 综合评估 ==========
-    // 五维度加权评估，各维度先标准化到 0-10 分制，再加权
-    // 权重：围攻 35% + 福点/三分主星 30% + 钱财宫 15% + 月亮状态 10% + 额外加分 10%
-    // 福点为核心，三分主星为辅助（福点强则不依赖三分主星，福点弱则三分主星弥补）
-
-    // 维度1：围攻（不做标准化压缩，直接用原始分）
-    // 基础围攻5分/个，强力围攻8分/个，中强围攻6分/个
-    // 分数本身就在 0-16+ 范围，作为标准化分使用（超出10也没关系）
-    const besiegementNormalized = besiegementScore;
-
-    // 维度2：福点（已为 0-10 分制，直接使用）
-    const pfNormalized = pfScore;
-
-    // 维度3：钱财宫标准化（0-10分），以6分为满分
-    const moneyNormalized = Math.round(moneyHouseScore / 6 * 10 * 10) / 10;
-
-    // 维度4：三分主星标准化（0-10分），以12分为满分
-    const triplicityNormalized = Math.round(triplicityScore / 12 * 10 * 10) / 10;
-
-    // 维度5：月亮状态标准化（0-10分）
-    // 范围约 -3 ~ +3，映射到 0~10
-    let moonNormalized = (moonBonus + 3) / 6 * 10;
-    moonNormalized = Math.round(moonNormalized * 10) / 10;
-
-    // 维度6：额外加分标准化（0-10分）
-    // 范围约 -5 ~ +12，映射到 0~10
-    let extraNormalized = (extraBonus + 5) / 17 * 10;
-    extraNormalized = Math.round(extraNormalized * 10) / 10;
-
-    // 福点 + 三分主星 合并维度（占 30% 权重）
-    // 规则：谁高取谁（福点强则以福点为准，三分主星强则以三分为准，取较高者）
-    // 福点是财富第一指征，三分主星是辅助/弥补
-    let pfTriplicityCombined;
-    let pfTriplicityNote;
-    if (pfNormalized >= triplicityNormalized) {
-        pfTriplicityCombined = pfNormalized;
-        pfTriplicityNote = "以福点为主";
-    } else {
-        pfTriplicityCombined = triplicityNormalized;
-        pfTriplicityNote = "福点偏弱，以三分主星弥补";
-    }
-    pfTriplicityCombined = Math.round(pfTriplicityCombined * 10) / 10;
-
-    // 加权总分（满分 10 分）
-    // 围攻 35% + 福点/三分 30% + 钱财宫 15% + 月亮 10% + 额外 10%
-    let totalScore =
-        besiegementNormalized * 0.35 +
-        pfTriplicityCombined * 0.30 +
-        moneyNormalized * 0.15 +
-        moonNormalized * 0.10 +
-        extraNormalized * 0.10;
-
-    const baseScore = totalScore;
-    totalScore = Math.max(0, Math.min(10, totalScore + fortuneIndicators.wealthBonus));
-
-    const weightNote = `基础五维度加权：围攻35% · 福点&三分主星30%（${pfTriplicityNote}） · 钱财宫15% · 月亮10% · 额外10%；财富获取专项支持另加${fortuneIndicators.wealthBonus}分`;
-
-    totalScore = Math.round(totalScore * 10) / 10;
-
-    // 财富等级
-    let wealthLevel = "";
-    let wealthClass = "";
-    let wealthDesc = "";
-
-    // 档位校准（基于五维度加权总分）
-    // 巨富 ≥ 6.5：顶级富豪格局，极为罕见
-    // 大富 ≥ 5.0：大富大贵，百里挑一
-    // 中富 ≥ 4.0：富裕水平，生活优渥
-    // 小康 ≥ 2.5：衣食无忧，中产水平
-    // 偏弱 ≥ 1.5：求财较辛苦
-    // 较弱 < 1.5：财运阻力大
-    if (totalScore >= 6.5) {
-        wealthLevel = "巨富之格";
-        wealthClass = "badge-good";
-        wealthDesc = "财富格局极为罕见，乃万中无一之象。围攻格局、福点力量、恒星吉曜多重顶级吉象叠加，天生资源极为丰沛，财运宏大深远。多主出身不凡或白手兴家，一生财运亨通，易积累巨额财富，名利双收，声名远播。宜深修德行，善用财富，持盈保泰，方得长久。";
-    } else if (totalScore >= 5.0) {
-        wealthLevel = "大富之格";
-        wealthClass = "badge-good";
-        wealthDesc = "财富格局宏大，多个维度均呈现强吉之象，天生资源丰沛，赚钱能力出众。或有围攻护身，或有吉星守财，或福点与三分主星得力，配合得当则财源广进，容易积累大量财富。善用资源、保持谦逊则财运绵长，富甲一方。";
-    } else if (totalScore >= 4.0) {
-        wealthLevel = "中富之格";
-        wealthClass = "badge-good";
-        wealthDesc = "财富格局良好，有稳定的财富基础和创收能力。福点或钱财宫有得力吉星支持，三分主星亦有吉象，通过自身努力和合理规划可达到较为富裕的生活水平，家境殷实，衣食无忧且有结余。";
-    } else if (totalScore >= 2.5) {
-        wealthLevel = "小康之格";
-        wealthClass = "badge-neutral";
-        wealthDesc = "财富格局中等，财运平稳，衣食无忧。部分维度有吉象但整体力量中等，没有明显的大富大贵之兆，但也无重大破财之虞。通过持续努力和稳健理财可以稳步提升生活水平，小富由俭。";
-    } else if (totalScore >= 1.5) {
-        wealthLevel = "财运偏弱";
-        wealthClass = "badge-bad";
-        wealthDesc = "财富格局偏弱，求财过程可能较为辛苦，容易有财务压力。或福点力量不足，或钱财宫主星状态欠佳，收入不甚稳定。建议量入为出，培养专业技能，以稳定收入为主，避免投机冒险，稳中求进。";
-    } else {
-        wealthLevel = "财运较弱";
-        wealthClass = "badge-bad";
-        wealthDesc = "财富格局多有挑战，财运方面阻力较大。可能多个维度同时呈现凶象，求财多波折，容易有意外破财或财务压力。建议注重节俭，避免借贷和高风险投资，以稳健为主，同时关注精神层面的富足与个人成长，安贫乐道亦是福。";
-    }
-
+    const otherScore = supportScore(Math.max(5 + Math.max(-2, extraBonus), ...prominencePatterns.map(p => p.score)));
+    const lotRelationSupport = calculateLotRelationSupport(fortuneIndicators, partOfFortune, planets, isDayChart);
+    const pfTriplicityBase = Math.max(pfScore, triplicityScore);
+    const pfTriplicityCombined = supportScore(pfTriplicityBase + lotRelationSupport.score);
+    lotRelationSupport.appliedScore = Math.round((pfTriplicityCombined - pfTriplicityBase) * 100) / 100;
+    const lotRelationDetails = lotRelationSupport.items.map(item => item.reason + (item.counted ? '已纳入财富支持评分。' : item.note + '。'));
+    const normalized = {besiegement:besiegementScore,partOfFortune:pfScore,triplicity:triplicityScore,
+        pfTriplicityCombined,pfTriplicityNote:pfScore >= triplicityScore ? '以福点为主' : '福点偏弱，以三分主星弥补',
+        moneyHouse:moneyHouseScore,moon:supportScore(5+moonBonus),extra:otherScore};
+    const baseScore = normalized.besiegement*.25 + normalized.pfTriplicityCombined*.30 + normalized.moneyHouse*.25 + normalized.moon*.10 + normalized.extra*.10;
+    const totalScore = supportScore(baseScore);
+    const band = SUPPORT_BANDS.find((b,i) => totalScore >= b.start && (totalScore < b.end || i === SUPPORT_BANDS.length-1));
     return {
-        totalScore,
-        baseScore,
-        wealthLevel,
-        wealthClass,
-        wealthDesc,
-        weightNote,
-        pfScore,
-        pfDetails,
-        fortuneIndicators,
-        pfIsWeak,
-        pfLordHouseFromPF,
-        moneyHouseScore,
-        moneyHouseDetails,
-        greatBeneficIn2nd,
-        secondHouseLord: {
-            name: secondHouseLord.lordName,
-            house: secondLordHouse,
-            dignityScore: secondLordDignityScore,
-            dignityText: secondLordPlanet.dignitySummary.summaryText,
-        },
-        triplicityScore,
-        triplicityStarBonus,
-        triplicityStarDetails,
-        triplicityStarConjunctions,
-        triplicityLordComprehensive,
-        // 围攻
-        besiegementScore,
-        besiegementDetails,
-        besiegementResults,
-        besiegementScored,
-        // 标准化分（0-10分制）
-        normalized: {
-            besiegement: besiegementNormalized,
-            partOfFortune: pfNormalized,
-            triplicity: triplicityNormalized,
-            pfTriplicityCombined: pfTriplicityCombined,
-            pfTriplicityNote: pfTriplicityNote,
-            moneyHouse: moneyNormalized,
-            moon: moonNormalized,
-            extra: extraNormalized,
-        },
-        // 月亮状态
-        moonPhase: moonPhaseText,
-        isWaxingMoon,
-        moonBonus,
-        moonDetails,
-        moonHardAspects: hardAspectsToMoon,
-        moonBeneficAspects,
-        // 额外加分项
-        extraBonus,
-        extraDetails,
+        scoringVersion:'neutral-5-experiment',calibrationPending:true,totalScore,baseScore,
+        wealthLevel:band.level,wealthClass:totalScore >= 6.5 ? 'badge-good' : totalScore >= 4 ? 'badge-neutral' : 'badge-bad',
+        wealthDesc:'五项以5分为中性，分数描述本盘的财富支持程度；财富档位与巨富阈值待案例校准。',
+        weightNote:'试验权重：围攻25% · 福点与三分主星30% · 钱财宫25% · 月亮10% · 其他10%',
+        pfScore,pfBaseScore,pfDetails,pfIsWeak:pfScore<4,pfLordHouseFromPF,fortuneIndicators,
+        lotRelationSupport,lotRelationDetails,
+        moneyHouseScore,moneyHouseDetails,moneyReceptions,greatBeneficIn2nd:greatBenefic.house===2,
+        secondHouseLord:{name:secondHouseLord.lordName,house:secondLordHouse,dignityScore:second.dignitySummary.score,dignityText:second.dignitySummary.summaryText},
+        triplicityScore,triplicityGroups,triplicityStarBonus,triplicityStarDetails,triplicityStarConjunctions,triplicityLordComprehensive,
+        besiegementScore,besiegementDetails,besiegementResults,besiegementScored,normalized,
+        moonPhase:moonPhaseText,isWaxingMoon,moonBonus,moonDetails,moonHardAspects,moonBeneficAspects,moonFrictionAspects,
+        extraBonus,extraDetails,prominencePatterns,
     };
 }
 

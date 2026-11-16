@@ -1,5 +1,5 @@
 // 综合评估的展示模型：读取既有评分与命中规则，不改变财富判断。
-import { ZODIAC_SIGNS, HOUSE_LORDS, PLANET_IDS, PLANET_NAMES } from './astrology.js';
+import { ZODIAC_SIGNS, HOUSE_LORDS, PLANET_IDS, PLANET_NAMES, SUPPORT_BANDS } from './astrology.js';
 
 export const MOON_GROWTH_READINGS = {
     增光: '从新月到满月，此时的月亮活跃、具有生产力、也会视为财富好的象征',
@@ -26,31 +26,40 @@ export function getAssessmentMoonPhase(sunLongitude, moonLongitude) {
         stages: index < 4 ? [0, 1, 2, 3, 4] : [4, 5, 6, 7, 0] };
 }
 
-export const WEALTH_BANDS = [
-    { label: '较弱', start: 0, end: 1.5 }, { label: '偏弱', start: 1.5, end: 2.5 },
-    { label: '小康', start: 2.5, end: 4 }, { label: '中富', start: 4, end: 5 },
-    { label: '大富', start: 5, end: 6.5 }, { label: '巨富', start: 6.5, end: 10 },
-];
+export const WEALTH_BANDS = SUPPORT_BANDS;
 export function getWealthBand(score) {
     return WEALTH_BANDS.findIndex((band, index) => score >= band.start && (score < band.end || index === WEALTH_BANDS.length - 1));
 }
 
+// 只转换展示文案，沿用已有六档边界，不修改计算对象。
+export const WEALTH_READINGS = [
+    { label: '财富稀薄', reading: '财富格局中的支持较少，资源取得与收入积累可能需要付出更多心力。适合从自身擅长的事情做起，逐步建立稳定的收入来源，耐心积累可持续的资源。' },
+    { label: '财富较弱', reading: '财富格局中的助力偏弱，机会的承接与收入的稳定性仍需经营。重视专业能力与长期积累，善用已有的人脉和资源，有助于逐步改善物质基础。' },
+    { label: '小康', reading: '财富格局整体平稳，具备经营日常生活与逐步积累的基础。通过持续投入、发挥自身所长，并把握合适的机会，有利于建立安稳而有余裕的生活。' },
+    { label: '中富', reading: '财富格局具有一定支持，人生机遇、赚钱能力或资源取得方面有所助力。若能发挥优势、持续经营，具备积累较丰厚资产、获得较为优渥生活的潜力。' },
+    { label: '大富', reading: '财富格局较为突出，多项关键条件为事业发展、资源取得与财富积累提供支持。善于整合资源、承接机遇并长期经营，有机会形成较大的财富规模。' },
+    { label: '巨富', reading: '财富格局中呈现较强的支持组合，人生机遇、资源层级与财富取得之间联系紧密，具有广阔的积累空间。发挥核心优势、重视合作与长期经营，有利于将格局中的助力转化为持续成果。' },
+];
+export function getWealthConclusion(score) {
+    return WEALTH_READINGS[getWealthBand(score)];
+}
+
+export const assessmentDetailText = text => text.replaceAll('已纳入财富支持评分。', '可为财富积累提供支持。').replaceAll('未见围攻强化，按中性支持处理', '未见围攻格局');
+export const getSupportLabel = value => value >= 8 ? '强支持' : value >= 6 ? '有支持' : value >= 4 ? '无' : '支持偏弱';
+
 export function getAssessmentFactors(wa) {
     const data = [
-        ['围攻格局', wa.normalized.besiegement, .35, wa.besiegementDetails],
-        ['福点与三分主星', wa.normalized.pfTriplicityCombined, .30, wa.pfDetails],
-        ['钱财宫', wa.normalized.moneyHouse, .15, wa.moneyHouseDetails],
+        ['围攻格局', wa.normalized.besiegement, .25, wa.besiegementDetails],
+        ['福点与三分主星', wa.normalized.pfTriplicityCombined, .30, [...wa.pfDetails, ...(wa.lotRelationDetails || [])]],
+        ['钱财宫', wa.normalized.moneyHouse, .25, wa.moneyHouseDetails],
         ['月亮状态', wa.normalized.moon, .10, wa.moonDetails],
         ['其他修正', wa.normalized.extra, .10, wa.extraDetails],
     ];
     const factors = data.map(([name, value, weight, details]) => ({ name, contribution: value * weight,
-        status: value < 0 ? '需要留意' : value >= 6 ? '主要助力' : value >= 3 ? '可用支持' : value > 0 ? '仍需经营' : '支持较少',
-        details: [...new Set(details)], negative: value < 0 }));
-    const indicators = wa.fortuneIndicators;
-    if (indicators.wealthBonus > 0) factors.push({ name: '财富获取', contribution: indicators.wealthBonus,
-        status: '额外助力', details: indicators.wealth.map(item => item.reason + item.text), bonus: true, negative: false });
+        status: getSupportLabel(value),
+        details: [...new Set(details.map(assessmentDetailText))], negative: value < 4 }));
     const scale = Math.max(1, ...factors.map(item => Math.abs(item.contribution)));
-    return factors.map(item => ({ ...item, width: Math.abs(item.contribution) / scale * 100 }));
+    return factors.map(item => ({ ...item, width: item.status === '无' ? 0 : Math.abs(item.contribution) / scale * 100 }));
 }
 
 // 关系图只为现有命中项生成路径；嵌套强组合取一条路径，避免重复。
@@ -75,6 +84,8 @@ export function getAssessmentRelations(chart) {
     for (const rule of rules) {
         let nodes, links, mutual = false;
         switch (rule.id) {
+            case 'fortune-lord-natal-second':
+                nodes = [fortune(), pfLord(), point('本命第二宫', planets[pfLordKey].signIndex)]; links = ['主星', '进入']; break;
             case 'fortune-lord-acquisition':
                 if (layered) continue;
                 nodes = [fortune(), pfLord(), acquisition()]; links = ['主星', '进入']; break;
@@ -101,7 +112,7 @@ export function getAssessmentRelations(chart) {
 
 export function getAssessmentLord(lord, wa) {
     const comprehensive = wa.triplicityLordComprehensive[lord.planetKey] || lord.dignitySummary;
-    const stars = comprehensive.score >= 3 ? 3 : comprehensive.score >= 0 ? 2 : 1;
+    const stars = comprehensive.score >= 8 ? 3 : comprehensive.score >= 4 ? 2 : 1;
     const houseKind = [1, 4, 7, 10].includes(lord.house) ? '角宫' : [2, 5, 8, 11].includes(lord.house) ? '续宫' : '果宫';
     const d = lord.dignity;
     const tags = [{ label: houseKind, good: houseKind === '角宫', pressure: houseKind === '果宫' }];

@@ -1,6 +1,6 @@
 // 已确认的可视化版综合评估，所有内容取自本次排盘。
 import { ZODIAC_SIGNS, formatDegreeMinute } from './astrology.js';
-import { getAssessmentMoonPhase, getWealthBand, WEALTH_BANDS, getAssessmentFactors, getAssessmentRelations, getAssessmentLord } from './assessment-model.js';
+import { getAssessmentMoonPhase, getWealthConclusion, getSupportLabel, assessmentDetailText, getAssessmentFactors, getAssessmentRelations, getAssessmentLord } from './assessment-model.js';
 const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
 const phasePaths = ['', 'M12 2 A10 10 0 0 1 12 22 A6 10 0 0 0 12 2 Z', 'M12 2 A10 10 0 0 1 12 22 L12 2 Z', 'M12 2 A10 10 0 0 1 12 22 A6 10 0 0 1 12 2 Z', 'M12 2 A10 10 0 1 1 12 22 A10 10 0 1 1 12 2 Z'];
 const phaseGlyph = index => `<svg viewBox="0 0 24 24" aria-hidden="true"><circle class="va-phase-shadow" cx="12" cy="12" r="10"/><path class="va-phase-light" d="${phasePaths[index <= 4 ? index : 8 - index]}"${index > 4 ? ' transform="translate(24 0) scale(-1 1)"' : ''}/></svg>`;
@@ -15,12 +15,12 @@ function renderMoon(phase) {
 
 function renderOverview(chart, factors) {
     const wa = chart.wealthAssessment;
-    const selected = getWealthBand(wa.totalScore);
+    const conclusion = getWealthConclusion(wa.totalScore);
     const first = factors.findIndex(item => item.width === Math.max(...factors.map(factor => factor.width)));
     const factorDetails = factors[first]?.details.join('；') || '财富格局需结合各项已有判断一起看。';
-    return `<div class="va-overview"><div class="va-score-pane"><p class="va-muted">财富总评</p><div class="va-score">${wa.totalScore.toFixed(1)}<small>/ 10</small></div><h4 class="va-level">${esc(wa.wealthLevel)}</h4>
-        <p class="va-wealth-reading">${esc(wa.wealthDesc)}</p>
-        <div class="va-grade" role="img" aria-label="财富总评${wa.totalScore}分，${esc(wa.wealthLevel)}"><div class="va-grade-track">${WEALTH_BANDS.map((band, index) => `<span style="flex:${band.end - band.start}"${index === selected ? ' class="active"' : ''}></span>`).join('')}</div><span class="va-grade-marker" style="left:${Math.max(0, Math.min(100, wa.totalScore * 10))}%"></span><div class="va-grade-labels">${WEALTH_BANDS.map((band, index) => `<span style="flex:${band.end - band.start}"${index === selected ? ' class="active"' : ''}>${band.label}</span>`).join('')}</div></div></div>
+    const prominence = (wa.prominencePatterns || []).map(pattern => `<article class="va-prominence"><strong>${esc(pattern.title)}</strong><span>${esc(pattern.evidence)}</span><p>${esc(pattern.reading)}</p></article>`).join('');
+    return `${prominence ? `<div class="va-prominence-group"><h4 class="va-title">重要显赫格局</h4>${prominence}</div>` : ''}<div class="va-overview"><div class="va-score-pane"><p class="va-muted">财富格局</p><h4 class="va-level">${esc(conclusion.label)}</h4>
+        <p class="va-wealth-reading">${esc(conclusion.reading)}</p></div>
         <div class="va-factors"><div class="va-factor-head"><span>各项支持概览</span><span>支持表现</span></div>${factors.map((factor, index) => `<button type="button" class="va-factor${factor.bonus ? ' va-factor-bonus' : ''}${factor.negative ? ' va-factor-pressure' : ''}" data-factor="${index}" aria-pressed="${index === first}"><span>${factor.name}</span><span class="va-track"><span class="va-fill" style="width:${factor.width}%"></span></span><span class="va-status">${factor.status}</span></button>`).join('')}
         <div class="va-factor-detail" aria-live="polite"><strong data-factor-title>${esc(factors[first]?.name)}</strong><p data-factor-reading>${esc(factorDetails)}</p></div></div></div>`;
 }
@@ -59,8 +59,8 @@ function renderLifeSupport(chart) {
 
 function renderEvidence(chart, narratives) {
     const wa = chart.wealthAssessment;
-    const sections = [ ['围攻格局', wa.besiegementDetails], ['福点', wa.pfDetails], ['钱财宫', wa.moneyHouseDetails], ['其他支持与压力', narratives.otherDetails] ];
-    return `<details class="va-evidence"><summary>查看其他判断依据</summary>${sections.filter(([, values]) => values.length).map(([title, values]) => `<div><h5>${title}</h5>${list([...new Set(values)])}</div>`).join('')}${narratives.narratives.filter(item => item.target !== '月亮').map(item => `<div><h5>${item.target}相位</h5><p>${esc(item.evidence)}。</p><p>${esc(item.conclusion)}</p></div>`).join('')}</details>`;
+    const sections = [ ['围攻格局', wa.besiegementDetails], ['福点与三分主星', [...wa.pfDetails, `发光体三分主星支持：${getSupportLabel(wa.triplicityGroups.luminary)}；二宫三分主星支持：${getSupportLabel(wa.triplicityGroups.money)}`]], ['点位与钱财联系', wa.lotRelationDetails || []], ['钱财宫', wa.moneyHouseDetails], ['其他支持与压力', narratives.otherDetails] ];
+    return `<details class="va-evidence"><summary>查看其他判断依据</summary>${sections.filter(([, values]) => values.length).map(([title, values]) => `<div><h5>${title}</h5>${list([...new Set(values.map(assessmentDetailText))])}</div>`).join('')}${narratives.narratives.filter(item => item.target !== '月亮').map(item => `<div><h5>${item.target}相位</h5><p>${esc(item.evidence)}。</p><p>${esc(item.conclusion)}</p></div>`).join('')}</details>`;
 }
 
 export function buildVisualAssessmentHTML(chart, narratives) {
