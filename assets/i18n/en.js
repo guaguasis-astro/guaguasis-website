@@ -359,7 +359,10 @@ window.GuaguaEnglish = {
     "💰368": "CNY 368",
     "💰288": "CNY 288",
     "💰688": "CNY 688",
-    "💰388": "CNY 388"
+    "💰388": "CNY 388",
+    "本命盘全盘分析可以": "A full natal chart reading includes ",
+    "免费校正生时": "free birth time rectification",
+    "，解读包括：性格特质、原生家庭、桃花感情、金钱事业、灵魂使命、身体健康": ". The reading covers personality traits, family of origin, love and relationships, money and career, soul purpose, and health. "
   },
   "chart": {
     "占星解盘 · 古典占星": "Birth Chart Reading · Traditional Astrology",
