@@ -118,6 +118,12 @@
             background: #fff0d9;
         }
         .annual-service h2 { font-size: clamp(1.35rem, 3.5vw, 1.9rem); }
+        .annual-service h2 span {
+            display: block;
+            margin-top: 0.35rem;
+            font-size: 0.7em;
+            font-weight: 400;
+        }
         .annual-service .note { background: #ffe1a3; }
         .annual-options { display: grid; gap: 1.25rem; margin: 1.5rem 0; }
         .annual-options h3 { margin: 0; color: var(--orange); font-size: 1.15rem; }
@@ -129,6 +135,32 @@
             font-weight: 300;
         }
 
+        .rectification-service {
+            margin-top: 2.5rem;
+            padding: clamp(1.25rem, 4vw, 2.5rem);
+            border: 1px solid #d4c2e5;
+            border-radius: 1.4rem;
+            background: #f3edf9;
+        }
+        .rectification-service h2 { color: #795393; }
+        .rectification-service .rectification-prices { margin-top: 1.25rem; }
+        .rectification-prices li { padding: 0.25rem 0; }
+        .rectification-prices li::marker { color: #795393; }
+        .rectification-prices strong { color: #795393; }
+
+        .annual-service, .rectification-service {
+            grid-template-columns: minmax(0, 1fr) clamp(5rem, 18vw, 10rem);
+            gap: clamp(1rem, 4vw, 2.5rem);
+        }
+        .annual-service > .sticker, .rectification-service > .sticker {
+            grid-column: 2;
+            grid-row: 1;
+        }
+        .annual-service > div, .rectification-service > div {
+            grid-column: 1;
+            grid-row: 1;
+        }
+
         footer { padding: 1.5rem 0 2.5rem; text-align: center; }
         .artwork { position: absolute; width: 0; height: 0; }
         @media (max-width: 480px) {
@@ -136,6 +168,11 @@
             .hero { padding-top: 2.25rem; }
             .service { grid-template-columns: 1fr; gap: 0.65rem; }
             .sticker { width: 5rem; }
+            .annual-service, .rectification-service { display: flow-root; }
+            .annual-service > .sticker, .rectification-service > .sticker {
+                float: right;
+                margin: 0 0 0.75rem 1rem;
+            }
         }
     </style>
     <link rel="stylesheet" href="assets/i18n/language.css">
@@ -248,6 +285,17 @@
                 <path fill="#b86b32" d="M72 126q8-6 16 0l-1 6q-7 4-15 0Z"/>
             </g>
         </symbol>
+        <symbol id="shooting-star" viewBox="0 0 160 140">
+            <g stroke-linecap="round" stroke-linejoin="round" filter="url(#crayon)">
+                <g stroke-width="2.3">
+                    <path fill="#b8c9dd" stroke="#8fa8bf" d="M110 43Q56 52 24 103l13-9-5 13Q71 67 110 43Z"/>
+                    <path fill="#ffe2a3" stroke="#d5b57d" d="M111 44Q69 65 39 125l13-12-1 12Q84 72 111 44Z"/>
+                    <path fill="#e9a88e" stroke="#c58470" d="M113 46Q91 68 67 125l12-7-2 10Q98 81 113 46Z"/>
+                    <path fill="#ffda82" stroke="#c6a368" d="m111 17 10 20 23-5-15 18 9 21-22-8-17 16 1-24-22-10 23-7Z"/>
+                    <path fill="#ffe4a1" stroke="#c6a368" stroke-width="1.6" d="m110 91 3 12 10 3-10 3-3 14-3-14-9-3 9-3Z"/>
+                </g>
+            </g>
+        </symbol>
     </svg>
 
     <main class="sheet">
@@ -340,7 +388,7 @@
         <section class="service annual-service" aria-labelledby="annual-title">
             <svg class="sticker" viewBox="0 0 160 140" aria-hidden="true"><use href="#annual-book"/></svg>
             <div>
-                <h2 id="annual-title">年运：接下来一年的运势表现</h2>
+                <h2 id="annual-title">年运<span>接下来一年的运势表现</span></h2>
                 <p class="note">📆建议在每年过生日的前一周预约</p>
                 <div class="annual-options">
                     <div>
@@ -353,6 +401,18 @@
                     </div>
                 </div>
                 <p class="annual-methods">会结合多种推运方式，包含Transits、太阳返照、小限、黄道释放，给出接下来一年的关注重点和行动建议</p>
+            </div>
+        </section>
+        <section class="service rectification-service" aria-labelledby="rectification-title">
+            <svg class="sticker" viewBox="0 0 160 140" aria-hidden="true"><use href="#shooting-star"/></svg>
+            <div>
+                <h2 id="rectification-title">生时校正</h2>
+                <p>生时校正是一项复杂精密的占星技法，根据出生时间模糊度不同所花费的时间也不一样，故定价也有差异。</p>
+                <ul class="rectification-prices">
+                    <li>出生时间2h内：<strong>388💰</strong></li>
+                    <li>出生时间1h内：<strong>288💰</strong></li>
+                    <li>出生时间30分钟内：<strong>188💰</strong></li>
+                </ul>
             </div>
         </section>
         <footer><a class="back" href="index.html#about">← 返回官网</a></footer>
