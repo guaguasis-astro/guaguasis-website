@@ -2332,7 +2332,14 @@
             nav .nav-links a { font-size: 0.8rem; }
         }
         .about-text a[href="glowing-planet.html"] { border-bottom: 0; text-decoration: none; }
-        .course-logic { white-space: normal; }
+        .course-logic { white-space: normal; container-type: inline-size; }
+        .course-logic-note {
+            display: inline-block;
+            white-space: nowrap;
+            font-size: min(1rem, 4.5cqw);
+            color: var(--text-dark);
+            background: linear-gradient(transparent 48%, #ffb432 48%, #ffb432 92%, transparent 92%);
+        }
         .course-logic strong { font-weight: 700; }
         @media (max-width: 768px) {
             .articles-grid {
@@ -2476,7 +2483,7 @@
                 <div class="course-gains">
                     <h4>学完可以收获：</h4>
                     <ul>
-                        <li class="course-logic">精细的古典占星看盘论断逻辑<br>（<strong>古希腊</strong>与<strong>中世纪占星</strong>技法的融合）</li>
+                        <li class="course-logic">精细的古典占星看盘论断逻辑<br><span class="course-logic-note">（<strong>古希腊</strong>与<strong>中世纪占星</strong>技法的融合）</span></li>
                         <li>转宫法看六亲吉凶</li>
                         <li>论婚姻/合盘/论事业/论命格层次</li>
                         <li>七种推运的方法，看大运，运势吉凶和发展潜能</li>
