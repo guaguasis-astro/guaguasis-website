@@ -2179,7 +2179,7 @@
         /* 占星干货卡片 */
         .articles-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
@@ -2331,6 +2331,19 @@
             html body > nav .nav-links { gap: 1rem; }
             nav .nav-links a { font-size: 0.8rem; }
         }
+        .about-text a[href="glowing-planet.html"] { border-bottom: 0; text-decoration: none; }
+        .course-logic { white-space: nowrap; overflow-x: auto; }
+        .course-logic strong { font-weight: 700; }
+        @media (max-width: 768px) {
+            .articles-grid {
+                grid-template-columns: repeat(3, minmax(260px, 1fr));
+                gap: 1rem;
+                overflow-x: auto;
+                padding-bottom: 1rem;
+                scroll-snap-type: x proximity;
+            }
+            .article-card { scroll-snap-align: start; }
+        }
     </style>
     <link rel="stylesheet" href="assets/astrology-history/style.css">
     <link rel="stylesheet" href="assets/i18n/language.css">
@@ -2463,7 +2476,7 @@
                 <div class="course-gains">
                     <h4>学完可以收获：</h4>
                     <ul>
-                        <li>精细的古典占星看盘论断逻辑（和现占不同）</li>
+                        <li class="course-logic">精细的古典占星看盘论断逻辑（<strong>古希腊</strong>与<strong>中世纪占星</strong>技法的融合）</li>
                         <li>转宫法看六亲吉凶</li>
                         <li>论婚姻/合盘/论事业/论命格层次</li>
                         <li>七种推运的方法，看大运，运势吉凶和发展潜能</li>
