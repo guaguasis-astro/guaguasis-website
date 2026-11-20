@@ -34,7 +34,7 @@
       "alternateName": "瓜瓜占星",
       "url": "https://guaguasis.online",
       "jobTitle": "古典占星师",
-      "description": "古典占星师，师从 Chris Brennan《希腊占星学》作者。看盘案例2000+。全网50W粉丝博主，《爱的表达式》播客主理人。",
+      "description": "古典占星师，师从 Chris Brennan《希腊占星学》作者。看盘案例2000+。全网50W粉丝博主，《爱的表达式》播客主播。",
       "sameAs": [
         "https://www.xiaoyuzhoufm.com/podcast/61d09a9d8331df2be32c345f"
       ],
@@ -66,8 +66,10 @@
             --text-mute: #6B6351;
             --coral: #E8A87C;
             --rose: #D37D63;
-            --warm-russet: #815349;
-            --deep-russet: #653D36;
+            --notice-pink: #FBF2EC;
+            --border-warm: #B8957E;
+            --sage-highlight: #DDE5D6;
+            --live-red: #C43B42;
             --sage: #A8B5A0;
             --sky: #91B3C4;
             --lavender: #B89EED;
@@ -92,77 +94,13 @@
 
         body {
             font-family: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
-            background:
-                radial-gradient(ellipse at 20% 20%, rgba(255, 239, 184, 0.3) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 80%, rgba(232, 168, 124, 0.2) 0%, transparent 50%),
-                radial-gradient(ellipse at 40% 80%, rgba(168, 181, 160, 0.15) 0%, transparent 45%),
-                radial-gradient(ellipse at 80% 30%, rgba(145, 179, 196, 0.12) 0%, transparent 40%),
-                linear-gradient(180deg, var(--cream) 0%, #FFFEF7 50%, var(--cream) 100%);
+            background: linear-gradient(180deg, var(--cream) 0%, #FFFEF7 50%, var(--cream) 100%);
             color: var(--text-dark);
             line-height: 1.8;
             overflow-x: hidden;
             width: 100%;
             position: relative;
         }
-
-        /* 流动色块背景 */
-        .paint-blob {
-            position: fixed;
-            border-radius: 50% 40% 60% 50%;
-            filter: blur(40px);
-            opacity: 0.3;
-            pointer-events: none;
-            animation: float 20s ease-in-out infinite;
-            z-index: -1;
-        }
-
-        .blob-1 {
-            width: 400px;
-            height: 400px;
-            top: -100px;
-            right: -100px;
-            background: var(--gentle-gold);
-            animation-delay: 0s;
-        }
-
-        .blob-2 {
-            width: 500px;
-            height: 500px;
-            bottom: -150px;
-            left: -150px;
-            background: var(--coral);
-            animation-delay: -5s;
-            animation-direction: reverse;
-        }
-
-        .blob-3 {
-            width: 300px;
-            height: 300px;
-            top: 40%;
-            left: 10%;
-            background: var(--sage);
-            animation-delay: -10s;
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translate(0, 0) rotate(0deg) scale(1);
-                border-radius: 50% 40% 60% 50%;
-            }
-            25% {
-                transform: translate(20px, -30px) rotate(5deg) scale(1.05);
-                border-radius: 40% 60% 50% 50%;
-            }
-            50% {
-                transform: translate(-10px, 20px) rotate(-3deg) scale(0.98);
-                border-radius: 60% 50% 40% 60%;
-            }
-            75% {
-                transform: translate(-20px, -10px) rotate(3deg) scale(1.02);
-                border-radius: 50% 60% 50% 40%;
-            }
-        }
-
 
         /* 导航栏 */
         nav {
@@ -352,6 +290,7 @@
         .hero-cta {
             display: inline-block;
             padding: 1rem 3rem;
+            border-radius: 12px;
             border: 1px solid var(--soft-gold);
             color: var(--text-dark);
             text-decoration: none;
@@ -395,11 +334,11 @@
 
         .section-title {
             font-family: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
-            font-size: 2rem;
+            font-size: 1.875rem;
             font-weight: 700;
             text-align: center;
-            margin-bottom: 3rem;
-            letter-spacing: 0.15em;
+            margin-bottom: 2.5rem;
+            letter-spacing: 0.08em;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -481,8 +420,12 @@
         }
 
         .about-text a {
+            color: var(--deep-warm);
+            text-decoration: none;
+        }
+
+        .about-text a:hover {
             color: var(--text-dark);
-            text-decoration: underline;
         }
 
         .about-badges {
@@ -519,11 +462,11 @@
             gap: 0.65rem 1.5rem;
             margin-bottom: 1.5rem;
             padding: 1.5rem 1.75rem;
-            background: linear-gradient(135deg, var(--warm-russet), var(--deep-russet));
-            color: var(--warm-cream);
-            border: 1px solid rgba(255, 248, 231, 0.2);
-            border-radius: 16px;
-            box-shadow: 0 8px 24px rgba(101, 61, 54, 0.14);
+            background: var(--notice-pink);
+            color: var(--text-dark);
+            border: 1px solid var(--border-warm);
+            border-radius: 28px;
+            box-shadow: 0 2px 8px rgba(139, 115, 85, 0.04);
         }
 
         .live-schedule h2 {
@@ -538,13 +481,8 @@
             width: 0.55rem;
             height: 0.55rem;
             border-radius: 50%;
-            background: var(--gentle-gold);
-            animation: live-pulse 2s ease-out infinite;
-        }
-
-        @keyframes live-pulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(245, 213, 143, 0.35); }
-            65% { box-shadow: 0 0 0 0.35rem rgba(245, 213, 143, 0); }
+            background: var(--live-red);
+            flex-shrink: 0;
         }
 
         .live-schedule ul {
@@ -554,21 +492,17 @@
             gap: 0.25rem 1.25rem;
             list-style: none;
             font-size: 0.9rem;
-            color: var(--warm-cream);
+            color: var(--text-dark);
         }
 
         .live-schedule time {
-            color: var(--gentle-gold);
+            color: var(--deep-warm);
             margin-right: 0.5rem;
             font-weight: 600;
         }
 
         @media (max-width: 480px) {
             .live-schedule ul { display: grid; justify-content: start; }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .live-dot { animation: none; }
         }
 
         /* 课程卡片 */
@@ -581,12 +515,13 @@
             background: rgba(255, 255, 255, 0.7);
             padding: 3rem;
             border: 1px solid var(--soft-gold);
-            transition: transform 0.3s, box-shadow 0.3s;
+            border-radius: 14px;
+            transition: border-color 0.25s, box-shadow 0.25s;
         }
 
         .course-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 30px rgba(61, 56, 42, 0.08);
+            border-color: var(--border-warm);
+            box-shadow: 0 4px 16px rgba(61, 56, 42, 0.04);
         }
 
         .course-card.with-image {
@@ -612,8 +547,14 @@
         }
 
         .course-card.featured {
-            background: rgba(249, 241, 215, 0.5);
-            border-width: 2px;
+            display: flex;
+            flex-direction: column;
+            background: #FAF4E4;
+            border-color: var(--warm-sand);
+        }
+
+        .course-card.featured .course-button {
+            align-self: flex-end;
         }
 
         .course-header {
@@ -630,14 +571,15 @@
 
         .course-button {
             display: inline-block;
-            padding: 0.8rem 2.5rem;
-            border: 1px solid var(--soft-gold);
+            padding: 0.5rem 1.2rem;
+            border: 1px solid var(--warm-sand);
+            border-radius: 999px;
             color: var(--text-dark);
             text-decoration: none;
             transition: all 0.3s;
-            letter-spacing: 0.1em;
-            font-size: 0.95rem;
-            margin-top: 1rem;
+            letter-spacing: 0.04em;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
         }
 
         .course-button:hover {
@@ -691,29 +633,28 @@
 
         .course-gains li {
             position: relative;
-            padding: 0.3rem 0 0.3rem 1rem;
+            padding: 0.3rem 0 0.3rem 1.5rem;
             color: var(--text-mute);
         }
 
         .course-gains li::before {
-            content: '';
+            content: '✔️';
             position: absolute;
             left: 0;
-            top: 1em;
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-            background: var(--deep-warm);
+            top: 0.3rem;
+            color: var(--deep-warm);
+            font-size: 0.85em;
         }
 
         .mini-courses {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: minmax(0, 1fr);
             gap: 2rem;
-            margin-top: 3rem;
+            margin-top: 2rem;
         }
 
         .mini-course {
+            border-radius: 14px;
             padding: 2rem;
             background: rgba(255, 255, 255, 0.7);
             border: 1px solid var(--soft-gold);
@@ -1703,7 +1644,7 @@
             }
 
             .section-title {
-                font-size: 1.6rem;
+                font-size: 1.5rem;
                 margin-bottom: 2rem;
             }
 
@@ -1970,12 +1911,6 @@
                 padding: 2.5rem 1.5rem;
             }
 
-            /* 流动色块调小 */
-            .paint-blob.blob-1,
-            .paint-blob.blob-2,
-            .paint-blob.blob-3 {
-                transform: scale(0.6);
-            }
         }
 
         /* 超小屏幕优化 */
@@ -2260,7 +2195,7 @@
             border-radius: 20px;
             overflow: hidden;
             border: 1px solid var(--soft-gold);
-            transition: all 0.4s ease;
+            transition: border-color 0.25s, box-shadow 0.25s;
             cursor: pointer;
             text-decoration: none;
             color: inherit;
@@ -2270,8 +2205,8 @@
         }
 
         .article-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(232, 212, 168, 0.3);
+            border-color: var(--border-warm);
+            box-shadow: 0 4px 16px rgba(139, 115, 85, 0.08);
         }
 
         .article-image {
@@ -2326,7 +2261,7 @@
 
         /* 查看更多文章 */
         .view-more-articles {
-            margin-top: 3rem;
+            margin-top: 1rem;
             text-align: center;
         }
 
@@ -2338,8 +2273,8 @@
             max-width: 800px;
             text-decoration: none;
             color: var(--text-dark);
-            padding: 1rem 0;
-            border-bottom: 2px solid rgba(139, 115, 85, 0.2);
+            padding: 0.55rem 0;
+            border-bottom: 1px solid rgba(139, 115, 85, 0.2);
             transition: all 0.3s ease;
         }
 
@@ -2349,12 +2284,12 @@
 
         .view-more-text {
             font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
-            font-size: 1.2rem;
-            font-weight: 300;
+            font-size: 0.9rem;
+            font-weight: 400;
         }
 
         .view-more-arrow {
-            font-size: 2rem;
+            font-size: 1.2rem;
             color: var(--soft-brown);
             opacity: 0.6;
             transition: all 0.3s ease;
@@ -2362,7 +2297,6 @@
 
         .view-more-link:hover .view-more-arrow {
             opacity: 1;
-            transform: translateX(5px);
         }
 
         /* 择地星盘图片确保显示 */
@@ -2412,11 +2346,42 @@
         }
         .about-text a[href="glowing-planet.html"] { border-bottom: 0; text-decoration: none; }
         .course-logic { white-space: normal; container-type: inline-size; }
+        .course-highlight {
+            padding: 0.12em 0.3em;
+            border-radius: 4px;
+            color: var(--text-dark);
+            background: var(--sage-highlight);
+            -webkit-box-decoration-break: clone;
+            box-decoration-break: clone;
+        }
+
         .course-lifetime-note {
             display: inline-block;
-            white-space: nowrap;
-            color: var(--text-dark);
-            background: linear-gradient(transparent 48%, #ffb432 48%, #ffb432 92%, transparent 92%);
+            margin-top: 0.35rem;
+        }
+
+        .course-start-note {
+            color: var(--rose);
+            font-size: 0.9rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .course-deadline-note {
+            color: var(--text-mute);
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .hero-cta:focus-visible, .course-button:focus-visible,
+        .article-card:focus-visible, .view-more-link:focus-visible,
+        .about-text a:focus-visible {
+            outline: 2px solid var(--deep-warm);
+            outline-offset: 4px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .hero-cta, .course-card, .article-card, .view-more-link { transition: none; }
         }
         .course-logic-note {
             display: inline-block;
@@ -2440,17 +2405,12 @@
     </style>
     <link rel="stylesheet" href="assets/astrology-history/style.css?v=20261120-layout">
     <link rel="stylesheet" href="assets/i18n/language.css">
-    <script src="assets/i18n/en.js"></script>
+    <script src="assets/i18n/en.js?v=20261120-refined"></script>
     <script src="assets/i18n/language.js"></script>
     <link rel="alternate" hreflang="zh-CN" href="https://guaguasis.online/index.html?lang=zh">
     <link rel="alternate" hreflang="en" href="https://guaguasis.online/index.html?lang=en">
 </head>
 <body>
-    <!-- 流动色块 -->
-    <div class="paint-blob blob-1"></div>
-    <div class="paint-blob blob-2"></div>
-    <div class="paint-blob blob-3"></div>
-
     <!-- 图片放大遮罩 -->
     <div class="image-overlay" id="imageOverlay"></div>
 
@@ -2502,7 +2462,7 @@
                     <p>互联网公司上班 1 年 / 自由职业 6 年，中国和西班牙两地生活。</p>
                     <p>太阳射手 12 宫人，诚实面对自己 / 自我探索，通过咨询帮助他人找到勇气和力量。</p>
                     <p>月冥人，经历多段「创伤型情感关系」，在绝望中长出爱自己的能力。</p>
-                    <p><a href="https://www.xiaoyuzhoufm.com/podcast/61d09a9d8331df2be32c345f" target="_blank">《爱的表达式》</a>播客主理人，<a href="glowing-planet.html">发光星球</a>社群主理人。</p>
+                    <p><a href="https://www.xiaoyuzhoufm.com/podcast/61d09a9d8331df2be32c345f" target="_blank">《爱的表达式》</a>播客主播，<a href="glowing-planet.html">发光星球</a>社群主理人。</p>
                     <div class="about-badges">
                         <span class="badge">古典占星</span>
                         <span class="badge">择地占星</span>
@@ -2533,7 +2493,7 @@
                     <h3 class="course-title">全套占星课打包</h3>
                     <div class="course-price">9654<span>元 比原价优惠333元</span></div>
                 </div>
-                <p style="color: var(--text-mute); margin-bottom: 1.5rem;">《占星初中阶课》+《占星高阶课》<br><span class="course-lifetime-note">一次性购买后终身可看</span></p>
+                <p style="color: var(--text-mute); margin-bottom: 1.5rem;">《占星初中阶课》+《古典占星高阶课》<br><span class="course-lifetime-note course-highlight">一次性购买后终身可看</span></p>
                 <a href="https://meeting.tencent.com/crm/K04mk8Vre1" target="_blank" class="course-button">查看公开课</a>
             </div>
 
@@ -2573,7 +2533,7 @@
                 <p style="color: var(--rose); font-size: 0.9rem; margin-bottom: 0.8rem;">📅 2027年1月开启新一轮直播课</p>
                 <ul class="course-highlights">
                     <li>课程时长 45+ 小时（直播+回放）</li>
-                    <li>赠送价值 999 的卜卦占星技法课（2h）</li>
+                    <li>赠送价值 999 的卜卦占星技法课</li>
                     <li>赠送瓜瓜自制占星手册</li>
                     <li>不定时加餐实操</li>
                     <li>高阶占星课程交流群（长期有效）</li>
@@ -2598,7 +2558,8 @@
                         <h3 class="course-title">🗺️ 择地占星</h3>
                         <div class="course-price">早鸟价2999<span>元 原价3666元</span></div>
                     </div>
-                    <p style="color: var(--rose); font-size: 0.9rem; margin-bottom: 0.8rem;">2027 年 4 月开启新一轮直播课，早鸟价截止至 3 月</p>
+                    <p class="course-start-note">📅2027 年 4 月开启新一轮直播课</p>
+                    <p class="course-deadline-note">早鸟价截止至 3 月</p>
                     <p style="color: var(--text-mute); margin-bottom: 1rem;">适合有初中阶占星基础的同学</p>
                     <ul class="course-highlights">
                         <li>择地占星历史</li>
@@ -2611,7 +2572,7 @@
                         <li>地理行运：世界行运？怎么判断时机？什么时候去什么地方？</li>
                     </ul>
                     <p style="margin-top: 1rem;">课时 12 小时（直播+回放）</p>
-                    <p style="color: var(--text-mute);">🎁 赠送价值 2500 元 Astro Gold 软件注册（苹果 or Windows电脑均可）</p>
+                    <p style="color: var(--text-mute);"><span class="course-highlight">🎁 赠送价值 2500 元 Astro Gold 软件注册（苹果 or Windows电脑均可）</span></p>
                 </div>
                 <div class="course-side-image">
                     <img src="images/择地透明背景.svg" alt="择地星盘" style="width: 100%;">
@@ -2627,16 +2588,6 @@
                 <ul class="course-highlights">
                     <li>适合有古占推运基础的同学——流年、小限法、太阳弧</li>
                     <li>2 节正课 + 2 节案例，共计 4h</li>
-                </ul>
-            </div>
-            <div class="mini-course">
-                <h4 style="font-size: 1.3rem; margin-bottom: 1rem;">《卜卦占星课》</h4>
-                <p style="color: var(--text-mute); font-size: 0.9rem; margin-bottom: 0.5rem;">属于《古典占星高阶课》的内容</p>
-                <p style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem;">999 元</p>
-                <ul class="course-highlights">
-                    <li>占星骰子/卜卦盘技法</li>
-                    <li>适合有古占知识基础的同学</li>
-                    <li>2 节正课，共计 2h</li>
                 </ul>
             </div>
         </div>
