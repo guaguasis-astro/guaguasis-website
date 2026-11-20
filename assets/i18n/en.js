@@ -1,7 +1,7 @@
 // 展示层英文词典；专业术语与原文一一对应。
 window.GuaguaEnglish = {
   "site": {
-    "瓜瓜占星 - 创造自我，活出最高版本自己": "Guagua Astrology — Become Your Fullest Self",
+    "瓜瓜占星 - 星盘·你一生的隐喻": "Guagua Astrology — Your Birth Chart, a Metaphor for Your Life",
     "瓜瓜占星": "Guagua Astrology",
     "占星课程": "Courses",
     "占星干货": "Articles · Chinese",
