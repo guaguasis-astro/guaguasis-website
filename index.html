@@ -2334,6 +2334,10 @@
 
         .course-card.with-image.course-card-locational {
             row-gap: 0.5rem;
+            isolation: isolate;
+            background:
+                radial-gradient(ellipse at 85% 70%, rgba(145, 179, 196, 0.2), transparent 68%),
+                linear-gradient(135deg, #F9F8ED 0%, #EDF2E8 55%, #E8EFEB 100%);
         }
 
         .course-card-locational .course-side-image {
@@ -2346,6 +2350,7 @@
         .course-card-locational .course-side-image img {
             width: 100%;
             min-height: 0;
+            mix-blend-mode: multiply;
         }
 
         /* 行星符号独立叠在透明地图上，轻微漂移并错开柔光节奏 */
@@ -2371,7 +2376,7 @@
         .map-planet span {
             display: block;
             font-family: 'MapPlanetSymbols';
-            font-size: clamp(16px, 6.5cqw, 21px);
+            font-size: clamp(12px, 4.8cqw, 15px);
             font-weight: 400;
             line-height: 1;
             color: #A07A3E;
