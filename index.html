@@ -181,11 +181,32 @@
         }
 
         .logo {
-            font-family: 'ZCOOL XiaoWei', serif;
-            font-size: 1.4rem;
-            letter-spacing: 0.1em;
-            color: var(--text-dark);
+            display: inline-flex;
+            align-items: center;
+            color: var(--deep-warm);
             text-decoration: none;
+        }
+
+        /* 以原图透明度着色，并收紧四周留白，保留手写 Logo 的原始比例 */
+        .brand-mark {
+            display: block;
+            width: 156px;
+            aspect-ratio: 1342 / 444;
+            background: var(--deep-warm);
+            -webkit-mask: url('images/guagua-logo.png') 48.67% 27.14% / 161.85% 163.06% no-repeat;
+            mask: url('images/guagua-logo.png') 48.67% 27.14% / 161.85% 163.06% no-repeat;
+        }
+
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip-path: inset(50%);
+            white-space: nowrap;
+            border: 0;
         }
 
         .nav-links {
@@ -305,10 +326,13 @@
         }
 
         .hero h1 {
-            font-family: 'ZCOOL XiaoWei', serif;
-            font-size: 3.5rem;
             margin-bottom: 1rem;
-            letter-spacing: 0.2em;
+            line-height: 1;
+        }
+
+        .hero h1 .brand-mark {
+            width: 320px;
+            max-width: 100%;
         }
 
         .hero-subtitle {
@@ -1614,9 +1638,12 @@
                 margin-bottom: 1.5rem;
             }
 
-            .hero h1 {
-                font-size: 2.2rem;
-                letter-spacing: 0.15em;
+            .logo .brand-mark {
+                width: 128px;
+            }
+
+            .hero h1 .brand-mark {
+                width: 250px;
             }
 
             .hero-subtitle {
@@ -1910,8 +1937,8 @@
 
         /* 超小屏幕优化 */
         @media (max-width: 400px) {
-            .hero h1 {
-                font-size: 1.9rem;
+            .hero h1 .brand-mark {
+                width: 220px;
             }
 
             .nav-links {
@@ -2376,7 +2403,7 @@
 
     <!-- 导航栏 -->
     <nav>
-        <a href="index.html" class="logo">✦ 瓜瓜占星</a>
+        <a href="index.html" class="logo"><span class="brand-mark" aria-hidden="true"></span><span class="visually-hidden">瓜瓜占星</span></a>
         <div class="nav-links">
             <a href="#courses">占星课程</a>
             <a href="#articles">占星干货</a>
@@ -2387,7 +2414,7 @@
     <!-- Hero区域 -->
     <section class="hero">
         <div class="zodiac-symbol"><img src="images/日与月.svg" alt="日与月"></div>
-        <h1>瓜瓜占星</h1>
+        <h1><span class="brand-mark" aria-hidden="true"></span><span class="visually-hidden">瓜瓜占星</span></h1>
         <p class="hero-subtitle">星盘 · 你一生的隐喻</p>
         <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
             <a href="#about" class="hero-cta">了解更多</a>
