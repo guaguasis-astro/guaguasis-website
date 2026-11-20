@@ -444,6 +444,8 @@
             margin: 0 auto 12px;
         }
 
+        .video-link-icon img { mix-blend-mode: multiply; }
+
         .video-link-text {
             color: var(--deep-warm);
             font-size: 0.95rem;
@@ -464,115 +466,71 @@
         }
 
         .ai-image-stack {
-            position: relative;
-            height: 280px;
-            margin-top: 30px;
-            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            align-items: start;
+            gap: 22px;
+            margin: 30px 0 16px;
         }
+
+        .ai-image-stack figure:nth-child(2) { margin-top: 28px; }
+        .ai-image-stack figure { min-width: 0; }
+
+        .image-preview {
+            display: block;
+            width: 100%;
+            border: 0;
+            background: transparent;
+            cursor: zoom-in;
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .image-preview:hover { transform: translateY(-4px); }
 
         .stacked-image {
-            position: absolute;
-            width: 65%;
-            max-width: 360px;
+            display: block;
+            width: 100%;
+            border-radius: 12px;
+            border: 3px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 8px 24px rgba(139, 115, 85, 0.12);
+        }
+
+        .ai-image-stack figcaption {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--soft-brown);
+            margin-top: 12px;
+        }
+
+        .image-dialog {
+            position: fixed;
+            inset: 0;
+            margin: auto;
+            max-width: 92vw;
+            max-height: 90vh;
+            border: 0;
+            padding: 44px 16px 16px;
             border-radius: 16px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.08);
-            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            background: var(--warm-cream);
+        }
+
+        .image-dialog::backdrop { background: rgba(30, 25, 20, 0.7); }
+        .image-dialog img { display: block; max-width: 85vw; max-height: 75vh; object-fit: contain; }
+        .image-dialog button {
+            position: absolute;
+            right: 16px;
+            top: 8px;
+            border: 0;
+            background: transparent;
+            color: var(--deep-warm);
+            font: inherit;
             cursor: pointer;
-            border: 4px solid rgba(255, 255, 255, 0.8);
-        }
-
-        .stacked-image.expanded {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(0deg) scale(1.5);
-            width: auto;
-            max-width: 80vw;
-            max-height: 80vh;
-            z-index: 9999;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        }
-
-        .image-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: 9998;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-
-        .image-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .stacked-image:nth-child(1) {
-            left: 2%;
-            top: 0;
-            transform: rotate(-8deg);
-            z-index: 1;
-        }
-
-        .stacked-image:nth-child(2) {
-            left: 20%;
-            top: 25px;
-            transform: rotate(6deg);
-            z-index: 2;
-        }
-
-        .stacked-image:nth-child(3) {
-            left: 8%;
-            top: 50px;
-            transform: rotate(-2deg);
-            z-index: 3;
-        }
-
-        .ai-image-stack:hover .stacked-image:nth-child(1) {
-            transform: rotate(-12deg) translateX(-18px) translateY(-8px);
-        }
-
-        .ai-image-stack:hover .stacked-image:nth-child(2) {
-            transform: rotate(10deg) translateX(18px) translateY(-5px);
-        }
-
-        .ai-image-stack:hover .stacked-image:nth-child(3) {
-            transform: rotate(0deg) translateY(-15px) scale(1.03);
-        }
-
-        .ai-image-stack-2 .stacked-image {
-            width: 85%;
-        }
-
-        .ai-image-stack-2 .stacked-image:nth-child(1) {
-            left: 0%;
-            top: 10px;
-            transform: rotate(-7deg);
-            z-index: 1;
-        }
-
-        .ai-image-stack-2 .stacked-image:nth-child(2) {
-            left: 12%;
-            top: 35px;
-            transform: rotate(7deg);
-            z-index: 2;
-        }
-
-        .ai-image-stack-2:hover .stacked-image:nth-child(1) {
-            transform: rotate(-12deg) translateX(-20px) translateY(-10px);
-        }
-
-        .ai-image-stack-2:hover .stacked-image:nth-child(2) {
-            transform: rotate(12deg) translateX(20px) translateY(-8px);
         }
 
         .activities {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 20px;
         }
 
@@ -615,14 +573,18 @@
             display: block;
             text-decoration: none;
             width: 100%;
-            max-width: 340px;
+            max-width: 270px;
         }
 
         .podcast-player {
+            aspect-ratio: 3 / 4;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
             background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(10px);
             border-radius: 24px;
-            padding: 24px;
+            padding: 16px;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.06);
             transition: all 0.4s ease;
             position: relative;
@@ -636,11 +598,14 @@
 
         .podcast-cover-wrapper {
             position: relative;
-            margin-bottom: 20px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: center;
         }
 
         .podcast-cover {
-            width: 100%;
+            display: block;
+            width: 62%;
             aspect-ratio: 1;
             border-radius: 16px;
             object-fit: cover;
@@ -648,7 +613,7 @@
         }
 
         .podcast-info {
-            margin-bottom: 16px;
+            margin-bottom: 8px;
         }
 
         .podcast-title {
@@ -666,7 +631,7 @@
         }
 
         .podcast-progress {
-            margin-bottom: 16px;
+            margin-bottom: 8px;
         }
 
         .podcast-progress-bar {
@@ -725,8 +690,8 @@
         }
 
         .podcast-play-btn {
-            width: 64px;
-            height: 64px;
+            width: 44px;
+            height: 44px;
             background: linear-gradient(135deg, var(--gentle-gold), var(--coral));
             border-radius: 50%;
             display: flex;
@@ -834,134 +799,151 @@
             background: linear-gradient(90deg, transparent, var(--gentle-gold), transparent);
         }
 
-        .journey-timeline {
-            position: relative;
-            padding: 20px 0;
+        .journey-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
         }
 
-        .journey-timeline::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 10px;
-            bottom: 10px;
-            width: 4px;
-            background: linear-gradient(180deg, var(--gentle-gold), var(--coral), var(--gentle-gold));
-            transform: translateX(-50%);
-            border-radius: 2px;
+        .journey-hint {
+            font-size: 0.85rem;
+            color: var(--soft-brown);
+        }
+
+        .journey-controls {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .journey-controls button {
+            border: 1px solid rgba(166, 139, 107, 0.3);
+            border-radius: 20px;
+            padding: 8px 14px;
+            background: rgba(255, 255, 255, 0.65);
+            color: var(--deep-warm);
+            font: inherit;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        button:focus-visible, a:focus-visible, .journey-viewport:focus-visible {
+            outline: 2px solid var(--soft-brown);
+            outline-offset: 4px;
+        }
+
+        .journey-viewport {
+            overflow-x: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--gentle-gold) transparent;
+            border-radius: 24px;
+        }
+
+        .journey-timeline {
+            display: flex;
+            gap: 24px;
+            width: max-content;
+            max-width: none;
+            padding: 12px 0 24px;
         }
 
         .journey-node {
             position: relative;
-            margin-bottom: 70px;
-            display: flex;
-            align-items: flex-start;
-            opacity: 0;
-            animation: fadeInUp 0.8s ease-out forwards;
+            flex: 0 0 320px;
+            padding-top: 36px;
         }
 
-        .journey-node:nth-child(1) { animation-delay: 0.1s; }
-        .journey-node:nth-child(2) { animation-delay: 0.2s; }
-        .journey-node:nth-child(3) { animation-delay: 0.3s; }
-        .journey-node:nth-child(4) { animation-delay: 0.4s; }
-        .journey-node:nth-child(5) { animation-delay: 0.5s; }
-
-        .journey-node:nth-child(odd) {
-            flex-direction: row-reverse;
+        .journey-node::before {
+            content: '';
+            position: absolute;
+            top: 13px;
+            left: 0;
+            width: calc(100% + 24px);
+            height: 2px;
+            background: linear-gradient(90deg, var(--gentle-gold), var(--coral));
         }
 
         .journey-dot-wrapper {
             position: absolute;
-            left: 50%;
-            top: 30px;
-            transform: translateX(-50%);
-            z-index: 3;
+            top: 3px;
+            left: 24px;
         }
 
         .journey-dot {
-            width: 28px;
-            height: 28px;
-            background: radial-gradient(circle at 30% 30%, var(--soft-yellow), var(--gentle-gold));
+            width: 22px;
+            height: 22px;
+            background: var(--gentle-gold);
+            border: 5px solid var(--warm-cream);
             border-radius: 50%;
-            border: 4px solid var(--warm-cream);
-            box-shadow: 0 0 20px rgba(245, 213, 143, 0.6), 0 0 40px rgba(245, 213, 143, 0.3);
-            animation: gentle-pulse 3.5s ease-in-out infinite;
+            box-shadow: 0 0 14px rgba(245, 213, 143, 0.6);
         }
-
-        .journey-node:nth-child(2) .journey-dot { animation-delay: -0.7s; }
-        .journey-node:nth-child(3) .journey-dot { animation-delay: -1.4s; }
-        .journey-node:nth-child(4) .journey-dot { animation-delay: -2.1s; }
-        .journey-node:nth-child(5) .journey-dot { animation-delay: -2.8s; }
 
         .journey-card {
-            background: rgba(255, 255, 255, 0.55);
-            backdrop-filter: blur(10px);
-            padding: 28px 32px;
-            border-radius: 16px 8px 20px 12px;
-            flex: 1;
-            max-width: calc(50% - 50px);
-            position: relative;
-            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            border: 1px solid rgba(245, 213, 143, 0.4);
+            height: 100%;
+            padding: 16px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(245, 213, 143, 0.35);
         }
 
-        .journey-node:nth-child(odd) .journey-card {
-            margin-right: 50px;
+        .journey-image {
+            display: block;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 4 / 3;
+            object-fit: contain;
+            background: rgba(245, 213, 143, 0.13);
+            border-radius: 14px;
+            margin-bottom: 20px;
         }
 
-        .journey-node:nth-child(even) .journey-card {
-            margin-left: 50px;
-        }
-
-        .journey-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 16px 40px rgba(245, 213, 143, 0.25), 0 8px 20px rgba(232, 168, 124, 0.15);
-        }
-
-        .journey-icon {
-            font-size: 2.5rem;
-            margin-bottom: 12px;
-            text-align: left;
-        }
-
-        .journey-node:nth-child(odd) .journey-icon {
-            text-align: right;
-        }
+        .journey-icon { display: none; }
 
         .journey-date {
             font-family: 'ZCOOL XiaoWei', serif;
-            font-size: 1.6rem;
+            font-size: 1.3rem;
             color: var(--soft-brown);
             margin-bottom: 8px;
         }
 
-        .journey-node:nth-child(odd) .journey-date {
-            text-align: right;
-        }
-
         .journey-title {
             font-family: 'ZCOOL XiaoWei', serif;
-            font-size: 1.2rem;
-            color: var(--deep-warm);
-            margin-bottom: 16px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid rgba(245, 213, 143, 0.4);
-        }
-
-        .journey-node:nth-child(odd) .journey-title {
-            text-align: right;
+            font-size: 1.15rem;
+            margin-bottom: 14px;
         }
 
         .journey-desc {
-            font-size: 0.95rem;
-            line-height: 2;
-            color: var(--deep-warm);
+            font-size: 0.9rem;
+            line-height: 1.9;
             white-space: pre-line;
         }
 
-        .journey-node:nth-child(odd) .journey-desc {
-            text-align: right;
+        .course-schedule {
+            position: relative;
+            margin-top: 28px;
+            padding-top: 28px;
+            border-top: 1px solid rgba(166, 139, 107, 0.2);
         }
+
+        .course-schedule h3 {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-bottom: 16px;
+        }
+
+        .course-schedule p { font-size: 0.95rem; }
+        .course-schedule .course-replays { margin: 22px 0 12px; }
+
+        .course-schedule ol {
+            padding-left: 1.6em;
+            font-size: 0.95rem;
+            line-height: 1.9;
+        }
+
+        .course-schedule li { padding: 6px 0 6px 4px; }
 
         @media (max-width: 767px) {
             .nav-back {
@@ -1026,23 +1008,15 @@
                 line-height: 1.9;
             }
 
-            .video-links {
-                grid-template-columns: 1fr;
-                gap: 12px;
-            }
+            .video-links { gap: 12px; }
+            .video-link-card { padding: 20px 8px; }
+            .video-link-text { font-size: 0.85rem; }
 
-            .ai-image-stack {
-                height: 240px;
-            }
 
-            .ai-image-stack-2 .stacked-image {
-                width: 85%;
-            }
+            .ai-image-stack { gap: 12px; }
 
-            .activities {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
+            .activities { gap: 8px; }
+            .activities .activity { padding: 20px 6px; font-size: 0.85rem; }
 
             .activity {
                 padding: 24px 20px;
@@ -1053,9 +1027,7 @@
                 margin-bottom: 12px;
             }
 
-            .podcast-player {
-                padding: 20px;
-            }
+            .podcast-player { padding: 16px; }
 
             .cta {
                 padding: 40px 20px;
@@ -1097,59 +1069,10 @@
                 right: 0%;
             }
 
-            .journey-timeline::before {
-                left: 32px;
-            }
-
-            .journey-node,
-            .journey-node:nth-child(odd) {
-                flex-direction: row;
-            }
-
-            .journey-dot-wrapper {
-                left: 32px;
-                transform: none;
-            }
-
-            .journey-dot {
-                width: 22px;
-                height: 22px;
-                border-width: 3px;
-            }
-
-            .journey-card,
-            .journey-node:nth-child(odd) .journey-card,
-            .journey-node:nth-child(even) .journey-card {
-                max-width: none;
-                margin-left: 70px;
-                margin-right: 0;
-            }
-
-            .journey-icon,
-            .journey-node:nth-child(odd) .journey-icon {
-                text-align: left;
-            }
-
-            .journey-date,
-            .journey-node:nth-child(odd) .journey-date {
-                text-align: left;
-                font-size: 1.4rem;
-            }
-
-            .journey-title,
-            .journey-node:nth-child(odd) .journey-title {
-                text-align: left;
-            }
-
-            .journey-desc,
-            .journey-node:nth-child(odd) .journey-desc {
-                text-align: left;
-                font-size: 0.9rem;
-            }
-
-            .journey-card {
-                padding: 22px 24px;
-            }
+            .journey-node { flex-basis: 280px; }
+            .journey-toolbar { flex-wrap: wrap; }
+            .journey-hint { width: 100%; }
+            .journey-controls { margin-left: auto; }
         }
 
         @media (min-width: 768px) {
@@ -1206,17 +1129,12 @@
                 line-height: 2;
             }
 
-            .ai-image-stack {
-                height: 340px;
-            }
 
             .activities {
                 gap: 30px;
             }
 
-            .activity {
-                padding: 40px;
-            }
+            .activity { padding: 32px 16px; }
 
             .activity-icon {
                 font-size: 2.8rem;
@@ -1260,7 +1178,10 @@
     <div class="star" style="bottom: 20%; left: 20%; animation-delay: 1.8s;"></div>
     <div class="star" style="top: 45%; right: 8%; animation-delay: 3s;"></div>
 
-    <div class="image-overlay" id="imageOverlay"></div>
+    <dialog class="image-dialog" id="imageDialog" aria-label="图片预览">
+        <button type="button" aria-label="关闭图片预览">关闭 ×</button>
+        <img alt="">
+    </dialog>
 
     <nav class="nav-back">
         <a href="index.html">← 返回主页</a>
@@ -1275,12 +1196,22 @@
 
         <section>
             <h2>我的发光之旅 ✨</h2>
+            <div class="journey-toolbar">
+                <p class="journey-hint">沿着时间，慢慢走向发光的自己</p>
+                <div class="journey-controls">
+                    <button type="button" id="journeyPrevious" aria-label="上一段旅程">上一段</button>
+                    <button type="button" id="journeyToggle" aria-pressed="false">暂停</button>
+                    <button type="button" id="journeyNext" aria-label="下一段旅程">下一段</button>
+                </div>
+            </div>
+            <div class="journey-viewport" tabindex="0" role="region" aria-label="发光之旅，可左右滑动浏览">
             <div class="journey-timeline">
                 <div class="journey-node">
                     <div class="journey-dot-wrapper">
                         <div class="journey-dot"></div>
                     </div>
                     <div class="journey-card">
+                        <img class="journey-image" src="images/glowing-planet/journey-1.jpg" alt="播客的起点" width="576" height="432">
                         <div class="journey-icon">🎙️</div>
                         <div class="journey-date">2022.8.29</div>
                         <div class="journey-title">播客的起点</div>
@@ -1293,6 +1224,7 @@
                         <div class="journey-dot"></div>
                     </div>
                     <div class="journey-card">
+                        <img class="journey-image" src="images/glowing-planet/journey-2.jpg" alt="西班牙的生活" width="576" height="432">
                         <div class="journey-icon">✈️</div>
                         <div class="journey-date">2023.11.1</div>
                         <div class="journey-title">逃离日复一日的生活</div>
@@ -1307,6 +1239,7 @@
                         <div class="journey-dot"></div>
                     </div>
                     <div class="journey-card">
+                        <img class="journey-image" src="images/glowing-planet/journey-3.jpg" alt="表达与创作" width="576" height="432">
                         <div class="journey-icon">⭐</div>
                         <div class="journey-date">2024.1-至今</div>
                         <div class="journey-title">通过表达与创作确认了天命</div>
@@ -1322,6 +1255,7 @@
                         <div class="journey-dot"></div>
                     </div>
                     <div class="journey-card">
+                        <img class="journey-image" src="images/glowing-planet/journey-4.jpg" alt="分享创作经验" width="576" height="432">
                         <div class="journey-icon">🌍</div>
                         <div class="journey-date">2026.1</div>
                         <div class="journey-title">通过社群分享我的创作经验</div>
@@ -1335,6 +1269,7 @@
                         <div class="journey-dot"></div>
                     </div>
                     <div class="journey-card">
+                        <img class="journey-image" src="images/glowing-planet/journey-5.jpg" alt="带领大家一起发光" width="576" height="432">
                         <div class="journey-icon">💫</div>
                         <div class="journey-date">现在ing</div>
                         <div class="journey-title">带领大家一起发光！</div>
@@ -1346,6 +1281,7 @@
 主动选择不做一个旁观者，做自己的主角</div>
                     </div>
                 </div>
+            </div>
             </div>
         </section>
 
@@ -1372,6 +1308,22 @@
                             <div class="video-link-text">🎬 自媒体观察</div>
                         </a>
                     </div>
+                    <div class="course-schedule">
+                        <h3>课程安排（一共21节课，时长30+小时）</h3>
+                        <p>每个月群内有3个自媒体点评名额【根据发布时间先到先得】</p>
+                        <p class="course-replays">已出课程（可看回放）</p>
+                        <ol>
+                            <li>自媒体创作心法：</li>
+                            <li>个人为什么要表达+自我定位？</li>
+                            <li>破表达心魔，解放你的表达</li>
+                            <li>创作的深度，创作与仪式</li>
+                            <li>Build Your Voice，用AI打造一人公司</li>
+                            <li>发光计划：创作炼金术、AI自我觉察、人生自传</li>
+                            <li>如何成为一个有说服力的人？</li>
+                            <li>怎么用AI搭建个人网站？</li>
+                            <li>如何落地显化创作灵感？</li>
+                        </ol>
+                    </div>
                 </div>
                 <div class="value-card">
                     <div class="value-title">
@@ -1379,18 +1331,27 @@
                         AI创作联动
                     </div>
                     <div class="value-desc">
-                        使用AI辅助创作：从内容输入、到输出创意、再到播客剪辑，让AI成为你的创作伙伴。
+                        使用AI辅助创作：从内容输入、到输出创意、再到播客/视频剪辑，让AI成为你的创作伙伴。
                     </div>
-                    <div class="ai-image-stack ai-image-stack-2">
-                        <img src="https://13192e9c.pinme.dev/" alt="AI分析过程" class="stacked-image">
-                        <img src="https://15424df4.pinme.dev" alt="剪辑完成" class="stacked-image">
+                    <div class="ai-image-stack">
+                        <figure>
+                            <button type="button" class="image-preview" aria-label="放大查看 Claudian">
+                                <img src="https://13192e9c.pinme.dev/" alt="Claudian 创作界面" class="stacked-image">
+                            </button>
+                            <figcaption>Claudian · 内容与灵感</figcaption>
+                        </figure>
+                        <figure>
+                            <button type="button" class="image-preview" aria-label="放大查看 ChatCut">
+                                <img src="images/glowing-planet/chatcut.png" alt="ChatCut 播客/视频剪辑界面" class="stacked-image">
+                            </button>
+                            <figcaption>ChatCut · 播客/视频剪辑</figcaption>
+                        </figure>
                     </div>
                 </div>
                 <div class="value-card energy-section">
                     <div class="value-title">🌊 自我觉察与能量流动</div>
                     <div class="value-desc">
-                        分享瓜瓜在自我觉察和能量疗愈的经验，在社群内部组织<span class="highlight">能量流动活动</span>，
-                        让内在的智慧自然流淌。
+                        创作离不开创作者对自我的觉察和对生命的洞察经验。瓜瓜会分享一些自我疗愈和觉察的方法，让创作成为一种由心而发的、不费力的动作，帮助我们创作出真正有能量、有感染力的作品。
                     </div>
                     <div class="energy-image-container">
                         <span class="floating-word">冥想</span>
@@ -1403,8 +1364,7 @@
                 <div class="value-card">
                     <div class="value-title">🎙️ 共创与表达</div>
                     <div class="value-desc">
-                        共同创作群播客<a href="https://www.xiaoyuzhoufm.com/podcast/67dfd3748f2a7dd2a59415c8" target="_blank" class="podcast-link">《发光星球》</a>，每个人都有表达的机会。还有<span class="highlight">「一周主理人」</span>活动，
-                        让你站在主理人的位置主动链接群友，展示你的作品与产品。
+                        共同创作群播客<a href="https://www.xiaoyuzhoufm.com/podcast/67dfd3748f2a7dd2a59415c8" target="_blank" class="podcast-link">《发光星球》</a>，只要你敢于分享，每个人都有表达和被看见的机会。
                     </div>
                     <div class="podcast-player-section">
                         <a href="https://www.xiaoyuzhoufm.com/podcast/67dfd3748f2a7dd2a59415c8" target="_blank" class="podcast-player-link">
@@ -1448,15 +1408,11 @@
                 </div>
                 <div class="activity">
                     <div class="activity-icon">🧘</div>
-                    <div>能量流动共修</div>
+                    <div>能量疗愈</div>
                 </div>
                 <div class="activity">
                     <div class="activity-icon">🎙️</div>
                     <div>发光星球播客</div>
-                </div>
-                <div class="activity">
-                    <div class="activity-icon">🌟</div>
-                    <div>一周主理人</div>
                 </div>
             </div>
         </section>
@@ -1480,39 +1436,88 @@
     </div>
 
     <script>
-        const stackedImages = document.querySelectorAll('.stacked-image');
-        const overlay = document.getElementById('imageOverlay');
-        let expandedImage = null;
-
-        stackedImages.forEach(img => {
-            img.addEventListener('click', (e) => {
-                e.stopPropagation();
-                if (expandedImage === img) {
-                    collapseImage();
-                } else {
-                    expandImage(img);
-                }
+        const imageDialog = document.getElementById('imageDialog');
+        document.querySelectorAll('.image-preview').forEach(button => {
+            button.addEventListener('click', () => {
+                const image = button.querySelector('img');
+                const preview = imageDialog.querySelector('img');
+                preview.src = image.src;
+                preview.alt = image.alt;
+                imageDialog.showModal();
             });
         });
+        imageDialog.querySelector('button').addEventListener('click', () => imageDialog.close());
+        imageDialog.addEventListener('click', event => {
+            const bounds = imageDialog.getBoundingClientRect();
+            if (event.clientX < bounds.left || event.clientX > bounds.right ||
+                event.clientY < bounds.top || event.clientY > bounds.bottom) imageDialog.close();
+        });
 
-        overlay.addEventListener('click', collapseImage);
+        const journey = document.querySelector('.journey-viewport');
+        const timeline = journey.querySelector('.journey-timeline');
+        const nodes = Array.from(timeline.children);
+        nodes.forEach(node => {
+            const copy = node.cloneNode(true);
+            copy.setAttribute('aria-hidden', 'true');
+            copy.inert = true;
+            timeline.appendChild(copy);
+        });
+        const toggle = document.getElementById('journeyToggle');
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        let paused = reducedMotion.matches;
+        let hovering = false;
+        let interacting = false;
+        let visible = false;
+        let resumeAt = 0;
+        let position = 0;
+        let previousTime = 0;
+        let cycleWidth = 0;
 
-        function expandImage(img) {
-            if (expandedImage) {
-                collapseImage();
-            }
-            img.classList.add('expanded');
-            overlay.classList.add('active');
-            expandedImage = img;
+        function measureJourney() {
+            cycleWidth = timeline.children[nodes.length].offsetLeft - nodes[0].offsetLeft;
+            position = journey.scrollLeft;
         }
-
-        function collapseImage() {
-            if (expandedImage) {
-                expandedImage.classList.remove('expanded');
-                overlay.classList.remove('active');
-                expandedImage = null;
-            }
+        new ResizeObserver(measureJourney).observe(journey);
+        new IntersectionObserver(entries => { visible = entries[0].isIntersecting; }).observe(journey);
+        function updateToggle() {
+            toggle.textContent = paused ? '播放' : '暂停';
+            toggle.setAttribute('aria-pressed', String(paused));
         }
+        toggle.addEventListener('click', () => { paused = !paused; updateToggle(); });
+        reducedMotion.addEventListener('change', event => { paused = event.matches; updateToggle(); });
+        journey.addEventListener('pointerenter', event => { if (event.pointerType === 'mouse') hovering = true; });
+        journey.addEventListener('pointerleave', () => { hovering = false; });
+        journey.addEventListener('pointerdown', () => { interacting = true; });
+        window.addEventListener('pointerup', () => { interacting = false; resumeAt = performance.now() + 2500; });
+        window.addEventListener('pointercancel', () => { interacting = false; });
+        journey.addEventListener('wheel', () => { resumeAt = performance.now() + 2500; }, { passive: true });
+        journey.addEventListener('keydown', () => { resumeAt = performance.now() + 2500; });
+        journey.addEventListener('focusin', () => { interacting = true; });
+        journey.addEventListener('focusout', () => { interacting = false; });
+        function stepJourney(direction) {
+            if (!cycleWidth) return;
+            const step = nodes[1].offsetLeft - nodes[0].offsetLeft;
+            position = ((Math.round(journey.scrollLeft / step) + direction) * step + cycleWidth) % cycleWidth;
+            journey.scrollLeft = position;
+            resumeAt = performance.now() + 3500;
+        }
+        document.getElementById('journeyPrevious').addEventListener('click', () => stepJourney(-1));
+        document.getElementById('journeyNext').addEventListener('click', () => stepJourney(1));
+        function animateJourney(time) {
+            const elapsed = Math.min(time - previousTime, 50);
+            previousTime = time;
+            if (!paused && !hovering && !interacting && visible && !document.hidden && time > resumeAt && cycleWidth) {
+                if (Math.abs(position - journey.scrollLeft) > 2) position = journey.scrollLeft;
+                position = (position + elapsed * 0.028) % cycleWidth;
+                journey.scrollLeft = position;
+            } else {
+                position = journey.scrollLeft;
+            }
+            requestAnimationFrame(animateJourney);
+        }
+        measureJourney();
+        updateToggle();
+        requestAnimationFrame(animateJourney);
     </script>
 </body>
 </html>
