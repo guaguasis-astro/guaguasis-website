@@ -53,6 +53,14 @@
     </script>
 
     <style>
+        @font-face {
+            font-family: 'MapPlanetSymbols';
+            src: url('fortune-chart/fonts/HamburgSymbols.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: block;
+        }
+
         :root {
             --cream: #FDF8E8;
             --warm-cream: #FFF8E7;
@@ -2324,8 +2332,13 @@
             max-height: 450px;
         }
 
+        .course-card.with-image.course-card-locational {
+            row-gap: 0.5rem;
+        }
+
         .course-card-locational .course-side-image {
             max-width: 320px;
+            min-height: 0;
             margin: 0 auto;
             opacity: 1;
         }
@@ -2334,6 +2347,53 @@
             width: 100%;
             min-height: 0;
         }
+
+        /* 行星符号独立叠在透明地图上，轻微漂移并错开柔光节奏 */
+        .planet-map {
+            position: relative;
+            width: 100%;
+            container-type: inline-size;
+        }
+
+        .map-planets {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .map-planet {
+            position: absolute;
+            left: var(--x);
+            top: var(--y);
+            transform: translate(-50%, -50%);
+        }
+
+        .map-planet span {
+            display: block;
+            font-family: 'MapPlanetSymbols';
+            font-size: clamp(16px, 6.5cqw, 21px);
+            font-weight: 400;
+            line-height: 1;
+            color: #A07A3E;
+            text-shadow: 0 0 5px rgba(245, 213, 143, 0.5);
+            animation: map-planet-drift var(--duration) ease-in-out var(--delay) infinite,
+                map-planet-glow 7s ease-in-out var(--delay) infinite;
+        }
+
+        @keyframes map-planet-drift {
+            0%, 100% { transform: translate(-2px, 3px); }
+            50% { transform: translate(var(--dx), var(--dy)); }
+        }
+
+        @keyframes map-planet-glow {
+            0%, 100% { opacity: 0.65; text-shadow: 0 0 4px rgba(245, 213, 143, 0.3); }
+            50% { opacity: 1; text-shadow: 0 0 7px rgba(245, 213, 143, 0.9), 0 0 13px rgba(245, 213, 143, 0.35); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .map-planet span { animation: none; opacity: 0.9; }
+        }
+
 
         @media (max-width: 768px) {
             .course-card.with-image.course-card-foundations {
@@ -2585,7 +2645,21 @@
                     <p style="color: var(--text-mute);"><span class="course-highlight">🎁 赠送价值 2500 元 Astro Gold 软件注册（苹果 or Windows电脑均可）</span></p>
                 </div>
                 <div class="course-side-image">
-                    <img src="images/locational-world-map.png" alt="淡彩世界地图，金色曲线穿越各大洲，沿线点缀星星" width="1536" height="1024" loading="lazy" decoding="async">
+                    <div class="planet-map">
+                        <img src="images/locational-world-map.png" alt="淡彩世界地图，金色曲线穿越各大洲，沿线点缀星星" width="1536" height="1024" loading="lazy" decoding="async">
+                        <div class="map-planets" aria-hidden="true">
+                            <span class="map-planet" data-planet="太阳" style="--x: 22%; --y: 32%; --duration: 19s; --delay: -2s; --dx: 5px; --dy: -6px;"><span>Q</span></span>
+                            <span class="map-planet" data-planet="月亮" style="--x: 78%; --y: 33%; --duration: 24s; --delay: -8s; --dx: -5px; --dy: -7px;"><span>W</span></span>
+                            <span class="map-planet" data-planet="水星" style="--x: 53%; --y: 24%; --duration: 21s; --delay: -5s; --dx: 5px; --dy: -5px;"><span>E</span></span>
+                            <span class="map-planet" data-planet="金星" style="--x: 60%; --y: 63%; --duration: 26s; --delay: -12s; --dx: -4px; --dy: -6px;"><span>R</span></span>
+                            <span class="map-planet" data-planet="火星" style="--x: 32%; --y: 68%; --duration: 20s; --delay: -9s; --dx: 5px; --dy: -5px;"><span>T</span></span>
+                            <span class="map-planet" data-planet="木星" style="--x: 43%; --y: 45%; --duration: 25s; --delay: -4s; --dx: 6px; --dy: -7px;"><span>Y</span></span>
+                            <span class="map-planet" data-planet="土星" style="--x: 15%; --y: 55%; --duration: 23s; --delay: -10s; --dx: -5px; --dy: -4px;"><span>U</span></span>
+                            <span class="map-planet" data-planet="天王星" style="--x: 85%; --y: 64%; --duration: 27s; --delay: -15s; --dx: -6px; --dy: -6px;"><span>I</span></span>
+                            <span class="map-planet" data-planet="海王星" style="--x: 69%; --y: 43%; --duration: 22s; --delay: -6s; --dx: 5px; --dy: -7px;"><span>O</span></span>
+                            <span class="map-planet" data-planet="冥王星" style="--x: 48%; --y: 80%; --duration: 28s; --delay: -17s; --dx: -4px; --dy: -5px;"><span>P</span></span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
