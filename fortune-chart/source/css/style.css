@@ -47,8 +47,8 @@
     --border-gold: #b8922a;
 
     /* 字体 */
-    --font-display: "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, "Times New Roman", serif;
-    --font-body: "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --font-display: "PingFang SC", -apple-system, BlinkMacSystemFont, "Microsoft YaHei", Arial, sans-serif;
+    --font-body: "PingFang SC", -apple-system, BlinkMacSystemFont, "Microsoft YaHei", Arial, sans-serif;
     --font-small: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
 
     /* 装饰 */

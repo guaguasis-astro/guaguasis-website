@@ -180,7 +180,7 @@ export function drawBirthChart(canvas, chart, logicalSize) {
         // 使用 HamburgSymbols 字体（每个星座对应一个字母）
         // 小屏星座符号缩小
         const signFontSize = isSmallScreen ? 16 : 22;
-        ctx.font = `${signFontSize}px "HamburgSymbols", "Noto Serif SC", Georgia, serif`;
+        ctx.font = `${signFontSize}px "HamburgSymbols", "PingFang SC", -apple-system, BlinkMacSystemFont, "Microsoft YaHei", Arial, sans-serif`;
         ctx.fillStyle = COLORS.goldDark;
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
@@ -235,7 +235,7 @@ export function drawBirthChart(canvas, chart, logicalSize) {
                 } else {
                     ctx.rotate(-angle + Math.PI / 2);
                 }
-                ctx.font = '10px "Noto Serif SC", Georgia, serif';
+                ctx.font = '10px "PingFang SC", -apple-system, BlinkMacSystemFont, "Microsoft YaHei", Arial, sans-serif';
                 ctx.fillStyle = COLORS.textFaded;
                 ctx.textAlign = "center";
                 ctx.textBaseline = "middle";
@@ -301,7 +301,7 @@ export function drawBirthChart(canvas, chart, logicalSize) {
         ctx.save();
         ctx.translate(hp.x, hp.y);
         ctx.rotate(-midAngle + Math.PI / 2);
-        ctx.font = `bold ${isAngular ? 12 : 11}px "Noto Serif SC", Georgia, serif`;
+        ctx.font = `bold ${isAngular ? 12 : 11}px "PingFang SC", -apple-system, BlinkMacSystemFont, "Microsoft YaHei", Arial, sans-serif`;
         ctx.fillStyle = isAngular ? COLORS.goldDark : COLORS.textFaded;
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
@@ -453,9 +453,9 @@ export function drawBirthChart(canvas, chart, logicalSize) {
         // 行星符号（正立，不旋转）
         // 行星用 HamburgSymbols 字体；福点、南北交用回退字体
         if (p.useHamburgFont) {
-            ctx.font = `${fontSize}px "HamburgSymbols", "Noto Serif SC", Georgia, serif`;
+            ctx.font = `${fontSize}px "HamburgSymbols", "PingFang SC", -apple-system, BlinkMacSystemFont, "Microsoft YaHei", Arial, sans-serif`;
         } else {
-            ctx.font = `bold ${fontSize}px "Noto Serif SC", "Songti SC", Georgia, serif`;
+            ctx.font = `bold ${fontSize}px "PingFang SC", -apple-system, BlinkMacSystemFont, "Microsoft YaHei", Arial, sans-serif`;
         }
         ctx.fillStyle = symbolColor;
         ctx.textAlign = "center";
@@ -464,7 +464,7 @@ export function drawBirthChart(canvas, chart, logicalSize) {
 
         // 逆行标记 R（仅行星，南北交永远逆行无需标注）
         if (p.isRetrograde && p.type !== "node") {
-            ctx.font = `bold 10px "Noto Serif SC", Georgia, serif`;
+            ctx.font = `bold 10px "PingFang SC", -apple-system, BlinkMacSystemFont, "Microsoft YaHei", Arial, sans-serif`;
             ctx.fillStyle = COLORS.goldDark;
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
@@ -515,8 +515,8 @@ export function drawBirthChart(canvas, chart, logicalSize) {
             const labelR = r.outermost + 18;
             const pos = pointAt(angle, labelR);
 
-            const labelFont = `bold 14px "Noto Serif SC", Georgia, serif`;
-            const degFont = `bold 13px "Noto Serif SC", Georgia, serif`;
+            const labelFont = `bold 14px "PingFang SC", -apple-system, BlinkMacSystemFont, "Microsoft YaHei", Arial, sans-serif`;
+            const degFont = `bold 13px "PingFang SC", -apple-system, BlinkMacSystemFont, "Microsoft YaHei", Arial, sans-serif`;
 
             ctx.font = labelFont;
             ctx.textBaseline = "middle";
@@ -591,23 +591,23 @@ export function drawBirthChart(canvas, chart, logicalSize) {
     ctx.textBaseline = "middle";
 
     // ✦ 装饰符号
-    ctx.font = '12px "Noto Serif SC", Georgia, serif';
+    ctx.font = '12px "PingFang SC", -apple-system, BlinkMacSystemFont, "Microsoft YaHei", Arial, sans-serif';
     ctx.fillText("✦", center, center - 32);
 
-    ctx.font = `bold 18px "Noto Serif SC", "Songti SC", Georgia, serif`;
+    ctx.font = `bold 18px "PingFang SC", -apple-system, BlinkMacSystemFont, "Microsoft YaHei", Arial, sans-serif`;
     ctx.fillStyle = COLORS.goldDark;
     ctx.fillText(window.GuaguaI18n?.language === "en" ? "Guagua Astrology" : "瓜瓜占星", center, center - 14, 150 * (size / 600));
 
-    ctx.font = `11px "Noto Serif SC", Georgia, serif`;
+    ctx.font = `11px "PingFang SC", -apple-system, BlinkMacSystemFont, "Microsoft YaHei", Arial, sans-serif`;
     ctx.fillStyle = COLORS.textSepia;
     ctx.fillText(window.GuaguaI18n?.language === "en" ? window.GuaguaI18n.english(chart.dayNightText) : chart.dayNightText, center, center + 6);
 
-    ctx.font = `10px "Noto Serif SC", Georgia, serif`;
+    ctx.font = `10px "PingFang SC", -apple-system, BlinkMacSystemFont, "Microsoft YaHei", Arial, sans-serif`;
     ctx.fillStyle = COLORS.textFaded;
     ctx.fillText(window.GuaguaI18n?.language === "en" ? "Whole Sign · Traditional" : "整宫制 · 古典占星", center, center + 22, 160 * (size / 600));
 
     // ✦ 装饰符号
     ctx.fillStyle = COLORS.goldDark;
-    ctx.font = '12px "Noto Serif SC", Georgia, serif';
+    ctx.font = '12px "PingFang SC", -apple-system, BlinkMacSystemFont, "Microsoft YaHei", Arial, sans-serif';
     ctx.fillText("✦", center, center + 36);
 }

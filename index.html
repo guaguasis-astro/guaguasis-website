@@ -52,9 +52,6 @@
     }
     </script>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --cream: #FDF8E8;
@@ -69,6 +66,8 @@
             --text-mute: #6B6351;
             --coral: #E8A87C;
             --rose: #D37D63;
+            --warm-russet: #815349;
+            --deep-russet: #653D36;
             --sage: #A8B5A0;
             --sky: #91B3C4;
             --lavender: #B89EED;
@@ -92,7 +91,7 @@
         }
 
         body {
-            font-family: 'Noto Serif SC', serif;
+            font-family: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
             background:
                 radial-gradient(ellipse at 20% 20%, rgba(255, 239, 184, 0.3) 0%, transparent 50%),
                 radial-gradient(ellipse at 80% 80%, rgba(232, 168, 124, 0.2) 0%, transparent 50%),
@@ -397,6 +396,7 @@
         .section-title {
             font-family: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
             font-size: 2rem;
+            font-weight: 700;
             text-align: center;
             margin-bottom: 3rem;
             letter-spacing: 0.15em;
@@ -406,39 +406,55 @@
             gap: 1rem;
         }
 
-        .section-title .butterfly {
-            width: 180px;
-            height: 180px;
+        .course-section-title {
+            position: relative;
+        }
+
+        .course-section-title .butterfly {
+            position: absolute;
+            width: 72px;
+            height: 72px;
+            right: calc(50% + 6rem);
+            top: 50%;
+            transform: translateY(-50%);
             opacity: 0.7;
         }
 
-        /* 关于瓜瓜 */
+        #about, #courses, #articles {
+            scroll-margin-top: 7rem;
+        }
+
+        /* 关于瓜瓜：小头像靠右，介绍文字自然环绕 */
         .about {
             background: rgba(249, 241, 215, 0.4);
-            margin: 0 -3rem;
-            padding: 6rem 3rem;
+            padding: 4rem 3rem;
+        }
+
+        .about > .section {
+            padding: 0;
         }
 
         .about-content {
             max-width: 700px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 3rem;
-            align-items: start;
+        }
+
+        .about-text {
+            display: flow-root;
         }
 
         .about-avatar {
-            flex-shrink: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.8rem;
+            float: right;
+            width: 112px;
+            margin: 0 0 1rem 1.75rem;
+            text-align: center;
         }
 
         .about-avatar img {
-            width: 180px;
-            height: 180px;
+            display: block;
+            width: 112px;
+            height: 112px;
+            margin-bottom: 0.5rem;
             object-fit: cover;
             object-position: 50% 30%;
             border-radius: 50%;
@@ -446,7 +462,7 @@
         }
 
         .avatar-note {
-            font-size: 0.85rem;
+            font-size: 0.7rem;
             color: var(--text-mute);
             text-align: center;
         }
@@ -470,6 +486,7 @@
         }
 
         .about-badges {
+            clear: both;
             display: flex;
             flex-wrap: wrap;
             gap: 1rem;
@@ -501,9 +518,12 @@
             flex-wrap: wrap;
             gap: 0.65rem 1.5rem;
             margin-bottom: 1.5rem;
-            padding: 0.85rem 1rem;
-            background: var(--cream);
-            border: 1px solid var(--soft-gold);
+            padding: 1.5rem 1.75rem;
+            background: linear-gradient(135deg, var(--warm-russet), var(--deep-russet));
+            color: var(--warm-cream);
+            border: 1px solid rgba(255, 248, 231, 0.2);
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(101, 61, 54, 0.14);
         }
 
         .live-schedule h2 {
@@ -518,13 +538,13 @@
             width: 0.55rem;
             height: 0.55rem;
             border-radius: 50%;
-            background: #c43b42;
+            background: var(--gentle-gold);
             animation: live-pulse 2s ease-out infinite;
         }
 
         @keyframes live-pulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(196, 59, 66, 0.35); }
-            65% { box-shadow: 0 0 0 0.35rem rgba(196, 59, 66, 0); }
+            0%, 100% { box-shadow: 0 0 0 0 rgba(245, 213, 143, 0.35); }
+            65% { box-shadow: 0 0 0 0.35rem rgba(245, 213, 143, 0); }
         }
 
         .live-schedule ul {
@@ -534,7 +554,13 @@
             gap: 0.25rem 1.25rem;
             list-style: none;
             font-size: 0.9rem;
-            color: var(--text-dark);
+            color: var(--warm-cream);
+        }
+
+        .live-schedule time {
+            color: var(--gentle-gold);
+            margin-right: 0.5rem;
+            font-weight: 600;
         }
 
         @media (max-width: 480px) {
@@ -664,13 +690,20 @@
         }
 
         .course-gains li {
-            padding: 0.3rem 0;
+            position: relative;
+            padding: 0.3rem 0 0.3rem 1rem;
             color: var(--text-mute);
         }
 
         .course-gains li::before {
-            content: '✅';
-            margin-right: 0.5rem;
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 1em;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--deep-warm);
         }
 
         .mini-courses {
@@ -1674,33 +1707,35 @@
                 margin-bottom: 2rem;
             }
 
-            .section-title .butterfly {
-                width: 60px;
-                height: 60px;
+            .course-section-title .butterfly {
+                width: 52px;
+                height: 52px;
+                right: calc(50% + 4.8rem);
             }
 
             /* 关于瓜瓜 */
             .about {
                 padding: 3rem 1.2rem;
-                margin: 0 -1.2rem;
             }
 
-            .about-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 2rem;
+            .about-avatar {
+                width: 84px;
+                margin-left: 1rem;
             }
 
             .about-avatar img {
-                width: 150px;
-                height: 150px;
-                object-fit: cover;
-                object-position: 50% 30%;
+                width: 84px;
+                height: 84px;
+            }
+
+            .avatar-note {
+                font-size: 0.65rem;
+                overflow-wrap: anywhere;
             }
 
             .about-badges {
-                justify-content: center;
-                flex-wrap: nowrap;
+                justify-content: flex-start;
+                flex-wrap: wrap;
                 gap: 0.5rem;
             }
 
@@ -2215,8 +2250,9 @@
         .articles-grid {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 2rem auto 0;
         }
 
         .article-card {
@@ -2228,7 +2264,9 @@
             cursor: pointer;
             text-decoration: none;
             color: inherit;
-            display: block;
+            display: grid;
+            grid-template-rows: 46% minmax(0, 1fr);
+            aspect-ratio: 1;
         }
 
         .article-card:hover {
@@ -2238,7 +2276,7 @@
 
         .article-image {
             width: 100%;
-            aspect-ratio: 2.35 / 1;
+            height: 100%;
             background: linear-gradient(135deg, var(--soft-yellow) 0%, var(--gentle-gold) 100%);
             display: flex;
             align-items: center;
@@ -2254,24 +2292,30 @@
         }
 
         .article-content {
-            padding: 1.5rem;
+            min-width: 0;
+            padding: 0.9rem;
+            display: flex;
+            flex-direction: column;
         }
 
         .article-title {
             font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
-            font-size: 1.3rem;
-            margin-bottom: 0.8rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 0.6rem;
             color: var(--text-dark);
         }
 
         .article-tags {
             display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
+            flex-wrap: nowrap;
+            gap: 0.4rem;
+            margin-top: auto;
         }
 
         .article-tag {
-            padding: 0.25rem 0.8rem;
+            padding: 0.2rem 0.6rem;
+            white-space: nowrap;
             background: var(--cream);
             border-radius: 15px;
             font-size: 0.8rem;
@@ -2382,18 +2426,19 @@
             font-weight: 700;
         }
         .course-logic strong { font-weight: 700; }
-        @media (max-width: 768px) {
+        @media (max-width: 1000px) {
             .articles-grid {
-                grid-template-columns: repeat(3, minmax(260px, 1fr));
+                grid-template-columns: repeat(3, 240px);
                 gap: 1rem;
                 overflow-x: auto;
                 padding-bottom: 1rem;
                 scroll-snap-type: x proximity;
             }
             .article-card { scroll-snap-align: start; }
+            .article-title { font-size: 0.95rem; }
         }
     </style>
-    <link rel="stylesheet" href="assets/astrology-history/style.css?v=20261120-pingfang">
+    <link rel="stylesheet" href="assets/astrology-history/style.css?v=20261120-layout">
     <link rel="stylesheet" href="assets/i18n/language.css">
     <script src="assets/i18n/en.js"></script>
     <script src="assets/i18n/language.js"></script>
@@ -2446,13 +2491,12 @@
     <!-- 关于瓜瓜 -->
     <section id="about" class="about">
         <div class="section">
-            <div class="section-title">关于瓜瓜</div>
             <div class="about-content">
-                <div class="about-avatar">
-                    <img src="images/瓜瓜照片.JPG" alt="瓜瓜照片">
-                    <div class="avatar-note">欢迎联系：guaguasis</div>
-                </div>
                 <div class="about-text">
+                    <div class="about-avatar">
+                        <img src="images/瓜瓜照片.JPG" alt="瓜瓜照片">
+                        <div class="avatar-note">欢迎联系：guaguasis</div>
+                    </div>
                     <h3>你好，我是瓜瓜</h3>
                     <p>古典/择地占星师，萨满实践者，师从 Chris Brennan《希腊占星学》作者、Patric Watson、Helena Woods、Shu Yap。看盘案例 2000+。</p>
                     <p>互联网公司上班 1 年 / 自由职业 6 年，中国和西班牙两地生活。</p>
@@ -2478,9 +2522,9 @@
                 <li><time datetime="2027-04">2027 年 4 月</time>择地占星直播课</li>
             </ul>
         </div>
-        <div class="section-title">
-            <img src="images/蝴蝶.svg" alt="蝴蝶" class="butterfly" style="width: 80px; height: 80px;">
-            占星课程
+        <div class="section-title course-section-title">
+            <img src="images/蝴蝶.svg" alt="" aria-hidden="true" class="butterfly">
+            <span>占星课程</span>
         </div>
 
         <div class="courses-grid">
@@ -2817,7 +2861,6 @@
                     <div class="article-tags">
                         <span class="article-tag">古典占星</span>
                         <span class="article-tag">占星学</span>
-                        <span class="article-tag">方法论</span>
                     </div>
                 </div>
             </a>
