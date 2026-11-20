@@ -52,6 +52,8 @@
     }
     </script>
 
+    <link rel="preload" as="image" href="images/optimized/guagua-logo.webp" type="image/webp">
+    <link rel="preload" as="image" href="images/optimized/guagua-tagline.webp" type="image/webp">
     <style>
         @font-face {
             font-family: 'MapPlanetSymbols';
@@ -138,8 +140,8 @@
             width: 104px;
             aspect-ratio: 1342 / 444;
             background: var(--deep-warm);
-            -webkit-mask: url('images/guagua-logo.png') 48.67% 27.14% / 161.85% 163.06% no-repeat;
-            mask: url('images/guagua-logo.png') 48.67% 27.14% / 161.85% 163.06% no-repeat;
+            -webkit-mask: url('images/optimized/guagua-logo.webp') 48.67% 27.14% / 161.85% 163.06% no-repeat;
+            mask: url('images/optimized/guagua-logo.webp') 48.67% 27.14% / 161.85% 163.06% no-repeat;
         }
 
         .visually-hidden {
@@ -2359,7 +2361,7 @@
             min-height: 0;
         }
 
-        /* 行星符号独立叠在透明地图上，轻微漂移并错开柔光节奏 */
+        /* 七颗传统行星以定位光圈闪烁，缓慢漂移并错开节奏 */
         .planet-map {
             position: relative;
             width: 100%;
@@ -2380,29 +2382,53 @@
         }
 
         .map-planet span {
+            position: relative;
             display: block;
+            width: 1em;
+            text-align: center;
             font-family: 'MapPlanetSymbols';
             font-size: clamp(12px, 4.8cqw, 15px);
             font-weight: 400;
             line-height: 1;
-            color: #A07A3E;
-            text-shadow: 0 0 5px rgba(245, 213, 143, 0.5);
+            color: #C6972E;
+            text-shadow: 0 0 2px rgba(255, 255, 255, 0.95), 0 0 7px rgba(255, 220, 126, 0.75);
             animation: map-planet-drift var(--duration) ease-in-out var(--delay) infinite,
                 map-planet-glow 7s ease-in-out var(--delay) infinite;
         }
 
+        .map-planet span::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 1.15em;
+            height: 1.15em;
+            border: 1px solid rgba(214, 166, 58, 0.65);
+            border-radius: 50%;
+            opacity: 0;
+            pointer-events: none;
+            animation: map-location-pulse 3.8s ease-out var(--delay) infinite;
+        }
+
+        @keyframes map-location-pulse {
+            0% { transform: translate(-50%, -50%) scale(0.55); opacity: 0; }
+            18% { opacity: 0.6; }
+            85%, 100% { transform: translate(-50%, -50%) scale(2.2); opacity: 0; }
+        }
+
         @keyframes map-planet-drift {
-            0%, 100% { transform: translate(-2px, 3px); }
+            0%, 100% { transform: translate(-1px, 1px); }
             50% { transform: translate(var(--dx), var(--dy)); }
         }
 
         @keyframes map-planet-glow {
-            0%, 100% { opacity: 0.65; text-shadow: 0 0 4px rgba(245, 213, 143, 0.3); }
-            50% { opacity: 1; text-shadow: 0 0 7px rgba(245, 213, 143, 0.9), 0 0 13px rgba(245, 213, 143, 0.35); }
+            0%, 100% { opacity: 0.85; text-shadow: 0 0 2px rgba(255, 255, 255, 0.95), 0 0 5px rgba(255, 220, 126, 0.5); }
+            50% { opacity: 1; text-shadow: 0 0 3px rgba(255, 255, 255, 1), 0 0 10px rgba(255, 220, 126, 0.95); }
         }
 
         @media (prefers-reduced-motion: reduce) {
-            .map-planet span { animation: none; opacity: 0.9; }
+            .map-planet span { animation: none; opacity: 0.95; }
+            .map-planet span::before { animation: none; opacity: 0; }
         }
 
 
@@ -2506,7 +2532,7 @@
 
     <!-- Hero区域 -->
     <section class="hero">
-        <div class="zodiac-symbol"><img src="images/日与月.svg" alt="日与月"></div>
+        <div class="zodiac-symbol"><img src="images/日与月.svg" alt="日与月" width="360" height="360" fetchpriority="high" decoding="async"></div>
         <h1><span class="brand-mark" aria-hidden="true"></span><span class="visually-hidden">瓜瓜占星</span></h1>
         <p class="hero-subtitle">
             <svg viewBox="64 208 2086 344" width="2086" height="344" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
@@ -2518,7 +2544,7 @@
                         <feComposite in2="ink" operator="in"/>
                     </filter>
                 </defs>
-                <image href="images/guagua-tagline.png" width="2172" height="724" filter="url(#tagline-ink)"/>
+                <image href="images/optimized/guagua-tagline.webp" width="2172" height="724" filter="url(#tagline-ink)"/>
             </svg>
             <span class="visually-hidden">星盘 · 你一生的隐喻</span>
         </p>
@@ -2534,7 +2560,7 @@
             <div class="about-content">
                 <div class="about-text">
                     <div class="about-avatar">
-                        <img src="images/瓜瓜照片.JPG" alt="瓜瓜照片">
+                        <img src="images/optimized/avatar-320.webp" srcset="images/optimized/avatar-320.webp 320w, images/optimized/avatar-480.webp 480w" sizes="(max-width: 768px) 84px, 112px" alt="瓜瓜照片" width="320" height="427" loading="lazy" decoding="async">
                         <div class="avatar-note">欢迎联系：guaguasis</div>
                     </div>
                     <h3>你好，我是瓜瓜</h3>
@@ -2601,7 +2627,7 @@
                     </div>
                 </div>
                 <div class="course-side-image">
-                    <img src="images/editorial-zodiac-wheel.svg" alt="日杂风十二星座圆轮，宫位从白羊座起逆时针编号 1 至 12" style="width: 100%;">
+                    <img src="images/editorial-zodiac-wheel.svg" alt="日杂风十二星座圆轮，宫位从白羊座起逆时针编号 1 至 12" style="width: 100%;" loading="lazy" decoding="async">
                 </div>
             </div>
 
@@ -2657,18 +2683,15 @@
                 </div>
                 <div class="course-side-image">
                     <div class="planet-map">
-                        <img src="images/locational-world-map-clear.png" alt="淡彩世界地图，金色曲线穿越各大洲，沿线点缀星星" width="1536" height="1024" loading="lazy" decoding="async">
+                        <img src="images/optimized/locational-map-960.webp" srcset="images/optimized/locational-map-480.webp 480w, images/optimized/locational-map-960.webp 960w" sizes="(max-width: 408px) calc(100vw - 88px), 320px" alt="淡彩世界地图，金色曲线穿越各大洲，沿线点缀星星" width="960" height="640" loading="lazy" decoding="async">
                         <div class="map-planets" aria-hidden="true">
-                            <span class="map-planet" data-planet="太阳" style="--x: 22%; --y: 32%; --duration: 19s; --delay: -2s; --dx: 5px; --dy: -6px;"><span>Q</span></span>
-                            <span class="map-planet" data-planet="月亮" style="--x: 78%; --y: 33%; --duration: 24s; --delay: -8s; --dx: -5px; --dy: -7px;"><span>W</span></span>
-                            <span class="map-planet" data-planet="水星" style="--x: 53%; --y: 24%; --duration: 21s; --delay: -5s; --dx: 5px; --dy: -5px;"><span>E</span></span>
-                            <span class="map-planet" data-planet="金星" style="--x: 60%; --y: 63%; --duration: 26s; --delay: -12s; --dx: -4px; --dy: -6px;"><span>R</span></span>
-                            <span class="map-planet" data-planet="火星" style="--x: 32%; --y: 68%; --duration: 20s; --delay: -9s; --dx: 5px; --dy: -5px;"><span>T</span></span>
-                            <span class="map-planet" data-planet="木星" style="--x: 43%; --y: 45%; --duration: 25s; --delay: -4s; --dx: 6px; --dy: -7px;"><span>Y</span></span>
-                            <span class="map-planet" data-planet="土星" style="--x: 15%; --y: 55%; --duration: 23s; --delay: -10s; --dx: -5px; --dy: -4px;"><span>U</span></span>
-                            <span class="map-planet" data-planet="天王星" style="--x: 85%; --y: 64%; --duration: 27s; --delay: -15s; --dx: -6px; --dy: -6px;"><span>I</span></span>
-                            <span class="map-planet" data-planet="海王星" style="--x: 69%; --y: 43%; --duration: 22s; --delay: -6s; --dx: 5px; --dy: -7px;"><span>O</span></span>
-                            <span class="map-planet" data-planet="冥王星" style="--x: 48%; --y: 80%; --duration: 28s; --delay: -17s; --dx: -4px; --dy: -5px;"><span>P</span></span>
+                            <span class="map-planet" data-planet="太阳" style="--x: 18%; --y: 32%; --duration: 25s; --delay: -2s; --dx: 2px; --dy: -2px;"><span>Q</span></span>
+                            <span class="map-planet" data-planet="月亮" style="--x: 82%; --y: 28%; --duration: 30s; --delay: -8s; --dx: -2px; --dy: -3px;"><span>W</span></span>
+                            <span class="map-planet" data-planet="水星" style="--x: 49%; --y: 18%; --duration: 27s; --delay: -5s; --dx: 2px; --dy: -2px;"><span>E</span></span>
+                            <span class="map-planet" data-planet="金星" style="--x: 64%; --y: 66%; --duration: 32s; --delay: -12s; --dx: -2px; --dy: -2px;"><span>R</span></span>
+                            <span class="map-planet" data-planet="火星" style="--x: 30%; --y: 79%; --duration: 26s; --delay: -9s; --dx: 2px; --dy: -2px;"><span>T</span></span>
+                            <span class="map-planet" data-planet="木星" style="--x: 44%; --y: 46%; --duration: 31s; --delay: -4s; --dx: 3px; --dy: -3px;"><span>Y</span></span>
+                            <span class="map-planet" data-planet="土星" style="--x: 86%; --y: 76%; --duration: 29s; --delay: -10s; --dx: -2px; --dy: -2px;"><span>U</span></span>
                         </div>
                     </div>
                 </div>
@@ -2890,7 +2913,7 @@
         <div class="section-title">占星干货</div>
         <div class="articles-grid">
             <a href="article-7.html" class="article-card">
-                <div class="article-image"><img src="images/占星干货图片/冥王星的炼金魔法.png" alt="冥王星的炼金术魔法"></div>
+                <div class="article-image"><img src="images/optimized/pluto-640.webp" srcset="images/optimized/pluto-320.webp 320w, images/optimized/pluto-640.webp 640w" sizes="(max-width: 1000px) 240px, 284px" alt="冥王星的炼金术魔法" width="640" height="320" loading="lazy" decoding="async"></div>
                 <div class="article-content">
                     <h3 class="article-title">冥王星的炼金术魔法，把业力化为愿力</h3>
                     <div class="article-tags">
@@ -2901,7 +2924,7 @@
                 </div>
             </a>
             <a href="article-8.html" class="article-card">
-                <div class="article-image"><img src="images/占星干货图片/古典占星的客观性.png" alt="古典占星的客观性与逻辑"></div>
+                <div class="article-image"><img src="images/optimized/traditional-640.webp" srcset="images/optimized/traditional-320.webp 320w, images/optimized/traditional-640.webp 640w" sizes="(max-width: 1000px) 240px, 284px" alt="古典占星的客观性与逻辑" width="640" height="320" loading="lazy" decoding="async"></div>
                 <div class="article-content">
                     <h3 class="article-title">古典占星的客观性与逻辑，古占的真正价值被低估了</h3>
                     <div class="article-tags">
@@ -2911,7 +2934,7 @@
                 </div>
             </a>
             <a href="article-9.html" class="article-card">
-                <div class="article-image"><img src="images/占星干货图片/合盘里的土星能量.png" alt="合盘里的土星能量"></div>
+                <div class="article-image"><img src="images/optimized/synastry-640.webp" srcset="images/optimized/synastry-320.webp 320w, images/optimized/synastry-640.webp 640w" sizes="(max-width: 1000px) 240px, 284px" alt="合盘里的土星能量" width="640" height="320" loading="lazy" decoding="async"></div>
                 <div class="article-content">
                     <h3 class="article-title">合盘里的土星能量——长期关系必不可少的地基</h3>
                     <div class="article-tags">
@@ -2945,7 +2968,7 @@
                 <p class="mobile-hint">左右滑动探索地图，也可以从下方选择章节。</p>
                 <div class="map-scroll" id="history-map-scroll" tabindex="0" aria-label="历史地图，可左右滚动">
                     <div class="map-canvas" id="history-map-canvas">
-                        <img class="map-art" src="assets/astrology-history/map.png" loading="lazy" decoding="async" alt="羊皮纸风格的连续地图，覆盖欧洲、地中海、西亚与印度，海面为蓝色，外围渐隐。" width="1584" height="992">
+                        <img class="map-art" src="images/optimized/history-map.webp" loading="lazy" decoding="async" alt="羊皮纸风格的连续地图，覆盖欧洲、地中海、西亚与印度，海面为蓝色，外围渐隐。" width="1586" height="992">
                         <div id="history-markers" role="group" aria-label="历史地点"></div>
                     </div>
                 </div>
@@ -2980,7 +3003,7 @@
         <div class="cta">
             <button class="cta-button">联系瓜瓜</button>
             <div class="qr-code">
-                <img src="images/微信二维码.jpg" alt="微信二维码">
+                <img src="images/微信二维码.jpg" alt="微信二维码" width="888" height="888" loading="lazy" decoding="async">
             </div>
             <div class="social-links" role="group" aria-label="瓜瓜的社交媒体">
                 <a class="social-link" href="https://www.xiaoyuzhoufm.com/podcast/61d09a9d8331df2be32c345f" target="_blank" rel="noopener noreferrer" aria-label="小宇宙（在新标签页打开）">
