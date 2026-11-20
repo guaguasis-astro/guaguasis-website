@@ -56,6 +56,8 @@ window.GuaguaEnglish = {
     "不定时加餐实操": "Additional practice sessions throughout the course",
     "高阶占星课程交流群（长期有效）": "Ongoing access to the advanced astrology study group",
     "精细的古典占星看盘论断逻辑（和现占不同）": "Detailed interpretive reasoning in traditional astrology, distinct from modern approaches",
+    "精细的古典占星看盘论断逻辑": "Detailed interpretive reasoning in traditional astrology",
+    "古希腊与中世纪占星技法的融合": "A synthesis of Hellenistic and medieval astrological techniques",
     "转宫法看六亲吉凶": "Derived houses for assessing relatives’ circumstances",
     "论婚姻/合盘/论事业/论命格层次": "Marriage, synastry, career, and the overall potential of a chart",
     "七种推运的方法，看大运，运势吉凶和发展潜能": "Seven timing techniques for major life periods, opportunities, challenges, and development",
