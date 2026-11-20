@@ -2410,6 +2410,21 @@
             animation: map-location-pulse 3.8s ease-out var(--delay) infinite;
         }
 
+        .map-planet.is-signaling span {
+            animation: map-planet-drift var(--duration) ease-in-out var(--delay) infinite,
+                map-planet-glow 7s ease-in-out var(--delay) infinite,
+                map-planet-signal 5s ease-in-out both;
+        }
+
+        .map-planet.is-signaling span::before {
+            border-color: var(--live-red);
+        }
+
+        @keyframes map-planet-signal {
+            0%, 100% { color: #C6972E; }
+            30%, 65% { color: var(--live-red); text-shadow: 0 0 3px rgba(255, 255, 255, 1), 0 0 10px rgba(196, 59, 66, 0.4); }
+        }
+
         @keyframes map-location-pulse {
             0% { transform: translate(-50%, -50%) scale(0.55); opacity: 0; }
             18% { opacity: 0.6; }
@@ -2427,7 +2442,7 @@
         }
 
         @media (prefers-reduced-motion: reduce) {
-            .map-planet span { animation: none; opacity: 0.95; }
+            .map-planet span, .map-planet.is-signaling span { animation: none; opacity: 0.95; }
             .map-planet span::before { animation: none; opacity: 0; }
         }
 
@@ -3137,6 +3152,58 @@
         });
 
         track.addEventListener('scroll', updateDots);
+
+        // 地图可见时，七颗行星逐个随机变红，恢复金色后再轮到下一颗。
+        (() => {
+            const map = document.querySelector('.planet-map');
+            const planets = [...map.querySelectorAll('.map-planet')];
+            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+            let mapVisible = false;
+            let lastPlanet = null;
+            let activePlanet = null;
+            let nextTimer = null;
+            let restoreTimer = null;
+
+            const canSignal = () => mapVisible && !document.hidden && !reducedMotion.matches;
+
+            function signalNextPlanet() {
+                nextTimer = null;
+                if (!canSignal()) return;
+                const choices = planets.filter(planet => planet !== lastPlanet);
+                activePlanet = choices[Math.floor(Math.random() * choices.length)];
+                lastPlanet = activePlanet;
+                activePlanet.classList.add('is-signaling');
+                restoreTimer = setTimeout(() => {
+                    activePlanet.classList.remove('is-signaling');
+                    activePlanet = null;
+                    restoreTimer = null;
+                    nextTimer = setTimeout(signalNextPlanet, 5000 + Math.random() * 3000);
+                }, 5000);
+            }
+
+            function syncSignals() {
+                if (canSignal()) {
+                    if (nextTimer === null && restoreTimer === null) {
+                        nextTimer = setTimeout(signalNextPlanet, 2000 + Math.random() * 2000);
+                    }
+                } else {
+                    clearTimeout(nextTimer);
+                    clearTimeout(restoreTimer);
+                    nextTimer = null;
+                    restoreTimer = null;
+                    activePlanet?.classList.remove('is-signaling');
+                    activePlanet = null;
+                }
+            }
+
+            const observer = new IntersectionObserver(entries => {
+                mapVisible = entries.some(entry => entry.isIntersecting && entry.intersectionRatio >= 0.15);
+                syncSignals();
+            }, { threshold: 0.15 });
+            observer.observe(map);
+            document.addEventListener('visibilitychange', syncSignals);
+            reducedMotion.addEventListener('change', syncSignals);
+        })();
 
     </script>
     <script src="assets/astrology-history/history.js"></script>
