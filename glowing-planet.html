@@ -240,12 +240,6 @@
             text-shadow: 0 2px 20px rgba(245, 213, 143, 0.3);
         }
 
-        .tagline {
-            font-size: 1rem;
-            color: var(--soft-brown);
-            letter-spacing: 0.15em;
-        }
-
         section {
             margin-bottom: 72px;
         }
@@ -630,13 +624,6 @@
             font-weight: 600;
         }
 
-        .podcast-player-text {
-            text-align: center;
-            margin-top: 16px;
-            color: var(--soft-brown);
-            font-size: 0.95rem;
-        }
-
         .cta {
             text-align: center;
             padding: 60px 30px;
@@ -687,26 +674,6 @@
         .qr-code img:hover {
             transform: scale(1.05);
             box-shadow: 0 12px 40px rgba(245, 213, 143, 0.4);
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 80px;
-            padding-top: 30px;
-            position: relative;
-            font-size: 0.9rem;
-            color: var(--soft-brown);
-        }
-
-        footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--gentle-gold), transparent);
         }
 
         button:focus-visible, a:focus-visible, .journey-viewport:focus-visible {
@@ -862,11 +829,6 @@
                 margin-bottom: 12px;
             }
 
-            .tagline {
-                font-size: 0.95rem;
-                letter-spacing: 0.1em;
-            }
-
             section {
                 margin-bottom: 60px;
             }
@@ -931,20 +893,15 @@
                 height: 130px;
             }
 
-            footer {
-                margin-top: 60px;
-                font-size: 0.85rem;
-            }
-
             .floating-word:nth-child(1) {
                 font-size: 1rem;
                 top: 0%;
-                left: 0%;
+                left: 5%;
             }
             .floating-word:nth-child(2) {
                 font-size: 0.9rem;
                 top: 15%;
-                right: 0%;
+                right: 8%;
             }
             .floating-word:nth-child(3) {
                 font-size: 1rem;
@@ -954,7 +911,7 @@
             .floating-word:nth-child(4) {
                 font-size: 0.9rem;
                 bottom: 18%;
-                right: 0%;
+                right: 8%;
             }
 
             .journey-viewport {
@@ -991,11 +948,6 @@
             h1 {
                 font-size: 3.5rem;
                 margin-bottom: 20px;
-            }
-
-            .tagline {
-                font-size: 1.2rem;
-                letter-spacing: 0.2em;
             }
 
             section { margin-bottom: 80px; }
@@ -1041,9 +993,6 @@
                 height: 160px;
             }
 
-            footer {
-                margin-top: 100px;
-            }
         }
         .intro {
             max-width: 32em;
@@ -1061,9 +1010,23 @@
         .course-schedule h3 { font-weight: 600; }
         .course-schedule ol { display: grid; gap: 6px 32px; }
         .course-schedule li { padding-block: 8px; }
-        .energy-section { background: transparent; border-inline: 0; border-radius: 0; }
         .energy-image-container { max-width: 360px; margin: 24px auto 0; }
-        .floating-word { animation: none; opacity: 1; font-size: 0.95rem; }
+        .floating-word {
+            opacity: 1;
+            font-size: 0.95rem;
+            animation: energy-flow 11s ease-in-out infinite;
+        }
+
+        .floating-word:nth-child(1) { --flow-x: 8px; animation-duration: 11s; }
+        .floating-word:nth-child(2) { --flow-x: -8px; animation-duration: 13s; }
+        .floating-word:nth-child(3) { --flow-x: 6px; animation-duration: 12s; }
+        .floating-word:nth-child(4) { --flow-x: -6px; animation-duration: 10s; }
+
+        @keyframes energy-flow {
+            0%, 100% { transform: translate(0, 0); }
+            35% { transform: translate(var(--flow-x), -7px); }
+            70% { transform: translate(calc(var(--flow-x) * -0.5), 5px); }
+        }
         .energy-section .floating-word { color: var(--soft-brown); font-size: 0.95rem; }
         .podcast-section { display: grid; grid-template-columns: minmax(0, 1fr) 250px; column-gap: 32px; align-content: center; }
         .podcast-section .value-title { align-self: end; }
@@ -1075,13 +1038,13 @@
         .join-details { scroll-margin-block: 40px; }
         .join-details p { margin-bottom: 16px; font-size: 1rem; }
         .join-details img { display: block; margin: 0 auto 16px; }
-        .join-details .qr-hint { font-size: 0.9rem; color: var(--soft-brown); margin-bottom: 0; }
 
         @media (min-width: 768px) {
             .course-schedule ol { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         }
 
         @media (max-width: 767px) {
+            .intro span { display: block; white-space: nowrap; }
             .podcast-section { display: block; }
             .podcast-section .podcast-player-section { margin-top: 24px; }
             .course-schedule h3 { font-size: 1.2rem; }
@@ -1091,7 +1054,7 @@
 
         @media (prefers-reduced-motion: reduce) {
             html { scroll-behavior: auto; }
-            .planet-glow, header { animation: none; }
+            .planet-glow, header, .floating-word { animation: none; }
         }
 
         /* 导航栏财富格局按钮 */
@@ -1131,8 +1094,7 @@
         <header>
             <div class="planet-glow"></div>
             <h1>发光星球</h1>
-            <p class="tagline">创造自我 · 活出最高版本自己</p>
-            <p class="intro">一个围绕创作、表达、AI 与自我觉察展开的共创社群。</p>
+            <p class="intro"><span>一个围绕创作、表达、AI 与</span><span class="intro-continuation">自我觉察展开的共创社群。</span></p>
         </header>
 
         <section>
@@ -1311,7 +1273,6 @@
                                 </div>
                                 <span class="podcast-listen">在小宇宙收听</span>
                             </div>
-                            <div class="podcast-player-text">点击收听《发光星球》</div>
                         </a>
                     </div>
                 </div>
@@ -1346,13 +1307,9 @@
             <div class="qr-code join-details" id="joinDetails" role="region" aria-labelledby="joinDetailsHeading">
                 <p id="joinDetailsHeading" tabindex="-1">添加微信，了解加入方式</p>
                 <img src="https://65fc8804.pinme.dev" alt="瓜瓜微信二维码">
-                <p class="qr-hint">手机上可长按二维码识别，或保存图片后在微信中扫一扫。</p>
             </div>
         </section>
 
-        <footer>
-            <p>✨ 发光星球 · 创造自我，活出最高版本自己 ✨</p>
-        </footer>
     </div>
 
     <script>
