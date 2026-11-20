@@ -2334,10 +2334,13 @@
 
         .course-card.with-image.course-card-locational {
             row-gap: 0.5rem;
-            isolation: isolate;
-            background:
-                radial-gradient(ellipse at 85% 70%, rgba(145, 179, 196, 0.2), transparent 68%),
-                linear-gradient(135deg, #F9F8ED 0%, #EDF2E8 55%, #E8EFEB 100%);
+            background: #EDF3F3;
+            border-color: #BACCD0;
+        }
+
+        .course-card.with-image.course-card-locational:hover {
+            border-color: #A7C0C5;
+            box-shadow: 0 4px 16px rgba(90, 124, 133, 0.07);
         }
 
         .course-card-locational .course-side-image {
@@ -2350,7 +2353,6 @@
         .course-card-locational .course-side-image img {
             width: 100%;
             min-height: 0;
-            mix-blend-mode: multiply;
         }
 
         /* 行星符号独立叠在透明地图上，轻微漂移并错开柔光节奏 */
@@ -2651,7 +2653,7 @@
                 </div>
                 <div class="course-side-image">
                     <div class="planet-map">
-                        <img src="images/locational-world-map.png" alt="淡彩世界地图，金色曲线穿越各大洲，沿线点缀星星" width="1536" height="1024" loading="lazy" decoding="async">
+                        <img src="images/locational-world-map-clear.png" alt="淡彩世界地图，金色曲线穿越各大洲，沿线点缀星星" width="1536" height="1024" loading="lazy" decoding="async">
                         <div class="map-planets" aria-hidden="true">
                             <span class="map-planet" data-planet="太阳" style="--x: 22%; --y: 32%; --duration: 19s; --delay: -2s; --dx: 5px; --dy: -6px;"><span>Q</span></span>
                             <span class="map-planet" data-planet="月亮" style="--x: 78%; --y: 33%; --duration: 24s; --delay: -8s; --dx: -5px; --dy: -7px;"><span>W</span></span>
