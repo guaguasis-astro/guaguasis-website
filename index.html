@@ -190,7 +190,7 @@
         /* 以原图透明度着色，并收紧四周留白，保留手写 Logo 的原始比例 */
         .brand-mark {
             display: block;
-            width: 156px;
+            width: 104px;
             aspect-ratio: 1342 / 444;
             background: var(--deep-warm);
             -webkit-mask: url('images/guagua-logo.png') 48.67% 27.14% / 161.85% 163.06% no-repeat;
@@ -331,7 +331,7 @@
         }
 
         .hero h1 .brand-mark {
-            width: 320px;
+            width: calc(320px * 2 / 3);
             max-width: 100%;
         }
 
@@ -1639,11 +1639,11 @@
             }
 
             .logo .brand-mark {
-                width: 128px;
+                width: calc(128px * 2 / 3);
             }
 
             .hero h1 .brand-mark {
-                width: 250px;
+                width: calc(250px * 2 / 3);
             }
 
             .hero-subtitle {
@@ -1938,7 +1938,7 @@
         /* 超小屏幕优化 */
         @media (max-width: 400px) {
             .hero h1 .brand-mark {
-                width: 220px;
+                width: calc(220px * 2 / 3);
             }
 
             .nav-links {
