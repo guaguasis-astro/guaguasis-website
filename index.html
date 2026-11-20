@@ -336,10 +336,18 @@
         }
 
         .hero-subtitle {
-            font-size: 1.2rem;
-            color: var(--text-mute);
-            letter-spacing: 0.15em;
+            width: 290px;
+            max-width: 100%;
+            color: var(--deep-warm);
             margin-bottom: 2.5rem;
+            line-height: 1;
+        }
+
+        .hero-subtitle svg {
+            display: block;
+            width: 100%;
+            height: auto;
+            overflow: visible;
         }
 
         .hero-cta {
@@ -1647,7 +1655,7 @@
             }
 
             .hero-subtitle {
-                font-size: 0.95rem;
+                width: 240px;
                 margin-bottom: 2rem;
             }
 
@@ -2415,7 +2423,20 @@
     <section class="hero">
         <div class="zodiac-symbol"><img src="images/日与月.svg" alt="日与月"></div>
         <h1><span class="brand-mark" aria-hidden="true"></span><span class="visually-hidden">瓜瓜占星</span></h1>
-        <p class="hero-subtitle">星盘 · 你一生的隐喻</p>
+        <p class="hero-subtitle">
+            <svg viewBox="64 208 2086 344" width="2086" height="344" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <!-- 滤掉原图的灰白棋盘背景，以官网主题色显示手写笔迹 -->
+                    <filter id="tagline-ink" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+                        <feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -1.5 -1.5 -1.5 0 3.5" result="ink"/>
+                        <feFlood flood-color="currentColor"/>
+                        <feComposite in2="ink" operator="in"/>
+                    </filter>
+                </defs>
+                <image href="images/guagua-tagline.png" width="2172" height="724" filter="url(#tagline-ink)"/>
+            </svg>
+            <span class="visually-hidden">星盘 · 你一生的隐喻</span>
+        </p>
         <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
             <a href="#about" class="hero-cta">了解更多</a>
             <a href="fortune-chart/index.html" class="hero-cta hero-cta-gold">免费解盘</a>
