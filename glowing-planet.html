@@ -463,35 +463,127 @@
             background: rgba(255, 239, 184, 0.3);
         }
 
+        /* AI 工作台：悬浮光框与创作光流 */
         .ai-image-stack {
+            position: relative;
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
             align-items: start;
-            gap: 22px;
-            margin: 30px 0 16px;
+            gap: 44px;
+            margin: 38px 0 24px;
+            isolation: isolate;
         }
 
-        .ai-image-stack figure:nth-child(2) { margin-top: 28px; }
-        .ai-image-stack figure { min-width: 0; }
+        .ai-image-stack::before {
+            content: '';
+            position: absolute;
+            inset: -24px -12px;
+            background: radial-gradient(ellipse at 20% 45%, rgba(245, 213, 143, 0.2), transparent 60%),
+                        radial-gradient(ellipse at 80% 55%, rgba(184, 158, 237, 0.16), transparent 60%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .ai-image-stack figure {
+            position: relative;
+            min-width: 0;
+            z-index: 1;
+            animation: ai-float 7s ease-in-out infinite;
+        }
+
+        .ai-image-stack figure:last-child {
+            margin-top: 28px;
+            animation-delay: -3.5s;
+        }
+
+        .ai-image-stack figure:hover, .ai-image-stack figure:focus-within { animation-play-state: paused; }
 
         .image-preview {
+            position: relative;
             display: block;
             width: 100%;
+            padding: 2px;
             border: 0;
-            background: transparent;
+            border-radius: 14px;
+            background: rgba(245, 213, 143, 0.45);
+            overflow: hidden;
+            isolation: isolate;
             cursor: zoom-in;
-            border-radius: 12px;
-            transition: transform 0.3s ease;
+            box-shadow: 0 8px 24px rgba(139, 115, 85, 0.12), 0 0 18px rgba(245, 213, 143, 0.16);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
 
-        .image-preview:hover { transform: translateY(-4px); }
+        .image-preview::before {
+            content: '';
+            position: absolute;
+            inset: -100%;
+            background: conic-gradient(from 0deg, transparent 15%, var(--gentle-gold) 28%,
+                        #FFF8E7 32%, transparent 40%, rgba(184, 158, 237, 0.7) 72%,
+                        #EEE4FF 76%, transparent 84%);
+            animation: ai-border-orbit 12s linear infinite;
+            pointer-events: none;
+        }
+
+        .ai-image-stack figure:last-child .image-preview::before { animation-delay: -6s; }
+
+        .image-preview:hover, .image-preview:focus-visible {
+            transform: translateY(-5px);
+            box-shadow: 0 14px 32px rgba(139, 115, 85, 0.16),
+                        0 0 22px rgba(245, 213, 143, 0.3), 0 0 32px rgba(184, 158, 237, 0.18);
+        }
 
         .stacked-image {
+            position: relative;
             display: block;
             width: 100%;
             border-radius: 12px;
-            border: 3px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 0 8px 24px rgba(139, 115, 85, 0.12);
+            z-index: 1;
+        }
+
+        .ai-light-link {
+            position: absolute;
+            top: 43%;
+            left: calc(50% - 24px);
+            width: 48px;
+            height: 1px;
+            background: linear-gradient(90deg, var(--gentle-gold), var(--lavender));
+            pointer-events: none;
+        }
+
+        .ai-light-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: -2px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #FFF8E7;
+            box-shadow: 0 0 6px var(--gentle-gold), 0 0 12px var(--lavender);
+            animation: ai-light-flow 3.6s ease-in-out infinite;
+        }
+
+        @keyframes ai-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-7px); }
+        }
+
+        @keyframes ai-border-orbit {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes ai-light-flow {
+            0% { left: 0; opacity: 0; }
+            15% { opacity: 1; }
+            85% { opacity: 1; }
+            100% { left: 100%; opacity: 0; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .ai-image-stack figure, .image-preview::before, .ai-light-link::after { animation: none; }
+            .ai-light-link::after { display: none; }
+            .image-preview { transition: none; }
+            .image-preview:hover, .image-preview:focus-visible { transform: none; }
         }
 
         .image-dialog {
@@ -795,6 +887,8 @@
             outline-offset: 4px;
         }
 
+        .journey-heading::after { display: none; }
+
         .journey-viewport {
             overflow-x: auto;
             scrollbar-width: thin;
@@ -977,7 +1071,9 @@
             .video-link-text { font-size: 0.85rem; }
 
 
-            .ai-image-stack { gap: 12px; }
+            .ai-image-stack { gap: 24px; margin-top: 30px; }
+            .ai-image-stack figure:last-child { margin-top: 18px; }
+            .ai-light-link { left: calc(50% - 14px); width: 28px; }
 
             .activities { gap: 8px; }
             .activities .activity { padding: 20px 6px; font-size: 0.85rem; }
@@ -1156,7 +1252,7 @@
         </header>
 
         <section>
-            <h2>我的发光之旅 ✨</h2>
+            <h2 class="journey-heading">我的发光之旅 ✨</h2>
             <div class="journey-viewport" tabindex="0" role="region" aria-label="发光之旅，可左右滑动浏览">
             <div class="journey-timeline">
                 <div class="journey-node">
@@ -1287,6 +1383,7 @@
                         使用AI辅助创作：从内容输入、到输出创意、再到播客/视频剪辑，让AI成为你的创作伙伴。
                     </div>
                     <div class="ai-image-stack">
+                        <span class="ai-light-link" aria-hidden="true"></span>
                         <figure>
                             <button type="button" class="image-preview" aria-label="放大查看 Claudian">
                                 <img src="https://13192e9c.pinme.dev/" alt="Claudian 创作界面" class="stacked-image">
