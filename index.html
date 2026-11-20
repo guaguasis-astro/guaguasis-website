@@ -483,6 +483,12 @@
             border-radius: 50%;
             background: var(--live-red);
             flex-shrink: 0;
+            animation: live-pulse 2.6s ease-in-out infinite;
+        }
+
+        @keyframes live-pulse {
+            0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(196, 59, 66, 0.16); }
+            50% { opacity: 0.55; box-shadow: 0 0 0 4px rgba(196, 59, 66, 0.03); }
         }
 
         .live-schedule ul {
@@ -2381,12 +2387,14 @@
 
         @media (prefers-reduced-motion: reduce) {
             html { scroll-behavior: auto; }
+            .live-dot { animation: none; }
             .hero-cta, .course-card, .article-card, .view-more-link { transition: none; }
         }
         .course-logic-note {
             display: inline-block;
-            white-space: nowrap;
-            font-size: min(1rem, 4.5cqw);
+            white-space: normal;
+            font-size: 0.95rem;
+            line-height: 1.7;
             color: var(--text-dark);
             font-weight: 700;
         }
