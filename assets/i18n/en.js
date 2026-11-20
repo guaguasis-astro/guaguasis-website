@@ -96,6 +96,7 @@ window.GuaguaEnglish = {
     "日与月": "Sun and Moon",
     "瓜瓜照片": "Portrait of Guagua",
     "蝴蝶": "Butterfly",
+    "淡彩世界地图，金色曲线穿越各大洲，沿线点缀星星": "Watercolor world map with golden curves and stars across the continents",
     "择地星盘": "Locational astrology chart",
     "日杂风十二星座圆轮，宫位从白羊座起逆时针编号 1 至 12": "Editorial zodiac wheel, with houses numbered 1–12 counterclockwise from Aries",
     "2000+ 案例，查看咨询收费介绍": "Over 2,000 readings. View consultation services and fees.",
