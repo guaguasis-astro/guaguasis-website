@@ -139,7 +139,7 @@
 
         .energy-image {
             width: 100%;
-            max-width: 160px;
+            max-width: 110px;
             border-radius: 20px;
             position: relative;
             z-index: 2;
@@ -444,8 +444,6 @@
             margin: 0 auto 12px;
         }
 
-        .video-link-icon img { mix-blend-mode: multiply; }
-
         .video-link-text {
             color: var(--deep-warm);
             font-size: 0.95rem;
@@ -494,13 +492,6 @@
             border-radius: 12px;
             border: 3px solid rgba(255, 255, 255, 0.8);
             box-shadow: 0 8px 24px rgba(139, 115, 85, 0.12);
-        }
-
-        .ai-image-stack figcaption {
-            text-align: center;
-            font-size: 0.85rem;
-            color: var(--soft-brown);
-            margin-top: 12px;
         }
 
         .image-dialog {
@@ -799,36 +790,6 @@
             background: linear-gradient(90deg, transparent, var(--gentle-gold), transparent);
         }
 
-        .journey-toolbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 20px;
-        }
-
-        .journey-hint {
-            font-size: 0.85rem;
-            color: var(--soft-brown);
-        }
-
-        .journey-controls {
-            display: flex;
-            gap: 8px;
-            flex-shrink: 0;
-        }
-
-        .journey-controls button {
-            border: 1px solid rgba(166, 139, 107, 0.3);
-            border-radius: 20px;
-            padding: 8px 14px;
-            background: rgba(255, 255, 255, 0.65);
-            color: var(--deep-warm);
-            font: inherit;
-            font-size: 0.85rem;
-            cursor: pointer;
-        }
-
         button:focus-visible, a:focus-visible, .journey-viewport:focus-visible {
             outline: 2px solid var(--soft-brown);
             outline-offset: 4px;
@@ -865,6 +826,8 @@
             background: linear-gradient(90deg, var(--gentle-gold), var(--coral));
         }
 
+        .journey-node:last-child::before { width: 100%; }
+
         .journey-dot-wrapper {
             position: absolute;
             top: 3px;
@@ -892,8 +855,9 @@
             display: block;
             width: 100%;
             height: auto;
-            aspect-ratio: 4 / 3;
-            object-fit: contain;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            object-position: center 40%;
             background: rgba(245, 213, 143, 0.13);
             border-radius: 14px;
             margin-bottom: 20px;
@@ -1070,9 +1034,6 @@
             }
 
             .journey-node { flex-basis: 280px; }
-            .journey-toolbar { flex-wrap: wrap; }
-            .journey-hint { width: 100%; }
-            .journey-controls { margin-left: auto; }
         }
 
         @media (min-width: 768px) {
@@ -1196,14 +1157,6 @@
 
         <section>
             <h2>我的发光之旅 ✨</h2>
-            <div class="journey-toolbar">
-                <p class="journey-hint">沿着时间，慢慢走向发光的自己</p>
-                <div class="journey-controls">
-                    <button type="button" id="journeyPrevious" aria-label="上一段旅程">上一段</button>
-                    <button type="button" id="journeyToggle" aria-pressed="false">暂停</button>
-                    <button type="button" id="journeyNext" aria-label="下一段旅程">下一段</button>
-                </div>
-            </div>
             <div class="journey-viewport" tabindex="0" role="region" aria-label="发光之旅，可左右滑动浏览">
             <div class="journey-timeline">
                 <div class="journey-node">
@@ -1211,7 +1164,7 @@
                         <div class="journey-dot"></div>
                     </div>
                     <div class="journey-card">
-                        <img class="journey-image" src="images/glowing-planet/journey-1.jpg" alt="播客的起点" width="576" height="432">
+                        <img class="journey-image" src="images/glowing-planet/journey-1.jpg" alt="播客的起点" width="576" height="324">
                         <div class="journey-icon">🎙️</div>
                         <div class="journey-date">2022.8.29</div>
                         <div class="journey-title">播客的起点</div>
@@ -1224,7 +1177,7 @@
                         <div class="journey-dot"></div>
                     </div>
                     <div class="journey-card">
-                        <img class="journey-image" src="images/glowing-planet/journey-2.jpg" alt="西班牙的生活" width="576" height="432">
+                        <img class="journey-image" src="images/glowing-planet/journey-2.jpg" alt="西班牙的生活" width="576" height="324">
                         <div class="journey-icon">✈️</div>
                         <div class="journey-date">2023.11.1</div>
                         <div class="journey-title">逃离日复一日的生活</div>
@@ -1239,7 +1192,7 @@
                         <div class="journey-dot"></div>
                     </div>
                     <div class="journey-card">
-                        <img class="journey-image" src="images/glowing-planet/journey-3.jpg" alt="表达与创作" width="576" height="432">
+                        <img class="journey-image" src="images/glowing-planet/journey-3.jpg" alt="表达与创作" width="576" height="324">
                         <div class="journey-icon">⭐</div>
                         <div class="journey-date">2024.1-至今</div>
                         <div class="journey-title">通过表达与创作确认了天命</div>
@@ -1255,7 +1208,7 @@
                         <div class="journey-dot"></div>
                     </div>
                     <div class="journey-card">
-                        <img class="journey-image" src="images/glowing-planet/journey-4.jpg" alt="分享创作经验" width="576" height="432">
+                        <img class="journey-image" src="images/glowing-planet/journey-4.jpg" alt="分享创作经验" width="576" height="324">
                         <div class="journey-icon">🌍</div>
                         <div class="journey-date">2026.1</div>
                         <div class="journey-title">通过社群分享我的创作经验</div>
@@ -1269,7 +1222,7 @@
                         <div class="journey-dot"></div>
                     </div>
                     <div class="journey-card">
-                        <img class="journey-image" src="images/glowing-planet/journey-5.jpg" alt="带领大家一起发光" width="576" height="432">
+                        <img class="journey-image" src="images/glowing-planet/journey-5.jpg" alt="带领大家一起发光" width="576" height="324">
                         <div class="journey-icon">💫</div>
                         <div class="journey-date">现在ing</div>
                         <div class="journey-title">带领大家一起发光！</div>
@@ -1303,7 +1256,7 @@
                         </a>
                         <a href="https://meeting.tencent.com/crm/Kzp68Y4Xc5" target="_blank" class="video-link-card">
                             <div class="video-link-icon">
-                                <img src="https://c7aa3167.pinme.dev" alt="盆栽" style="width: 100%; height: 100%; object-fit: contain;">
+                                <img src="images/glowing-planet/plant.svg" alt="盆栽" style="width: 100%; height: 100%; object-fit: contain;">
                             </div>
                             <div class="video-link-text">🎬 自媒体观察</div>
                         </a>
@@ -1313,7 +1266,7 @@
                         <p>每个月群内有3个自媒体点评名额【根据发布时间先到先得】</p>
                         <p class="course-replays">已出课程（可看回放）</p>
                         <ol>
-                            <li>自媒体创作心法：</li>
+                            <li>自媒体创作心法</li>
                             <li>个人为什么要表达+自我定位？</li>
                             <li>破表达心魔，解放你的表达</li>
                             <li>创作的深度，创作与仪式</li>
@@ -1338,13 +1291,11 @@
                             <button type="button" class="image-preview" aria-label="放大查看 Claudian">
                                 <img src="https://13192e9c.pinme.dev/" alt="Claudian 创作界面" class="stacked-image">
                             </button>
-                            <figcaption>Claudian · 内容与灵感</figcaption>
                         </figure>
                         <figure>
                             <button type="button" class="image-preview" aria-label="放大查看 ChatCut">
                                 <img src="images/glowing-planet/chatcut.png" alt="ChatCut 播客/视频剪辑界面" class="stacked-image">
                             </button>
-                            <figcaption>ChatCut · 播客/视频剪辑</figcaption>
                         </figure>
                     </div>
                 </div>
@@ -1454,69 +1405,47 @@
         });
 
         const journey = document.querySelector('.journey-viewport');
-        const timeline = journey.querySelector('.journey-timeline');
-        const nodes = Array.from(timeline.children);
-        nodes.forEach(node => {
-            const copy = node.cloneNode(true);
-            copy.setAttribute('aria-hidden', 'true');
-            copy.inert = true;
-            timeline.appendChild(copy);
-        });
-        const toggle = document.getElementById('journeyToggle');
         const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-        let paused = reducedMotion.matches;
         let hovering = false;
-        let interacting = false;
+        let dragging = false;
+        let focused = false;
         let visible = false;
+        let finished = false;
         let resumeAt = 0;
         let position = 0;
         let previousTime = 0;
-        let cycleWidth = 0;
+        let maxScroll = 0;
 
         function measureJourney() {
-            cycleWidth = timeline.children[nodes.length].offsetLeft - nodes[0].offsetLeft;
+            maxScroll = journey.scrollWidth - journey.clientWidth;
             position = journey.scrollLeft;
         }
         new ResizeObserver(measureJourney).observe(journey);
         new IntersectionObserver(entries => { visible = entries[0].isIntersecting; }).observe(journey);
-        function updateToggle() {
-            toggle.textContent = paused ? '播放' : '暂停';
-            toggle.setAttribute('aria-pressed', String(paused));
-        }
-        toggle.addEventListener('click', () => { paused = !paused; updateToggle(); });
-        reducedMotion.addEventListener('change', event => { paused = event.matches; updateToggle(); });
         journey.addEventListener('pointerenter', event => { if (event.pointerType === 'mouse') hovering = true; });
         journey.addEventListener('pointerleave', () => { hovering = false; });
-        journey.addEventListener('pointerdown', () => { interacting = true; });
-        window.addEventListener('pointerup', () => { interacting = false; resumeAt = performance.now() + 2500; });
-        window.addEventListener('pointercancel', () => { interacting = false; });
+        journey.addEventListener('pointerdown', () => { dragging = true; });
+        window.addEventListener('pointerup', () => { dragging = false; resumeAt = performance.now() + 2500; });
+        window.addEventListener('pointercancel', () => { dragging = false; });
         journey.addEventListener('wheel', () => { resumeAt = performance.now() + 2500; }, { passive: true });
         journey.addEventListener('keydown', () => { resumeAt = performance.now() + 2500; });
-        journey.addEventListener('focusin', () => { interacting = true; });
-        journey.addEventListener('focusout', () => { interacting = false; });
-        function stepJourney(direction) {
-            if (!cycleWidth) return;
-            const step = nodes[1].offsetLeft - nodes[0].offsetLeft;
-            position = ((Math.round(journey.scrollLeft / step) + direction) * step + cycleWidth) % cycleWidth;
-            journey.scrollLeft = position;
-            resumeAt = performance.now() + 3500;
-        }
-        document.getElementById('journeyPrevious').addEventListener('click', () => stepJourney(-1));
-        document.getElementById('journeyNext').addEventListener('click', () => stepJourney(1));
+        journey.addEventListener('focusin', () => { focused = true; });
+        journey.addEventListener('focusout', () => { focused = false; });
         function animateJourney(time) {
             const elapsed = Math.min(time - previousTime, 50);
             previousTime = time;
-            if (!paused && !hovering && !interacting && visible && !document.hidden && time > resumeAt && cycleWidth) {
+            if (!reducedMotion.matches && !hovering && !dragging && !focused && visible &&
+                !document.hidden && time > resumeAt && maxScroll > 0) {
                 if (Math.abs(position - journey.scrollLeft) > 2) position = journey.scrollLeft;
-                position = (position + elapsed * 0.028) % cycleWidth;
+                position = Math.min(position + elapsed * 0.028, maxScroll);
                 journey.scrollLeft = position;
+                finished = position >= maxScroll;
             } else {
                 position = journey.scrollLeft;
             }
-            requestAnimationFrame(animateJourney);
+            if (!finished) requestAnimationFrame(animateJourney);
         }
         measureJourney();
-        updateToggle();
         requestAnimationFrame(animateJourney);
     </script>
 </body>
