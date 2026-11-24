@@ -55,14 +55,6 @@
     <link rel="preload" as="image" href="images/optimized/guagua-logo.webp" type="image/webp">
     <link rel="preload" as="image" href="images/optimized/guagua-tagline.webp" type="image/webp">
     <style>
-        @font-face {
-            font-family: 'MapPlanetSymbols';
-            src: url('fortune-chart/fonts/HamburgSymbols.ttf') format('truetype');
-            font-weight: 400;
-            font-style: normal;
-            font-display: block;
-        }
-
         :root {
             --cream: #FDF8E8;
             --warm-cream: #FFF8E7;
@@ -2334,118 +2326,197 @@
             max-height: 450px;
         }
 
-        .course-card.with-image.course-card-locational {
-            row-gap: 0.5rem;
-            background: #EFF1E7;
-            border-color: #C4CAB5;
-        }
-
-        .course-card.with-image.course-card-locational:hover {
-            border-color: #ABB797;
-            box-shadow: 0 4px 16px rgba(109, 124, 88, 0.07);
+        /* 择地课程：真实地图叠层与太阳线说明卡片 */
+        .course-card.course-card-locational {
+            background: #FFFEF8;
+            border-color: var(--soft-gold);
         }
 
         .course-card-locational .course-highlight {
             background: #F2E3BF;
         }
 
-        .course-card-locational .course-side-image {
-            max-width: 320px;
-            min-height: 0;
-            margin: 0 auto;
-            opacity: 1;
-        }
-
-        .course-card-locational .course-side-image img {
-            width: 100%;
-            min-height: 0;
-        }
-
-        /* 七颗传统行星以定位光圈闪烁，缓慢漂移并错开节奏 */
-        .planet-map {
+        .locational-showcase {
             position: relative;
+            isolation: isolate;
             width: 100%;
-            container-type: inline-size;
+            max-width: 900px;
+            aspect-ratio: 1.45;
+            margin: 3rem auto 0.75rem;
         }
 
-        .map-planets {
+        .locational-map-frame {
             position: absolute;
-            inset: 0;
-            pointer-events: none;
+            margin: 0;
+            background: #FFFDF8;
+            border: 1px solid rgba(139, 115, 85, 0.2);
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(61, 56, 42, 0.08);
+            overflow: hidden;
         }
 
-        .map-planet {
-            position: absolute;
-            left: var(--x);
-            top: var(--y);
-            transform: translate(-50%, -50%);
-        }
-
-        .map-planet span {
-            position: relative;
+        .locational-map-frame img {
             display: block;
-            width: 1em;
-            text-align: center;
-            font-family: 'MapPlanetSymbols';
-            font-size: clamp(12px, 4.8cqw, 15px);
-            font-weight: 400;
-            line-height: 1;
-            color: #C6972E;
-            text-shadow: 0 0 2px rgba(255, 255, 255, 0.95), 0 0 7px rgba(255, 220, 126, 0.75);
-            animation: map-planet-drift var(--duration) ease-in-out var(--delay) infinite,
-                map-planet-glow 7s ease-in-out var(--delay) infinite;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
-        .map-planet span::before {
-            content: '';
+        .locational-map-wide {
+            inset: 0 auto auto 1%;
+            width: 95%;
+            aspect-ratio: 1600 / 872;
+            padding: 5px;
+            transform: rotate(-1.5deg);
+        }
+
+        .locational-map-wide img {
+            border-radius: 11px;
+        }
+
+        .locational-map-detail {
+            left: 15%;
+            top: 35%;
+            width: 39%;
+            height: 58%;
+            border: 7px solid #FFFDF8;
+            transform: rotate(-7deg);
+        }
+
+        .locational-map-detail img {
+            object-position: 50% 15%;
+        }
+
+        .solar-line-card {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 1.15em;
-            height: 1.15em;
-            border: 1px solid rgba(214, 166, 58, 0.65);
+            z-index: 2;
+            top: 39%;
+            right: 0;
+            width: 49%;
+            padding: 2rem;
+            background: rgba(255, 253, 248, 0.98);
+            border: 1px solid var(--soft-gold);
+            border-radius: 20px;
+            box-shadow: 0 16px 40px rgba(92, 75, 44, 0.12);
+            transform: rotate(1deg);
+        }
+
+        .solar-line-seal {
+            position: absolute;
+            top: -25px;
+            left: 25px;
+            display: grid;
+            place-items: center;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
-            opacity: 0;
-            pointer-events: none;
-            animation: map-location-pulse 3.8s ease-out var(--delay) infinite;
+            border: 1px solid #D6BB7B;
+            background: #F5E7C3;
+            color: #A27B32;
+            font: 30px/1 Georgia, serif;
+            box-shadow: 0 4px 10px rgba(139, 115, 85, 0.12);
         }
 
-        .map-planet.is-signaling span {
-            animation: map-planet-drift var(--duration) ease-in-out var(--delay) infinite,
-                map-planet-glow 7s ease-in-out var(--delay) infinite,
-                map-planet-signal 5s ease-in-out both;
+        .solar-line-card h4 {
+            margin: 0.4rem 0 0.8rem;
+            color: var(--text-dark);
+            font-size: 1.35rem;
+            line-height: 1.5;
+            font-weight: 700;
         }
 
-        .map-planet.is-signaling span::before {
-            border-color: var(--live-red);
+        .solar-line-type {
+            display: inline-block;
+            padding: 0.3rem 0.65rem;
+            background: #F4E8C9;
+            border-radius: 7px;
+            color: #85632D;
+            font-size: 0.9rem;
+            font-weight: 600;
         }
 
-        @keyframes map-planet-signal {
-            0%, 100% { color: #C6972E; }
-            30%, 65% { color: var(--live-red); text-shadow: 0 0 3px rgba(255, 255, 255, 1), 0 0 10px rgba(196, 59, 66, 0.4); }
+        .solar-line-theme {
+            margin: 1.2rem 0 0.75rem;
+            color: var(--deep-warm);
+            font-size: 1rem;
+            font-weight: 600;
         }
 
-        @keyframes map-location-pulse {
-            0% { transform: translate(-50%, -50%) scale(0.55); opacity: 0; }
-            18% { opacity: 0.6; }
-            85%, 100% { transform: translate(-50%, -50%) scale(2.2); opacity: 0; }
+        .solar-line-points {
+            font-weight: 300;
+            list-style: none;
+            color: var(--text-mute);
+            font-size: 0.95rem;
+            line-height: 1.8;
         }
 
-        @keyframes map-planet-drift {
-            0%, 100% { transform: translate(-1px, 1px); }
-            50% { transform: translate(var(--dx), var(--dy)); }
+        .solar-line-points li {
+            padding: 0.65rem 0;
+            border-top: 1px solid rgba(139, 115, 85, 0.14);
         }
 
-        @keyframes map-planet-glow {
-            0%, 100% { opacity: 0.85; text-shadow: 0 0 2px rgba(255, 255, 255, 0.95), 0 0 5px rgba(255, 220, 126, 0.5); }
-            50% { opacity: 1; text-shadow: 0 0 3px rgba(255, 255, 255, 1), 0 0 10px rgba(255, 220, 126, 0.95); }
+        .solar-line-points li:last-child {
+            padding-bottom: 0;
         }
 
-        @media (prefers-reduced-motion: reduce) {
-            .map-planet span, .map-planet.is-signaling span { animation: none; opacity: 0.95; }
-            .map-planet span::before { animation: none; opacity: 0; }
-        }
+        @media (max-width: 768px) {
+            .locational-showcase {
+                aspect-ratio: auto;
+                padding-top: 54%;
+                margin-top: 2rem;
+                margin-bottom: 0;
+            }
 
+            .locational-map-wide {
+                left: 0;
+                width: 99%;
+                padding: 3px;
+                border-radius: 12px;
+            }
+
+            .locational-map-detail {
+                left: 1%;
+                top: clamp(56px, 20vw, 130px);
+                width: 46%;
+                height: auto;
+                aspect-ratio: 0.72;
+                border-width: 4px;
+                border-radius: 10px;
+                transform: rotate(-6deg);
+            }
+
+            .solar-line-card {
+                position: relative;
+                top: auto;
+                right: auto;
+                width: 83%;
+                margin-left: auto;
+                padding: 1.2rem;
+                border-radius: 15px;
+                transform: none;
+            }
+
+            .solar-line-seal {
+                width: 36px;
+                height: 36px;
+                top: -19px;
+                left: 18px;
+                font-size: 24px;
+            }
+
+            .solar-line-card h4 {
+                margin-top: 0.35rem;
+                font-size: 1.15rem;
+            }
+
+            .solar-line-theme, .solar-line-points {
+                font-size: 0.9rem;
+            }
+
+            .solar-line-points li {
+                padding: 0.55rem 0;
+            }
+        }
 
         @media (max-width: 768px) {
             .course-card.with-image.course-card-foundations {
@@ -2526,7 +2597,7 @@
     </style>
     <link rel="stylesheet" href="assets/astrology-history/style.css?v=20261120-layout">
     <link rel="stylesheet" href="assets/i18n/language.css">
-    <script src="assets/i18n/en.js?v=20261120-refined"></script>
+    <script src="assets/i18n/en.js?v=20261124-locational"></script>
     <script src="assets/i18n/language.js"></script>
     <link rel="alternate" hreflang="zh-CN" href="https://guaguasis.online/index.html?lang=zh">
     <link rel="alternate" hreflang="en" href="https://guaguasis.online/index.html?lang=en">
@@ -2674,7 +2745,7 @@
                 </div>
             </div>
 
-            <div class="course-card with-image course-card-locational">
+            <div class="course-card course-card-locational">
                 <div>
                     <div class="course-header">
                         <h3 class="course-title">🗺️ 择地占星</h3>
@@ -2696,20 +2767,25 @@
                     <p style="margin-top: 1rem;">课时 12 小时（直播+回放）</p>
                     <p style="color: var(--text-mute);"><span class="course-highlight">🎁 赠送价值 2500 元 Astro Gold 软件注册（苹果 or Windows电脑均可）</span></p>
                 </div>
-                <div class="course-side-image">
-                    <div class="planet-map">
-                        <img src="images/optimized/locational-map-960.webp" srcset="images/optimized/locational-map-480.webp 480w, images/optimized/locational-map-960.webp 960w" sizes="(max-width: 408px) calc(100vw - 88px), 320px" alt="淡彩世界地图，金色曲线穿越各大洲，沿线点缀星星" width="960" height="640" loading="lazy" decoding="async">
-                        <div class="map-planets" aria-hidden="true">
-                            <span class="map-planet" data-planet="太阳" style="--x: 18%; --y: 32%; --duration: 25s; --delay: -2s; --dx: 2px; --dy: -2px;"><span>Q</span></span>
-                            <span class="map-planet" data-planet="月亮" style="--x: 82%; --y: 28%; --duration: 30s; --delay: -8s; --dx: -2px; --dy: -3px;"><span>W</span></span>
-                            <span class="map-planet" data-planet="水星" style="--x: 49%; --y: 18%; --duration: 27s; --delay: -5s; --dx: 2px; --dy: -2px;"><span>E</span></span>
-                            <span class="map-planet" data-planet="金星" style="--x: 64%; --y: 66%; --duration: 32s; --delay: -12s; --dx: -2px; --dy: -2px;"><span>R</span></span>
-                            <span class="map-planet" data-planet="火星" style="--x: 30%; --y: 79%; --duration: 26s; --delay: -9s; --dx: 2px; --dy: -2px;"><span>T</span></span>
-                            <span class="map-planet" data-planet="木星" style="--x: 44%; --y: 46%; --duration: 31s; --delay: -4s; --dx: 3px; --dy: -3px;"><span>Y</span></span>
-                            <span class="map-planet" data-planet="土星" style="--x: 86%; --y: 76%; --duration: 29s; --delay: -10s; --dx: -2px; --dy: -2px;"><span>U</span></span>
-                        </div>
-                    </div>
-                </div>
+                <section class="locational-showcase" aria-labelledby="solar-line-title">
+                    <figure class="locational-map-frame locational-map-wide">
+                        <img src="images/optimized/locational-lines-wide-1600.webp" srcset="images/optimized/locational-lines-wide-800.webp 800w, images/optimized/locational-lines-wide-1600.webp 1600w" sizes="(max-width: 768px) calc(100vw - 88px), (max-width: 1200px) calc(100vw - 192px), 855px" alt="择地占星地图，行星角线横跨非洲、亚洲与澳洲" width="1600" height="872" loading="lazy" decoding="async">
+                    </figure>
+                    <figure class="locational-map-frame locational-map-detail">
+                        <img src="images/optimized/locational-lines-detail-800.webp" srcset="images/optimized/locational-lines-detail-480.webp 480w, images/optimized/locational-lines-detail-800.webp 800w" sizes="(max-width: 768px) 40vw, 350px" alt="欧洲与非洲的择地占星角线细节" width="800" height="1283" loading="lazy" decoding="async">
+                    </figure>
+                    <article class="solar-line-card">
+                        <span class="solar-line-seal" aria-hidden="true">☉</span>
+                        <h4 id="solar-line-title">太阳线-你的“明星线”</h4>
+                        <span class="solar-line-type">☉AC线</span>
+                        <p class="solar-line-theme">出名、创造与自我认同</p>
+                        <ul class="solar-line-points">
+                            <li>事业上被人认可</li>
+                            <li>认识真实的自己</li>
+                            <li>通过自我的独特性发展事业</li>
+                        </ul>
+                    </article>
+                </section>
             </div>
         </div>
 
@@ -3152,58 +3228,6 @@
         });
 
         track.addEventListener('scroll', updateDots);
-
-        // 地图可见时，七颗行星逐个随机变红，恢复金色后再轮到下一颗。
-        (() => {
-            const map = document.querySelector('.planet-map');
-            const planets = [...map.querySelectorAll('.map-planet')];
-            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-            let mapVisible = false;
-            let lastPlanet = null;
-            let activePlanet = null;
-            let nextTimer = null;
-            let restoreTimer = null;
-
-            const canSignal = () => mapVisible && !document.hidden && !reducedMotion.matches;
-
-            function signalNextPlanet() {
-                nextTimer = null;
-                if (!canSignal()) return;
-                const choices = planets.filter(planet => planet !== lastPlanet);
-                activePlanet = choices[Math.floor(Math.random() * choices.length)];
-                lastPlanet = activePlanet;
-                activePlanet.classList.add('is-signaling');
-                restoreTimer = setTimeout(() => {
-                    activePlanet.classList.remove('is-signaling');
-                    activePlanet = null;
-                    restoreTimer = null;
-                    signalNextPlanet();
-                }, 5000);
-            }
-
-            function syncSignals() {
-                if (canSignal()) {
-                    if (nextTimer === null && restoreTimer === null) {
-                        nextTimer = setTimeout(signalNextPlanet, 2000 + Math.random() * 2000);
-                    }
-                } else {
-                    clearTimeout(nextTimer);
-                    clearTimeout(restoreTimer);
-                    nextTimer = null;
-                    restoreTimer = null;
-                    activePlanet?.classList.remove('is-signaling');
-                    activePlanet = null;
-                }
-            }
-
-            const observer = new IntersectionObserver(entries => {
-                mapVisible = entries.some(entry => entry.isIntersecting && entry.intersectionRatio >= 0.15);
-                syncSignals();
-            }, { threshold: 0.15 });
-            observer.observe(map);
-            document.addEventListener('visibilitychange', syncSignals);
-            reducedMotion.addEventListener('change', syncSignals);
-        })();
 
     </script>
     <script src="assets/astrology-history/history.js"></script>
