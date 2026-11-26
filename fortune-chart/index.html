@@ -6,7 +6,7 @@
     <title>占星解盘 · 古典占星</title>
     <!-- 预加载占星符号字体，确保 Canvas 星盘图能正确渲染 -->
     <link rel="preload" href="fonts/HamburgSymbols.ttf" as="font" type="font/ttf" crossorigin>
-  <script type="module" crossorigin src="./assets/index-Dvvuqr-t.js?v=20261126-chart-refine"></script>
+  <script type="module" crossorigin src="./assets/index-BoGmdyRS.js?v=20261126-report-refine"></script>
   <link rel="stylesheet" crossorigin href="./assets/index-B7DrWCHj.css?v=20261126-chart-style">
     <link rel="stylesheet" href="../assets/i18n/language.css">
     <script src="../assets/i18n/en.js"></script>
@@ -190,39 +190,14 @@
                 <!-- 第伍章 · 恒星合相 -->
                 <div class="section" id="section-stars">
                     <div class="card">
-                        <h3><span style="font-size:0.85rem;color:var(--gold-dark);font-style:italic;">Ⅵ.</span> 恒 星 合 相  <span style="font-size:0.8rem;color:var(--text-faded);font-weight:400;">容许度 1.5° 以内</span></h3>
-                        <div class="table-wrapper">
-                            <table class="data-table" id="fixedStarTable">
-                                <thead>
-                                    <tr>
-                                        <th>本命点</th>
-                                        <th>恒星</th>
-                                        <th>中文</th>
-                                        <th>容许度</th>
-                                        <th>性质</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
-
+                        <h3><span style="font-size:0.85rem;color:var(--gold-dark);font-style:italic;">Ⅵ.</span> 恒 星 合 相 </h3>
                         <!-- 合相恒星含义解读 -->
-                        <div id="fixedStarDescriptions" style="margin-top: 28px;"></div>
+                        <div id="fixedStarDescriptions"></div>
                     </div>
                 </div>
 
-                <!-- 第陆章 · 三分主星 -->
-                <div class="section" id="section-triplicity">
-                    <div class="card">
-                        <h3><span style="font-size:0.85rem;color:var(--gold-dark);font-style:italic;">Ⅶ.</span> 三 分 主 星 · 财 富 格 局</h3>
-                        <p class="hint" id="triplicityHint">-</p>
-                        <div id="triplicityDetails"></div>
-                        <h4 class="detail-label" id="triplicityLord1Title">☉ / ☽的三分主星</h4>
-                        <div id="triplicityLord1"></div>
-                        <div id="secondHouseDetails" class="triplicity-second-group"></div>
-                        <div id="triplicityLord2"></div>
-                    </div>
-
+                <!-- 综合评估（含三分主星） -->
+                <div class="section" id="section-assessment">
                     <div class="card">
                         <h3>综 合 评 估</h3>
                         <div id="triplicitySummary"></div>

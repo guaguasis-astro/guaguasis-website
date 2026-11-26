@@ -1,5 +1,5 @@
 // 综合评估的展示模型：读取既有评分与命中规则，不改变财富判断。
-import { ZODIAC_SIGNS, HOUSE_LORDS, PLANET_IDS, PLANET_NAMES, SUPPORT_BANDS } from './astrology.js';
+import { ZODIAC_SIGNS, HOUSE_LORDS, PLANET_IDS, PLANET_NAMES, PLANET_PERIODS, SUPPORT_BANDS } from './astrology.js';
 
 export const MOON_GROWTH_READINGS = {
     增光: '从新月到满月，此时的月亮活跃、具有生产力、也会视为财富好的象征',
@@ -123,5 +123,6 @@ export function getAssessmentLord(lord, wa) {
     if (d.fall) tags.push({ label: '失意', pressure: true });
     if (d.peregrine) tags.push({ label: '外来' });
     return { ...lord, level: comprehensive.level, stars, houseKind, tags,
+        periodYears: PLANET_PERIODS[lord.planetKey] ?? null,
         fixedStars: wa.triplicityStarConjunctions[lord.planetKey] || [] };
 }

@@ -1,5 +1,5 @@
 // UI 渲染模块
-import { ZODIAC_SIGNS, formatDegree, formatDegreeMinute, getHouseType, PLANET_PERIODS, getWholeSignAspects } from "./astrology.js";
+import { ZODIAC_SIGNS, formatDegree, formatDegreeMinute, getHouseType, getWholeSignAspects } from "./astrology.js";
 
 import { splitHamburgSymbols } from "./symbols.js";
 import { renderVisualAssessment } from "./assessment-view.js";
@@ -99,8 +99,8 @@ export function renderOverview(chart) {
         const tr = document.createElement("tr");
 
         const statusBadges = [];
+        if (p.isRetrograde) statusBadges.push('<span class="badge badge-purple">逆行</span>');
         if (!outerPlanets.includes(key)) {
-            if (p.isRetrograde) statusBadges.push('<span class="badge badge-purple">逆行</span>');
             if (p.dignity.domicile) statusBadges.push('<span class="badge badge-good">庙</span>');
             if (p.dignity.exaltation) statusBadges.push('<span class="badge badge-good">旺</span>');
             if (p.dignity.triplicity) statusBadges.push('<span class="badge badge-good">三分</span>');
@@ -109,9 +109,6 @@ export function renderOverview(chart) {
             if (p.dignity.detriment) statusBadges.push('<span class="badge badge-bad">陷</span>');
             if (p.dignity.fall) statusBadges.push('<span class="badge badge-bad">落</span>');
             if (p.dignity.peregrine) statusBadges.push('<span class="badge badge-neutral">外来</span>');
-        } else {
-            // 三王星只标逆行
-            if (p.isRetrograde) statusBadges.push('<span class="badge badge-purple">逆行</span>');
         }
 
         // 喜乐宫标注（三王星无传统喜乐宫，但还是保持判断逻辑）
@@ -406,36 +403,12 @@ function renderLotSignAspects(containerDiv, lot, planets, lotName) {
 
 // 渲染恒星合相
 export function renderFixedStars(chart) {
-    const tableBody = document.querySelector("#fixedStarTable tbody");
     const descDiv = document.getElementById("fixedStarDescriptions");
-    tableBody.innerHTML = "";
     descDiv.innerHTML = "";
 
     if (chart.fixedStars.length === 0) {
-        tableBody.innerHTML = `
-            <tr>
-                <td colspan="5" style="text-align:center; color: var(--text-faded); padding: 24px;">
-                    没有发现 1.5° 以内的恒星合相
-                </td>
-            </tr>
-        `;
+        descDiv.innerHTML = '<p class="hint">没有发现 1.5° 以内的恒星合相</p>';
         return;
-    }
-
-    for (const star of chart.fixedStars) {
-        const isGood = star.starNature.includes("吉");
-        const isBad = star.starNature.includes("凶");
-        const natureClass = isGood ? "aspect-harmonious" : isBad ? "aspect-hard" : "";
-
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-            <td><strong>${star.pointName}</strong></td>
-            <td>${star.starNameEn}</td>
-            <td>${star.starNameZh}</td>
-            <td>${formatDegreeMinute(star.orb)}</td>
-            <td class="${natureClass}">${natureToSymbols(star.starNature)}</td>
-        `;
-        tableBody.appendChild(tr);
     }
 
     // === 合相恒星含义解读 ===
@@ -449,7 +422,7 @@ export function renderFixedStars(chart) {
         }
     }
 
-    if (uniqueStars.length === 0 || !uniqueStars[0].starDesc) return;
+    if (uniqueStars.length === 0) return;
 
     let html = `
         <div style="font-family: var(--font-display); font-size: 1rem; color: var(--text-bistre); font-weight: 600; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border-light); letter-spacing: 2px;">
@@ -466,7 +439,7 @@ export function renderFixedStars(chart) {
 
         const isGood = star.starNature.includes("吉");
         const isBad = star.starNature.includes("凶");
-        const badgeClass = isGood ? "badge-good" : isBad ? "badge-bad" : "badge-neutral";
+        const badgeClass = isGood && isBad ? "badge-neutral" : isGood ? "badge-good" : isBad ? "badge-bad" : "badge-neutral";
 
         html += `
             <div style="padding: 16px 0; border-bottom: 1px dashed var(--border-light);">
@@ -474,7 +447,8 @@ export function renderFixedStars(chart) {
                     <div style="font-family: var(--font-display); font-size: 1.05rem; color: var(--text-ink); font-weight: 700;">
                         ${star.starNameZh} <span style="font-weight: 400; color: var(--text-sepia); font-size: 0.9rem;">· ${star.starNameEn}</span>
                     </div>
-                    <span class="badge ${badgeClass}">合 ${points}</span>
+                    <span class="badge ${badgeClass}">${natureToSymbols(star.starNature)}</span>
+                    <span class="badge badge-neutral">合 ${points}</span>
                 </div>
                 <div style="line-height: 1.9; color: var(--text-bistre); font-size: 0.9rem; padding-left: 4px; border-left: 2px solid var(--gold-pale); padding-left: 12px;">
                     ${star.starDesc}
@@ -572,50 +546,8 @@ export function buildTriplicityStarNarratives(chart) {
     );
 }
 
-// 渲染三分主星
+// 渲染综合评估，三分主星统一保留在评估分页中。
 export function renderTriplicity(chart) {
-    const { triplicity, isDayChart } = chart;
-
-    const hintDiv = document.getElementById("triplicityHint");
-    hintDiv.textContent = "";
-
-    // 总体详情
-    const detailsDiv = document.getElementById("triplicityDetails");
-    detailsDiv.innerHTML = `
-        <div class="detail-section">
-            <div class="lot-line">
-                <span class="detail-label">发光体</span>
-                <strong>${triplicity.luminaryName}</strong>
-                <span>${ZODIAC_SIGNS[chart.planets[triplicity.luminaryKey].signIndex].symbol} ${ZODIAC_SIGNS[chart.planets[triplicity.luminaryKey].signIndex].name}</span>
-                <span class="badge badge-neutral">${isDayChart ? "日生盘主星" : "夜生盘主星"}</span>
-            </div>
-            <div class="detail-desc">其三分主星代表天生的财富格局和资源获取能力。</div>
-        </div>
-    `;
-    document.getElementById("secondHouseDetails").innerHTML = `
-        <div class="detail-section">
-            <div class="lot-line">
-                <span class="detail-label">二宫星座</span>
-                <strong>${triplicity.secondHouseSignName}</strong>
-            </div>
-            <div class="detail-desc">下列三分主星代表实际的财富积累和物质生活状况。</div>
-        </div>
-    `;
-
-    // 发光体三分主星
-    const titleEl = document.getElementById("triplicityLord1Title");
-    titleEl.textContent = `${triplicity.luminaryName}的三分主星（含星座年限）`;
-
-    const starConjs = chart.wealthAssessment.triplicityStarConjunctions;
-    const lordComp = chart.wealthAssessment.triplicityLordComprehensive;
-
-    const lord1Div = document.getElementById("triplicityLord1");
-    lord1Div.innerHTML = renderTriplicityLords(triplicity.luminaryTriplicityLords, starConjs, lordComp);
-
-    // 二宫三分主星
-    const lord2Div = document.getElementById("triplicityLord2");
-    lord2Div.innerHTML = renderTriplicityLords(triplicity.secondHouseTriplicityLords, starConjs, lordComp);
-
     // 综合评估：已确认的可视化模板，直接读取真实排盘数据。
     renderVisualAssessment(
         document.getElementById("triplicitySummary"),
@@ -623,59 +555,6 @@ export function renderTriplicity(chart) {
         buildAssessmentAspectNarratives(chart.wealthAssessment),
         symbolizeReport
     );
-}
-
-// 渲染单个三分主星列表
-function renderTriplicityLords(lords, starConjunctions = {}, lordComprehensive = {}) {
-    let html = "";
-    for (const [index, lord] of lords.entries()) {
-        const p = lord.planet;
-        const sign = ZODIAC_SIGNS[p.signIndex];
-        const periodYears = PLANET_PERIODS[lord.planetKey] || null;
-        const periodText = periodYears ? `行星周期 ${periodYears} 年` : '';
-
-        // 星座年限（仅发光体的三分主星有）
-        let signPeriodHtml = '';
-        if (lord.signPeriod !== undefined && lord.signPeriod !== null) {
-            signPeriodHtml = `
-                <div class="detail-desc" style="margin-top: 6px; color: var(--gold-dark); font-family: var(--font-display);">
-                    ❖ 所落${lord.signName}年限：<strong>${lord.signPeriodRounded} 年</strong>
-                </div>
-            `;
-        }
-
-        // 恒星合相标注
-        const stars = starConjunctions[lord.planetKey] || [];
-        let starHtml = '';
-        if (stars.length > 0) {
-            const starNames = stars.map(s => `${s.starNameZh}（${s.starNameEn}，${s.orb.toFixed(2)}°）`).join('、');
-            starHtml = `
-                <div class="detail-desc" style="margin-top: 6px; color: var(--gold-dark);">
-                    ✦ 合恒星：${starNames}
-                </div>
-            `;
-        }
-
-        html += `
-            <div class="detail-section" style="padding-bottom: 12px; ${index < lords.length - 1 ? "border-bottom: 1px solid var(--border-light);" : ""} margin-bottom: 12px;">
-                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px; flex-wrap: wrap;">
-                    <span class="badge badge-purple">${lord.orderName}</span>
-                    <strong>${lord.planetName}</strong>
-                    <span class="badge ${lordComprehensive[lord.planetKey] ? lordComprehensive[lord.planetKey].levelClass : lord.dignitySummary.levelClass}">力量：${lordComprehensive[lord.planetKey] ? lordComprehensive[lord.planetKey].level : lord.dignitySummary.level}</span>
-                    ${periodText ? `<span class="badge badge-neutral">${periodText}</span>` : ''}
-                </div>
-                <div class="detail-desc">
-                    ${sign.symbol} ${sign.name} ${formatDegreeMinute(p.degree)} · 第${lord.house}宫
-                </div>
-                <div class="detail-desc" style="margin-top: 4px;">
-                    尊贵：${lord.dignitySummary.summaryText}
-                </div>
-                ${signPeriodHtml}
-                ${starHtml}
-            </div>
-        `;
-    }
-    return html;
 }
 
 // 渲染信息条

@@ -46,6 +46,7 @@ function renderLordGroup(lords, wa) {
         const sign = ZODIAC_SIGNS[entry.planet.signIndex];
         return `<article class="va-lord${entry.stars === 3 ? ' va-lord-strong' : ''}"><p class="va-lord-order">${esc(entry.orderName)}</p><div class="va-lord-top"><span class="va-lord-symbol">${esc(entry.planetName)}</span><span class="va-star-strength" role="img" aria-label="力量${esc(entry.level)}">${[0, 1, 2].map(index => `<span class="${index < entry.stars ? 'lit' : 'unlit'}" aria-hidden="true">${index < entry.stars ? '✦' : '✧'}</span>`).join('')}</span></div>
             <p class="va-lord-position">${sign.symbol} ${sign.name} ${formatDegreeMinute(entry.planet.degree)}</p><p class="va-muted">第${entry.house}宫 · ${entry.houseKind}</p><div class="va-tags"><span class="va-tag">力量${esc(entry.level)}</span>${entry.tags.map(tag => `<span class="va-tag${tag.good ? ' va-tag-good' : tag.pressure ? ' va-tag-pressure' : ''}">${tag.label}</span>`).join('')}</div>
+            ${entry.periodYears != null ? `<p class="va-lord-period">行星周期 ${entry.periodYears}年</p>` : ''}
             ${entry.signPeriodRounded != null ? `<p class="va-lord-period">星座年限 ${entry.signPeriodRounded}年</p>` : ''}${entry.fixedStars.length ? `<p class="va-lord-stars">合恒星：${entry.fixedStars.map(star => `${esc(star.starNameZh)}（${star.orb.toFixed(2)}°）`).join('、')}</p>` : ''}</article>`;
     }).join('')}</div>`;
 }
