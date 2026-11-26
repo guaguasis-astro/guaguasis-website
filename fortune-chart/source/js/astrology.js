@@ -535,7 +535,7 @@ export function getDignitySummary(status) {
 export async function calculatePlanets(jdUt) {
     const s = await initSwe();
     const planets = {};
-    const flags = 0; // 热带黄道，默认
+    const flags = s.SEFLG_SPEED; // 热带黄道；请求速度以正确识别逆行
 
     const planetKeys = ["SUN", "MOON", "MERCURY", "VENUS", "MARS", "JUPITER", "SATURN", "URANUS", "NEPTUNE", "PLUTO"];
 

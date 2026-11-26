@@ -40,6 +40,7 @@ const COLORS = {
     // 其他
     axisAsc: "#a67c00",           // 上升/下降：鎏金色
     axisMc: "#8b6914",            // 天顶/天底：深鎏金
+    accentRed: "#b64040",         // 手机四轴与逆行行星
 };
 
 /**
@@ -203,48 +204,6 @@ export function drawBirthChart(canvas, chart, logicalSize) {
     ctx.lineWidth = 0.5;
     ctx.stroke();
 
-    // 每 1 度一刻，每 10 度标数字
-    for (let deg = 0; deg < 360; deg++) {
-        const angle = zodiacToAngle(deg);
-        const isMajor = deg % 10 === 0;
-        const isMedium = deg % 5 === 0;
-        const tickOut = r.degreeOuter;
-        const tickIn = isMajor ? r.degreeOuter - 9 : isMedium ? r.degreeOuter - 5 : r.degreeOuter - 3;
-
-        const p1 = pointAt(angle, tickOut);
-        const p2 = pointAt(angle, tickIn);
-        ctx.beginPath();
-        ctx.moveTo(p1.x, p1.y);
-        ctx.lineTo(p2.x, p2.y);
-        ctx.strokeStyle = isMajor ? COLORS.goldDark : COLORS.textFaded;
-        ctx.lineWidth = isMajor ? 1 : 0.5;
-        ctx.stroke();
-
-        // 每 10 度标数字（仅大屏显示，小屏删掉度数数字）
-        if (isMajor && !isSmallScreen) {
-            const degInSign = deg % 30;
-            if (degInSign === 10 || degInSign === 20) {
-                const numR = r.degreeOuter - 16;
-                const np = pointAt(angle, numR);
-                ctx.save();
-                ctx.translate(np.x, np.y);
-                // 下半部分的文字要翻转 180°，保持正立可读
-                const isBottomHalf = angle > Math.PI / 2 && angle < 3 * Math.PI / 2;
-                if (isBottomHalf) {
-                    ctx.rotate(-angle + Math.PI / 2 + Math.PI);
-                } else {
-                    ctx.rotate(-angle + Math.PI / 2);
-                }
-                ctx.font = '10px "PingFang SC", -apple-system, BlinkMacSystemFont, "Microsoft YaHei", Arial, sans-serif';
-                ctx.fillStyle = COLORS.textFaded;
-                ctx.textAlign = "center";
-                ctx.textBaseline = "middle";
-                ctx.fillText(`${degInSign}°`, 0, 0);
-                ctx.restore();
-            }
-        }
-    }
-
     // ===== 3. 宫位环（整宫制） =====
     // 整宫制：上升所在星座 = 1宫，每个星座 = 一个宫位
     // 宫位背景（交替深浅）
@@ -300,7 +259,7 @@ export function drawBirthChart(canvas, chart, logicalSize) {
 
         ctx.save();
         ctx.translate(hp.x, hp.y);
-        ctx.rotate(-midAngle + Math.PI / 2);
+        // 宫位数字始终水平正立，不随圆周旋转。
         ctx.font = `bold ${isAngular ? 12 : 11}px "PingFang SC", -apple-system, BlinkMacSystemFont, "Microsoft YaHei", Arial, sans-serif`;
         ctx.fillStyle = isAngular ? COLORS.goldDark : COLORS.textFaded;
         ctx.textAlign = "center";
@@ -454,11 +413,12 @@ export function drawBirthChart(canvas, chart, logicalSize) {
         const symbol = pointAt(angle, labelRadii[0]);
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        ctx.fillStyle = COLORS.textSepia;
+        ctx.fillStyle = p.isRetrograde && p.type === "planet" ? COLORS.accentRed : COLORS.textSepia;
         ctx.font = `${symbolSize}px ${p.useHamburgFont ? '"HamburgSymbols"' : textFont}`;
         ctx.fillText(p.symbol, symbol.x, symbol.y);
 
         const degreePos = pointAt(angle, labelRadii[1]);
+        ctx.fillStyle = COLORS.textSepia;
         ctx.font = `${numberSize}px ${textFont}`;
         ctx.fillText(`${degree}°`, degreePos.x, degreePos.y);
 
@@ -473,6 +433,7 @@ export function drawBirthChart(canvas, chart, logicalSize) {
         ctx.fillText(`${minute}′`, minutePos.x, minutePos.y);
 
         if (p.isRetrograde && p.type !== "node") {
+            ctx.fillStyle = COLORS.accentRed;
             ctx.font = `${8 * fontScale}px ${textFont}`;
             ctx.fillText("R", symbol.x + symbolSize * 0.52, symbol.y + symbolSize * 0.4);
         }
@@ -511,7 +472,7 @@ export function drawBirthChart(canvas, chart, logicalSize) {
             ctx.setLineDash([4, 4]);
             ctx.moveTo(p1.x, p1.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = axis.color;
+            ctx.strokeStyle = COLORS.accentRed;
             ctx.lineWidth = 1.2;
             ctx.stroke();
             ctx.setLineDash([]);
