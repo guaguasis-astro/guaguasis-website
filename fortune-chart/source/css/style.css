@@ -229,6 +229,15 @@ body::before {
     gap: 20px;
 }
 
+/* DOM 按手机填写顺序排列；桌面保留原有三列表单。 */
+.birth-fields .field-date { order: 1; }
+.birth-fields .field-time { order: 2; }
+.birth-fields .field-timezone { order: 3; }
+.birth-fields #dstOccurrenceGroup { order: 4; grid-column: 1 / -1; }
+.birth-fields .field-place { order: 5; }
+.birth-fields .field-latitude { order: 6; }
+.birth-fields .field-longitude { order: 7; }
+
 .smart-parse-section {
     grid-column: 1 / -1;
 }
@@ -821,6 +830,11 @@ body::before {
 
     .form-row {
         grid-template-columns: minmax(0, 1fr);
+    }
+
+    .birth-fields > .form-group,
+    .birth-fields > #dstOccurrenceGroup {
+        order: initial;
     }
 
     .grid-2 {

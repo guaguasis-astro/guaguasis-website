@@ -6,8 +6,8 @@
     <title>占星解盘 · 古典占星</title>
     <!-- 预加载占星符号字体，确保 Canvas 星盘图能正确渲染 -->
     <link rel="preload" href="fonts/HamburgSymbols.ttf" as="font" type="font/ttf" crossorigin>
-  <script type="module" crossorigin src="./assets/index-B4Eth-JO.js?v=20261120-pingfang"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-DVurRmZf.css?v=20261120-pingfang">
+  <script type="module" crossorigin src="./assets/index-DudJR14J.js?v=20261126-chart-style"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-B7DrWCHj.css?v=20261126-chart-style">
     <link rel="stylesheet" href="../assets/i18n/language.css">
     <script src="../assets/i18n/en.js"></script>
     <script src="../assets/i18n/language.js"></script>
@@ -49,45 +49,43 @@
 
                 <form id="birthForm" class="birth-form">
                     <label class="manual-location"><input type="checkbox" id="manualLocation" autocomplete="off"> 手动填写地点和UTC偏移</label>
-                    <div class="form-row">
-                        <div class="form-group">
+                    <div class="form-row birth-fields">
+                        <div class="form-group field-date">
                             <label for="birthDate">出生日期</label>
                             <input type="date" id="birthDate" value="1990-01-01" min="1900-01-01" max="2100-12-31" required>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group field-time">
                             <label for="birthTime">出生时间</label>
                             <input type="time" id="birthTime" value="12:00" required>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group city-search field-place">
+                            <label for="birthPlace">出生地点（精确到市）</label>
+                            <input type="text" id="birthPlace" placeholder="例：北京 / London / Springfield, United States" value="" autocomplete="off" required aria-describedby="locationHint">
+                            <div id="cityResults" class="city-results" role="group" aria-label="城市搜索结果"></div>
+                            <p id="locationHint" class="hint" aria-live="polite"></p>
+                        </div>
+                        <div class="form-group field-timezone">
                             <label for="timezone">时区</label>
                             <select id="timezone" aria-describedby="timezoneHint">
                                 <!-- 时区由 JS 动态生成 -->
                             </select>
                             <p class="hint" id="timezoneHint" aria-live="polite" style="text-align: left;"></p>
                         </div>
-                    </div>
-                    <div id="dstOccurrenceGroup" hidden>
-                        <div class="form-group">
-                            <label for="dstOccurrence">重复时刻：出生在拨表前还是拨表后？</label>
-                            <select id="dstOccurrence">
-                                <option value="">请选择</option>
-                                <option value="earlier">第一次出现，拨表前</option>
-                                <option value="later">第二次出现，拨表后</option>
-                            </select>
+                        <div id="dstOccurrenceGroup" hidden>
+                            <div class="form-group">
+                                <label for="dstOccurrence">重复时刻：出生在拨表前还是拨表后？</label>
+                                <select id="dstOccurrence">
+                                    <option value="">请选择</option>
+                                    <option value="earlier">第一次出现，拨表前</option>
+                                    <option value="later">第二次出现，拨表后</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group city-search">
-                            <label for="birthPlace">出生地点（精确到市）</label>
-                            <input type="text" id="birthPlace" placeholder="例：北京 / London / Springfield, United States" value="" autocomplete="off" required aria-describedby="locationHint">
-                            <div id="cityResults" class="city-results" role="group" aria-label="城市搜索结果"></div>
-                            <p id="locationHint" class="hint" aria-live="polite"></p>
-                        </div>
-                        <div class="form-group">
+                        <div class="form-group field-latitude">
                             <label for="latitude">纬度（北纬为正）</label>
                             <input type="number" id="latitude" step="any" value="" min="-90" max="90" required>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group field-longitude">
                             <label for="longitude">经度（东经为正）</label>
                             <input type="number" id="longitude" step="any" value="" min="-180" max="180" required>
                         </div>

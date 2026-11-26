@@ -377,98 +377,104 @@ export function drawBirthChart(canvas, chart, logicalSize) {
     // 按黄经排序（沿逆时针排列）
     allPoints.sort((a, b) => a.longitude - b.longitude);
 
-    // 行星显示半径（中间位置）
-    const planetDisplayR = (r.planetOuter + r.planetInner) / 2;
-
-    // 行星固定在同一个圆环轨迹上（行星环外沿内侧）
-    const planetBaseR = r.planetOuter - 14;
-
-    // 基准符号大小（根据 canvas 尺寸自适应缩放，600px 时 15px）
+    // 参照径向标注：行星、度数、星座、分数由外向内依次排列，字形保持正立。
     const fontScale = size / 600;
-    const baseFontSize = Math.max(10, 15 * fontScale);
+    const symbolSize = 23 * fontScale;
+    const numberSize = 12 * fontScale;
+    const signSize = 14 * fontScale;
+    const textFont = 'Georgia, "Songti SC", "Noto Serif SC", serif';
+    const elementColors = {
+        fire: "#cc6666", earth: "#c58b55", air: "#88a878", water: "#6babad",
+    };
+    const labelRadii = [0.765, 0.665, 0.58, 0.505].map(value => outerRadius * value);
 
-    function getPlanetRadius(p) {
-        const baseR = baseFontSize * 0.55;
-        return p.type === "pof" ? baseR * 1.5 : baseR;
-    }
-
-    function isOverlap(lonA, lonB, pA, pB) {
-        const angleA = zodiacToAngle(lonA);
-        const angleB = zodiacToAngle(lonB);
-        const dx = Math.cos(angleA) - Math.cos(angleB);
-        const dy = Math.sin(angleA) - Math.sin(angleB);
-        const dist = Math.sqrt(dx * dx + dy * dy) * planetBaseR;
-        return dist < getPlanetRadius(pA) + getPlanetRadius(pB) + 2;
-    }
-
-    // 同一圆环上放置行星，重叠时沿圆周方向依次排开
-    // 优先沿逆时针方向挪，不跑出所在星座
-    const placed = [];
+    // 从最大空隙开始展开圆周，合相星向两边均匀排开，跨0°时同样处理。
+    // 黄经刻线始终留在真实位置，发生位移时以细线连接，标注数值不改变。
+    let seam = 0;
+    let largestGap = 0;
     for (let i = 0; i < allPoints.length; i++) {
-        const p = allPoints[i];
-        const origSign = Math.floor(p.longitude / 30);
-        let finalLon = p.longitude;
-
-        // 每 0.3° 一步，最多尝试 80 步（24°），保证紧密合相也能沿圆环排开
-        let found = false;
-        for (let step = 0; step <= 80 && !found; step++) {
-            const testLon = p.longitude + step * 0.3;
-            const testSign = Math.floor(((testLon % 360) + 360) % 360 / 30);
-            if (testSign !== origSign) break; // 跑出星座了
-
-            let overlap = false;
-            for (const prev of placed) {
-                if (isOverlap(testLon, prev._displayLon, p, prev)) {
-                    overlap = true;
-                    break;
-                }
-            }
-            if (!overlap) {
-                finalLon = testLon;
-                found = true;
-                break;
+        const next = allPoints[(i + 1) % allPoints.length].longitude + (i === allPoints.length - 1 ? 360 : 0);
+        if (next - allPoints[i].longitude > largestGap) {
+            largestGap = next - allPoints[i].longitude;
+            seam = (i + 1) % allPoints.length;
+        }
+    }
+    const placed = allPoints.slice(seam).concat(allPoints.slice(0, seam));
+    const minimumGap = 12;
+    let previousLongitude = -Infinity;
+    for (const p of placed) {
+        let longitude = p.longitude;
+        while (longitude < previousLongitude) longitude += 360;
+        p._originalLon = longitude;
+        p._displayLon = longitude;
+        previousLongitude = longitude;
+    }
+    // 相邻约束以均分偏移的方式迭代，避免所有合相星只向一侧堆积。
+    for (let pass = 0; pass < 100; pass++) {
+        let changed = false;
+        for (let i = 1; i < placed.length; i++) {
+            const gap = placed[i]._displayLon - placed[i - 1]._displayLon;
+            if (gap < minimumGap - 0.01) {
+                const shift = (minimumGap - gap) / 2;
+                placed[i - 1]._displayLon -= shift;
+                placed[i]._displayLon += shift;
+                changed = true;
             }
         }
-
-        p._displayLon = ((finalLon % 360) + 360) % 360;
-        p._offsetRadial = 0;
-        placed.push(p);
+        if (!changed) break;
     }
 
-    // 存入字号供绘制时用
-    placed._baseFontSize = baseFontSize;
-
-    // 绘制行星（符号正立，无度数标注，无背景光晕，同一圆环，颜色统一）
-    const baseSize = placed._baseFontSize || 22;
     for (const p of placed) {
         const angle = zodiacToAngle(p._displayLon);
-        const rVal = planetBaseR + p._offsetRadial;
-        const pos = pointAt(angle, rVal);
+        const trueAngle = zodiacToAngle(p.longitude);
+        const tickStart = pointAt(trueAngle, r.degreeInner);
+        const tickEnd = pointAt(trueAngle, r.degreeInner - 6 * fontScale);
+        ctx.beginPath();
+        ctx.moveTo(tickStart.x, tickStart.y);
+        ctx.lineTo(tickEnd.x, tickEnd.y);
+        ctx.strokeStyle = COLORS.textSepia;
+        ctx.lineWidth = 1.4 * fontScale;
+        ctx.stroke();
 
-        // 福点 1.5 倍，其他统一用基准字号
-        const fontSize = p.type === "pof" ? baseSize * 1.5 : baseSize;
-        // 所有行星/福点/南北交颜色统一（三王星的颜色，墨褐色）
-        const symbolColor = COLORS.textSepia;
-
-        // 行星符号（正立，不旋转）
-        // 行星用 HamburgSymbols 字体；福点、南北交用回退字体
-        if (p.useHamburgFont) {
-            ctx.font = `${fontSize}px "HamburgSymbols", "PingFang SC", -apple-system, BlinkMacSystemFont, "Microsoft YaHei", Arial, sans-serif`;
-        } else {
-            ctx.font = `bold ${fontSize}px "PingFang SC", -apple-system, BlinkMacSystemFont, "Microsoft YaHei", Arial, sans-serif`;
+        if (Math.abs(p._displayLon - p._originalLon) > 0.5) {
+            const anchor = pointAt(angle, labelRadii[0] + symbolSize * 0.65);
+            ctx.beginPath();
+            ctx.moveTo(tickEnd.x, tickEnd.y);
+            ctx.lineTo(anchor.x, anchor.y);
+            ctx.strokeStyle = COLORS.borderLight;
+            ctx.lineWidth = 0.6 * fontScale;
+            ctx.stroke();
         }
-        ctx.fillStyle = symbolColor;
+
+        // 以整分截取，避免29°59′四舍五入成不合法的29°60′。
+        const signIndex = Math.floor(((p.longitude % 360) + 360) % 360 / 30);
+        const totalMinutes = Math.floor((p.longitude % 30) * 60 + 1e-7);
+        const degree = Math.floor(totalMinutes / 60);
+        const minute = totalMinutes % 60;
+        const symbol = pointAt(angle, labelRadii[0]);
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        ctx.fillText(p.symbol, pos.x, pos.y + 1);
+        ctx.fillStyle = COLORS.textSepia;
+        ctx.font = `${symbolSize}px ${p.useHamburgFont ? '"HamburgSymbols"' : textFont}`;
+        ctx.fillText(p.symbol, symbol.x, symbol.y);
 
-        // 逆行标记 R（仅行星，南北交永远逆行无需标注）
+        const degreePos = pointAt(angle, labelRadii[1]);
+        ctx.font = `${numberSize}px ${textFont}`;
+        ctx.fillText(`${degree}°`, degreePos.x, degreePos.y);
+
+        const signPos = pointAt(angle, labelRadii[2]);
+        ctx.fillStyle = elementColors[ZODIAC_SIGNS[signIndex].element];
+        ctx.font = `${signSize}px "HamburgSymbols"`;
+        ctx.fillText(ZODIAC_HAMBURG[signIndex], signPos.x, signPos.y);
+
+        const minutePos = pointAt(angle, labelRadii[3]);
+        ctx.fillStyle = COLORS.textSepia;
+        ctx.font = `${numberSize}px ${textFont}`;
+        ctx.fillText(`${minute}′`, minutePos.x, minutePos.y);
+
         if (p.isRetrograde && p.type !== "node") {
-            ctx.font = `bold 10px "PingFang SC", -apple-system, BlinkMacSystemFont, "Microsoft YaHei", Arial, sans-serif`;
-            ctx.fillStyle = COLORS.goldDark;
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-            ctx.fillText("R", pos.x, pos.y + fontSize * 0.7 + 4);
+            ctx.font = `${8 * fontScale}px ${textFont}`;
+            ctx.fillText("R", symbol.x + symbolSize * 0.52, symbol.y + symbolSize * 0.4);
         }
     }
 
@@ -585,29 +591,26 @@ export function drawBirthChart(canvas, chart, logicalSize) {
     ctx.lineWidth = 0.8;
     ctx.stroke();
 
-    // 中心文字
-    ctx.fillStyle = COLORS.goldDark;
+    // 中心采用衬线字体与随画布缩放的字号，给文字留出呼吸空间。
+    const centerFont = '"Songti SC", "Noto Serif SC", "STSong", Georgia, serif';
+    const centerScale = size / 600;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-
-    // ✦ 装饰符号
-    ctx.font = '12px "PingFang SC", -apple-system, BlinkMacSystemFont, "Microsoft YaHei", Arial, sans-serif';
-    ctx.fillText("✦", center, center - 32);
-
-    ctx.font = `bold 18px "PingFang SC", -apple-system, BlinkMacSystemFont, "Microsoft YaHei", Arial, sans-serif`;
     ctx.fillStyle = COLORS.goldDark;
-    ctx.fillText(window.GuaguaI18n?.language === "en" ? "Guagua Astrology" : "瓜瓜占星", center, center - 14, 150 * (size / 600));
+    ctx.font = `${9 * centerScale}px ${centerFont}`;
+    ctx.fillText("✦", center, center - 30 * centerScale);
 
-    ctx.font = `11px "PingFang SC", -apple-system, BlinkMacSystemFont, "Microsoft YaHei", Arial, sans-serif`;
+    ctx.font = `${14 * centerScale}px ${centerFont}`;
+    ctx.fillText(window.GuaguaI18n?.language === "en" ? "Guagua Astrology" : "瓜瓜占星", center, center - 12 * centerScale, r.innerCircle * 1.65);
+
+    ctx.font = `${10 * centerScale}px ${centerFont}`;
     ctx.fillStyle = COLORS.textSepia;
-    ctx.fillText(window.GuaguaI18n?.language === "en" ? window.GuaguaI18n.english(chart.dayNightText) : chart.dayNightText, center, center + 6);
+    ctx.fillText(window.GuaguaI18n?.language === "en" ? window.GuaguaI18n.english(chart.dayNightText) : chart.dayNightText, center, center + 6 * centerScale, r.innerCircle * 1.6);
 
-    ctx.font = `10px "PingFang SC", -apple-system, BlinkMacSystemFont, "Microsoft YaHei", Arial, sans-serif`;
+    ctx.font = `${9 * centerScale}px ${centerFont}`;
     ctx.fillStyle = COLORS.textFaded;
-    ctx.fillText(window.GuaguaI18n?.language === "en" ? "Whole Sign · Traditional" : "整宫制 · 古典占星", center, center + 22, 160 * (size / 600));
+    ctx.fillText(window.GuaguaI18n?.language === "en" ? "Whole Sign · Traditional" : "整宫制 · 古典占星", center, center + 23 * centerScale, r.innerCircle * 1.6);
 
-    // ✦ 装饰符号
     ctx.fillStyle = COLORS.goldDark;
-    ctx.font = '12px "PingFang SC", -apple-system, BlinkMacSystemFont, "Microsoft YaHei", Arial, sans-serif';
-    ctx.fillText("✦", center, center + 36);
+    ctx.fillText("✦", center, center + 38 * centerScale);
 }
